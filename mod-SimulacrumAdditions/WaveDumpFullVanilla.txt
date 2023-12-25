@@ -1,0 +1,182 @@
+```
+All Simulacrum Waves : CommonWaveCategory
+INFINITETOWER_WAVE_COUNTER  
+INFINITETOWER_WAVE_DESCRIPTION_DEFAULT  
+INFINITETOWER_WAVE_COUNTER_BOMB  
+ARTIFACT_BOMB_DESCRIPTION  
+INFINITETOWER_WAVE_COUNTER_GLASS  
+ARTIFACT_GLASS_DESCRIPTION  
+INFINITETOWER_WAVE_COUNTER_SINGLEMONSTERTYPE  
+ARTIFACT_SINGLEMONSTERTYPE_DESCRIPTION  
+INFINITETOWER_WAVE_COUNTER_WEAKASSKNEES  
+ARTIFACT_WEAKASSKNEES_DESCRIPTION  
+INFINITETOWER_WAVE_COUNTER_WISPONDEATH  
+ARTIFACT_WISPONDEATH_DESCRIPTION  
+INFINITETOWER_WAVE_COUNTER_MIXENEMY  
+ARTIFACT_MIXENEMY_DESCRIPTION  
+INFINITETOWER_WAVE_COUNTER_COMMAND  
+ARTIFACT_COMMAND_DESCRIPTION  
+INFINITETOWER_WAVE_COUNTER_ENIGMA  
+ARTIFACT_ENIGMA_DESCRIPTION  
+
+
+All Simulacrum Waves : BossWaveCategory
+INFINITETOWER_WAVE_COUNTER_BOSS  
+INFINITETOWER_WAVE_DESCRIPTION_BOSS  
+INFINITETOWER_WAVE_COUNTER_BOSS_LUNAR  
+INFINITETOWER_WAVE_DESCRIPTION_BOSS_LUNAR  
+INFINITETOWER_WAVE_COUNTER_BOSS_VOID  
+INFINITETOWER_WAVE_DESCRIPTION_BOSS_VOID  
+INFINITETOWER_WAVE_COUNTER_BOSS_SCAV  
+INFINITETOWER_WAVE_DESCRIPTION_BOSS_SCAV  
+INFINITETOWER_WAVE_COUNTER_BOSS_BROTHER  
+INFINITETOWER_WAVE_DESCRIPTION_BOSS_BROTHER  
+
+
+
+All Simulacrum Waves : CommonWaveCategory
+[0] InfiniteTowerWaveDefault  
+INFINITETOWER_WAVE_COUNTER  
+INFINITETOWER_WAVE_DESCRIPTION_DEFAULT  
+Weight: 80  
+Credits: 159  
+DropTable: dtITDefaultWave  
+Prerequesites:   
+
+[1] InfiniteTowerWaveArtifactBomb  
+INFINITETOWER_WAVE_COUNTER_BOMB  
+ARTIFACT_BOMB_DESCRIPTION  
+Weight: 1  
+Credits: 159  
+DropTable: dtITDefaultWave  
+Prerequesites: ArtifactBombDisabledPrerequisite  
+
+[2] InfiniteTowerWaveArtifactGlass  
+INFINITETOWER_WAVE_COUNTER_GLASS  
+ARTIFACT_GLASS_DESCRIPTION  
+Weight: 1  
+Credits: 159  
+DropTable: dtITDefaultWave  
+Prerequesites: ArtifactGlassDisabledPrerequisite  
+
+[3] InfiniteTowerWaveArtifactSingleMonsterType  
+INFINITETOWER_WAVE_COUNTER_SINGLEMONSTERTYPE  
+ARTIFACT_SINGLEMONSTERTYPE_DESCRIPTION  
+Weight: 1  
+Credits: 159  
+DropTable: dtITDefaultWave  
+Prerequesites: ArtifactSingleMonsterTypeDisabledPrerequisite  
+
+[4] InfiniteTowerWaveArtifactWeakAssKnees  
+INFINITETOWER_WAVE_COUNTER_WEAKASSKNEES  
+ARTIFACT_WEAKASSKNEES_DESCRIPTION  
+Weight: 1  
+Credits: 159  
+DropTable: dtITDefaultWave  
+Prerequesites: ArtifactWeakAssKneesDisabledPrerequisite  
+
+[5] InfiniteTowerWaveArtifactWispOnDeath  
+INFINITETOWER_WAVE_COUNTER_WISPONDEATH  
+ARTIFACT_WISPONDEATH_DESCRIPTION  
+Weight: 1  
+Credits: 159  
+DropTable: dtITDefaultWave  
+Prerequesites: ArtifactWispOnDeathDisabledPrerequisite  
+
+[6] InfiniteTowerWaveArtifactMixEnemy  
+INFINITETOWER_WAVE_COUNTER_MIXENEMY  
+ARTIFACT_MIXENEMY_DESCRIPTION  
+Weight: 1  
+Credits: 159  
+DropTable: dtITDefaultWave  
+Prerequesites: ArtifactMixEnemyDisabledPrerequisite  
+
+[7] InfiniteTowerWaveArtifactCommand  
+INFINITETOWER_WAVE_COUNTER_COMMAND  
+ARTIFACT_COMMAND_DESCRIPTION  
+Weight: 1  
+Credits: 159  
+DropTable: dtITDefaultWave  
+Prerequesites: ArtifactCommandDisabledPrerequisite  
+
+[8] InfiniteTowerWaveArtifactEnigma  
+INFINITETOWER_WAVE_COUNTER_ENIGMA  
+ARTIFACT_ENIGMA_DESCRIPTION  
+Weight: 1  
+Credits: 159  
+DropTable: dtITDefaultWave  
+Prerequesites: ArtifactEnigmaDisabledPrerequisite  
+
+[9] InfiniteTowerWaveArtifactSingleEliteType  
+Wave {0} - Augment of Brigade  
+All elites will be of the same type.  
+Weight: 2  
+Credits: 200  
+DropTable: dtITDefaultWave  
+Prerequesites: ArtifacSingleEliteTypeDisabledPrerequisite  
+
+[10] InfiniteTowerWaveArtifactRandomLoadout  
+Wave {0} - Augment of Transpose  
+Use a random loadout for this wave.  
+Weight: 1  
+Credits: 200  
+DropTable: dtITDefaultWave  
+Prerequesites: ArtifacRandomLoadoutDisabledPrerequisite  
+
+[11] InfiniteTowerWaveArtifactStatsOnLowHealth  
+Wave {0} - Augment of Spiriting  
+Characters move and attack faster at lower health.  
+Weight: 1  
+Credits: 200  
+DropTable: dtITDefaultWave  
+Prerequesites: ArtifacStatsOnLowHealthDisabledPrerequisite  
+
+Total CommonWaveCategory Weight Until Wave 10: 80  Extra Weight: 0  Percent for Default: 1
+Total CommonWaveCategory Weight: 92  Extra Weight: 12  Percent for Default: 0.8695652
+
+
+All Simulacrum Waves : BossWaveCategory
+[0] InfiniteTowerWaveBoss  
+INFINITETOWER_WAVE_COUNTER_BOSS  
+INFINITETOWER_WAVE_DESCRIPTION_BOSS  
+Weight: 100  
+Credits: 500  
+DropTable: dtITBossWave  
+Prerequesites:   
+
+[1] InfiniteTowerWaveBossLunar  
+INFINITETOWER_WAVE_COUNTER_BOSS_LUNAR  
+INFINITETOWER_WAVE_DESCRIPTION_BOSS_LUNAR  
+Weight: 4  
+Credits: 500  
+DropTable: dtITLunar  
+Prerequesites:   
+MonsterCards: dccsITMoonMonsters  
+
+[2] InfiniteTowerWaveBossVoid  
+INFINITETOWER_WAVE_COUNTER_BOSS_VOID  
+INFINITETOWER_WAVE_DESCRIPTION_BOSS_VOID  
+Weight: 10  
+Credits: 500  
+DropTable: dtITVoid  
+Prerequesites:   
+MonsterCards: dccsITVoidMonsters  
+
+[3] InfiniteTowerWaveBossScav  
+INFINITETOWER_WAVE_COUNTER_BOSS_SCAV  
+INFINITETOWER_WAVE_DESCRIPTION_BOSS_SCAV  
+Weight: 2  
+Credits: 0  
+DropTable: dtITLunar  
+Prerequesites: Wave11OrGreaterPrerequisite  
+
+[4] InfiniteTowerWaveBossBrother  
+INFINITETOWER_WAVE_COUNTER_BOSS_BROTHER  
+INFINITETOWER_WAVE_DESCRIPTION_BOSS_BROTHER  
+Weight: 2  
+Credits: 0  
+DropTable: dtITSpecialBossWave  
+Prerequesites: Wave11OrGreaterPrerequisite  
+
+Total BossWaveCategory Weight Until Wave 10: 114  Extra Weight: 14  Percent for Default: 0.877193
+Total BossWaveCategory Weight: 118  Extra Weight: 18  Percent for Default: 0.8474576

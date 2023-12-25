@@ -1,0 +1,141 @@
+```
+All Simulacrum Waves : CommonWaveCategory
+Wave {0}  
+Defeat all enemies.  
+Wave {0} - Augment of Spite  
+Enemies drop multiple exploding bombs on death.  
+Wave {0} - Augment of Glass  
+Allies deal 500% damage, but have 10% health.  
+Wave {0} - Augment of Kin  
+Monsters will be of only one type.  
+Wave {0} - Augment of Frailty  
+Fall damage is doubled and lethal.  
+Wave {0} - Augment of Soul  
+Wisps emerge from defeated monsters.  
+Wave {0} - Augment of Dissonance  
+Monsters can appear outside their usual environments.  
+Wave {0} - Augment of Command  
+Choose your items.  
+Wave {0} - Augment of Enigma  
+Your equipment changes every time it's activated.  
+//VanillaEnds
+//WolfoArtifacts
+Wave {0} - Augment of Brigade  
+All elites will be of the same type.  
+Wave {0} - Augment of Transpose  
+Use a random loadout for this wave.  
+Wave {0} - Augment of Spiriting  
+Characters move and attack faster at lower health.  
+//
+//SimulacrumAdditions
+Wave {0} - Augment of Heresy  
+Enemies gain heresy items for the wave.  
+Wave {0} - Augment of Poison  
+Elites spawn as Malachite.  
+Wave {0} - Augment of Perfection  
+Elites spawn as Perfected.  
+Wave {0} - Augment of Collapse  
+Elites spawn as Voidtouched.  
+Wave {0} - Augment of Evolution  
+Monsters have additional items during this wave.  
+Wave {0} - Augment of Sacrifice  
+Monsters have a chance to drop items on death.  
+Wave {0} - Augment of Metamorphosis  
+Play as a random survivor for this wave.  
+Wave {0} - Augment of Honor  
+Enemies are guaranteed to be Elite.  
+Wave {0} - Augment of Swarms  
+Double the monsters, but monster health is halved.  
+Wave {0} - Augment of Beetle  
+The ground begins to shift beneath you.  
+Wave {0} - Augment of Earth  
+The earth rumbles and groans.  
+Wave {0} - Augment of the Jellyfish  
+The air crackles and arcs.  
+Wave {0} - Augment of Embers  
+The air begins to burn.  
+Wave {0} - Augment of Lemuria  
+The ground's temperature begins to rise.  
+Wave {0} - Augment of the Red Plane  
+A tear in the fabric of the universe.  
+Wave {0} - Augment of Gup  
+The air smells of sweet strawberries.  
+Wave {0} - Augment of the Constructs  
+You have tripped an ancient alarm.  
+Wave {0} - Augment of Parenthood  
+A familial bond is being interrupted.  
+Wave {0} - Augment of the Moon  
+The bulwark begin to falter.  
+Wave {0} - Augment of the Void  
+The Void has become curious.  
+Wave {0} - Augment of Flight  
+All enemies gain flight.  
+Wave {0} - Augment of Haunting  
+A unknown horror follows you.  
+Wave {0} - Augment of the Equipment Drone  
+A Equipment Drone has been released from the focus.  
+//
+//LittleGameplayTweaks
+Wave {0} - Augment of Vermin  
+You have invaded rampant breeding grounds.  
+Wave {0} - Augment of Solus X  
+The whirring of wings and machinery.  
+Wave {0} - Augment of Aphelia  
+You feel parasitic influences.  
+//
+//StarStorm2
+Wave {0} - Augment of Cognation  
+Enemies leave behind temporary duplciates on death.  
+
+
+
+All Simulacrum Waves : BossWaveCategory
+Wave {0} - Boss  
+Enemies are stronger and more numerous.  
+Wave {0} - Boss Augment of the Moon  
+Enemies are stronger, more numerous, and guaranteed to be Lunar.  
+Wave {0} - Boss Augment of the Void  
+Enemies are stronger, more numerous, and guaranteed to be Void.  
+Wave {0} - Boss Augment of the Scavenger  
+A taste of your own medicine.  
+Wave {0} - Boss Augment of Mithrix  
+Defeat the King of Nothing.  
+//VanillaEnds
+//
+//SimulacrumAdditions
+Wave {0} - Boss Augment of the Mountain  
+Defeat twice as many enemies for twice the rewards.  
+Wave {0} - Boss Augment of Infestation  
+A swarm of Void Infestors is gathering.  
+Wave {0} - Boss Augment of the Twisted Scavenger  
+Defeat the Twisted Scavenger.  
+Wave {0} - Boss Augment of「Voidling」  
+D??ef?eat the 「Diviner of the Deep」  
+Wave {0} - Boss Augment of the Alloy Worship Unit  
+Defeat the Friend of Vultures.  
+Wave {0} - Boss Augment of Aurelionite  
+Defeat the Titanic Goldweaver.  
+Wave {0} - Boss Augment of Honor  
+Enemies are stronger, more numerous, and guaranteed to be Elite.  
+Wave {0} - Boss Augment of Vengence  
+Your relentless doppelganger invades.  
+Wave {0} - Boss Augment of Kin  
+Defeat a horde of the same monster.  
+Wave {0} - Boss Augment of Dissonance  
+Enemies are stronger and appear outside their usual environments.  
+Wave {0} - Boss Augment of the Giant  
+Goodness Gracious.  
+Wave {0} - Boss Augment of the Devastator  
+Face the deepened Void Devastator.  
+Wave {0} - Boss Augment of the Equipment Drones  
+A swarm of Equipment Drones has been released from the focus.  
+Wave {0} - Boss Augment of Haunting  
+A strong unknown horror follows you.  
+//
+//LittleGameplayTweaks
+Wave {0} - Boss Augment of Wurms  
+His brother loved worms.  
+//
+//Miner
+Wave {0} - Boss Augment of the Direseeker  
+Track and Kill.  

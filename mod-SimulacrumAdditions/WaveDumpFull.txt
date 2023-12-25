@@ -1,0 +1,512 @@
+```
+All Simulacrum Waves : CommonWaveCategory
+[0] InfiniteTowerWaveDefault  
+Wave {0}  
+Defeat all enemies.  
+Weight: 80  
+Credits: 159  
+DropTable: dtITDefaultWave  
+Prerequesites:   
+
+[1] InfiniteTowerWaveArtifactBomb  
+Wave {0} - Augment of Spite  
+Enemies drop multiple exploding bombs on death.  
+Weight: 2  
+Credits: 159  
+DropTable: dtITBasicWaveOnKill  
+Prerequesites: ArtifactBombDisabledPrerequisite  
+
+[2] InfiniteTowerWaveArtifactGlass  
+Wave {0} - Augment of Glass  
+Allies deal 500% damage, but have 10% health.  
+Weight: 1  
+Credits: 159  
+DropTable: dtITDefaultWave  
+Prerequesites: ArtifactGlassDisabledPrerequisite  
+
+[3] InfiniteTowerWaveArtifactSingleMonsterType  
+Wave {0} - Augment of Kin  
+Monsters will be of only one type.  
+Weight: 2  
+Credits: 198.75  
+DropTable: dtITDefaultWave  
+Prerequesites: ArtifactSingleMonsterTypeDisabledPrerequisite  
+
+[4] InfiniteTowerWaveArtifactWeakAssKnees  
+Wave {0} - Augment of Frailty  
+Fall damage is doubled and lethal.  
+Weight: 1  
+Credits: 159  
+DropTable: dtITDefaultWave  
+Prerequesites: ArtifactWeakAssKneesDisabledPrerequisite  
+
+[5] InfiniteTowerWaveArtifactWispOnDeath  
+Wave {0} - Augment of Soul  
+Wisps emerge from defeated monsters.  
+Weight: 2  
+Credits: 159  
+DropTable: dtITBasicWaveOnKill  
+Prerequesites: ArtifactWispOnDeathDisabledPrerequisite  
+
+[6] InfiniteTowerWaveArtifactMixEnemy  
+Wave {0} - Augment of Dissonance  
+Monsters can appear outside their usual environments.  
+Weight: 3  
+Credits: 198.75  
+DropTable: dtAllTier  
+Prerequesites: ArtifactMixEnemyDisabledPrerequisite  
+
+[7] InfiniteTowerWaveArtifactCommand  
+Wave {0} - Augment of Command  
+Choose your items.  
+Weight: 1  
+Credits: 159  
+DropTable: dtITDefaultWave  
+Prerequesites: ArtifactCommandDisabledPrerequisite  
+
+[8] InfiniteTowerWaveArtifactEnigma  
+Wave {0} - Augment of Enigma  
+Your equipment changes every time it's activated.  
+Weight: 1  
+Credits: 159  
+DropTable: dtITSpecialEquipment + dtITDefaultWave  
+Prerequesites: ArtifactEnigmaDisabledPrerequisite  
+
+[9] InfiniteTowerWaveArtifactSingleEliteType  
+Wave {0} - Augment of Brigade  
+All elites will be of the same type.  
+Weight: 3  
+Credits: 200  
+DropTable: dtITDefaultWave  
+Prerequesites: ArtifacSingleEliteTypeDisabledPrerequisite  
+
+[10] InfiniteTowerWaveArtifactRandomLoadout  
+Wave {0} - Augment of Transpose  
+Use a random loadout for this wave.  
+Weight: 1  
+Credits: 200  
+DropTable: dtAllTier  
+Prerequesites: ArtifacRandomLoadoutDisabledPrerequisite  
+
+[11] InfiniteTowerWaveArtifactStatsOnLowHealth  
+Wave {0} - Augment of Spiriting  
+Characters move and attack faster at lower health.  
+Weight: 2  
+Credits: 200  
+DropTable: dtITBasicWaveOnKill  
+Prerequesites: ArtifacStatsOnLowHealthDisabledPrerequisite  
+
+[12] InfiniteTowerWaveHeresy  
+Wave {0} - Augment of Heresy  
+Enemies gain heresy items for the wave.  
+Weight: 6  
+Credits: 200  
+DropTable: dtITHeresy + dtITDefaultWave  
+Prerequesites: Wave11OrGreaterPrerequisite  
+
+[13] InfiniteTowerWaveMalachiteElites  
+Wave {0} - Augment of Poison  
+Elites spawn as Malachite.  
+Weight: 2  
+Credits: 159  
+DropTable: dtITBossWave  
+Prerequesites: Wave31OrGreaterPrerequisite  
+
+[14] InfiniteTowerWaveLunarElites  
+Wave {0} - Augment of Perfection  
+Elites spawn as Perfected.  
+Weight: 5  
+Credits: 159  
+DropTable: dtITBasicBonusLunar  
+Prerequesites:   
+
+[15] InfiniteTowerWaveVoidElites  
+Wave {0} - Augment of Collapse  
+Elites spawn as Voidtouched.  
+Weight: 5  
+Credits: 159  
+DropTable: dtITBasicBonusVoid  
+Prerequesites:   
+
+[16] InfiniteTowerWaveArtifactEvolution  
+Wave {0} - Augment of Evolution  
+Monsters have additional items during this wave.  
+Weight: 1  
+Credits: 159  
+DropTable: dtITBasicWaveOnKill  
+Prerequesites: ArtifacEvolutionDisabledPrerequisite  
+
+[17] InfiniteTowerWaveArtifactSacrifice  
+Wave {0} - Augment of Sacrifice  
+Monsters have a chance to drop items on death.  
+Weight: 1  
+Credits: 200  
+DropTable: dtITBasicWaveOnKill  
+Prerequesites:   
+
+[18] InfiniteTowerWaveArtifactRandomSurvivor  
+Wave {0} - Augment of Metamorphosis  
+Play as a random survivor for this wave.  
+Weight: 1  
+Credits: 200  
+DropTable: dtAllTier  
+Prerequesites: ArtifacRandomSurvivorDisabledPrerequisite  
+
+[19] InfiniteTowerWaveArtifactEliteOnly  
+Wave {0} - Augment of Honor  
+Enemies are guaranteed to be Elite.  
+Weight: 1  
+Credits: 200  
+DropTable: dtITBossWave  
+Prerequesites: ArtifacEliteOnlyDisabledPrerequisite  
+
+[20] InfiniteTowerWaveArtifactSwarm  
+Wave {0} - Augment of Swarms  
+Double the monsters, but monster health is halved.  
+Weight: 1  
+Credits: 318  
+DropTable: dtITBasicWaveOnKill  
+Prerequesites: ArtifacSwarmDisabledPrerequisite  
+
+[21] InfiniteTowerWaveFamilyBeetle  
+Wave {0} - Augment of Beetle  
+The ground begins to shift beneath you.  
+Weight: 0.75  
+Credits: 200.34  
+DropTable: dtITFamilyWaveUtility  
+Prerequesites:   
+MonsterCards: dccsBeetleFamily  
+
+[22] InfiniteTowerWaveFamilyGolem  
+Wave {0} - Augment of Earth  
+The earth rumbles and groans.  
+Weight: 0.75  
+Credits: 200.34  
+DropTable: dtITFamilyWaveHealing  
+Prerequesites:   
+MonsterCards: dccsGolemFamily  
+
+[23] InfiniteTowerWaveFamilyJellyfish  
+Wave {0} - Augment of the Jellyfish  
+The air crackles and arcs.  
+Weight: 0.75  
+Credits: 200.34  
+DropTable: dtITFamilyWaveDamage  
+Prerequesites:   
+MonsterCards: dccsJellyfishFamily  
+
+[24] InfiniteTowerWaveFamilyWisp  
+Wave {0} - Augment of Embers  
+The air begins to burn.  
+Weight: 0.75  
+Credits: 200.34  
+DropTable: dtITFamilyWaveDamage  
+Prerequesites:   
+MonsterCards: dccsWispFamily  
+
+[25] InfiniteTowerWaveFamilyLemurian  
+Wave {0} - Augment of Lemuria  
+The ground's temperature begins to rise.  
+Weight: 0.75  
+Credits: 200.34  
+DropTable: dtITFamilyWaveDamage  
+Prerequesites:   
+MonsterCards: dccsLemurianFamily  
+
+[26] InfiniteTowerWaveFamilyImp  
+Wave {0} - Augment of the Red Plane  
+A tear in the fabric of the universe.  
+Weight: 0.75  
+Credits: 200.34  
+DropTable: dtITFamilyWaveDamage  
+Prerequesites:   
+MonsterCards: dccsImpFamily  
+
+[27] InfiniteTowerWaveFamilyGup  
+Wave {0} - Augment of Gup  
+The air smells of sweet strawberries.  
+Weight: 0.75  
+Credits: 200.34  
+DropTable: dtITFamilyWaveHealing  
+Prerequesites:   
+MonsterCards: dccsGupFamily  
+
+[28] InfiniteTowerWaveFamilyConstruct  
+Wave {0} - Augment of the Constructs  
+You have tripped an ancient alarm.  
+Weight: 0.75  
+Credits: 200.34  
+DropTable: dtITFamilyWaveUtility  
+Prerequesites:   
+MonsterCards: dccsConstructFamily  
+
+[29] InfiniteTowerWaveFamilyParent  
+Wave {0} - Augment of Parenthood  
+A familial bond is being interrupted.  
+Weight: 0.75  
+Credits: 200.34  
+DropTable: dtITFamilyWaveHealing  
+Prerequesites:   
+MonsterCards: dccsParentFamily  
+
+[30] InfiniteTowerWaveFamilyLunar  
+Wave {0} - Augment of the Moon  
+The bulwark begin to falter.  
+Weight: 1.125  
+Credits: 252  
+DropTable: dtITBasicBonusLunar  
+Prerequesites: Wave31OrGreaterPrerequisite  
+MonsterCards: dccsLunarFamily  
+
+[31] InfiniteTowerWaveFamilyVoid  
+Wave {0} - Augment of the Void  
+The Void has become curious.  
+Weight: 1.125  
+Credits: 252  
+DropTable: dtITBasicBonusVoid  
+Prerequesites: Wave31OrGreaterPrerequisite  
+MonsterCards: dccsVoidFamily  
+
+[32] InfiniteTowerWaveFlight  
+Wave {0} - Augment of Flight  
+All enemies gain flight.  
+Weight: 5  
+Credits: 206.7  
+DropTable: dtITSpecialEquipment + dtITDefaultWave  
+Prerequesites:   
+
+[33] InfiniteTowerWaveBasicGhostHaunting  
+Wave {0} - Augment of Haunting  
+A unknown horror follows you.  
+Weight: 7  
+Credits: 200  
+DropTable: dtITBossWave  
+Prerequesites:   
+
+[34] InfiniteTowerWaveBasicEquipmentDrone  
+Wave {0} - Augment of the Equipment Drone  
+A Equipment Drone has been released from the focus.  
+Weight: 9  
+Credits: 160  
+DropTable: dtITSpecialEquipment + dtITDefaultWave  
+Prerequesites:   
+
+[35] InfiniteTowerWaveFamilyVermin  
+Wave {0} - Augment of Vermin  
+You have invaded rampant breeding grounds.  
+Weight: 0.75  
+Credits: 200.34  
+DropTable: dtITFamilyWaveUtility  
+Prerequesites:   
+MonsterCards: dccsVerminFamily  
+
+[36] InfiniteTowerWaveFamilyRoboBall  
+Wave {0} - Augment of Solus X  
+The whirring of wings and machinery.  
+Weight: 0.75  
+Credits: 200.34  
+DropTable: dtITFamilyWaveUtility  
+Prerequesites:   
+MonsterCards: dccsRoboBallFamily  
+
+[37] InfiniteTowerWaveFamilyClay  
+Wave {0} - Augment of Aphelia  
+You feel parasitic influences.  
+Weight: 0.75  
+Credits: 200.34  
+DropTable: dtITFamilyWaveHealing  
+Prerequesites:   
+MonsterCards: dccsClayFamily  
+
+[38] InfiniteTowerWaveArtifacSS2Cognation  
+Wave {0} - Augment of Cognation  
+Enemies leave behind temporary duplciates on death.  
+Weight: 1  
+Credits: 159  
+DropTable: dtITBasicWaveOnKill  
+Prerequesites:   
+
+Total CommonWaveCategory Weight Until Wave 10: 122  Extra Weight: 42  Percent for Default: 0.6557377
+Total CommonWaveCategory Weight: 155.25  Extra Weight: 75.25  Percent for Default: 0.5152979
+
+All Simulacrum Waves : BossWaveCategory
+[0] InfiniteTowerWaveBoss  
+Wave {0} - Boss  
+Enemies are stronger and more numerous.  
+Weight: 100  
+Credits: 500  
+DropTable: dtITBossWave  
+Prerequesites:   
+
+[1] InfiniteTowerWaveBossLunar  
+Wave {0} - Boss Augment of the Moon  
+Enemies are stronger, more numerous, and guaranteed to be Lunar.  
+Weight: 4  
+Credits: 500  
+DropTable: dtITLunar + dtITBossWave  
+Prerequesites:   
+MonsterCards: dccsLunarFamily  
+
+[2] InfiniteTowerWaveBossVoid  
+Wave {0} - Boss Augment of the Void  
+Enemies are stronger, more numerous, and guaranteed to be Void.  
+Weight: 7  
+Credits: 500  
+DropTable: dtITVoid  
+Prerequesites:   
+MonsterCards: dccsITVoidMonsters  
+
+[3] InfiniteTowerWaveBossScav  
+Wave {0} - Boss Augment of the Scavenger  
+A taste of your own medicine.  
+Weight: 3  
+Credits: 100 + 5 * Wave  
+DropTable: dtITSpecialBossYellow  
+Prerequesites: Wave11OrGreaterPrerequisite  
+
+[4] InfiniteTowerWaveBossBrother  
+Wave {0} - Boss Augment of Mithrix  
+Defeat the King of Nothing.  
+Weight: 2.5  
+Credits: 50 + 5 * Wave  
+DropTable: dtITSpecialBossWave + dtITLunar  
+Prerequesites: Wave26OrGreaterPrerequisite  
+MonsterCards: dccsLunarFamily  
+
+[5] InfiniteTowerWaveDoubleBoss  
+Wave {0} - Boss Augment of the Mountain  
+Defeat twice as many enemies for twice the rewards.  
+Weight: 7  
+Credits: 1100  
+DropTable: dtITBossWave + dtITBossWave  
+Prerequesites: Wave11OrGreaterPrerequisite  
+
+[6] InfiniteTowerWaveBossVoidElites  
+Wave {0} - Boss Augment of Infestation  
+A swarm of Void Infestors is gathering.  
+Weight: 7  
+Credits: 700  
+DropTable: dtITVoidInfestorWave  
+Prerequesites:   
+
+[7] InfiniteTowerWaveBossScavLunar  
+Wave {0} - Boss Augment of the Twisted Scavenger  
+Defeat the Twisted Scavenger.  
+Weight: 5  
+Credits: 100 + 5 * Wave  
+DropTable: dtITSpecialBossWave + dtITLunar  
+Prerequesites: Wave26OrGreaterPrerequisite  
+
+[8] InfiniteTowerWaveBossVoidRaidCrab  
+Wave {0} - Boss Augment of「Voidling」  
+D??ef?eat the 「Diviner of the Deep」  
+Weight: 2.5  
+Credits: 45 + 5 * Wave  
+DropTable: dtITSpecialBossWave + dtITSuperVoid  
+Prerequesites: Wave46OrGreaterPrerequisite  
+MonsterCards: dccsVoidFamilyNoBarnacle  
+
+[9] InfiniteTowerWaveBossSuperRoboBallBoss  
+Wave {0} - Boss Augment of the Alloy Worship Unit  
+Defeat the Friend of Vultures.  
+Weight: 2.5  
+Credits: 150 + 5 * Wave  
+DropTable: dtITSpecialBossWave  
+Prerequesites: Wave11OrGreaterPrerequisite  
+MonsterCards: dccsShipgraveyardMonstersDLC1  
+
+[10] InfiniteTowerWaveBossTitanGold  
+Wave {0} - Boss Augment of Aurelionite  
+Defeat the Titanic Goldweaver.  
+Weight: 2.5  
+Credits: 150 + 5 * Wave  
+DropTable: dtITSpecialBossWave  
+Prerequesites: Wave11OrGreaterPrerequisite  
+MonsterCards: dccsGoldshoresMonstersDLC1  
+
+[11] InfiniteTowerWaveBossArtifactEliteOnly  
+Wave {0} - Boss Augment of Honor  
+Enemies are stronger, more numerous, and guaranteed to be Elite.  
+Weight: 5  
+Credits: 500  
+DropTable: dtITSpecialBossYellow  
+Prerequesites: Wave11OrGreaterPrerequisite  
+
+[12] InfiniteTowerWaveBossArtifactDoppelganger  
+Wave {0} - Boss Augment of Vengence  
+Your relentless doppelganger invades.  
+Weight: 7  
+Credits: 400  
+DropTable: dtITSpecialBossYellow  
+Prerequesites:   
+
+[13] InfiniteTowerWaveBossArtifactSingleMonsterType  
+Wave {0} - Boss Augment of Kin  
+Defeat a horde of the same monster.  
+Weight: 5  
+Credits: 625  
+DropTable: dtITBossWave  
+Prerequesites: ArtifactSingleMonsterTypeDisabledPrerequisite  
+
+[14] InfiniteTowerWaveBossArtifactSingleMonsterType  
+Wave {0} - Boss Augment of Dissonance  
+Enemies are stronger and appear outside their usual environments.  
+Weight: 5  
+Credits: 550  
+DropTable: dtITBossWave  
+Prerequesites: ArtifactMixEnemyDisabledPrerequisite  
+
+[15] InfiniteTowerWaveBossGiantGup  
+Wave {0} - Boss Augment of the Giant  
+Goodness Gracious.  
+Weight: 6  
+Credits: 200 + 5 * Wave  
+DropTable: dtITBossWave  
+Prerequesites: Wave11OrGreaterPrerequisite  
+MonsterCards: dccsGupFamily  
+
+[16] InfiniteTowerWaveBossSuperVoidMegaCrab  
+Wave {0} - Boss Augment of the Devastator  
+Face the deepened Void Devastator.  
+Weight: 2.5  
+Credits: 50 + 5 * Wave  
+DropTable: dtITSpecialBossWave + dtITSuperVoid  
+Prerequesites: Wave26OrGreaterPrerequisite  
+MonsterCards: dccsVoidFamilyNoBarnacle  
+
+[17] InfiniteTowerWaveBossDireseeker  
+Wave {0} - Boss Augment of the Direseeker  
+Track and Kill.  
+Weight: 4  
+Credits: 150 + 5 * Wave  
+DropTable: dtITSpecialBossWave  
+Prerequesites: Wave11OrGreaterPrerequisite  
+MonsterCards: dccsDampCaveMonstersDLC1  
+
+[18] InfiniteTowerWaveBossEquipmentDrone  
+Wave {0} - Boss Augment of the Equipment Drones  
+A swarm of Equipment Drones has been released from the focus.  
+Weight: 10  
+Credits: 500  
+DropTable: dtITSpecialEquipment + dtITBossWave  
+Prerequesites:   
+
+[19] InfiniteTowerWaveBossGhostHaunting  
+Wave {0} - Boss Augment of Haunting  
+A strong unknown horror follows you.  
+Weight: 10  
+Credits: 550  
+DropTable: dtITSpecialBossYellow  
+Prerequesites:   
+
+[20] InfiniteTowerWaveBossFamilyWorms  
+Wave {0} - Boss Augment of Wurms  
+His brother loved worms.  
+Weight: 3  
+Credits: 625  
+DropTable: dtITWurms  
+Prerequesites: Wave46OrGreaterPrerequisite  
+MonsterCards: dccsWormsFamily  
+
+Total BossWaveCategory Weight Until Wave 10: 145  Extra Weight: 45  Percent for Default: 0.6896552
+Total BossWaveCategory Weight: 200.5  Extra Weight: 100.5  Percent for Default: 0.4987531

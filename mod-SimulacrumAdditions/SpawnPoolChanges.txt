@@ -1,0 +1,37 @@
+__Simu Titanic Plains__
++Hermit Crab (w31+)
++Alpha Construct (w31+)
++XI Construct (w31+)
+
+__Simu Abandoned Aquaduct__
++Stone Golem (w31+)
+
+__Simu Aphelian Sanctuary__
++Jellyfish (w31+)
++Elder Lemurian (w31+)
+
+__Simu Rallypoint Delta__
++Overloading Worm
++Alloy Vulture (w31+)
++Solus Control Unit (w31+)
+
+__Simu Abyssal Depths__
++Overloading Worm
++Mini Mushrum (w31+)
++Grovetender (w31+)
+
+__Simu Sky Meadow__
++Overloading Worm
++Brass Contraption (w31+)
++Greater Wisp (w31+)
+
+__Simu Commencement__
++Void Reaver (w31+)
++Void Barnacle (w31+)
++Void Jailer (w31+)
++Void Devestator (w31+)
+
+__All Stages__
++Void Reaver (w71+)
++Void Jailer (w71+)
++Void Devestator (w81+)
