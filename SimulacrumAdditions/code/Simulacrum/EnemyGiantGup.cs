@@ -56,21 +56,16 @@ namespace SimulacrumAdditions
             GiantCharacterBody.baseMaxHealth *= 1.5f; //Base Health is 1000
             GiantCharacterBody.baseDamage *= 1.3f;
 
-            GiantCharacterBody.baseAttackSpeed *= 0.5f;
-            GiantCharacterBody.baseMoveSpeed *= 0.6f;
+            GiantCharacterBody.baseAttackSpeed *= 0.55f;
+            GiantCharacterBody.baseMoveSpeed *= 0.65f;
             GiantCharacterBody.baseJumpPower *= 2.5f;
             GiantCharacterBody.baseArmor = 20;
             GiantCharacterBody.PerformAutoCalculateLevelStats();
-
-
 
             //
             bool wasAdded;
             SerializableEntityStateType GiantGupDeathState = ContentAddition.AddEntityState<GiantGupSplitDeath>(out wasAdded);
             GiantBody.GetComponent<RoR2.CharacterDeathBehavior>().deathState = GiantGupDeathState;
-
-
-
             //Visuals
             GameObject mdlGup = GiantBody.transform.GetChild(0).GetChild(0).gameObject;
             mdlGup.transform.localScale = new Vector3(4, 4, 4);
@@ -123,7 +118,9 @@ namespace SimulacrumAdditions
 
             //Spawns
             InfiniteTowerWaveBossGiantGup.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/dccsGupFamily.asset").WaitForCompletion();
-            InfiniteTowerWaveBossGiantGup.GetComponent<InfiniteTowerExplicitSpawnWaveController>().baseCredits = 200;
+            InfiniteTowerWaveBossGiantGup.GetComponent<InfiniteTowerExplicitSpawnWaveController>().baseCredits = 100;
+            InfiniteTowerWaveBossGiantGup.GetComponent<InfiniteTowerExplicitSpawnWaveController>().immediateCreditsFraction = 0;
+            InfiniteTowerWaveBossGiantGup.GetComponent<InfiniteTowerExplicitSpawnWaveController>().linearCreditsPerWave = 5;
             InfiniteTowerWaveBossGiantGup.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList[0].spawnCard = cscGiantGup;
             InfiniteTowerWaveBossGiantGup.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList[0].spawnDistance = DirectorCore.MonsterSpawnDistance.Far;
 
@@ -159,10 +156,6 @@ namespace SimulacrumAdditions
 			SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(ITGiantGup);*/
             //, prerequisites = SimuMain.Wave11OrGreaterPrerequisite
         }
-
-
-
-
     }
 
     public class GiantGupSplitDeath : GenericCharacterDeath

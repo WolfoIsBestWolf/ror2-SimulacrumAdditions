@@ -21,6 +21,7 @@ namespace SimulacrumAdditions
             FamilyDirectorCardCategorySelection dccsConstructFamily = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/DLC1/Common/dccsConstructFamily.asset").WaitForCompletion();
             FamilyDirectorCardCategorySelection dccsLunarFamily = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/dccsLunarFamily.asset").WaitForCompletion();
             FamilyDirectorCardCategorySelection dccsVoidFamily = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/DLC1/Common/dccsVoidFamily.asset").WaitForCompletion();
+            FamilyDirectorCardCategorySelection dccsLarvaFamily = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/DLC1/Common/dccsAcidLarvaFamily.asset").WaitForCompletion();
 
 
             GameObject InfiniteTowerWaveFamilyBeetle = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveDefault.prefab").WaitForCompletion(), "InfiniteTowerWaveFamilyBeetle", true);
@@ -49,6 +50,9 @@ namespace SimulacrumAdditions
             //Vanilla Families End
             GameObject InfiniteTowerWaveFamilyParent = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveDefault.prefab").WaitForCompletion(), "InfiniteTowerWaveFamilyParent", true);
             GameObject InfiniteTowerCurrentWaveUIFamilyParent = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentWaveUI.prefab").WaitForCompletion(), "InfiniteTowerCurrentWaveUIFamilyParent", false);
+
+            GameObject InfiniteTowerWaveFamilyLarva = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveDefault.prefab").WaitForCompletion(), "InfiniteTowerWaveFamilyLarva", true);
+            GameObject InfiniteTowerCurrentWaveUIFamilyLarva = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentWaveUI.prefab").WaitForCompletion(), "InfiniteTowerCurrentWaveUIFamilyLarva", false);
             //
             GameObject InfiniteTowerWaveFamilyLunar = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveDefault.prefab").WaitForCompletion(), "InfiniteTowerWaveFamilyLunar", true);
             GameObject InfiniteTowerCurrentWaveUIFamilyLunar = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentBossLunarWaveUI.prefab").WaitForCompletion(), "InfiniteTowerCurrentWaveUIFamilyLunar", false);
@@ -60,7 +64,7 @@ namespace SimulacrumAdditions
 
             //
 
-            float ITFamilyWaveWeight = 0.75f;
+            float ITFamilyWaveWeight = 0.85f;
             //Beetle
             InfiniteTowerWaveFamilyBeetle.GetComponent<CombatDirector>().monsterCards = dccsBeetleFamily;
             InfiniteTowerWaveFamilyBeetle.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITFamilyWaveUtility;
@@ -160,7 +164,17 @@ namespace SimulacrumAdditions
 
             RoR2.InfiniteTowerWaveCategory.WeightedWave ITParentFamily = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveFamilyParent, weight = ITFamilyWaveWeight };
             SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(ITParentFamily);
-            
+            //
+            //Larva
+            InfiniteTowerWaveFamilyLarva.GetComponent<CombatDirector>().monsterCards = dccsLarvaFamily;
+            InfiniteTowerWaveFamilyLarva.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITBasicWaveOnKill;
+
+            InfiniteTowerWaveFamilyLarva.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerCurrentWaveUIFamilyLarva;
+            InfiniteTowerCurrentWaveUIFamilyLarva.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "Wave {0} - Augment of Acid";
+            InfiniteTowerCurrentWaveUIFamilyLarva.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "The air smells foul.";
+
+            RoR2.InfiniteTowerWaveCategory.WeightedWave ITLarvaFamily = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveFamilyLarva, weight = ITFamilyWaveWeight, prerequisites = SimuMain.AfterWave5Prerequisite};
+            SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(ITLarvaFamily);
             //
             //Lunar
             InfiniteTowerWaveFamilyLunar.GetComponent<CombatDirector>().monsterCards = dccsLunarFamily;
@@ -193,7 +207,7 @@ namespace SimulacrumAdditions
             GameObject[] ITFamilyWaves = {
                 InfiniteTowerWaveFamilyBeetle, InfiniteTowerWaveFamilyGolem, InfiniteTowerWaveFamilyJellyfish,
                 InfiniteTowerWaveFamilyWisp, InfiniteTowerWaveFamilyLemurian,
-                InfiniteTowerWaveFamilyImp, InfiniteTowerWaveFamilyConstruct,
+                InfiniteTowerWaveFamilyImp, InfiniteTowerWaveFamilyConstruct, InfiniteTowerWaveFamilyLarva,
                 InfiniteTowerWaveFamilyParent, InfiniteTowerWaveFamilyGup,
                 InfiniteTowerWaveFamilyLunar,InfiniteTowerWaveFamilyVoid};
 
@@ -202,16 +216,16 @@ namespace SimulacrumAdditions
                 InfiniteTowerWaveController temp = ITFamilyWaves[i].GetComponent<InfiniteTowerWaveController>();
                 CombatDirector combatdirector = ITFamilyWaves[i].GetComponent<CombatDirector>();
                 temp.baseCredits *= 1.26f;
-                temp.immediateCreditsFraction = 0.5f;
+                temp.immediateCreditsFraction = 0.4f;
                 combatdirector.skipSpawnIfTooCheap = false;
             }
 
-            Color FamilyEventIconColor = new Color(1f, 0.8f, 0.7f, 1);
-            Color FamilyEventOutlineColor = new Color(1f, 0.7f, 0.5f, 1);
+            Color FamilyEventIconColor = new Color(1f, 1f, 0.75f, 1);
+            Color FamilyEventOutlineColor = new Color(0.8f, 0.8f, 0.5f, 1);
             GameObject[] ITFamilyUIs = {
                 InfiniteTowerCurrentWaveUIFamilyBeetle, InfiniteTowerCurrentWaveUIFamilyGolem, InfiniteTowerCurrentWaveUIFamilyJellyfish,
                 InfiniteTowerCurrentWaveUIFamilyWisp, InfiniteTowerCurrentWaveUIFamilyLemurian,
-                InfiniteTowerCurrentWaveUIFamilyImp, InfiniteTowerCurrentWaveUIFamilyConstruct,
+                InfiniteTowerCurrentWaveUIFamilyImp, InfiniteTowerCurrentWaveUIFamilyConstruct, InfiniteTowerCurrentWaveUIFamilyLarva,
                 InfiniteTowerCurrentWaveUIFamilyParent };
 
             for (int i = 0; i < ITFamilyUIs.Length; i++)
@@ -229,9 +243,8 @@ namespace SimulacrumAdditions
 
             InfiniteTowerCurrentWaveUIFamilyGup.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color = Color.white;
             InfiniteTowerCurrentWaveUIFamilyGup.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = texITWaveGupIconBasicS;
+            InfiniteTowerCurrentWaveUIFamilyGup.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = FamilyEventIconColor;
             InfiniteTowerCurrentWaveUIFamilyGup.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = FamilyEventOutlineColor;
-
-
         }
 
 
@@ -304,12 +317,12 @@ namespace SimulacrumAdditions
                 InfiniteTowerWaveController temp = ITFamilyWaves[i].GetComponent<InfiniteTowerWaveController>();
                 CombatDirector combatdirector = ITFamilyWaves[i].GetComponent<CombatDirector>();
                 temp.baseCredits *= 1.26f;
-                temp.immediateCreditsFraction = 0.5f;
+                temp.immediateCreditsFraction = 0.4f;
                 combatdirector.skipSpawnIfTooCheap = false;
             }
 
-            Color FamilyEventIconColor = new Color(1f, 0.8f, 0.7f, 1);
-            Color FamilyEventOutlineColor = new Color(1f, 0.7f, 0.5f, 1);
+            Color FamilyEventIconColor = new Color(1f, 1f, 0.75f, 1);
+            Color FamilyEventOutlineColor = new Color(0.8f, 0.8f, 0.5f, 1);
             GameObject[] ITFamilyUIs = {InfiniteTowerCurrentWaveUIFamilyClay, InfiniteTowerCurrentWaveUIFamilyRoboBall, InfiniteTowerCurrentWaveUIFamilyVermin };
             for (int i = 0; i < ITFamilyUIs.Length; i++)
             {
@@ -322,7 +335,7 @@ namespace SimulacrumAdditions
             InfiniteTowerCurrentWaveUIFamilyWorms.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color *= FamilyEventIconColor;
             InfiniteTowerCurrentWaveUIFamilyWorms.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color *= FamilyEventOutlineColor;
             //
-            float ITFamilyWaveWeight = 0.75f;
+            float ITFamilyWaveWeight = 0.85f;
             FamilyDirectorCardCategorySelection[] FamilyDCCSs = UnityEngine.Object.FindObjectsOfType(typeof(RoR2.FamilyDirectorCardCategorySelection)) as RoR2.FamilyDirectorCardCategorySelection[];
             for (var i = 0; i < FamilyDCCSs.Length; i++)
             {
@@ -346,7 +359,7 @@ namespace SimulacrumAdditions
                         break;
                     case "dccsWormsFamily":
                         BossInfiniteTowerWaveFamilyWorms.GetComponent<CombatDirector>().monsterCards = FamilyDCCSs[i];
-                        RoR2.InfiniteTowerWaveCategory.WeightedWave ITWormsFamily = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = BossInfiniteTowerWaveFamilyWorms, weight = 3, prerequisites = SimuMain.Wave46OrGreaterPrerequisite };
+                        RoR2.InfiniteTowerWaveCategory.WeightedWave ITWormsFamily = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = BossInfiniteTowerWaveFamilyWorms, weight = 4, prerequisites = SimuMain.Wave45OrGreaterPrerequisite };
                         SimuMain.ITBossWaves.wavePrefabs = SimuMain.ITBossWaves.wavePrefabs.Add(ITWormsFamily);
                         break;
                 }

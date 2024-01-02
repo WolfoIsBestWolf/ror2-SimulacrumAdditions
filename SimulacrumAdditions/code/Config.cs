@@ -20,6 +20,7 @@ namespace SimulacrumAdditions
         public static ConfigEntry<bool> cfgExtraDifficuly;
         public static ConfigEntry<bool> cfgNewEnemiesVisible;
         public static ConfigEntry<bool> cfgDumpInfo;
+        public static ConfigEntry<bool> cfgVoidCoins;
 
         public static ConfigEntry<int> cfgSimuEndingStartAtXWaves;
         public static ConfigEntry<int> cfgSimuEndingEveryXWaves;
@@ -35,6 +36,12 @@ namespace SimulacrumAdditions
                 true,
                 "The crab will travel faster the more waves are completed, mostly noticible later waves."
             );
+            cfgVoidCoins = ConfigFileUNSORTED.Bind(
+                 "Main",
+                 "Add Void Coins",
+                 true,
+                 "Add preveiously unused Void Coins with which you can purchase Void Interactables. You can still purchase them with Blood if you do not have any."
+             );
             cfgVoidTripleAllTier = ConfigFileUNSORTED.Bind(
                 "Main",
                 "Void Potential Chests can drop more tiers",
@@ -70,7 +77,7 @@ namespace SimulacrumAdditions
                 "Simulacrum : Balance",
                 "Simulacrum Credits Rebalance",
                 true,
-                "Stages have 700 to 350 credits depending on stages completed and get more credits in multiplayer. Vanilla they always have 600."
+                "Stages have 700 to 400 credits depending on stages completed and get more credits in multiplayer. Vanilla they always have 600."
             );
             cfgExtraDifficuly = ConfigFileUNSORTED.Bind(
                 "Simulacrum : Balance",

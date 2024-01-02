@@ -1,11 +1,11 @@
 {
     "name": "SimulacrumAdditions",
-    "version_number": "1.5.0",
+    "version_number": "1.6.0",
     "website_url": "https://github.com/WolfoIsBestWolf/ror2-SimulacrumAdditions",
-    "description": "Adds many Augments, more interactables, updated balance and some quality of life to the Simulacrum.",
+    "description": "Adds many Augments and makes Simulacrum beatable in way. Updated balance and some quality of life for the Simulacrum.",
     "dependencies": [
         "bbepis-BepInExPack-5.4.9",
-		"RiskofThunder-HookGenPatcher-1.2.1"
+		"RiskofThunder-HookGenPatcher-1.2.1",
 		"tristanmcpherson-R2API-5.0.5"
     ]
 }

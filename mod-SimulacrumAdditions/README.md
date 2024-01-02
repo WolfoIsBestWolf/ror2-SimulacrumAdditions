@@ -1,31 +1,36 @@
 ## Simulacrum
-Every stage now uses it's own interactable spawn pool to make each stage feel more unique.\
-This leads to interactables like Shrine of Chance, Shrine of Woods, Shrine of Order and Cleansing Pools and spawning in the game mode.
+Starting on wave 50, every stage a ending portal will spawn to end a run peacefully.  
+A super boss wave (such as Mithrix) will be forced on wave 50, reoccuring every 30 waves. (they can still occur randomly).  
+This makes getting to wave 50 a set goal and makes the gamemode "beatable".  
+One of these runs should take around an hour and counts as a win.  
 
-More enemies are added to the spawn pool starting wave 31, similiar to loop enemies.\
-Void enemies can appear on every stage starting wave 71.
-
+Adds a large amount of Augments\
 Basic Waves:  
--Added 11 Family Event Augments.   
+-Added 12 Family Event Augments.   
 -Added 5 Artifact Augments.   
 -Added 3 Elite Augments.  
--Added 4 Unique Augments.  
+-Added 11 Other Augments.  
+
+-In total raises Basic Augment count from 9 to 40 (+7 with supported mods).
 
 Boss Waves:  
 -Added 7 Special Boss Augments.  
 -Added 4 Aritfact Boss Augments.  
--Added 3 Unique Boss Augments.  
+-Added 4 Other Boss Augments.  
 
-Starting on wave 50, every stage a ending portal will spawn to end a run peacefully.  
-A super boss wave (such as Mithrix) will be forced on wave 50, reoccuring every 30 waves. (they can still occur randomly).  
-This makes getting to wave 50 a set goal.
+-In total raises Boss Augment count from 5 to 20 (+2 with supported mods).
 
+Every stage now uses it's own interactable spawn pool to make each stage feel more unique.\
+This leads to interactables like Shrine of Chance, Shrine of Woods, Shrine of Order and Cleansing Pools spawning in the game mode.
+
+More enemies are added to the spawn pool starting wave 21.\
+Void enemies are added to the spawn pool starting wave 61.
 
 ![](https://cdn.discordapp.com/attachments/743886063738683413/955904648936583188/unknown.png)
 
 ## Balance
 Special Boss Augments now have special scaling like they have in the regular game.\
-Special Boss Augments now spawn some enemies too.\
+Special Boss Augments now spawn with enemies too.\
 Mithrix will be in phase 3 during his augment.
 
 Earlier stages will have more Interactables to get a run going but less later to make late full looting not as extreme.\
@@ -37,19 +42,26 @@ For each stage completed, -1 second between regular waves.
 Late waves spawn more enemies at the start, leading to bigger enemies but also less time in the wave overall.\
 Elites spawn more often the more waves are completed.
 
-Enemies are likelier to get items they can actually use.\
-Some items such as Tesla Coil, Nkuhanas and Spare Drone Parts are now blacklisted.
-
 Items are now granted every 8 waves until the first red.\
-Afterwards every 4/2/1 waves, shortening every time a red is added.\
-Whites will be a stack of 3 and Greens a stack of 2 starting on wave 62.
+Afterwards every 4 then 2 waves, shortening after each red is added.\
+Whites will be a stack of 3 and Greens a stack of 2 starting on wave 62.\
+Some overpowered items were blacklisted for enemy team usage. (Tesla Coil, Nkuhanas)\
 
 Only 20 enemies can be alive at a time instead of 30.
 
-## Other  
-Scavengers are given a random Void item in Simulacrum.  
+Special waves will be much likelier after Wave 50.
 
-There's a void themed teleporte effect for the gamemode.  
+![](https://cdn.discordapp.com/attachments/1115182271276781698/1188585480762183740/image.png?ex=659b0f7d&is=65889a7d&hm=3f84f75a4e8590bc3331b66f745c507075e2f16e1da8ec197c3cee7ab3aec235&)
+
+## Other  
+Void Coins can be used as an alternative to blood on void interactables in Simulacrum.\
+They drop like Lunar Coin and from Void Barrels. You start with 1.\
+Void Blood Payments can no longer be blocked (in Simu)
+
+Scavengers are given a random Void item in Simulacrum.\
+Enemies have a small chance to get a void item.  
+
+There's a void themed teleport effect for the gamemode.  
 
 Void Potential Chests now can present choices from any tier.  
 Void Potentials use their respective tiers particle effects.  
@@ -62,10 +74,10 @@ Simu Titanic Plains now plays Void Fields music\
 Simu Abyssal Depths now plays Void Locusts music\
 Simu Rallypoint Delta now plays Snowy Forests music
 
-Fireworks is now an available item in Simulacrum.\
+Fireworks and Halcyon Seed are now available in Simulacrum.\
 Warbanners pop on Boss Waves similiar to teleporters.
 
-![](https://cdn.discordapp.com/attachments/1115182271276781698/1188585480762183740/image.png?ex=659b0f7d&is=65889a7d&hm=3f84f75a4e8590bc3331b66f745c507075e2f16e1da8ec197c3cee7ab3aec235&)
+![](https://cdn.discordapp.com/attachments/1115182271276781698/1191449266871357530/image.png?ex=65a57a99&is=65930599&hm=8e618870cf043209f0f66b908cf17ed3b29fb48149dba024e7f54cde2070eecb&)
 
 
 ##
@@ -83,26 +95,56 @@ Also download my other mods:\
 [WolfoQualityOfLife](https://thunderstore.io/package/Wolfo/WolfoQualityOfLife/) for many visual improvements.  
 
 ## Changelog:
-v1.5.0 - Cleanup && Mod Split
+v1.6.0   
+-Rare chance for enemies to get void items.  
+-ITMoon enabled unused like border or smth I think it looks cool.  
+-Fixed ITSand Interactables    
+-Halcyon Seed now works in Simulacrum and is in the boss pool.  
+-Add previously unused Void Coin/Void Marker  
+--Use Void Coin as an alternative to Blood.  
+--Drops like Lunar Coins and from Void Barrels.  
+--Should make it easier to get voids early on, in exchange the damage can no longer be blocked.   
 
+-Balance  
+--Enemies should be a bit less overwhelming on stage 1.  
+--Enemies spawn slightly faster after wave 20;    
+--Boss waves in general spawn enemies faster / Go on for less time.    
+
+-Augments   
+--Adjustments  
+---Horror now dies on wave end instead of after a duration.  
+---Multiple Horrors now spawn on later waves  
+---Equipment Drones are now invulnerable and die on wave end.  
+--Acid Larva Family Augment  
+--Quick Wave  
+--Augment of Caffeine  
+--Augment of Detonation  
+--Augment of Hoarding  
+--Augment of Blindness  
+--Augment of Battery  
+--Augment of Flowers  
+--Boss Augment of Cell Breach (Acrid and stuff)  
+
+
+v1.5.0 - Cleanup && Mod Split  
 -Augments   
 --Augment of Honor for basic waves  
 --Augment of Swarms for basic waves  
 --Augment of Heresy  
 --Augment of Flight  
 --Augment of Moon/Void Family for basic waves as late waves  
---Augment of Poison
---Augment of the Equipment Drone
---Augment of Haunting
---Boss Augment of Haunting
---Boss Augment of the Mountain  
---Boss Augment of Kin   
---Boss Augment of Dissonance   
---Boss Augment of the Giant (Gup)  
---Boss Augment of the Devastator  
---Boss Augment of Wurms Family (if LittleGameplayTweaks)
---Augment of Cognation (if StarStorm2)
---Boss Augment of the Direseeker (if Miner or Direseeker mod)
+--Augment of Poison  
+--Augment of the Equipment Drone  
+--Augment of Haunting   
+--Boss Augment of Haunting  
+--Boss Augment of the Mountain    
+--Boss Augment of Kin     
+--Boss Augment of Dissonance     
+--Boss Augment of the Giant (Gup)    
+--Boss Augment of the Devastator   
+--Boss Augment of Wurms Family (if LittleGameplayTweaks)  
+--Augment of Cognation (if StarStorm2)  
+--Boss Augment of the Direseeker (if Miner or Direseeker mod)  
 
 -Simulacrum Balance  
 --Ending Portal starts at wave 50 and happens every stage now.  
