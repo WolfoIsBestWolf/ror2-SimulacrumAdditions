@@ -1,6 +1,6 @@
 {
     "name": "SimulacrumAdditions",
-    "version_number": "1.6.0",
+    "version_number": "1.6.1",
     "website_url": "https://github.com/WolfoIsBestWolf/ror2-SimulacrumAdditions",
     "description": "Adds many Augments and makes Simulacrum beatable in way. Updated balance and some quality of life for the Simulacrum.",
     "dependencies": [

@@ -95,6 +95,12 @@ Also download my other mods:\
 [WolfoQualityOfLife](https://thunderstore.io/package/Wolfo/WolfoQualityOfLife/) for many visual improvements.  
 
 ## Changelog:
+v1.6.1 - (Surprised this took a week to be reported)\  
+-Fixed multiplayer not spawning clients properly.\  
+-Fixed certain waves not being network spawnable.\  
+--Needed to change a fair amount of stuff for this hopefully nothing weird happens.  
+-Boss Augment of Haunting bigger radius  
+
 v1.6.0   
 -Rare chance for enemies to get void items.  
 -ITMoon enabled unused like border or smth I think it looks cool.  

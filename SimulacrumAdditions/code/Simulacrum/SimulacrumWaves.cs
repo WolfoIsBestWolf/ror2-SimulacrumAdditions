@@ -19,7 +19,7 @@ namespace SimulacrumAdditions
 
         public static void Start()
         {
-            Organized();
+            
             ItemDef AdaptiveArmor = Addressables.LoadAssetAsync<ItemDef>(key: "RoR2/Base/AdaptiveArmor/AdaptiveArmor.asset").WaitForCompletion();
             ItemDef BoostHp = Addressables.LoadAssetAsync<ItemDef>(key: "RoR2/Base/BoostHp/BoostHp.asset").WaitForCompletion();
             float ITSpecialBossWaveWeight = 2.5f;
@@ -303,11 +303,91 @@ namespace SimulacrumAdditions
             SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(ITLunarElites, ITVoidElites);
             SimuMain.ITBossWaves.wavePrefabs = SimuMain.ITBossWaves.wavePrefabs.Add(ITDoubleBoss, ITBossVoidElites, ITBossScavLunar, ITBossVoidRaidCrab, ITBossSuperRoboBallBoss, ITBossTitanGold);
             SimuMain.ITSuperBossWaves.wavePrefabs = SimuMain.ITSuperBossWaves.wavePrefabs.Add(ITBossScavLunar, ITBossVoidRaidCrab, ITBossTitanGold, ITBossSuperRoboBallBoss);
+
+            Organized();
         }
+
+ 
+        internal static void LateChanges()
+        {
+            CreateEquipmentDroneSpawnCards();
+            //Mod Support
+            CharacterSpawnCard cscDireseeker = null;
+            CharacterSpawnCard[] CSCList = Object.FindObjectsOfType(typeof(CharacterSpawnCard)) as CharacterSpawnCard[];
+            for (var i = 0; i < CSCList.Length; i++)
+            {
+                //Debug.LogWarning(CSCList[i]);
+                switch (CSCList[i].name)
+                {
+                    case "cscDireseeker":
+                        cscDireseeker = CSCList[i];
+                        break;
+                }
+            }
+
+            for (int i = 0; i < SimuMain.ITModSupportWaves.wavePrefabs.Length; i++)
+            {
+                GameObject wave = SimuMain.ITModSupportWaves.wavePrefabs[i].wavePrefab;
+                InfiniteTowerWaveController controller = wave.GetComponent<InfiniteTowerWaveController>();
+
+                switch (wave.name)
+                {
+                    case "InfiniteTowerWaveSS2RainbowElites":
+                        break;
+                    case "InfiniteTowerWaveArtifactSS2Cognation":
+                        ArtifactDef SS2Cognation = ArtifactCatalog.FindArtifactDef("Cognation");
+                        if (SS2Cognation)
+                        {
+                            wave.GetComponent<ArtifactEnabler>().artifactDef = SS2Cognation;
+                            wave.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = SS2Cognation.smallIconSelectedSprite;
+ 
+                            SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(SimuMain.ITModSupportWaves.wavePrefabs[i]);
+                        }
+                        break;
+                    case "InfiniteTowerWaveBossDireseeker":
+                        CharacterSpawnCard cscDireseekerIT = Object.Instantiate(cscDireseeker);
+                        cscDireseekerIT.name = "cscDireseekerIT";
+                        cscDireseekerIT.itemsToGrant = new ItemCountPair[] { new ItemCountPair { itemDef = RoR2Content.Items.AdaptiveArmor, count = 1 } };
+                        wave.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList[0].spawnCard = cscDireseekerIT;
+                        SimuMain.ITBossWaves.wavePrefabs = SimuMain.ITBossWaves.wavePrefabs.Add(SimuMain.ITModSupportWaves.wavePrefabs[i]);
+                        break;
+                }
+
+            }
+
+            //This is stupid but you can't seem to just make the waves late
+            Color newArticfact = new Color(1f, 0.7647f, 1.2647f, 1);
+            for (int i = 0; i < SimuMain.ITBasicWaves.wavePrefabs.Length; i++)
+            {
+                GameObject wave = SimuMain.ITBasicWaves.wavePrefabs[i].wavePrefab;
+                InfiniteTowerWaveController controller = wave.GetComponent<InfiniteTowerWaveController>();
+                ArtifactEnabler artifact = wave.GetComponent<ArtifactEnabler>();
+                if (artifact)
+                {
+                    controller.overlayEntries[1].prefab.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = newArticfact;
+                }
+                switch (wave.name)
+                {
+                    case "InfiniteTowerWaveBasicEquipmentDrone":
+                    case "InfiniteTowerWaveBossEquipmentDrone":
+                        controller.rewardDisplayTier = SimuMain.ItemOrangeTierDef.tier;
+                        break;
+                }
+            }
+
+            for (int i = 0; i < SimuMain.ITSuperBossWaves.wavePrefabs.Length; i++)
+            {
+                SimuMain.ITSuperBossWaves.wavePrefabs[i].weight = 1;
+            }
+        }
+
 
         internal static void Organized()
         {
-            //
+            ItemDef Ghost = LegacyResourcesAPI.Load<ItemDef>("ItemDefs/Ghost");
+            ItemDef BoostAttackSpeed = LegacyResourcesAPI.Load<ItemDef>("ItemDefs/BoostAttackSpeed");
+            ItemDef AdaptiveArmor = LegacyResourcesAPI.Load<ItemDef>("ItemDefs/AdaptiveArmor");
+
             //Heresy
             On.RoR2.GenericSkill.SetSkillOverride += FixHeresyForEnemies;
             GameObject InfiniteTowerWaveHeresy = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveDefault.prefab").WaitForCompletion(), "InfiniteTowerWaveHeresy", true);
@@ -338,23 +418,17 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveHeresyUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = HeresyColor;
             InfiniteTowerWaveHeresyUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = HeresyColor;
 
-            InfiniteTowerWaveCategory.WeightedWave ITHeresy = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveHeresy, weight = 6f, prerequisites = SimuMain.Wave11OrGreaterPrerequisite};
+            InfiniteTowerWaveCategory.WeightedWave ITHeresy = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveHeresy, weight = 6f, prerequisites = SimuMain.Wave11OrGreaterPrerequisite };
             //ITHeresy.prerequisites = null;
             //ITHeresy.weight = 20;
             SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(ITHeresy);
-
-        }
-
-        internal static void MakeLater()
-        {
-            ModSupport();
-            //Equipment Drone Boss
-            CreateEquipmentDroneSpawnCards();
-
+            //
+            //
+            //Equipment Drone Boss        
             GameObject InfiniteTowerWaveBossEquipmentDrone = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveBossScav.prefab").WaitForCompletion(), "InfiniteTowerWaveBossEquipmentDrone", true);
             GameObject InfiniteTowerCurrentBossEquipmentDroneWaveUI = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentBossBrotherUI.prefab").WaitForCompletion(), "InfiniteTowerCurrentBossEquipmentDroneWaveUI", false);
 
-            InfiniteTowerWaveBossEquipmentDrone.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList = new InfiniteTowerExplicitSpawnWaveController.SpawnInfo[] { new InfiniteTowerExplicitSpawnWaveController.SpawnInfo { count = 1, spawnCard = AllCSCEquipmentDronesIT[0], spawnDistance = DirectorCore.MonsterSpawnDistance.Standard }, new InfiniteTowerExplicitSpawnWaveController.SpawnInfo { count = 3, spawnCard = AllCSCEquipmentDronesIT[0], spawnDistance = DirectorCore.MonsterSpawnDistance.Far } };
+            InfiniteTowerWaveBossEquipmentDrone.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList = new InfiniteTowerExplicitSpawnWaveController.SpawnInfo[] { new InfiniteTowerExplicitSpawnWaveController.SpawnInfo { count = 1, spawnCard = null, spawnDistance = DirectorCore.MonsterSpawnDistance.Standard }, new InfiniteTowerExplicitSpawnWaveController.SpawnInfo { count = 3, spawnCard = null, spawnDistance = DirectorCore.MonsterSpawnDistance.Far } };
 
             InfiniteTowerWaveBossEquipmentDrone.GetComponent<InfiniteTowerExplicitSpawnWaveController>().baseCredits = 500;
             InfiniteTowerWaveBossEquipmentDrone.GetComponent<InfiniteTowerExplicitSpawnWaveController>().linearCreditsPerWave = 0;
@@ -435,8 +509,8 @@ namespace SimulacrumAdditions
             };
             cscITGhostBoss.name = "cscITGhostBoss";
             cscITGhostBoss.itemsToGrant = new ItemCountPair[] {
-                new ItemCountPair { itemDef = RoR2Content.Items.Ghost, count = 1 },
-                new ItemCountPair { itemDef = RoR2Content.Items.BoostAttackSpeed, count = 2 },
+                new ItemCountPair { itemDef = Ghost, count = 1 },
+                new ItemCountPair { itemDef = BoostAttackSpeed, count = 2 },
                 //new ItemCountPair { itemDef = RoR2Content.Items.Hoof, count = 2 },
                 //new ItemCountPair { itemDef = RoR2Content.Items.LunarBadLuck, count = 1 },
                 new ItemCountPair { itemDef = SimuMain.ITDamageDown, count = 25 },
@@ -450,7 +524,7 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveBossGhostHaunting.GetComponent<InfiniteTowerExplicitSpawnWaveController>().baseCredits = 500;
             InfiniteTowerWaveBossGhostHaunting.GetComponent<InfiniteTowerExplicitSpawnWaveController>().linearCreditsPerWave = 0;
             InfiniteTowerWaveBossGhostHaunting.GetComponent<InfiniteTowerExplicitSpawnWaveController>().secondsBeforeSuddenDeath = 90;
-            InfiniteTowerWaveBossGhostHaunting.AddComponent<SimulacrumExtrasHelper>().newRadius = 80;
+            InfiniteTowerWaveBossGhostHaunting.AddComponent<SimulacrumExtrasHelper>().newRadius = 120;
 
             InfiniteTowerWaveBossGhostHaunting.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Boss;
             InfiniteTowerWaveBossGhostHaunting.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITSpecialBossYellow;
@@ -489,9 +563,9 @@ namespace SimulacrumAdditions
             };
             cscITGhostBasic.name = "cscITGhostBasic";
             cscITGhostBasic.itemsToGrant = new ItemCountPair[] {
-                new ItemCountPair { itemDef = RoR2Content.Items.Ghost, count = 1 },
-                new ItemCountPair { itemDef = RoR2Content.Items.BoostAttackSpeed, count = 3 },
-                new ItemCountPair { itemDef = RoR2Content.Items.Hoof, count = 0 },
+                new ItemCountPair { itemDef = Ghost, count = 1 },
+                new ItemCountPair { itemDef = BoostAttackSpeed, count = 3 },
+                //new ItemCountPair { itemDef = RoR2Content.Items.Hoof, count = 0 },
                 //new ItemCountPair { itemDef = RoR2Content.Items.LunarBadLuck, count = 1 },
                 new ItemCountPair { itemDef = SimuMain.ITDamageDown, count = 15 },
                 new ItemCountPair { itemDef = SimuMain.ITKillOnCompletion, count = 2 },
@@ -534,7 +608,7 @@ namespace SimulacrumAdditions
             GameObject InfiniteTowerWaveBasicEquipmentDroneUI = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentBossWaveUI.prefab").WaitForCompletion(), "InfiniteTowerWaveBasicEquipmentDroneUI", false);
 
 
-            InfiniteTowerWaveBasicEquipmentDrone.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList[0].spawnCard = AllCSCEquipmentDronesIT[0];
+            InfiniteTowerWaveBasicEquipmentDrone.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList[0].spawnCard = null;
             InfiniteTowerWaveBasicEquipmentDrone.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList[0].spawnDistance = DirectorCore.MonsterSpawnDistance.Far;
 
             InfiniteTowerWaveBasicEquipmentDrone.GetComponent<InfiniteTowerExplicitSpawnWaveController>().immediateCreditsFraction = 0.12f;
@@ -772,7 +846,7 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveLeptonUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0.6f, 0.8f, 0.6f, 1);
             InfiniteTowerWaveLeptonUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color(0.8f, 1f, 0.8f, 1);
             
-            InfiniteTowerWaveCategory.WeightedWave ITBasicLepton = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveLepton, weight = 2f, prerequisites = SimuMain.Wave31OrGreaterPrerequisite };
+            InfiniteTowerWaveCategory.WeightedWave ITBasicLepton = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveLepton, weight = 3f, prerequisites = SimuMain.Wave31OrGreaterPrerequisite };
             SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(ITBasicLepton);
             //
             //
@@ -784,69 +858,68 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveSurprise.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
             InfiniteTowerWaveSurprise.GetComponent<InfiniteTowerWaveController>().wavePeriodSeconds = 1;
             InfiniteTowerWaveSurprise.GetComponent<InfiniteTowerWaveController>().immediateCreditsFraction = 1;
-            InfiniteTowerWaveSurprise.GetComponent<CombatDirector>().skipSpawnIfTooCheap = false;
 
             InfiniteTowerWaveSurprise.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWaveSurpriseUI;
             InfiniteTowerWaveSurpriseUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "Wave {0} - Surprise";
             InfiniteTowerWaveSurpriseUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "All credits are spent immediately.";
 
-            InfiniteTowerWaveCategory.WeightedWave ITBasicSurprise = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveSurprise, weight = 1f, prerequisites = SimuMain.Wave26OrGreaterPrerequisite };
+            InfiniteTowerWaveCategory.WeightedWave ITBasicSurprise = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveSurprise, weight = 1.5f, prerequisites = SimuMain.Wave26OrGreaterPrerequisite };
             SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(ITBasicSurprise);
+
+            ModSupport();
         }
 
         internal static void ModSupport()
         {
-            CharacterSpawnCard cscDireseeker = null;
-            CharacterSpawnCard[] CSCList = Object.FindObjectsOfType(typeof(CharacterSpawnCard)) as CharacterSpawnCard[];
-            for (var i = 0; i < CSCList.Length; i++)
-            {
-                //Debug.LogWarning(CSCList[i]);
-                switch (CSCList[i].name)
-                {
-                    case "cscDireseeker":
-                        cscDireseeker = CSCList[i];
-                        break;
-                }
-            }
             //Could do NemMando NemMerc but idk they'd just fucking die like in the regular game
 
+            //Minor Mod - DireSeeker
+            GameObject InfiniteTowerWaveBossDireseeker = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveBossScav.prefab").WaitForCompletion(), "InfiniteTowerWaveBossDireseeker", true);
+            GameObject InfiniteTowerCurrentBossDireseekerWaveUI = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentBossWaveUI.prefab").WaitForCompletion(), "InfiniteTowerCurrentBossDireseekerWaveUI", false);
 
-            if (cscDireseeker)
-            {
-                //Minor Mod - DireSeeker
-                GameObject InfiniteTowerWaveBossDireseeker = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveBossScav.prefab").WaitForCompletion(), "InfiniteTowerWaveBossDireseeker", true);
-                GameObject InfiniteTowerCurrentBossDireseekerWaveUI = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentBossWaveUI.prefab").WaitForCompletion(), "InfiniteTowerCurrentBossDireseekerWaveUI", false);
+            InfiniteTowerWaveBossDireseeker.GetComponent<InfiniteTowerExplicitSpawnWaveController>().immediateCreditsFraction = 0.15f;
+            InfiniteTowerWaveBossDireseeker.GetComponent<InfiniteTowerExplicitSpawnWaveController>().baseCredits = 150;
+            InfiniteTowerWaveBossDireseeker.GetComponent<InfiniteTowerExplicitSpawnWaveController>().linearCreditsPerWave = 5; //Evens out at 400 for wave 50
+            InfiniteTowerWaveBossDireseeker.GetComponent<InfiniteTowerExplicitSpawnWaveController>().secondsBeforeSuddenDeath = 120;
 
-                CharacterSpawnCard cscDireseekerIT = Object.Instantiate(cscDireseeker);
-                cscDireseekerIT.name = "cscDireseekerIT";
-                cscDireseekerIT.itemsToGrant = new ItemCountPair[] { new ItemCountPair { itemDef = RoR2Content.Items.AdaptiveArmor, count = 1 } };
-                InfiniteTowerWaveBossDireseeker.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList[0].spawnCard = cscDireseekerIT;
+            InfiniteTowerWaveBossDireseeker.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier3;
+            InfiniteTowerWaveBossDireseeker.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITWaveTier3;
 
-                InfiniteTowerWaveBossDireseeker.GetComponent<InfiniteTowerExplicitSpawnWaveController>().immediateCreditsFraction = 0.15f;
-                InfiniteTowerWaveBossDireseeker.GetComponent<InfiniteTowerExplicitSpawnWaveController>().baseCredits = 150;
-                InfiniteTowerWaveBossDireseeker.GetComponent<InfiniteTowerExplicitSpawnWaveController>().linearCreditsPerWave = 5; //Evens out at 400 for wave 50
-                InfiniteTowerWaveBossDireseeker.GetComponent<InfiniteTowerExplicitSpawnWaveController>().secondsBeforeSuddenDeath = 120;
+            InfiniteTowerWaveBossDireseeker.AddComponent<SimulacrumExtrasHelper>().newRadius = 80;
+            InfiniteTowerWaveBossDireseeker.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<DirectorCardCategorySelection>(key: "RoR2/Base/dampcave/dccsDampCaveMonstersDLC1.asset").WaitForCompletion();
 
-                InfiniteTowerWaveBossDireseeker.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier3;
-                InfiniteTowerWaveBossDireseeker.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITWaveTier3;
+            InfiniteTowerWaveBossDireseeker.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerCurrentBossDireseekerWaveUI;
 
-                InfiniteTowerWaveBossDireseeker.AddComponent<SimulacrumExtrasHelper>().newRadius = 80;
-                InfiniteTowerWaveBossDireseeker.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<DirectorCardCategorySelection>(key: "RoR2/Base/dampcave/dccsDampCaveMonstersDLC1.asset").WaitForCompletion();
+            InfiniteTowerCurrentBossDireseekerWaveUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "Wave {0} - Boss Augment of the Direseeker";
+            InfiniteTowerCurrentBossDireseekerWaveUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "Track and Kill.";
 
-                InfiniteTowerWaveBossDireseeker.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerCurrentBossDireseekerWaveUI;
+            //InfiniteTowerCurrentBossDireseekerWaveUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color = new Color(0f, 1f, 0.76f, 1);
+            //InfiniteTowerCurrentBossDireseekerWaveUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0f, 0.9f, 0.6f, 1);
+            //InfiniteTowerCurrentBossDireseekerWaveUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color(0f, 0.6f, 0.6f, 1);
 
-                InfiniteTowerCurrentBossDireseekerWaveUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "Wave {0} - Boss Augment of the Direseeker";
-                InfiniteTowerCurrentBossDireseekerWaveUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "Track and Kill.";
+            InfiniteTowerWaveCategory.WeightedWave ITBossDireseeker = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveBossDireseeker, weight = 4f, prerequisites = SimuMain.Wave11OrGreaterPrerequisite };
+            SimuMain.ITModSupportWaves.wavePrefabs = SimuMain.ITModSupportWaves.wavePrefabs.Add(ITBossDireseeker);
+            //
+            //
+            //Will need to see what Empyrean Elites actually do
+            GameObject InfiniteTowerWaveSS2RainbowElites = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveArtifactBomb.prefab").WaitForCompletion(), "InfiniteTowerWaveSS2RainbowElites", true);
+            GameObject InfiniteTowerCurrentSS2RainbowElitesWaveUI = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentArtifactBombWaveUI.prefab").WaitForCompletion(), "InfiniteTowerCurrentSS2RainbowElitesWaveUI", false);
 
-                //InfiniteTowerCurrentBossDireseekerWaveUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color = new Color(0f, 1f, 0.76f, 1);
-                //InfiniteTowerCurrentBossDireseekerWaveUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0f, 0.9f, 0.6f, 1);
-                //InfiniteTowerCurrentBossDireseekerWaveUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color(0f, 0.6f, 0.6f, 1);
+            InfiniteTowerWaveSS2RainbowElites.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITBasicBonusGreen;
+            InfiniteTowerWaveSS2RainbowElites.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier2;
+            InfiniteTowerWaveSS2RainbowElites.GetComponent<InfiniteTowerWaveController>().immediateCreditsFraction = 0.5f;
+            InfiniteTowerWaveSS2RainbowElites.GetComponent<CombatDirector>().eliteBias = 0.25f;
 
-                InfiniteTowerWaveCategory.WeightedWave ITBossDireseeker = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveBossDireseeker, weight = 4f, prerequisites = SimuMain.Wave11OrGreaterPrerequisite };
-                SimuMain.ITBossWaves.wavePrefabs = SimuMain.ITBossWaves.wavePrefabs.Add(ITBossDireseeker);
-                //
-            }
+            InfiniteTowerWaveSS2RainbowElites.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerCurrentSS2RainbowElitesWaveUI;
+            //InfiniteTowerCurrentSS2RainbowElitesWaveUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = SS2Cognation.smallIconSelectedSprite;
+            InfiniteTowerCurrentSS2RainbowElitesWaveUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "Wave {0} - Augment of Empyrean";
+            InfiniteTowerCurrentSS2RainbowElitesWaveUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "Elites spawn as Empyrean.";
+            InfiniteTowerCurrentSS2RainbowElitesWaveUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color = new Color(1f, 0.8f, 1f);
+            InfiniteTowerCurrentSS2RainbowElitesWaveUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 0.8f, 1f);
+            InfiniteTowerCurrentSS2RainbowElitesWaveUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color(1f, 0.5f, 1f);
 
+            InfiniteTowerWaveCategory.WeightedWave ITBasicSS2RainbowElites = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveSS2RainbowElites, weight = 1.5f };
+            SimuMain.ITModSupportWaves.wavePrefabs = SimuMain.ITModSupportWaves.wavePrefabs.Add(ITBasicSS2RainbowElites);
         }
 
         private static void FixHeresyForEnemies(On.RoR2.GenericSkill.orig_SetSkillOverride orig, GenericSkill self, object source, RoR2.Skills.SkillDef skillDef, GenericSkill.SkillOverridePriority priority)

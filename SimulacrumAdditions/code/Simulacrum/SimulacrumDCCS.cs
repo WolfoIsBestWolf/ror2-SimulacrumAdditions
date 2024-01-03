@@ -26,6 +26,25 @@ namespace SimulacrumAdditions
             Enemies();
         }
 
+        public static void CreditsRebalance(On.RoR2.InfiniteTowerRun.orig_OnPrePopulateSceneServer orig, InfiniteTowerRun self, SceneDirector sceneDirector)
+        {
+            orig(self, sceneDirector);
+            int players = Run.instance.participatingPlayerCount - 1;
+            if (self.waveIndex < 39) //First 4 stages
+            {
+                sceneDirector.interactableCredit += System.Math.Max(0, 90 - self.waveIndex / 10 * 30);
+            }
+            else //Late game where you can clear most of the stage anyways
+            {
+                sceneDirector.interactableCredit += System.Math.Max(-200, 150 - self.waveIndex / 10 * 50);
+            }
+            sceneDirector.interactableCredit += players * 150;
+
+
+            Debug.Log("InfiniteTower " + sceneDirector.interactableCredit + " interactable credits. ");
+        }
+
+
         public static void MakeITSand(bool makeITSand)
         {
             Material matShrineChanceSandy = Addressables.LoadAssetAsync<Material>(key: "RoR2/Base/ShrineChance/matShrineChanceSandy.mat").WaitForCompletion();

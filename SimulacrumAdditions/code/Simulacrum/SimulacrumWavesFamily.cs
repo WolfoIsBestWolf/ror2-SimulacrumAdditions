@@ -217,7 +217,7 @@ namespace SimulacrumAdditions
                 CombatDirector combatdirector = ITFamilyWaves[i].GetComponent<CombatDirector>();
                 temp.baseCredits *= 1.26f;
                 temp.immediateCreditsFraction = 0.4f;
-                combatdirector.skipSpawnIfTooCheap = false;
+                //combatdirector.skipSpawnIfTooCheap = false;
             }
 
             Color FamilyEventIconColor = new Color(1f, 1f, 0.75f, 1);
@@ -245,13 +245,16 @@ namespace SimulacrumAdditions
             InfiniteTowerCurrentWaveUIFamilyGup.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = texITWaveGupIconBasicS;
             InfiniteTowerCurrentWaveUIFamilyGup.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = FamilyEventIconColor;
             InfiniteTowerCurrentWaveUIFamilyGup.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = FamilyEventOutlineColor;
+
+            LGTFamily();
         }
 
 
 
 
-        public static void ModSupport()
+        public static void LGTFamily()
         {
+            //Are loaded by the time I add the mod
             //Modded Families
             GameObject InfiniteTowerWaveFamilyClay = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveDefault.prefab").WaitForCompletion(), "InfiniteTowerWaveFamilyClay", true);
             GameObject InfiniteTowerCurrentWaveUIFamilyClay = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentWaveUI.prefab").WaitForCompletion(), "InfiniteTowerCurrentWaveUIFamilyClay", false);
@@ -318,7 +321,7 @@ namespace SimulacrumAdditions
                 CombatDirector combatdirector = ITFamilyWaves[i].GetComponent<CombatDirector>();
                 temp.baseCredits *= 1.26f;
                 temp.immediateCreditsFraction = 0.4f;
-                combatdirector.skipSpawnIfTooCheap = false;
+                //combatdirector.skipSpawnIfTooCheap = false;
             }
 
             Color FamilyEventIconColor = new Color(1f, 1f, 0.75f, 1);
@@ -334,8 +337,10 @@ namespace SimulacrumAdditions
             InfiniteTowerCurrentWaveUIFamilyWorms.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color *= FamilyEventIconColor;
             InfiniteTowerCurrentWaveUIFamilyWorms.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color *= FamilyEventIconColor;
             InfiniteTowerCurrentWaveUIFamilyWorms.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color *= FamilyEventOutlineColor;
-            //
+            //ITFamilyWaveWeight
+
             float ITFamilyWaveWeight = 0.85f;
+
             FamilyDirectorCardCategorySelection[] FamilyDCCSs = UnityEngine.Object.FindObjectsOfType(typeof(RoR2.FamilyDirectorCardCategorySelection)) as RoR2.FamilyDirectorCardCategorySelection[];
             for (var i = 0; i < FamilyDCCSs.Length; i++)
             {
