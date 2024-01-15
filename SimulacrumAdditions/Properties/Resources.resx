@@ -118,14 +118,26 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="ArtifactOff" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>artifact\ArtifactOff.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ArtifactOn" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>artifact\ArtifactOn.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="GiantGupBody" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>GiantGupBody.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="texDifficultyEclipse8Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>texDifficultyEclipse8Icon.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="texItEquipmentBasic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>texItEquipmentBasic.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="texITEquipmentBoss" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>texITEquipmentBoss.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="texItFamilyBasic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>texItFamilyBasic.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="texITHaunted" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>texITHaunted.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -135,6 +147,9 @@
   </data>
   <data name="texITWaveBossIconMountain" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>texITWaveBossIconMountain.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="texITWaveDefaultWhite" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>texITWaveDefaultWhite.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="texITWaveGupIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>texITWaveGupIcon.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -159,5 +174,17 @@
   </data>
   <data name="texITWaveTitanGoldIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>texITWaveTitanGoldIcon.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="texRampPulseLunar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>texRampPulseLunar.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="texRampPulseNoHeal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>texRampPulseNoHeal.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="texRampPulseSuck" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>texRampPulseSuck.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="texRampPulseVoid" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>texRampPulseVoid.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

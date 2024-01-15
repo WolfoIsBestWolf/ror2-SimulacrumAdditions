@@ -30,17 +30,19 @@ namespace SimulacrumAdditions
         {
             orig(self, sceneDirector);
             int players = Run.instance.participatingPlayerCount - 1;
-            if (self.waveIndex < 39) //First 4 stages
-            {
-                sceneDirector.interactableCredit += System.Math.Max(0, 90 - self.waveIndex / 10 * 30);
-            }
-            else //Late game where you can clear most of the stage anyways
-            {
-                sceneDirector.interactableCredit += System.Math.Max(-200, 150 - self.waveIndex / 10 * 50);
-            }
             sceneDirector.interactableCredit += players * 150;
-
-
+            if (self.waveIndex < 40) //First 4 stages
+            {
+                sceneDirector.interactableCredit += 30; //630
+            }
+            else if (self.waveIndex >= 60)//Stage 7+
+            {
+                sceneDirector.interactableCredit = (int)(sceneDirector.interactableCredit * 0.55f); //450
+            }
+            else if (self.waveIndex >= 40) //Stage 5/6
+            {
+                sceneDirector.interactableCredit = (int)(sceneDirector.interactableCredit * 0.75f); //450
+            }
             Debug.Log("InfiniteTower " + sceneDirector.interactableCredit + " interactable credits. ");
         }
 
@@ -129,10 +131,20 @@ namespace SimulacrumAdditions
 
 
             //To prevent infinite loops with Sacrifice
-            InteractableSpawnCard SafteyBarrel = Object.Instantiate(Addressables.LoadAssetAsync<InteractableSpawnCard>(key: "RoR2/DLC1/VoidCoinBarrel/iscVoidCoinBarrel.asset").WaitForCompletion());
+            InteractableSpawnCard VoidCoinBarrel = Object.Instantiate(Addressables.LoadAssetAsync<InteractableSpawnCard>(key: "RoR2/DLC1/VoidCoinBarrel/iscVoidCoinBarrel.asset").WaitForCompletion());
+            VoidCoinBarrel.directorCreditCost = 1;
+            VoidCoinBarrel.name = "iscVoidCoinBarrelIT";
+            VoidCoinBarrel.skipSpawnWhenSacrificeArtifactEnabled = true;
+
+            InteractableSpawnCard SafteyBarrel = Object.Instantiate(VoidCoinBarrel);
             SafteyBarrel.directorCreditCost = 1;
-            SafteyBarrel.name = "iscVoidCoinBarrelIT";
+            SafteyBarrel.name = "iscVoidCoinBarrelITSacrifice";
             SafteyBarrel.skipSpawnWhenSacrificeArtifactEnabled = false;
+            SafteyBarrel.weightScalarWhenSacrificeArtifactEnabled = 0.5f;
+
+            InteractableSpawnCard GoldChestLimited = Object.Instantiate(Addressables.LoadAssetAsync<InteractableSpawnCard>(key: "RoR2/Base/GoldChest/iscGoldChest.asset").WaitForCompletion());
+            GoldChestLimited.maxSpawnsPerStage = 1;
+            GoldChestLimited.name = "iscGoldChestIT";
 
             /*
             --[0]--Chests--  wt:45
@@ -169,11 +181,22 @@ namespace SimulacrumAdditions
                 spawnCard = Addressables.LoadAssetAsync<SpawnCard>(key: "RoR2/DLC1/VoidTriple/iscVoidTriple.asset").WaitForCompletion(),
                 selectionWeight = 3,
             };
+
+            DirectorCard ADVoidChestSacrifice = new DirectorCard
+            {
+                spawnCard = Addressables.LoadAssetAsync<SpawnCard>(key: "RoR2/DLC1/VoidChest/iscVoidChestSacrificeOn.asset").WaitForCompletion(),
+                selectionWeight = 1,
+            };
             //To prevent softlocks with sacrfice or other credits manipulators
             DirectorCard ADVoidCoinBarrel = new DirectorCard
             {
+                spawnCard = VoidCoinBarrel,
+                selectionWeight = 110,
+            };
+            DirectorCard ADSafteyBarrel = new DirectorCard
+            {
                 spawnCard = SafteyBarrel,
-                selectionWeight = 90,
+                selectionWeight = 1,
             };
 
             if (WConfig.cfgVoidCoins.Value)
@@ -185,7 +208,6 @@ namespace SimulacrumAdditions
             dccsInfiniteTowerInteractables.categories[0].cards[2].selectionWeight -= 5; //Eq Barrel
             dccsInfiniteTowerInteractables.categories[0].cards[4].selectionWeight -= 10; //Triple
             dccsInfiniteTowerInteractables.categories[0].cards[5].selectionWeight -= 10; //Eq triple
-
             dccsInfiniteTowerInteractables.AddCard(0, ADVoidCoinBarrel);
 
             dccsInfiniteTowerInteractables.categories[1].selectionWeight = 2f;
@@ -193,7 +215,9 @@ namespace SimulacrumAdditions
             dccsInfiniteTowerInteractables.categories[2].selectionWeight = 0.5f;
             dccsInfiniteTowerInteractables.categories[2].cards[0].minimumStageCompletions = 1;
             dccsInfiniteTowerInteractables.categories[2].cards[1].minimumStageCompletions = 1; //No red chest stage 1 ig
-;
+            dccsInfiniteTowerInteractables.AddCard(2, ADSafteyBarrel);
+            dccsInfiniteTowerInteractables.AddCard(2, ADVoidChestSacrifice);
+
             dccsInfiniteTowerInteractables.categories[3].cards[1].selectionWeight = 8;
             dccsInfiniteTowerInteractables.categories[3].cards[2].selectionWeight = 2;
             dccsInfiniteTowerInteractables.categories[3].cards[3].selectionWeight = 3;
@@ -304,12 +328,12 @@ namespace SimulacrumAdditions
             DirectorCard ADSoupGreenRed = new DirectorCard
             {
                 spawnCard = SoupGreenRedISC,
-                selectionWeight = 10,
+                selectionWeight = 15,
             };
             DirectorCard ADSoupRedWhite = new DirectorCard
             {
                 spawnCard = SoupRedWhiteISC,
-                selectionWeight = 8,
+                selectionWeight = 10,
             };
 
             DirectorCard ADShrineCleanseSand = new DirectorCard
@@ -379,13 +403,14 @@ namespace SimulacrumAdditions
             dccsITMoonInteractablesW.categories[1].selectionWeight = 3f; // Order
             dccsITMoonInteractablesW.categories[1].cards[0] = ADShrineOrder;
             dccsITMoonInteractablesW.categories[2].selectionWeight *= 4;
-            dccsITMoonInteractablesW.categories[2].cards = dccsITMoonInteractablesW.categories[2].cards.Remove(dccsITMoonInteractablesW.categories[2].cards[0]);
+            dccsITMoonInteractablesW.categories[2].cards = dccsITMoonInteractablesW.categories[2].cards.Remove(dccsITMoonInteractablesW.categories[2].cards[0]); //No Cloaked
+            dccsITMoonInteractablesW.categories[2].cards[0].spawnCard = GoldChestLimited;
             dccsITMoonInteractablesW.categories[3].selectionWeight += 4; //Soups
             dccsITMoonInteractablesW.categories[3].cards = dccsITMoonInteractablesW.categories[3].cards.Remove(dccsITMoonInteractablesW.categories[3].cards[3], dccsITMoonInteractablesW.categories[3].cards[2], dccsITMoonInteractablesW.categories[3].cards[1], dccsITMoonInteractablesW.categories[3].cards[0]);
             dccsITMoonInteractablesW.AddCard(3, ADSoupRedWhite);
             dccsITMoonInteractablesW.AddCard(3, ADSoupGreenRed);
             dccsITMoonInteractablesW.AddCard(3, ADSoupWhiteGreen);       
-            dccsITMoonInteractablesW.categories[4].selectionWeight *= 2; //More Void StuffS
+            dccsITMoonInteractablesW.categories[4].selectionWeight += 4; //More Void StuffS
            if (dccsITMoonInteractablesW.categories[2].cards.Length >= 3)
            {
                 dccsITMoonInteractablesW.categories[2].cards[1].selectionWeight = 4;
@@ -422,7 +447,7 @@ namespace SimulacrumAdditions
                         break;
                     case "itmoon":
                         ClassicStageInfo.instance.interactableCategories = dccsITMoonInteractablesW;
-                        //sceneDirector.interactableCredit += 50;
+                        sceneDirector.interactableCredit += 50;
                         GameObject MoonArenaDynamicPillar = GameObject.Find("/HOLDER: Stage");
                         if (MoonArenaDynamicPillar)
                         {
@@ -460,6 +485,50 @@ namespace SimulacrumAdditions
 
                         }
                         break;
+                }
+            }
+        }
+
+        public static void ITMoonExtras(On.RoR2.SceneDirector.orig_Start orig, global::RoR2.SceneDirector self)
+        {
+            orig(self);
+            if (SceneInfo.instance && SceneInfo.instance.sceneDef.baseSceneName.StartsWith("itmoon"))
+            {
+                GameObject MoonArenaDynamicPillar = GameObject.Find("/HOLDER: Stage");
+                if (MoonArenaDynamicPillar)
+                {
+                    Vector3 mooncolumnlocalpos = new Vector3(7.2f, -1.08f, 0f);
+                    Vector3 mooncolumnrotation = new Vector3(270.0198f, 0f, 0f);
+                    Vector3 mooncolumnlocalscale = new Vector3(1f, 1f, 1f);
+
+                    Vector3 borderScale = new Vector3(1.774f, 0.32f, 1.774f);
+
+                    MoonArenaDynamicPillar.transform.GetChild(1).GetChild(0).gameObject.SetActive(true);
+                    for (int i = 0; i < MoonArenaDynamicPillar.transform.GetChild(1).GetChild(0).childCount; i++)
+                    {
+                        MoonArenaDynamicPillar.transform.GetChild(1).GetChild(0).GetChild(i).localScale = borderScale;
+                    }
+
+                    MoonArenaDynamicPillar.transform.GetChild(2).GetChild(0).gameObject.SetActive(true);
+                    MoonArenaDynamicPillar.transform.GetChild(2).GetChild(0).localPosition = mooncolumnlocalpos;
+                    MoonArenaDynamicPillar.transform.GetChild(2).GetChild(0).localEulerAngles = mooncolumnrotation;
+                    MoonArenaDynamicPillar.transform.GetChild(2).GetChild(0).localScale = mooncolumnlocalscale;
+
+                    MoonArenaDynamicPillar.transform.GetChild(3).GetChild(0).gameObject.SetActive(true);
+                    MoonArenaDynamicPillar.transform.GetChild(3).GetChild(0).localPosition = mooncolumnlocalpos;
+                    MoonArenaDynamicPillar.transform.GetChild(3).GetChild(0).localEulerAngles = mooncolumnrotation;
+                    MoonArenaDynamicPillar.transform.GetChild(3).GetChild(0).localScale = mooncolumnlocalscale;
+
+                    MoonArenaDynamicPillar.transform.GetChild(4).GetChild(0).gameObject.SetActive(true);
+                    MoonArenaDynamicPillar.transform.GetChild(4).GetChild(0).localPosition = mooncolumnlocalpos;
+                    MoonArenaDynamicPillar.transform.GetChild(4).GetChild(0).localEulerAngles = mooncolumnrotation;
+                    MoonArenaDynamicPillar.transform.GetChild(4).GetChild(0).localScale = mooncolumnlocalscale;
+
+                    MoonArenaDynamicPillar.transform.GetChild(5).GetChild(0).gameObject.SetActive(true);
+                    MoonArenaDynamicPillar.transform.GetChild(5).GetChild(0).localPosition = mooncolumnlocalpos;
+                    MoonArenaDynamicPillar.transform.GetChild(5).GetChild(0).localEulerAngles = mooncolumnrotation;
+                    MoonArenaDynamicPillar.transform.GetChild(5).GetChild(0).localScale = mooncolumnlocalscale;
+
                 }
             }
         }
@@ -542,7 +611,7 @@ namespace SimulacrumAdditions
                 spawnCard = Addressables.LoadAssetAsync<CharacterSpawnCard>(key: "RoR2/DLC1/VoidBarnacle/cscVoidBarnacle.asset").WaitForCompletion(),
                 selectionWeight = 2,
                 preventOverhead = true,
-                minimumStageCompletions = 2,
+                minimumStageCompletions = 0,
                 spawnDistance = DirectorCore.MonsterSpawnDistance.Standard
             };
             DirectorCard SimuLoopVoidReaver = new DirectorCard
@@ -550,7 +619,7 @@ namespace SimulacrumAdditions
                 spawnCard = Addressables.LoadAssetAsync<CharacterSpawnCard>(key: "RoR2/Base/Nullifier/cscNullifier.asset").WaitForCompletion(),
                 selectionWeight = 3,
                 preventOverhead = true,
-                minimumStageCompletions = 2,
+                minimumStageCompletions = 0,
                 spawnDistance = DirectorCore.MonsterSpawnDistance.Standard
             };
             DirectorCard SimuLoopVoidJailer = new DirectorCard
@@ -558,7 +627,7 @@ namespace SimulacrumAdditions
                 spawnCard = Addressables.LoadAssetAsync<CharacterSpawnCard>(key: "RoR2/DLC1/VoidJailer/cscVoidJailer.asset").WaitForCompletion(),
                 selectionWeight = 3,
                 preventOverhead = true,
-                minimumStageCompletions = 3,
+                minimumStageCompletions = 2,
                 spawnDistance = DirectorCore.MonsterSpawnDistance.Standard
             };
             DirectorCard SimuLoopVoidDevestator = new DirectorCard
@@ -566,7 +635,7 @@ namespace SimulacrumAdditions
                 spawnCard = Addressables.LoadAssetAsync<CharacterSpawnCard>(key: "RoR2/DLC1/VoidMegaCrab/cscVoidMegaCrab.asset").WaitForCompletion(),
                 selectionWeight = 2,
                 preventOverhead = true,
-                minimumStageCompletions = 3,
+                minimumStageCompletions = 2,
                 spawnDistance = DirectorCore.MonsterSpawnDistance.Standard
             };
             DirectorCard SimuLoopMiniMushroom = new DirectorCard
@@ -656,7 +725,7 @@ namespace SimulacrumAdditions
 
             dccsITSkyMeadowMonsters.AddCard(1, SimuLoopGreaterWisp); //Match vanilla
 
-            dccsITMoonMonsters.categories[0].selectionWeight += 1;
+            dccsITMoonMonsters.categories[0].selectionWeight += 2;
             dccsITMoonMonsters.AddCategory("Minibosses", 1);
             dccsITMoonMonsters.AddCard(1, SimuLoopVoidDevestator);
             dccsITMoonMonsters.AddCard(1, SimuLoopVoidReaver);
@@ -685,7 +754,7 @@ namespace SimulacrumAdditions
             {
                 spawnCard = Addressables.LoadAssetAsync<CharacterSpawnCard>(key: "RoR2/DLC1/VoidMegaCrab/cscVoidMegaCrab.asset").WaitForCompletion(),
                 selectionWeight = 1,
-                minimumStageCompletions = 7,
+                minimumStageCompletions = 8,
                 spawnDistance = DirectorCore.MonsterSpawnDistance.Standard
             };
 
@@ -698,26 +767,26 @@ namespace SimulacrumAdditions
                 dccsITDampCaveMonsters.AddCategory("LateVoid", 1);
                 dccsITSkyMeadowMonsters.AddCategory("LateVoid", 1);
 
-                dccsITGolemplainsMonsters.AddCard(3, LateVoidReaver);
-                dccsITGooLakeMonsters.AddCard(3, LateVoidReaver);
-                dccsITAncientLoftMonsters.AddCard(3, LateVoidReaver);
-                dccsITFrozenWallMonsters.AddCard(3, LateVoidReaver);
-                dccsITDampCaveMonsters.AddCard(3, LateVoidReaver);
-                dccsITSkyMeadowMonsters.AddCard(3, LateVoidReaver);
+                dccsITGolemplainsMonsters.AddCard(4, LateVoidReaver);
+                dccsITGooLakeMonsters.AddCard(4, LateVoidReaver);
+                dccsITAncientLoftMonsters.AddCard(4, LateVoidReaver);
+                dccsITFrozenWallMonsters.AddCard(4, LateVoidReaver);
+                dccsITDampCaveMonsters.AddCard(4, LateVoidReaver);
+                dccsITSkyMeadowMonsters.AddCard(4, LateVoidReaver);
 
-                dccsITGolemplainsMonsters.AddCard(3, LateVoidJailer);
-                dccsITGooLakeMonsters.AddCard(3, LateVoidJailer);
-                dccsITAncientLoftMonsters.AddCard(3, LateVoidJailer);
-                dccsITFrozenWallMonsters.AddCard(3, LateVoidJailer);
-                dccsITDampCaveMonsters.AddCard(3, LateVoidJailer);
-                dccsITSkyMeadowMonsters.AddCard(3, LateVoidJailer);
+                dccsITGolemplainsMonsters.AddCard(4, LateVoidJailer);
+                dccsITGooLakeMonsters.AddCard(4, LateVoidJailer);
+                dccsITAncientLoftMonsters.AddCard(4, LateVoidJailer);
+                dccsITFrozenWallMonsters.AddCard(4, LateVoidJailer);
+                dccsITDampCaveMonsters.AddCard(4, LateVoidJailer);
+                dccsITSkyMeadowMonsters.AddCard(4, LateVoidJailer);
 
-                dccsITGolemplainsMonsters.AddCard(3, LateVoidDevestator);
-                dccsITGooLakeMonsters.AddCard(3, LateVoidDevestator);
-                dccsITAncientLoftMonsters.AddCard(3, LateVoidDevestator);
-                dccsITFrozenWallMonsters.AddCard(3, LateVoidDevestator);
-                dccsITDampCaveMonsters.AddCard(3, LateVoidDevestator);
-                dccsITSkyMeadowMonsters.AddCard(3, LateVoidDevestator);
+                dccsITGolemplainsMonsters.AddCard(4, LateVoidDevestator);
+                dccsITGooLakeMonsters.AddCard(4, LateVoidDevestator);
+                dccsITAncientLoftMonsters.AddCard(4, LateVoidDevestator);
+                dccsITFrozenWallMonsters.AddCard(4, LateVoidDevestator);
+                dccsITDampCaveMonsters.AddCard(4, LateVoidDevestator);
+                dccsITSkyMeadowMonsters.AddCard(4, LateVoidDevestator);
             }
 
         }

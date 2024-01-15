@@ -63,9 +63,39 @@ namespace SimulacrumAdditions.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        public static byte[] ArtifactOff {
+            get {
+                object obj = ResourceManager.GetObject("ArtifactOff", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] ArtifactOn {
+            get {
+                object obj = ResourceManager.GetObject("ArtifactOn", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         public static byte[] GiantGupBody {
             get {
                 object obj = ResourceManager.GetObject("GiantGupBody", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] texDifficultyEclipse8Icon {
+            get {
+                object obj = ResourceManager.GetObject("texDifficultyEclipse8Icon", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -86,6 +116,16 @@ namespace SimulacrumAdditions.Properties {
         public static byte[] texITEquipmentBoss {
             get {
                 object obj = ResourceManager.GetObject("texITEquipmentBoss", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] texItFamilyBasic {
+            get {
+                object obj = ResourceManager.GetObject("texItFamilyBasic", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -116,6 +156,16 @@ namespace SimulacrumAdditions.Properties {
         public static byte[] texITWaveBossIconMountain {
             get {
                 object obj = ResourceManager.GetObject("texITWaveBossIconMountain", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] texITWaveDefaultWhite {
+            get {
+                object obj = ResourceManager.GetObject("texITWaveDefaultWhite", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -196,6 +246,46 @@ namespace SimulacrumAdditions.Properties {
         public static byte[] texITWaveTitanGoldIcon {
             get {
                 object obj = ResourceManager.GetObject("texITWaveTitanGoldIcon", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] texRampPulseLunar {
+            get {
+                object obj = ResourceManager.GetObject("texRampPulseLunar", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] texRampPulseNoHeal {
+            get {
+                object obj = ResourceManager.GetObject("texRampPulseNoHeal", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] texRampPulseSuck {
+            get {
+                object obj = ResourceManager.GetObject("texRampPulseSuck", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] texRampPulseVoid {
+            get {
+                object obj = ResourceManager.GetObject("texRampPulseVoid", resourceCulture);
                 return ((byte[])(obj));
             }
         }

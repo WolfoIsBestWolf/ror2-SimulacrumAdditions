@@ -53,7 +53,7 @@ namespace SimulacrumAdditions
             //Giant Gup gets special scaling in IT
             //Also remember he has Shiny Pearl
             //GiantCharacterBody.baseDamage *= 1f;
-            GiantCharacterBody.baseMaxHealth *= 1.5f; //Base Health is 1000
+            GiantCharacterBody.baseMaxHealth *= 1.4f; //Base Health is 1000
             GiantCharacterBody.baseDamage *= 1.3f;
 
             GiantCharacterBody.baseAttackSpeed *= 0.55f;
@@ -64,11 +64,13 @@ namespace SimulacrumAdditions
 
             //
             bool wasAdded;
+            ContentAddition.AddEntityState<PulseWaveState>(out wasAdded);
+ 
             SerializableEntityStateType GiantGupDeathState = ContentAddition.AddEntityState<GiantGupSplitDeath>(out wasAdded);
             GiantBody.GetComponent<RoR2.CharacterDeathBehavior>().deathState = GiantGupDeathState;
             //Visuals
             GameObject mdlGup = GiantBody.transform.GetChild(0).GetChild(0).gameObject;
-            mdlGup.transform.localScale = new Vector3(4, 4, 4);
+            mdlGup.transform.localScale = new Vector3(3.5f, 3.5f, 3.5f);
 
             mdlGup.GetComponent<ModelPanelParameters>().minDistance = 5;
             mdlGup.GetComponent<ModelPanelParameters>().maxDistance = 9;
@@ -146,7 +148,7 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveBossGiantGupUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "Wave {0} - Boss Augment of the Giant";
             InfiniteTowerWaveBossGiantGupUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "Goodness Gracious.";
             //
-            RoR2.InfiniteTowerWaveCategory.WeightedWave ITGiantGup = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveBossGiantGup, weight = 6, prerequisites = SimuMain.Wave11OrGreaterPrerequisite };
+            RoR2.InfiniteTowerWaveCategory.WeightedWave ITGiantGup = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveBossGiantGup, weight = 7, prerequisites = SimuMain.StartWave20Prerequisite };
             SimuMain.ITBossWaves.wavePrefabs = SimuMain.ITBossWaves.wavePrefabs.Add(ITGiantGup);
 
             /*ITGiantGup.weight = 25;
@@ -164,9 +166,9 @@ namespace SimulacrumAdditions
         public static CharacterSpawnCard geepCard = RoR2.LegacyResourcesAPI.Load<CharacterSpawnCard>("SpawnCards/CharacterSpawnCards/cscGeepBody");
         public static CharacterSpawnCard gipCard = RoR2.LegacyResourcesAPI.Load<CharacterSpawnCard>("SpawnCards/CharacterSpawnCards/cscGipBody");
 
-        public int gupCount = 4;
+        public int gupCount = 3;
         public int geepCount = 6;
-        public int gipCount = 10;
+        public int gipCount = 9;
 
         //public CharacterSpawnCard characterSpawnCard
         //public int spawnCount

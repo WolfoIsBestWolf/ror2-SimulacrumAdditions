@@ -2,23 +2,24 @@
 Starting on wave 50, every stage a ending portal will spawn to end a run peacefully.  
 A super boss wave (such as Mithrix) will be forced on wave 50, reoccuring every 30 waves. (they can still occur randomly).  
 This makes getting to wave 50 a set goal and makes the gamemode "beatable".  
-One of these runs should take around an hour and counts as a win.  
+One of these runs should take around an hour (similiar to loop Mithrix) and counts as a win.  
 
 Adds a large amount of Augments\
 Basic Waves:  
--Added 12 Family Event Augments.   
+-Added 13 Family Event Augments.   
 -Added 5 Artifact Augments.   
 -Added 3 Elite Augments.  
--Added 11 Other Augments.  
+-Added 7 Item Augments.
+-Added 15 Other Augments.  
 
--In total raises Basic Augment count from 9 to 40 (+7 with supported mods).
+-In total raises Basic Augment count from 9 to 52 (+8 with supported mods).
 
 Boss Waves:  
--Added 7 Special Boss Augments.  
+-Added 6 Special Boss Augments.  
 -Added 4 Aritfact Boss Augments.  
--Added 4 Other Boss Augments.  
+-Added 8 Other Boss Augments.  
 
--In total raises Boss Augment count from 5 to 20 (+2 with supported mods).
+-In total raises Boss Augment count from 5 to 23 (+2 with supported mods).
 
 Every stage now uses it's own interactable spawn pool to make each stage feel more unique.\
 This leads to interactables like Shrine of Chance, Shrine of Woods, Shrine of Order and Cleansing Pools spawning in the game mode.
@@ -33,8 +34,9 @@ Special Boss Augments now have special scaling like they have in the regular gam
 Special Boss Augments now spawn with enemies too.\
 Mithrix will be in phase 3 during his augment.
 
-Earlier stages will have more Interactables to get a run going but less later to make late full looting not as extreme.\
-More interactables will spawn in multiplayer
+Earlier stages reward more money.\
+Stage 5+ get less interactables.\
+You get more gold and more interactables will spawn in multiplayer
 
 The focus moves faster the more waves are completed.\
 For each stage completed, -1 second between regular waves.
@@ -44,12 +46,12 @@ Elites spawn more often the more waves are completed.
 
 Items are now granted every 8 waves until the first red.\
 Afterwards every 4 then 2 waves, shortening after each red is added.\
-Whites will be a stack of 3 and Greens a stack of 2 starting on wave 62.\
-Some overpowered items were blacklisted for enemy team usage. (Tesla Coil, Nkuhanas)\
+Some overpowered items were blacklisted for enemy team usage. (Tesla Coil, Nkuhanas)
 
-Only 20 enemies can be alive at a time instead of 30.
+Only 20 enemies can be alive at a time instead of 30.\
+Really early waves even less because of how often flying enemies overwhelm the player.
 
-Special waves will be much likelier after Wave 50.
+Special waves will get likelier after wave 30 and wave 50.
 
 ![](https://cdn.discordapp.com/attachments/1115182271276781698/1188585480762183740/image.png?ex=659b0f7d&is=65889a7d&hm=3f84f75a4e8590bc3331b66f745c507075e2f16e1da8ec197c3cee7ab3aec235&)
 
@@ -66,13 +68,14 @@ There's a void themed teleport effect for the gamemode.
 Void Potential Chests now can present choices from any tier.  
 Void Potentials use their respective tiers particle effects.  
 
-The Focus is slighty bigger when moving and expands upon sitting down. This is helps with awkward focus positions in Meadows/Depths. 
+The Focus is bigger when moving and expands upon sitting down. This is helps with awkward focus positions in Meadows/Depths. 
 
 You wont encounter your previous stage as your next stage (ie: Meadows -> Sanctuary -> Meadows, no longer happens)
 
 Simu Titanic Plains now plays Void Fields music\
 Simu Abyssal Depths now plays Void Locusts music\
-Simu Rallypoint Delta now plays Snowy Forests music
+Simu Rallypoint Delta now plays Snowy Forests music\
+Simu Simulacrum has ramps. 
 
 Fireworks and Halcyon Seed are now available in Simulacrum.\
 Warbanners pop on Boss Waves similiar to teleporters.
@@ -82,11 +85,14 @@ Warbanners pop on Boss Waves similiar to teleporters.
 
 ##
 Report bugs to @Wolfo.wolfo in the Risk of Rain 2 discord or RoR2 Modding discord.\
-If you're reporting a bug that isn't something obvious include the log file.
+If you're reporting a bug that isn't something obvious include the log file.\
+Generally happy about feedback
+
+Every played needs this mod installed.
 
 This mod was originally part of LittleGameplayTweaks
 
-The balance of this mod is questionable as Simulacrum sucks to balance.
+The balance of this mod can be questionable as Simulacrum sucks to balance.
 
 Also download my other mods:\
 [VanillaArtifactsPlus](https://thunderstore.io/package/Wolfo/VanillaArtifactsPlus) for updated vanilla artifacts, noticible in the Augments.  
@@ -95,9 +101,89 @@ Also download my other mods:\
 [WolfoQualityOfLife](https://thunderstore.io/package/Wolfo/WolfoQualityOfLife/) for many visual improvements.  
 
 ## Changelog:
-v1.6.1 - (Surprised this took a week to be reported)\  
--Fixed multiplayer not spawning clients properly.\  
--Fixed certain waves not being network spawnable.\  
+```
+v1.7.3
+-Rarer to get multiple of the same ghost and limited ghosts to 3.
+-Adjusted Drone Family wave HP/Damage so it should be less long
+--Slightly higher damage, less hp, less hp in multiplayer
+--(Mostly a joke wave, hard to make good but rather too short than too long but I guess tbd)
+-Nerfed Healing Equipment Drone Again (10.3s cooldown increased to 32.8s)
+
+-Less "less" time between waves in multiplayer (ie -0.8 seconds at 2 players instead of -1)
+-Made Crab Speed slightly slower on stage4+
+
+-Items every 8 waves and items more frequently are now 2 configs.
+-Enemies won't be given stacks of items on very late waves anymore.
+-Actually changed default values for Ending Portal/Super Boss to 50 (whoops)
+
+v1.7.2
+-Augment of Sulfur
+-Pot augment
+-Augment of Brigade+Honor
+-Waves with 2 rewards will now shoot one reward further away
+-Nerfed Sacrifice in Simulacrum
+--Only get 2 options per Potential
+--Less items from enemies (30% less, you still get way too many)
+--Void Chests can rarely spawn now.
+-Fixed "simulacrum ending" showing the ending cutscene.
+-Fixed issue with super boss waves getting far too many credits on very late waves
+-Fixed a issue with Boss Infestation augment causing too many infestors.
+-Nerfed Healing Equipment Drone Again
+-Made Boss Augments more common
+
+v1.7.1
+-Augment of Misfortune
+-Augment of Implosion
+-Augment of Blaze 
+
+v1.7.0
+-Artifact of Augments
+--All waves will be augmented waves
+--Only available in Simulacrum
+-Equipment Drone waves no longer leave broken drones,
+-Equipment Drone waves announce what equipment is being used
+-Made Guap slightly smaller as his sheer size caused some issues
+-Music during super boss waves. (to be determined how well this actually fits)
+-* Allowed Squid Polyp, Defiant Gauge and Spare Drone Parts as items
+
+-Fixed ITMoon Ramps/Circle not being enabled on client
+-Fixed Radius increases not visually working on clients
+-Fixed Vanilla bug where Clients won't teleport to the Crab when falling off stage.
+-Special Bosses no longer scale extra hard on multiplayer
+-Less Void Coin in multiplayer
+
+-Waves
+--Minimum Wave requirement for most super boss waves increased.
+--Special Waves get even more common past wave 30/50
+--Eclipse8 Boss Augment
+--Drone Family Boss Augment
+--Irradiant Boss Aumgment
+--Slippery Ground Augment
+--Pulse Waves
+---Augment of Design (Pillar)
+---Augment of Nullification
+---Augment of Attraction
+---Augment of Poison
+
+v1.6.4
+-Fixed start up error related to mod support.
+-Void Cradles won't change their cost if BetterVoid is installed.
+-Slightly more interactables (in general)
+
+v1.6.3  
+-Fixed an error on run start caused by unknown incompatibility.
+-ITMoon now always has Void Barnacles and Reavers in the spawn pool instead of only wave31+.
+-Various wave adjusments.
+-Safer Spaces Augment.
+-Less Void Coin later on.
+-Earlier stages wont get bonus interactables, instead just more gold is given earlier on.
+
+v1.6.2  
+Left only special waves on by accident.  
+
+v1.6.1 - (Surprised this took a week to be reported)  
+-Fixed multiplayer not spawning clients properly.  
+-Fixed certain waves not being network spawnable.  
 --Needed to change a fair amount of stuff for this hopefully nothing weird happens.  
 -Boss Augment of Haunting bigger radius  
 
@@ -139,7 +225,7 @@ v1.5.0 - Cleanup && Mod Split
 --Augment of Heresy  
 --Augment of Flight  
 --Augment of Moon/Void Family for basic waves as late waves  
---Augment of Poison  
+--Augment of Malachite  
 --Augment of the Equipment Drone  
 --Augment of Haunting   
 --Boss Augment of Haunting  
