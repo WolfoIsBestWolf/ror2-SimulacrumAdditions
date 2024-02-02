@@ -24,7 +24,7 @@ namespace SimulacrumAdditions
             Sprite ArtifactOffS = Sprite.Create(ArtifactOff, rec, new Vector2(0, 0));
 
 
-            ArtifactSimulacrum.cachedName = "AAugmentsOnly";
+            ArtifactSimulacrum.cachedName = "AAAAugmentsOnly";
             ArtifactSimulacrum.nameToken = "Artifact of Augments";
             ArtifactSimulacrum.descriptionToken = "All waves will be augmented waves.";
             ArtifactSimulacrum.smallIconSelectedSprite = ArtifactOnS;
@@ -128,7 +128,7 @@ namespace SimulacrumAdditions
             self.weightedSelection.AddChoice(self.wavePrefabs[0].wavePrefab, 0);
             for (int i = 1; i < self.wavePrefabs.Length; i++)
             {
-                self.weightedSelection.AddChoice(self.wavePrefabs[i].wavePrefab, self.wavePrefabs[i].weight + 3);
+                self.weightedSelection.AddChoice(self.wavePrefabs[i].wavePrefab, self.wavePrefabs[i].weight + 1);
             }
             return;
         }
@@ -138,7 +138,7 @@ namespace SimulacrumAdditions
             orig(self, mustInclude, mustExclude, runSeed);
             if (self && !(self is InfiniteTowerRun))
             {
-                self.ForceChoice(mustInclude, mustExclude, RuleCatalog.FindRuleDef("Artifacts.AAugmentsOnly").FindChoice("Off"));
+                self.ForceChoice(mustInclude, mustExclude, RuleCatalog.FindRuleDef("Artifacts.AAAAugmentsOnly").FindChoice("Off"));
             }
         }
     }

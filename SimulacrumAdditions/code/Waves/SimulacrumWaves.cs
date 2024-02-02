@@ -36,11 +36,11 @@ namespace SimulacrumAdditions
             GameObject InfiniteTowerCurrentBossScavLunarWaveUI = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentBossScavWaveUI.prefab").WaitForCompletion(), "InfiniteTowerCurrentBossScavLunarWaveUI", false);
 
             MultiCharacterSpawnCard cscScavLunarIT = Addressables.LoadAssetAsync<MultiCharacterSpawnCard>(key: "RoR2/Base/ScavLunar/cscScavLunar.asset").WaitForCompletion();
-            cscScavLunarIT.itemsToGrant = new ItemCountPair[] { new ItemCountPair { itemDef = AdaptiveArmor, count = 0 }, new ItemCountPair { itemDef = BoostHp, count = 0 } };
+            cscScavLunarIT.itemsToGrant = new ItemCountPair[] { new ItemCountPair { itemDef = AdaptiveArmor, count = 1 }};
             InfiniteTowerWaveBossScavLunar.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList[0].spawnCard = cscScavLunarIT;
 
             InfiniteTowerWaveBossScavLunar.GetComponent<InfiniteTowerWaveController>().baseCredits = 50;
-            InfiniteTowerWaveBossScavLunar.GetComponent<InfiniteTowerWaveController>().linearCreditsPerWave = 5;
+            InfiniteTowerWaveBossScavLunar.GetComponent<InfiniteTowerWaveController>().linearCreditsPerWave = 4;
             InfiniteTowerWaveBossScavLunar.GetComponent<InfiniteTowerWaveController>().secondsBeforeSuddenDeath = 120;
 
             InfiniteTowerWaveBossScavLunar.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier3;
@@ -241,7 +241,7 @@ namespace SimulacrumAdditions
             
             InfiniteTowerWaveBossTitanGold.GetComponent<InfiniteTowerExplicitSpawnWaveController>().immediateCreditsFraction = 0.15f;
             InfiniteTowerWaveBossTitanGold.GetComponent<InfiniteTowerExplicitSpawnWaveController>().baseCredits = 150;
-            InfiniteTowerWaveBossTitanGold.GetComponent<InfiniteTowerExplicitSpawnWaveController>().linearCreditsPerWave = 7;
+            InfiniteTowerWaveBossTitanGold.GetComponent<InfiniteTowerExplicitSpawnWaveController>().linearCreditsPerWave = 6;
             InfiniteTowerWaveBossTitanGold.GetComponent<InfiniteTowerExplicitSpawnWaveController>().secondsBeforeSuddenDeath = 120f;
 
             InfiniteTowerWaveBossTitanGold.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerCurrentBossTitanGoldWaveUI;
@@ -258,7 +258,7 @@ namespace SimulacrumAdditions
             InfiniteTowerCurrentBossTitanGoldWaveUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color(1f, 1f, 0.6f, 1);
             InfiniteTowerCurrentBossTitanGoldWaveUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 1f, 0.4f, 1);
 
-            InfiniteTowerWaveCategory.WeightedWave ITBossTitanGold = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveBossTitanGold, weight = ITSpecialBossWaveWeight, prerequisites = SimuMain.StartWave25Prerequisite };
+            InfiniteTowerWaveCategory.WeightedWave ITBossTitanGold = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveBossTitanGold, weight = ITSpecialBossWaveWeight + 0.3f, prerequisites = SimuMain.StartWave25Prerequisite };
             //
             //
             //Super Robo Baller
@@ -272,7 +272,7 @@ namespace SimulacrumAdditions
 
             InfiniteTowerWaveBossSuperRoboBallBoss.GetComponent<InfiniteTowerExplicitSpawnWaveController>().immediateCreditsFraction = 0.15f;
             InfiniteTowerWaveBossSuperRoboBallBoss.GetComponent<InfiniteTowerExplicitSpawnWaveController>().baseCredits = 150;
-            InfiniteTowerWaveBossSuperRoboBallBoss.GetComponent<InfiniteTowerExplicitSpawnWaveController>().linearCreditsPerWave = 7; //Evens out at 400 for wave 50
+            InfiniteTowerWaveBossSuperRoboBallBoss.GetComponent<InfiniteTowerExplicitSpawnWaveController>().linearCreditsPerWave = 6; //Evens out at 400 for wave 50
             InfiniteTowerWaveBossSuperRoboBallBoss.GetComponent<InfiniteTowerExplicitSpawnWaveController>().secondsBeforeSuddenDeath = 120f;
 
             InfiniteTowerWaveBossSuperRoboBallBoss.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier3;
@@ -291,7 +291,7 @@ namespace SimulacrumAdditions
             InfiniteTowerCurrentBossSuperRoboBallBossWaveUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0f, 0.9f, 0.6f, 1);
             InfiniteTowerCurrentBossSuperRoboBallBossWaveUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color(0f, 0.6f, 0.6f, 1);
 
-            InfiniteTowerWaveCategory.WeightedWave ITBossSuperRoboBallBoss = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveBossSuperRoboBallBoss, weight = ITSpecialBossWaveWeight, prerequisites = SimuMain.StartWave25Prerequisite };
+            InfiniteTowerWaveCategory.WeightedWave ITBossSuperRoboBallBoss = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveBossSuperRoboBallBoss, weight = ITSpecialBossWaveWeight+0.3f, prerequisites = SimuMain.StartWave25Prerequisite };
             //
             //
             //Mountain Boss
@@ -327,6 +327,9 @@ namespace SimulacrumAdditions
             
             SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(ITLunarElites, ITVoidElites, ITEliteMalachite);
             SimuMain.ITBossWaves.wavePrefabs = SimuMain.ITBossWaves.wavePrefabs.Add(ITBossScavLunar, ITBossVoidRaidCrab, ITBossSuperRoboBallBoss, ITBossTitanGold, ITDoubleBoss, ITBossVoidElites);
+
+            ITBossSuperRoboBallBoss.weight = 0.5f;
+            ITBossTitanGold.weight = 0.5f;
             SimuMain.ITSuperBossWaves.wavePrefabs = SimuMain.ITSuperBossWaves.wavePrefabs.Add(ITBossScavLunar, ITBossVoidRaidCrab, ITBossTitanGold, ITBossSuperRoboBallBoss);
 
             Organized();
@@ -455,7 +458,10 @@ namespace SimulacrumAdditions
 
             for (int i = 0; i < SimuMain.ITSuperBossWaves.wavePrefabs.Length; i++)
             {
-                SimuMain.ITSuperBossWaves.wavePrefabs[i].weight = 1;
+                if (SimuMain.ITSuperBossWaves.wavePrefabs[i].weight > 1)
+                {
+                    SimuMain.ITSuperBossWaves.wavePrefabs[i].weight = 1;
+                }
                 GameObject wave = SimuMain.ITSuperBossWaves.wavePrefabs[i].wavePrefab;
                 InfiniteTowerExplicitSpawnWaveController temp;
 
@@ -469,7 +475,7 @@ namespace SimulacrumAdditions
                         temp = SimuMain.ITSuperBossWaves.wavePrefabs[i].wavePrefab.GetComponent<RoR2.InfiniteTowerExplicitSpawnWaveController>();
                         temp.baseCredits = 50;
                         temp.immediateCreditsFraction = 0.5f;
-                        temp.linearCreditsPerWave = 5;
+                        temp.linearCreditsPerWave = 4;
                         temp.combatDirector.monsterCards = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/dccsLunarFamily.asset").WaitForCompletion(); ;
                         temp.secondsBeforeSuddenDeath *= 2;
                         break;
@@ -478,12 +484,21 @@ namespace SimulacrumAdditions
                         temp.rewardDisplayTier = ItemTier.Boss;
                         temp.rewardDropTable = SimuMain.dtITSpecialBossYellow;
                         temp.baseCredits = 100;
-                        temp.linearCreditsPerWave = 4;
+                        temp.linearCreditsPerWave = 3;
                         temp.secondsBeforeSuddenDeath *= 2f;
+                        CharacterSpawnCard cscScav = temp.spawnList[0].spawnCard;
+                        cscScav.itemsToGrant = new ItemCountPair[]
+                        {
+                            new ItemCountPair
+                            {
+                                count = 1,
+                                itemDef = RoR2Content.Items.AdaptiveArmor,
+                            }
+                        };
                         break;
                 }
             }
-
+            SimuMain.ITSuperBossWaves.wavePrefabs[0].weight = 0.5f;
 
             if (WConfig.cfgMusicSuperBoss.Value)
             {
@@ -1313,7 +1328,7 @@ namespace SimulacrumAdditions
 
             InfiniteTowerWaveBossDireseeker.GetComponent<InfiniteTowerExplicitSpawnWaveController>().immediateCreditsFraction = 0.15f;
             InfiniteTowerWaveBossDireseeker.GetComponent<InfiniteTowerExplicitSpawnWaveController>().baseCredits = 150;
-            InfiniteTowerWaveBossDireseeker.GetComponent<InfiniteTowerExplicitSpawnWaveController>().linearCreditsPerWave = 7; //Evens out at 400 for wave 50
+            InfiniteTowerWaveBossDireseeker.GetComponent<InfiniteTowerExplicitSpawnWaveController>().linearCreditsPerWave = 6; //Evens out at 400 for wave 50
             InfiniteTowerWaveBossDireseeker.GetComponent<InfiniteTowerExplicitSpawnWaveController>().secondsBeforeSuddenDeath = 120;
 
             InfiniteTowerWaveBossDireseeker.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier3;

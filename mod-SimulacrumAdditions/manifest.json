@@ -1,8 +1,8 @@
 {
     "name": "SimulacrumAdditions",
-    "version_number": "1.7.3",
+    "version_number": "1.8.1",
     "website_url": "https://github.com/WolfoIsBestWolf/ror2-SimulacrumAdditions",
-    "description": "Adds many Augments and makes Simulacrum beatable in way. Updated balance and some quality of life for the Simulacrum.",
+    "description": "Large content addition to Simulacrum. Adds 50+ Augments, makes Simulacrum beatable, adds skin recolors as rewards, updates balance and some quality of life.",
     "dependencies": [
         "bbepis-BepInExPack-5.4.9",
 		"RiskofThunder-HookGenPatcher-1.2.1",

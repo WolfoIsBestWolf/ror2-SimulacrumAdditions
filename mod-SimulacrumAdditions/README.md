@@ -5,32 +5,34 @@ This makes getting to wave 50 a set goal and makes the gamemode "beatable".
 One of these runs should take around an hour (similiar to loop Mithrix) and counts as a win.  
 
 Adds a large amount of Augments\
-Basic Waves:  
--Added 13 Family Event Augments.   
--Added 5 Artifact Augments.   
--Added 3 Elite Augments.  
--Added 7 Item Augments.
--Added 15 Other Augments.  
+Basic Waves:\
+-Added 13 Family Event Augments.\
+-Added 5 Artifact Augments.\
+-Added 3 Elite Augments.\
+-Added 7 Item Augments.\
+-Added 15 Other Augments.
 
 -In total raises Basic Augment count from 9 to 52 (+8 with supported mods).
 
-Boss Waves:  
--Added 6 Special Boss Augments.  
--Added 4 Aritfact Boss Augments.  
--Added 8 Other Boss Augments.  
+Boss Waves:\
+-Added 6 Special Boss Augments.\
+-Added 4 Aritfact Boss Augments.\
+-Added 8 Other Boss Augments.
 
 -In total raises Boss Augment count from 5 to 23 (+2 with supported mods).
 
 Every stage now uses it's own interactable spawn pool to make each stage feel more unique.\
-This leads to interactables like Shrine of Chance, Shrine of Woods, Shrine of Order and Cleansing Pools spawning in the game mode.
+This means Shrine of Chance, Shrine of Woods, Shrine of Order and Cleansing Pools spawn in the game mode.
 
 More enemies are added to the spawn pool starting wave 21.\
 Void enemies are added to the spawn pool starting wave 61.
 
+Adds Skin recolors for every character as rewards for beating Simulacrum (or Voidling).
+
 ![](https://cdn.discordapp.com/attachments/743886063738683413/955904648936583188/unknown.png)
 
 ## Balance
-Special Boss Augments now have special scaling like they have in the regular game.\
+Special Boss Augments now have special scaling like how final bosses on normal runs do.\
 Special Boss Augments now spawn with enemies too.\
 Mithrix will be in phase 3 during his augment.
 
@@ -80,6 +82,8 @@ Simu Simulacrum has ramps.
 Fireworks and Halcyon Seed are now available in Simulacrum.\
 Warbanners pop on Boss Waves similiar to teleporters.
 
+Fixes vanilla bugs where Clients don't teleport to the Crab or often don't get enemy indicators.
+
 ![](https://cdn.discordapp.com/attachments/1115182271276781698/1191449266871357530/image.png?ex=65a57a99&is=65930599&hm=8e618870cf043209f0f66b908cf17ed3b29fb48149dba024e7f54cde2070eecb&)
 
 
@@ -100,8 +104,45 @@ Also download my other mods:\
 [LittleGameplayTweaks](https://thunderstore.io/package/Wolfo/LittleGameplayTweaks/) more enemy variety and some small changes and 4 more family augments.  
 [WolfoQualityOfLife](https://thunderstore.io/package/Wolfo/WolfoQualityOfLife/) for many visual improvements.  
 
+##
+I do Not recommend using these mods that change Simulacrum or other gamemodes that use Simulacrum as a base.\
+I already added a guaranteed boss and this also forces a run to end [SimulacrumBossStageMod](https://thunderstore.io/package/Def/SimulacrumBossStageMod/) so I do not recommend.\
+I already speed up the crab so [SpeedUpSafeWard](https://thunderstore.io/package/Felix/SpeedUpSafeWard/) is redundant.
+
 ## Changelog:
 ```
+v1.8.1
+-Added 1 more Commando & Bandit based on more weird RoRR recolors.
+-Pink Huntress Arrow Rain is now pink
+-Fixed a bug if other mods made boss waves happen earlier than wave 5. (Judgement, don't use Judgement and play Simulacrum atm)
+
+v1.8.0
+Added 22 skin recolors mostly based on RoRR alt palettes as rewards for beating Simulacrum wave 50 or Voidling.
+Even if basic still serves as a neat reward.
+
+-Commando 	  (Unused SotV skin)
+-Captain x2	  (Moved from LittleGameplayTweaks)
+-REX 		  (Moved from LittleGameplayTweaks)
+-Bandit 	  (Moved from LittleGameplayTweaks)
+-Engineer 	  (RoRR alt color)
+-Mult x2		
+-Artificer x2 (RoRR alt color)
+-Huntress 	  (RoRR alt color)
+-Acrid 		  (RoRR alt color)
+-CHEF x2	  (RoRR alt color)
+-HAN-D x2	  (RoRR alt color)
+-Loader		  (RoRR alt color)
+-Mercenary x2 (RoRR alt color)
+-Void Fiend x2
+-Railgunner
+
+-Ending no longer counts as Win so it won't give Masteries
+-All Super bosses now have Adaptive Armor and aim for the same HP value (+Scav/Twisted, -Devestator)
+--Super Bosses get less bonus damage (like half)
+--Super Boss waves will get half the scaling if not on a forced wave
+
+-Fixed Vanilla bug where Clients would often not see enemy indicators.
+
 v1.7.3
 -Rarer to get multiple of the same ghost and limited ghosts to 3.
 -Adjusted Drone Family wave HP/Damage so it should be less long

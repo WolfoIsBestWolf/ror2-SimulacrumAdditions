@@ -188,8 +188,11 @@ namespace SimulacrumAdditions
                     foreach (PlayerCharacterMasterController player in PlayerCharacterMasterController.instances)
                     {
                         if (player.master.bodyInstanceObject)
-                        {
-                            player.master.GetBody().RemoveBuff(buffDef);
+                        {   
+                            if (player.master.GetBody().HasBuff(buffDef))
+                            {
+                                player.master.GetBody().RemoveBuff(buffDef);
+                            }                
                         }
                     }
                 }
@@ -283,16 +286,19 @@ namespace SimulacrumAdditions
 
         private void OnDisable()
         {
-            Run.instance.selectedDifficulty = previous;
-            foreach (PlayerCharacterMasterController player in PlayerCharacterMasterController.instances)
+            if (Run.instance)
             {
-                if (player.master.hasBody)
+                Run.instance.selectedDifficulty = previous;
+                foreach (PlayerCharacterMasterController player in PlayerCharacterMasterController.instances)
                 {
-                    CharacterBody body = player.master.GetBody();
-                    int count = body.GetBuffCount(RoR2Content.Buffs.PermanentCurse);
-                    for (int i = 0; i < count; i++)
+                    if (player.master.hasBody)
                     {
-                        body.RemoveBuff(RoR2Content.Buffs.PermanentCurse);
+                        CharacterBody body = player.master.GetBody();
+                        int count = body.GetBuffCount(RoR2Content.Buffs.PermanentCurse);
+                        for (int i = 0; i < count; i++)
+                        {
+                            body.RemoveBuff(RoR2Content.Buffs.PermanentCurse);
+                        }
                     }
                 }
             }

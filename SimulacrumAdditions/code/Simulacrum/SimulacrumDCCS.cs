@@ -603,7 +603,14 @@ namespace SimulacrumAdditions
                 minimumStageCompletions = 2,
                 spawnDistance = DirectorCore.MonsterSpawnDistance.Standard
             };
-
+            DirectorCard SimuLoopAcidLarva = new DirectorCard
+            {
+                spawnCard = Addressables.LoadAssetAsync<CharacterSpawnCard>(key: "RoR2/DLC1/AcidLarva/cscAcidLarva.asset").WaitForCompletion(),
+                selectionWeight = 1,
+                preventOverhead = false,
+                minimumStageCompletions = 2,
+                spawnDistance = DirectorCore.MonsterSpawnDistance.Standard
+            };
 
             //Void Stage 4 rest stage 3
             DirectorCard SimuLoopVoidBarnacle = new DirectorCard
@@ -666,7 +673,7 @@ namespace SimulacrumAdditions
             DirectorCard SimuLoopMinorConstruct = new DirectorCard
             {
                 spawnCard = Addressables.LoadAssetAsync<CharacterSpawnCard>(key: "RoR2/DLC1/MajorAndMinorConstruct/cscMinorConstruct.asset").WaitForCompletion(),
-                selectionWeight = 1,
+                selectionWeight = 2,
                 preventOverhead = true,
                 minimumStageCompletions = 2,
                 spawnDistance = DirectorCore.MonsterSpawnDistance.Standard
@@ -674,7 +681,7 @@ namespace SimulacrumAdditions
             DirectorCard SimuLoopMegaConstruct = new DirectorCard
             {
                 spawnCard = Addressables.LoadAssetAsync<CharacterSpawnCard>(key: "RoR2/DLC1/MajorAndMinorConstruct/cscMegaConstruct.asset").WaitForCompletion(),
-                selectionWeight = 1,
+                selectionWeight = 2,
                 preventOverhead = true,
                 minimumStageCompletions = 2,
                 spawnDistance = DirectorCore.MonsterSpawnDistance.Standard
@@ -711,7 +718,8 @@ namespace SimulacrumAdditions
 
             //dccsITGooLakeMonsters.AddCard(0, SimuLoopVagrant);  //Simu thing where it imitates other stages
             //dccsITGooLakeMonsters.AddCard(1, SimuLoopGup);  //Simu thing where it imitates other stages
-            dccsITGooLakeMonsters.AddCard(1, SimuLoopGolemSandy);  //Match vanilla
+            dccsITGooLakeMonsters.AddCard(1, SimuLoopGolemSandy);
+            dccsITGooLakeMonsters.AddCard(1, SimuLoopAcidLarva);
             //Has Loop Templar by default
 
             dccsITAncientLoftMonsters.AddCard(1, SimuLoopElderLemurian); //Match my changes
@@ -719,21 +727,25 @@ namespace SimulacrumAdditions
 
             dccsITFrozenWallMonsters.AddCard(0, SimuLoopRoboBallBoss); //Match my changes
             dccsITFrozenWallMonsters.AddCard(2, SimuLoopVulture);  //Match my changes
+            dccsITFrozenWallMonsters.categories[1].cards[2].selectionWeight = 2; //More Bison
 
             dccsITDampCaveMonsters.AddCard(0, SimuLoopGrovetender); //Simu thing where it imitates other stages
             dccsITDampCaveMonsters.AddCard(1, SimuLoopMiniMushroom); //Simu thing where it imitates other stages
+            dccsITDampCaveMonsters.categories[2].cards[3].spawnDistance = DirectorCore.MonsterSpawnDistance.Standard; //Hermit Crab
 
             dccsITSkyMeadowMonsters.AddCard(1, SimuLoopGreaterWisp); //Match vanilla
+            dccsITSkyMeadowMonsters.categories[0].cards[1].selectionWeight = 2; //More GrandParents
+            dccsITSkyMeadowMonsters.categories[1].cards[0].selectionWeight = 2; //More Parents
 
-            dccsITMoonMonsters.categories[0].selectionWeight += 2;
+            dccsITMoonMonsters.categories[0].selectionWeight = 3;
             dccsITMoonMonsters.AddCategory("Minibosses", 1);
             dccsITMoonMonsters.AddCard(1, SimuLoopVoidDevestator);
             dccsITMoonMonsters.AddCard(1, SimuLoopVoidReaver);
             dccsITMoonMonsters.AddCard(1, SimuLoopVoidJailer);
             dccsITMoonMonsters.AddCard(1, SimuLoopVoidBarnacle);
-            dccsITMoonMonsters.categories[0].cards[0].selectionWeight = 3;
+            dccsITMoonMonsters.categories[0].cards[0].selectionWeight = 4;
+            dccsITMoonMonsters.categories[0].cards[1].selectionWeight = 4;
             dccsITMoonMonsters.categories[0].cards[1].selectionWeight = 3;
-            //dccsITMoonMonsters.categories[0].cards[1].selectionWeight = 2;
 
 
             DirectorCard LateVoidReaver = new DirectorCard

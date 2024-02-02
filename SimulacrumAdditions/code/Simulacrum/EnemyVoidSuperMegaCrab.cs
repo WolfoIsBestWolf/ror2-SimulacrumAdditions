@@ -43,7 +43,7 @@ namespace SimulacrumAdditions
 
 
             //Stats
-            CrabCharacterBody.baseMaxHealth *= 0.9f; //Base Health is 2800*1.6 cuz Trans Shrimp
+            CrabCharacterBody.baseMaxHealth = 2000; //Base Health is 2800*1.6 cuz Trans Shrimp
             CrabCharacterBody.baseDamage *= 0.25f; //Bro gets so many damage items
             CrabCharacterBody.attackSpeed *= 0.75f;
             CrabCharacterBody.baseJumpPower *= 1.5f;
@@ -125,9 +125,9 @@ namespace SimulacrumAdditions
             //
 
             //Spawns
-            InfiniteTowerWaveBossSuperCrab.GetComponent<CombatDirector>().monsterCards = SimuWavesMisc.dccsVoidFamilyNoBarnacle;
+            InfiniteTowerWaveBossSuperCrab.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/DLC1/Common/dccsVoidFamily.asset").WaitForCompletion();
             InfiniteTowerWaveBossSuperCrab.GetComponent<InfiniteTowerExplicitSpawnWaveController>().baseCredits = 50;
-            InfiniteTowerWaveBossSuperCrab.GetComponent<InfiniteTowerExplicitSpawnWaveController>().linearCreditsPerWave = 5;
+            InfiniteTowerWaveBossSuperCrab.GetComponent<InfiniteTowerExplicitSpawnWaveController>().linearCreditsPerWave = 4;
             InfiniteTowerWaveBossSuperCrab.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList[0].spawnCard = cscSuperCrab;
             InfiniteTowerWaveBossSuperCrab.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList[0].spawnDistance = DirectorCore.MonsterSpawnDistance.Far;
 

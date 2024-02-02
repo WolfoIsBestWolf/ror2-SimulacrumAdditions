@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <PackageReference Include="R2API" Version="5.0.5" />
+    <PackageReference Include="R2API.Skins" Version="1.1.0" />
     <PackageReference Include="RiskOfRain2.GameLibs" Version="1.2.4-r.0" />
   </ItemGroup>
 
