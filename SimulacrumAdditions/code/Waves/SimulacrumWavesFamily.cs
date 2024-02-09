@@ -716,7 +716,7 @@ namespace SimulacrumAdditions
                         break;
                     case "dccsWormsFamily":
                         BossInfiniteTowerWaveFamilyWorms.GetComponent<CombatDirector>().monsterCards = FamilyDCCSs[i];
-                        RoR2.InfiniteTowerWaveCategory.WeightedWave ITWormsFamily = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = BossInfiniteTowerWaveFamilyWorms, weight = 6f, prerequisites = SimuMain.StartWave40Prerequisite };
+                        RoR2.InfiniteTowerWaveCategory.WeightedWave ITWormsFamily = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = BossInfiniteTowerWaveFamilyWorms, weight = 4.5f, prerequisites = SimuMain.StartWave40Prerequisite };
                         SimuMain.ITBossWaves.wavePrefabs = SimuMain.ITBossWaves.wavePrefabs.Add(ITWormsFamily);
                         break;
                 }

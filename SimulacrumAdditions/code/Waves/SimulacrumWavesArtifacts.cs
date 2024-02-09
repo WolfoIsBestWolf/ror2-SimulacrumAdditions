@@ -246,7 +246,8 @@ namespace SimulacrumAdditions
             {
                 foreach (PlayerCharacterMasterController playerCharacterMasterController in PlayerCharacterMasterController.instances)
                 {
-                    playerCharacterMasterController.StartCoroutine(DelayedRespawn(playerCharacterMasterController, 0.25f));
+                    playerCharacterMasterController.StopAllCoroutines();
+                    playerCharacterMasterController.StartCoroutine(DelayedRespawn(playerCharacterMasterController, 0.35f));
                 };
             };
         }
@@ -258,7 +259,8 @@ namespace SimulacrumAdditions
                 foreach (PlayerCharacterMasterController playerCharacterMasterController in PlayerCharacterMasterController.instances)
                 {
                     playerCharacterMasterController.SetBodyPrefabToPreference();
-                    playerCharacterMasterController.StartCoroutine(DelayedRespawn(playerCharacterMasterController, 0f));
+                    playerCharacterMasterController.StopAllCoroutines();
+                    playerCharacterMasterController.StartCoroutine(DelayedRespawn(playerCharacterMasterController, 0.1f));
                 };
             };
         }

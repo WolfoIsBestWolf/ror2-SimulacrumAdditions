@@ -19,6 +19,7 @@ namespace SimulacrumAdditions
         public static DirectorCardCategorySelection dccsITSkyMeadowInteractablesW = null;
         public static DirectorCardCategorySelection dccsITMoonInteractablesW = null;
 
+        public static InteractableSpawnCard SafteyBarrel;
 
         public static void Start()
         {
@@ -42,6 +43,10 @@ namespace SimulacrumAdditions
             else if (self.waveIndex >= 40) //Stage 5/6
             {
                 sceneDirector.interactableCredit = (int)(sceneDirector.interactableCredit * 0.75f); //450
+            }
+            if (RunArtifactManager.instance.IsArtifactEnabled(ArtifactStupid.ArtifactUseNormalStages))
+            {
+                sceneDirector.interactableCredit += 100;
             }
             Debug.Log("InfiniteTower " + sceneDirector.interactableCredit + " interactable credits. ");
         }
@@ -136,7 +141,7 @@ namespace SimulacrumAdditions
             VoidCoinBarrel.name = "iscVoidCoinBarrelIT";
             VoidCoinBarrel.skipSpawnWhenSacrificeArtifactEnabled = true;
 
-            InteractableSpawnCard SafteyBarrel = Object.Instantiate(VoidCoinBarrel);
+            SafteyBarrel = Object.Instantiate(VoidCoinBarrel);
             SafteyBarrel.directorCreditCost = 1;
             SafteyBarrel.name = "iscVoidCoinBarrelITSacrifice";
             SafteyBarrel.skipSpawnWhenSacrificeArtifactEnabled = false;
@@ -619,7 +624,7 @@ namespace SimulacrumAdditions
                 selectionWeight = 2,
                 preventOverhead = true,
                 minimumStageCompletions = 0,
-                spawnDistance = DirectorCore.MonsterSpawnDistance.Standard
+                spawnDistance = DirectorCore.MonsterSpawnDistance.Close
             };
             DirectorCard SimuLoopVoidReaver = new DirectorCard
             {

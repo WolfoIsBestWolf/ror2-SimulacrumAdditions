@@ -12,6 +12,7 @@ namespace SimulacrumAdditions
         //public static ConfigEntry<bool> SimulacrumEnemyItemChanges;
         public static ConfigEntry<bool> cfgSpeedUpOnLaterWaves;
         public static ConfigEntry<bool> cfgVoidTripleAllTier;
+        public static ConfigEntry<bool> cfgVoidTripleContentsInPing;
 
         public static ConfigEntry<bool> cfgSimuCreditsRebalance;
         public static ConfigEntry<bool> cfgOnlySpecialBossesLate;
@@ -74,6 +75,12 @@ namespace SimulacrumAdditions
                 "Wave Info Dump",
                 false,
                 "Dump wave info on startup in log"
+            );
+            cfgVoidTripleContentsInPing = ConfigFileUNSORTED.Bind(
+                "Main",
+                "Void Potential contents in ping message",
+                true,
+                "When pinging a Void Potential the items inside will be in the ping message. Requested for more easily sharing items inside Void Potentials."
             );
 
             cfgDifferentTeleportEffect = ConfigFileUNSORTED.Bind(

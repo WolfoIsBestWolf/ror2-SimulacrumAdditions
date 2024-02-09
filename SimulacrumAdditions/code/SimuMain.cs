@@ -121,9 +121,8 @@ namespace SimulacrumAdditions
             if (WConfig.cfgEnableArtifact.Value)
             {
                 Artifact.MakeArtifact();
-                //ArtifactStupid.MakeArtifact();
+                ArtifactStupid.MakeArtifact();
             }
-            SimuSkinsMain.WolfoSkins();
 
 
             LanguageAPI.Add("INFINITETOWER_SUDDEN_DEATH", "<style=cWorldEvent>[WARNING] The Focus begins to falter..</style>", "en");
@@ -318,52 +317,7 @@ namespace SimulacrumAdditions
             VoidPotential.transform.GetChild(0).GetChild(6).localPosition = new Vector3(0, -0.5f, 0);
             OptionPickerPanel.GetComponent<RoR2.UI.PickupPickerPanel>().maxColumnCount = 3;
 
-            On.RoR2.PickupPickerController.SetOptionsInternal += (orig, self, newOptions) =>
-            {
-                orig(self, newOptions);
-                if (self.name.StartsWith("Option"))
-                {
-                    PickupDisplay pickupDisplay = self.transform.GetChild(0).GetComponent<PickupDisplay>();
-                    if (pickupDisplay.pickupIndex != PickupIndex.none)
-                    {
-                        switch (pickupDisplay.pickupIndex.pickupDef.itemTier)
-                        {
-                            case ItemTier.Tier1:
-                                pickupDisplay.tier1ParticleEffect.SetActive(true);
-                                break;
-                            case ItemTier.Tier2:
-                                pickupDisplay.tier2ParticleEffect.SetActive(true);
-                                break;
-                            case ItemTier.Tier3:
-                                pickupDisplay.tier3ParticleEffect.SetActive(true);
-                                break;
-                            case ItemTier.Boss:
-                                pickupDisplay.bossParticleEffect.SetActive(true);
-                                break;
-                            case ItemTier.Lunar:
-                                pickupDisplay.lunarParticleEffect.SetActive(true);
-                                break;
-                            case ItemTier.VoidTier1:
-                            case ItemTier.VoidTier2:
-                            case ItemTier.VoidTier3:
-                            case ItemTier.VoidBoss:
-                                if (!pickupDisplay.voidParticleEffect)
-                                {
-                                    pickupDisplay.voidParticleEffect = Object.Instantiate(LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/GenericPickup").GetComponent<GenericPickupController>().pickupDisplay.voidParticleEffect, pickupDisplay.transform);
-                                }
-                                pickupDisplay.voidParticleEffect.SetActive(true);
-                                break;
-                        }
-                        if (pickupDisplay.pickupIndex.pickupDef.itemTier == ItemOrangeTierDef.tier)
-                        {
-                            pickupDisplay.equipmentParticleEffect.SetActive(true);
-                        }
-                    }
-                    self.GetComponent<GenericDisplayNameProvider>().SetDisplayToken("OPTION_PICKUP_UNKNOWN_NAME");
-                }
-            };
-
-            //
+            On.RoR2.PickupPickerController.SetOptionsInternal += OptionChestColorsAndName;
             //
             VoidTeleportOutEffect.transform.GetChild(9).gameObject.SetActive(false);
             Destroy(VoidTeleportOutEffect.transform.GetChild(4).gameObject);
@@ -426,6 +380,96 @@ namespace SimulacrumAdditions
             };
 
             IL.RoR2.InfiniteTowerWaveController.FixedUpdate += FixRequestIndicatorsClient;
+
+            /*On.RoR2.InfiniteTowerRun.OnPrePopulateSceneServer += (orig, self, sceneDirector) =>
+            {
+                orig(self, sceneDirector);
+                if (RunArtifactManager.instance.IsArtifactEnabled(RoR2Content.Artifacts.Sacrifice))
+                {
+                    sceneDirector.interactableCredit = 0;
+                }
+            };*/
+        }
+
+        private void OptionChestColorsAndName(On.RoR2.PickupPickerController.orig_SetOptionsInternal orig, PickupPickerController self, PickupPickerController.Option[] newOptions)
+        {
+            orig(self, newOptions);
+            if (self.name.StartsWith("Option"))
+            {
+                PickupDisplay pickupDisplay = self.transform.GetChild(0).GetComponent<PickupDisplay>();
+                if (pickupDisplay.pickupIndex != PickupIndex.none)
+                {
+                    switch (pickupDisplay.pickupIndex.pickupDef.itemTier)
+                    {
+                        case ItemTier.Tier1:
+                            pickupDisplay.tier1ParticleEffect.SetActive(true);
+                            break;
+                        case ItemTier.Tier2:
+                            pickupDisplay.tier2ParticleEffect.SetActive(true);
+                            break;
+                        case ItemTier.Tier3:
+                            pickupDisplay.tier3ParticleEffect.SetActive(true);
+                            break;
+                        case ItemTier.Boss:
+                            pickupDisplay.bossParticleEffect.SetActive(true);
+                            break;
+                        case ItemTier.Lunar:
+                            pickupDisplay.lunarParticleEffect.SetActive(true);
+                            break;
+                        case ItemTier.VoidTier1:
+                        case ItemTier.VoidTier2:
+                        case ItemTier.VoidTier3:
+                        case ItemTier.VoidBoss:
+                            if (!pickupDisplay.voidParticleEffect)
+                            {
+                                pickupDisplay.voidParticleEffect = Object.Instantiate(LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/GenericPickup").GetComponent<GenericPickupController>().pickupDisplay.voidParticleEffect, pickupDisplay.transform);
+                            }
+                            pickupDisplay.voidParticleEffect.SetActive(true);
+                            break;
+                    }
+                    if (pickupDisplay.pickupIndex.pickupDef.itemTier == ItemOrangeTierDef.tier)
+                    {
+                        pickupDisplay.equipmentParticleEffect.SetActive(true);
+                    }
+                }
+               
+                if (WConfig.cfgVoidTripleContentsInPing.Value)
+                {
+                    string NameWithOptions = Language.GetString("OPTION_PICKUP_UNKNOWN_NAME");
+                    NameWithOptions += "\n(";
+
+                    for (int i = 0; i < newOptions.Length; i++)
+                    {
+                        PickupDef defTemp = newOptions[i].pickupIndex.pickupDef;
+                        string ItemName = "";
+                        if (defTemp.itemIndex != ItemIndex.None)
+                        {
+                            ItemName = Language.GetString(ItemCatalog.GetItemDef(newOptions[i].pickupIndex.pickupDef.itemIndex).nameToken);
+                        }
+                        else if (defTemp.equipmentIndex != EquipmentIndex.None)
+                        {
+                            ItemName = Language.GetString(EquipmentCatalog.GetEquipmentDef(newOptions[i].pickupIndex.pickupDef.equipmentIndex).nameToken);
+                        }
+
+
+                        string Hex = ColorUtility.ToHtmlStringRGB(newOptions[i].pickupIndex.pickupDef.baseColor);
+                        if (i != 0)
+                        {
+                            NameWithOptions += " | <color=#" + Hex + ">" + ItemName + "</color>";
+                        }
+                        else
+                        {
+                            NameWithOptions += "<color=#" + Hex + ">" + ItemName + "</color>";
+                        }
+                    }
+                    NameWithOptions += ")";
+                    self.GetComponent<GenericDisplayNameProvider>().SetDisplayToken(NameWithOptions);
+                }
+                else
+                {
+                    self.GetComponent<GenericDisplayNameProvider>().SetDisplayToken("OPTION_PICKUP_UNKNOWN_NAME");
+                }
+            }
         }
 
         private void FixRequestIndicatorsClient(ILContext il)
@@ -465,7 +509,7 @@ namespace SimulacrumAdditions
             {
                 if (ITBossWaves.wavePrefabs[0].weight > 1)
                 {
-                    ITBasicWaves.wavePrefabs[0].weight = 8; //More Wackies past this
+                    ITBasicWaves.wavePrefabs[0].weight = 10; //More Wackies past this
                     ITBasicWaves.GenerateWeightedSelection();
                     ITBossWaves.wavePrefabs[0].weight = 9; //More Wackies past this
                     ITBossWaves.GenerateWeightedSelection();
@@ -475,7 +519,7 @@ namespace SimulacrumAdditions
             {
                 if (ITBasicWaves.wavePrefabs[0].weight > 1)
                 {
-                    ITBasicWaves.wavePrefabs[0].weight = 45; //More Wackies past this
+                    ITBasicWaves.wavePrefabs[0].weight = 50; //More Wackies past this
                     ITBasicWaves.GenerateWeightedSelection();
                     ITBossWaves.wavePrefabs[0].weight = 45; //More Wackies past this
                     ITBossWaves.GenerateWeightedSelection();
@@ -600,10 +644,12 @@ namespace SimulacrumAdditions
 
         private void InfiniteTowerRunPreStartClient(On.RoR2.InfiniteTowerRun.orig_PreStartClient orig, InfiniteTowerRun self)
         {
-            orig(self);
+            orig(self);  
+            ITBossWaves.availabilityPeriod = 5;
+            ITBossWaves.minWaveIndex = 0;
             if (ITBossWaves.wavePrefabs[0].weight == 1)
             {
-                ITBasicWaves.wavePrefabs[0].weight = 90f;
+                ITBasicWaves.wavePrefabs[0].weight = 100f;
                 ITBasicWaves.GenerateWeightedSelection();
                 ITBossWaves.wavePrefabs[0].weight = 90f;
                 ITBasicWaves.GenerateWeightedSelection();
@@ -657,7 +703,7 @@ namespace SimulacrumAdditions
                 switch (self.name)
                 {
                     case "InfiniteTowerWaveBossScav(Clone)":
-                        bonusBonusHPMulti *= 0.65f;
+                        bonusBonusHPMulti *= 0.375f;
                         bonusBonusDmgMulti = 0.4f;
                         break;
                     case "InfiniteTowerWaveBossBrother(Clone)":
@@ -668,7 +714,7 @@ namespace SimulacrumAdditions
                         bonusBonusDmgMulti = 0.3f;
                         break;
                     case "InfiniteTowerWaveBossScavLunar(Clone)":
-                        bonusBonusHPMulti *= 0.8f;
+                        bonusBonusHPMulti *= 0.4f;
                         bonusBonusDmgMulti = 0.4f;
                         break;
                     case "InfiniteTowerWaveBossSuperCrab(Clone)":
@@ -684,8 +730,8 @@ namespace SimulacrumAdditions
                         bonusBonusDmgMulti = 0.7f;
                         break;
                     case "InfiniteTowerWaveBossGiantGup(Clone)":
-                        bonusBonusHPMulti = 1.5f;
-                        bonusBonusDmgMulti = 0.7f;
+                        bonusBonusHPMulti = 2f;
+                        bonusBonusDmgMulti = 0.5f;
                         break;
                     case "InfiniteTowerWaveBossFamilyWorms(Clone)":
                         bonusBonusHPMulti = -1f;
@@ -1370,7 +1416,7 @@ namespace SimulacrumAdditions
             InfiniteTowerEnding.endingTextToken = "Simulation Suspended";
             InfiniteTowerEnding.lunarCoinReward = 10;
             InfiniteTowerEnding.showCredits = false;
-            InfiniteTowerEnding.isWin = false;
+            InfiniteTowerEnding.isWin = true;
             InfiniteTowerEnding.gameOverControllerState = ObliterationEnding.gameOverControllerState;
             InfiniteTowerEnding.material = MainEnding.material;
             InfiniteTowerEnding.icon = VoidTransformSprite;
@@ -1628,7 +1674,7 @@ namespace SimulacrumAdditions
 
             FamilyDirectorCardCategorySelection dccsLunarFamily = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/dccsLunarFamily.asset").WaitForCompletion();
 
-            ITBasicWaves.wavePrefabs[0].weight = 90;
+            ITBasicWaves.wavePrefabs[0].weight = 100;
             ITBossWaves.wavePrefabs[0].weight = 90;
 
             for (int i = 0; i < ITBossWaves.wavePrefabs.Length; i++)
@@ -1902,8 +1948,8 @@ namespace SimulacrumAdditions
                                 self.enemyInventory.GiveItem(RoR2Content.Items.BoostHp, self.waveIndex / 10 * 2);
                                 Chat.SendBroadcastChat(new Chat.SimpleChatMessage
                                 {
-                                    baseToken = "<style=cWorldEvent>[WARNING] <color=#307FFF>Visions of Heresy</color> has been integrated into the Simulacrum...!</style>",
-                                    //baseToken = "<style=cWorldEvent>[WARNING] Running test with <color=#307FFF>Visions of Heresy</color></style>",
+                                    //baseToken = "<style=cWorldEvent>[WARNING] <color=#307FFF>Visions of Heresy</color> has been integrated into the Simulacrum...!</style>",
+                                    baseToken = "<style=cWorldEvent>[WARNING] Running test with <color=#307FFF>Visions of Heresy</color></style>",
                                 });
                             }
                             else
@@ -1914,7 +1960,8 @@ namespace SimulacrumAdditions
                                 self.enemyInventory.GiveItem(ITDamageDown, 5);
                                 Chat.SendBroadcastChat(new Chat.SimpleChatMessage
                                 {
-                                    baseToken = "<style=cWorldEvent>[WARNING] <color=#307FFF>Hooks and Strides of Heresy</color> have been integrated into the Simulacrum...!</style>",
+                                    //baseToken = "<style=cWorldEvent>[WARNING] <color=#307FFF>Hooks and Strides of Heresy</color> have been integrated into the Simulacrum...!</style>",
+                                    baseToken = "<style=cWorldEvent>[WARNING] Running test with <color=#307FFF>Hooks and Strides of Heresy</color></style>",
                                 });
                             }
                         }
@@ -2011,6 +2058,10 @@ namespace SimulacrumAdditions
                 if (self.waveIndex < 11)
                 {
                     //waveController.wavePeriodSeconds += 5;
+                    if (waveController.isBossWave)
+                    {
+                        waveController.immediateCreditsFraction -= -0.1f;
+                    }   
                     waveController.maxSquadSize = 15;
                 }
                 else if (self.waveIndex > 20)

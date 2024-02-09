@@ -12,6 +12,7 @@ namespace SimulacrumAdditions
         //public static CharacterSpawnCard[] AllCSCEquipmentDronesIT;
         public static CardRandomizer CardRandomizerEquipmentDrones;
         public static MultiCSC CardRandomizerBasicGhost;
+        public static MultiCSC CardRandomizerBossGhost;
         public static BuffDef bdSlippery;
         public static BuffDef bdBadLuck;
 
@@ -97,7 +98,7 @@ namespace SimulacrumAdditions
             cscVoidInfestorIT = Object.Instantiate(Addressables.LoadAssetAsync<CharacterSpawnCard>(key: "RoR2/DLC1/EliteVoid/cscVoidInfestor.asset").WaitForCompletion());
             cscVoidInfestorIT.name = "cscVoidInfestorIT";
             //cscVoidInfestorIT.directorCreditCost = 1;
-            cscVoidInfestorIT.itemsToGrant = new ItemCountPair[] { new ItemCountPair { itemDef = AdaptiveArmor, count = 1 }, new ItemCountPair { itemDef = SimuMain.ITHealthScaling, count = 50 } };
+            cscVoidInfestorIT.itemsToGrant = new ItemCountPair[] { new ItemCountPair { itemDef = AdaptiveArmor, count = 1 }, new ItemCountPair { itemDef = SimuMain.ITHealthScaling, count = 30 } };
             DirectorCard SimuWaveVoidInfestor = new DirectorCard
             {
                 spawnCard = cscVoidInfestorIT,
@@ -129,9 +130,13 @@ namespace SimulacrumAdditions
             WaveVoidEliteDirector.monsterCards = dccsVoidInfestorOnly;
             WaveVoidEliteDirector.skipSpawnIfTooCheap = false;
             WaveVoidEliteDirector.teamIndex = TeamIndex.Void;
-            RangeFloat TempRangeFloatThing = new RangeFloat { max = 1, min = 1 };
+            RangeFloat TempRangeFloatThing = new RangeFloat { max = 1, min = 0.5f };
             WaveVoidEliteDirector.moneyWaveIntervals = WaveVoidEliteDirector.moneyWaveIntervals.Add(TempRangeFloatThing);
             WaveVoidEliteDirector.creditMultiplier = 4;
+            WaveVoidEliteDirector.maxSeriesSpawnInterval += 0.5f;
+            WaveVoidEliteDirector.minSeriesSpawnInterval += 0.5f;
+            WaveVoidEliteDirector.maxRerollSpawnInterval += 0.5f;
+            WaveVoidEliteDirector.minRerollSpawnInterval += 0.5f;
 
             InfiniteTowerWaveBossVoidElites.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.VoidTier2;
             InfiniteTowerWaveBossVoidElites.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITVoidInfestorWave;
@@ -164,7 +169,7 @@ namespace SimulacrumAdditions
             InfiniteTowerCurrentLunarEliteWaveUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "Elites spawn as Perfected.";
             InfiniteTowerCurrentLunarEliteWaveUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0.3f,0.6f,1f);
 
-            InfiniteTowerWaveCategory.WeightedWave ITLunarElites = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveLunarElites, weight = 5.5f };
+            InfiniteTowerWaveCategory.WeightedWave ITLunarElites = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveLunarElites, weight = 5.5f, prerequisites = SimuMain.AfterWave5Prerequisite };
             //
             //
             //Malachite Elites
@@ -206,7 +211,7 @@ namespace SimulacrumAdditions
             InfiniteTowerCurrentVoidEliteWaveUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color = new Color(1f, 0.8f, 1f, 1);
             InfiniteTowerCurrentVoidEliteWaveUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = bdEliteVoid.buffColor;
 
-            InfiniteTowerWaveCategory.WeightedWave ITVoidElites = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveVoidElites, weight = 5.5f };
+            InfiniteTowerWaveCategory.WeightedWave ITVoidElites = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveVoidElites, weight = 5.5f, prerequisites = SimuMain.AfterWave5Prerequisite };
 
             //
             /*
@@ -655,7 +660,7 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveJetpackUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color32(190, 158, 202, 255);
             InfiniteTowerWaveJetpackUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color32(190, 158, 202, 255);
 
-            InfiniteTowerWaveCategory.WeightedWave ITBasicJetpack = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveJetpack, weight = 5.5f };
+            InfiniteTowerWaveCategory.WeightedWave ITBasicJetpack = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveJetpack, weight = 5.5f, prerequisites = SimuMain.AfterWave5Prerequisite };
             SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(ITBasicJetpack);
             //
             //
@@ -663,15 +668,20 @@ namespace SimulacrumAdditions
             GameObject InfiniteTowerWaveBossGhostHaunting = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveBossScav.prefab").WaitForCompletion(), "InfiniteTowerWaveBossGhostHaunting", true);
             GameObject InfiniteTowerWaveBossGhostHauntingUI = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentBossWaveUI.prefab").WaitForCompletion(), "InfiniteTowerWaveBossGhostHauntingUI", false);
 
+            CardRandomizerBossGhost = ScriptableObject.CreateInstance<MultiCSC>();
+            CardRandomizerBossGhost.name = "MulticscITGhostBoss";
+            CardRandomizerBossGhost.sendOverNetwork = true;
+
+
             MultiCharacterSpawnCard cscITGhostBoss = ScriptableObject.CreateInstance<MultiCharacterSpawnCard>();
             cscITGhostBoss.masterPrefabs = new GameObject[]
             {
-                LegacyResourcesAPI.Load<CharacterSpawnCard>("SpawnCards/CharacterSpawnCards/cscClayBoss").prefab,
-                LegacyResourcesAPI.Load<CharacterSpawnCard>("SpawnCards/CharacterSpawnCards/cscImpBoss").prefab,
                 LegacyResourcesAPI.Load<CharacterSpawnCard>("SpawnCards/CharacterSpawnCards/cscBrother").prefab,
                 LegacyResourcesAPI.Load<CharacterSpawnCard>("SpawnCards/CharacterSpawnCards/Titan/cscGrandparent").prefab,
                 LegacyResourcesAPI.Load<CharacterSpawnCard>("SpawnCards/CharacterSpawnCards/cscVagrant").prefab,
                 LegacyResourcesAPI.Load<CharacterSpawnCard>("SpawnCards/CharacterSpawnCards/cscSuperRoboBallBoss").prefab,
+                LegacyResourcesAPI.Load<CharacterSpawnCard>("SpawnCards/CharacterSpawnCards/cscClayBoss").prefab,
+                LegacyResourcesAPI.Load<CharacterSpawnCard>("SpawnCards/CharacterSpawnCards/cscImpBoss").prefab,
             };
             cscITGhostBoss.name = "cscITGhostBoss";
             cscITGhostBoss.itemsToGrant = new ItemCountPair[] {
@@ -682,7 +692,7 @@ namespace SimulacrumAdditions
                 new ItemCountPair { itemDef = Hoof, count = 3 },
                 new ItemCountPair { itemDef = SecondarySkillMagazine, count = 4 },
                 new ItemCountPair { itemDef = CritGlassesVoid, count = 200 },
-                new ItemCountPair { itemDef = AlienHead, count = 1 },
+                new ItemCountPair { itemDef = AlienHead, count = 0 },
             };
 
             InfiniteTowerWaveBossGhostHaunting.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList[0] = new InfiniteTowerExplicitSpawnWaveController.SpawnInfo
@@ -921,10 +931,11 @@ namespace SimulacrumAdditions
             GameObject InfiniteTowerWaveSurprise = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveDefault.prefab").WaitForCompletion(), "InfiniteTowerWaveSurprise", true);
             GameObject InfiniteTowerWaveSurpriseUI = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentWaveUI.prefab").WaitForCompletion(), "InfiniteTowerWaveSurpriseUI", false);
 
-            InfiniteTowerWaveSurprise.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITWaveTier1;
-            InfiniteTowerWaveSurprise.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
+            InfiniteTowerWaveSurprise.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITBasicBonusGreen;
+            InfiniteTowerWaveSurprise.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier2;
             InfiniteTowerWaveSurprise.GetComponent<InfiniteTowerWaveController>().wavePeriodSeconds = 1;
             InfiniteTowerWaveSurprise.GetComponent<InfiniteTowerWaveController>().immediateCreditsFraction = 1;
+            InfiniteTowerWaveSurprise.GetComponent<InfiniteTowerWaveController>().secondsBeforeSuddenDeath *= 2;
 
             InfiniteTowerWaveSurprise.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWaveSurpriseUI;
             InfiniteTowerWaveSurpriseUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "Wave {0} - Surprise";
@@ -1461,13 +1472,13 @@ namespace SimulacrumAdditions
             CharacterSpawnCard cscEquipmentDroneITVendingMachine = Object.Instantiate(cscEquipmentDroneIT);
             cscEquipmentDroneITVendingMachine.name = "cscEquipmentDroneITVendingMachine";
             cscEquipmentDroneITVendingMachine.equipmentToGrant = new EquipmentDef[] { DLC1Content.Equipment.VendingMachine };
-            cscEquipmentDroneITVendingMachine.itemsToGrant[0].count = 25;
+            cscEquipmentDroneITVendingMachine.itemsToGrant[0].count = 24;
             cscEquipmentDroneITVendingMachine.itemsToGrant[1].count = 15;
 
             CharacterSpawnCard cscEquipmentDroneITMeteor = Object.Instantiate(cscEquipmentDroneIT);
             cscEquipmentDroneITMeteor.name = "cscEquipmentDroneITMeteor";
             cscEquipmentDroneITMeteor.equipmentToGrant = new EquipmentDef[] { RoR2Content.Equipment.Meteor };
-            cscEquipmentDroneITMeteor.itemsToGrant[0].count = 17;
+            cscEquipmentDroneITMeteor.itemsToGrant[0].count = 16;
             cscEquipmentDroneITMeteor.itemsToGrant[1].count = 0;
             cscEquipmentDroneITMeteor.itemsToGrant[4].count = 1;
             cscEquipmentDroneITMeteor.itemsToGrant[4].itemDef = RoR2Content.Items.ShieldOnly;
@@ -1475,7 +1486,7 @@ namespace SimulacrumAdditions
             CharacterSpawnCard cscEquipmentDroneITCrippleWard = Object.Instantiate(cscEquipmentDroneIT);
             cscEquipmentDroneITCrippleWard.name = "cscEquipmentDroneITCrippleWard";
             cscEquipmentDroneITCrippleWard.equipmentToGrant = new EquipmentDef[] { RoR2Content.Equipment.CrippleWard };
-            cscEquipmentDroneITCrippleWard.itemsToGrant[0].count = 12;
+            cscEquipmentDroneITCrippleWard.itemsToGrant[0].count = 10;
             cscEquipmentDroneITCrippleWard.itemsToGrant[4].count = 1;
             cscEquipmentDroneITCrippleWard.itemsToGrant[4].itemDef = RoR2Content.Items.ShieldOnly;
 
@@ -1530,10 +1541,21 @@ namespace SimulacrumAdditions
                 Debug.LogWarning("CardRandomizer no run instance");
                 return;
             }
-            for (int i = 0; i < controller.spawnList.Length; i++)
+            if (controller.spawnList.Length == 1)
             {
-                controller.spawnList[i].spawnCard = cscList[(int)(Run.instance.bossRewardRng.nextNormalizedFloat * (float)cscList.Length)];
+                controller.spawnList[0].spawnCard = cscList[(int)(Run.instance.bossRewardRng.nextNormalizedFloat * (float)cscList.Length)];
             }
+            else
+            {
+                List<CharacterSpawnCard> newList = new List<CharacterSpawnCard>(cscList);
+                for (int i = 0; i < controller.spawnList.Length; i++)
+                {
+                    controller.spawnList[i].spawnCard = newList[(int)(Run.instance.bossRewardRng.nextNormalizedFloat * (float)newList.Count)];
+                    newList.Remove(controller.spawnList[i].spawnCard);
+                }
+            }
+
+
 
         }
 
