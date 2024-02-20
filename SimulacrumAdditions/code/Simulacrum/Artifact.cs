@@ -32,6 +32,7 @@ namespace SimulacrumAdditions
             ContentAddition.AddArtifactDef(ArtifactSimulacrum);
 
             On.RoR2.Run.OverrideRuleChoices += ArtifactInITOnly;
+            On.RoR2.WeeklyRun.OverrideRuleChoices += WeeklyArtifactInITOnly;
 
             RunArtifactManager.onArtifactEnabledGlobal += OnArtifactEnabled;
             RunArtifactManager.onArtifactDisabledGlobal += OnArtifactDisabled;
@@ -55,6 +56,13 @@ namespace SimulacrumAdditions
                 On.RoR2.Artifacts.SacrificeArtifactManager.OnArtifactEnabled += SacrificeArtifactManager_OnArtifactEnabled;
                 On.RoR2.Artifacts.SacrificeArtifactManager.OnArtifactDisabled += SacrificeArtifactManager_OnArtifactDisabled;
             }
+        }
+
+        private static void WeeklyArtifactInITOnly(On.RoR2.WeeklyRun.orig_OverrideRuleChoices orig, WeeklyRun self, RuleChoiceMask mustInclude, RuleChoiceMask mustExclude, ulong runSeed)
+        {
+            orig(self, mustInclude, mustExclude, runSeed);
+            self.ForceChoice(mustInclude, mustExclude, RuleCatalog.FindRuleDef("Artifacts.AAAAugmentsOnly").FindChoice("Off"));
+            self.ForceChoice(mustInclude, mustExclude, RuleCatalog.FindRuleDef("Artifacts.AAAUseNormalStages").FindChoice("Off"));
         }
 
         private static void SacrificeArtifactManager_OnArtifactEnabled(On.RoR2.Artifacts.SacrificeArtifactManager.orig_OnArtifactEnabled orig, RunArtifactManager runArtifactManager, ArtifactDef artifactDef)

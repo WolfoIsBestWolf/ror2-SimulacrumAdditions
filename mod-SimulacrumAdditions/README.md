@@ -107,11 +107,32 @@ Also download my other mods:\
 [WolfoQualityOfLife](https://thunderstore.io/package/Wolfo/WolfoQualityOfLife/) for many visual improvements.  
 
 ##
+This mod is likely breaks [Judgement](https://thunderstore.io/package/Nuxlar/Judgement/), as at the moment it isn't made with keeping normal Simulacrum functional in mind.
+
 I already added make wave 50 special so [SimulacrumBossStageMod](https://thunderstore.io/package/Def/SimulacrumBossStageMod/) is a bit redundant.\
 I already speed up the crab so [SpeedUpSafeWard](https://thunderstore.io/package/Felix/SpeedUpSafeWard/) is redundant.
 
 ## Changelog:
 ```
+v1.9.0 : General nerf update
+-A lot of special waves no longer have about 15% more enemies than a default wave.
+-Wave 5/10 Boss wave spawn ~20% less enemies.
+-Slightly less elite chance scaling
+
+-Infinite dying Lunar Exploders are now visible no longer spawn in the air.
+-Dead Mithrix wave will deal less damage.
+-Egg and Vending machine Equipment drones deal less damage.
+-Equipment Drones waves clean up Lunar Effigies/Meteor storms when the next wave begins.
+-Enemy fuel arrays will deal a survivavable amount of damage now (50% of commando hp based on player level).
+-Augment of Swarms will have 3x enemies instead of 4x
+-Drone family wave damage nerf
+-Worms family wave less enemies, no guaranteed elite worms, no guaranteed perferator.
+
+-Fixed Artifact of Real not changing the weather or Newts for clients.
+-Fixed Orange Potentials not being Orange on Clients
+-Fixed Twisted Scavengers in the normal game getting Adaptive Armor instead of just in IT.
+-ReAdds Lunar/Void Family and Mithrix boss waves if Judgement is installed.
+
 v1.8.3
 -Void Potentials will show their contents in a ping message.
 --Requested for more easily distributing them in multiplayer.

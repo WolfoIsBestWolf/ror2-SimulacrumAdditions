@@ -83,67 +83,28 @@ namespace SimulacrumAdditions
             }
             RuleDef StageOrderRule = RuleCatalog.FindRuleDef("Misc.StageOrder");
             Run.instance.ruleBook.GetRuleChoice(StageOrderRule).extraData = StageOrder.Random;
-            On.RoR2.InfiniteTowerRun.OnPrePopulateSceneServer += InfiniteTowerRun_OnPrePopulateSceneServer;
-            SceneDirector.onPostPopulateSceneServer += PostPopulateServer;
+            On.RoR2.InfiniteTowerRun.OnPrePopulateSceneServer += Server_IT_PrePopulateScene;
+            On.RoR2.SceneDirector.Start += ArtifactReal_SceneDirector_Start;
             SceneDirector.onGenerateInteractableCardSelection += RemoveUnneededInteractables;
         }
 
-        private static void OnArtifactDisabled(RunArtifactManager runArtifactManager, ArtifactDef artifactDef)
+        private static void ArtifactReal_SceneDirector_Start(On.RoR2.SceneDirector.orig_Start orig, SceneDirector self)
         {
-            if (artifactDef != ArtifactUseNormalStages)
-            {
-                return;
-            }
-            On.RoR2.InfiniteTowerRun.OnPrePopulateSceneServer -= InfiniteTowerRun_OnPrePopulateSceneServer;
-            SceneDirector.onPostPopulateSceneServer -= PostPopulateServer;
-            SceneDirector.onGenerateInteractableCardSelection -= RemoveUnneededInteractables;
-            if (Run.instance)
-            {
-                RuleDef StageOrderRule = RuleCatalog.FindRuleDef("Misc.StageOrder");
-                Run.instance.ruleBook.GetRuleChoice(StageOrderRule).extraData = StageOrder.Normal;
-            }
-        }
+            orig(self);
 
-
-
-        private static void ArtifactInITOnly(On.RoR2.Run.orig_OverrideRuleChoices orig, Run self, RuleChoiceMask mustInclude, RuleChoiceMask mustExclude, ulong runSeed)
-        {
-            orig(self, mustInclude, mustExclude, runSeed);
-            if (self && !(self is InfiniteTowerRun))
-            {
-                self.ForceChoice(mustInclude, mustExclude, RuleCatalog.FindRuleDef("Artifacts.AAAUseNormalStages").FindChoice("Off"));
-            }
-        }
-
-
-        private static void InfiniteTowerRun_OnPrePopulateSceneServer(On.RoR2.InfiniteTowerRun.orig_OnPrePopulateSceneServer orig, InfiniteTowerRun self, SceneDirector sceneDirector)
-        {
-            sceneDirector.RemoveAllExistingSpawnPoints();
-
-            orig(self, sceneDirector);
-            sceneDirector.monsterCredit = 0;
-            sceneDirector.teleporterSpawnCard = null;
             GameObject.Instantiate(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/Weather, InfiniteTower.prefab").WaitForCompletion());
-
             GameObject Weather = GameObject.Find("/Weather, Wispgraveyard");
             if (Weather)
             {
                 Weather.SetActive(false);
             }
 
-
-        }
-
-        private static void PostPopulateServer(SceneDirector obj)
-        {
-            CombatDirector[] combatDirector = obj.gameObject.GetComponents<CombatDirector>();
+            CombatDirector[] combatDirector = self.gameObject.GetComponents<CombatDirector>();
             for (int i = 0; i < combatDirector.Length; i++)
             {
                 Debug.Log(combatDirector[i]);
                 combatDirector[i].enabled = false;
             }
-
-            //Debug.Log(Object.FindObjectOfType(typeof(PortalStatueBehavior)));
 
             PortalStatueBehavior[] newtList2 = Object.FindObjectsOfType(typeof(PortalStatueBehavior)) as PortalStatueBehavior[];
             if (newtList2.Length > 0)
@@ -173,8 +134,43 @@ namespace SimulacrumAdditions
                         GameObject.Destroy(NewtAltar.GetComponent<PurchaseInteraction>());
                     }
                 }
-
             }
+        }
+
+        private static void OnArtifactDisabled(RunArtifactManager runArtifactManager, ArtifactDef artifactDef)
+        {
+            if (artifactDef != ArtifactUseNormalStages)
+            {
+                return;
+            }
+            On.RoR2.InfiniteTowerRun.OnPrePopulateSceneServer -= Server_IT_PrePopulateScene;
+            On.RoR2.SceneDirector.Start -= ArtifactReal_SceneDirector_Start;
+            SceneDirector.onGenerateInteractableCardSelection -= RemoveUnneededInteractables;
+            if (Run.instance)
+            {
+                RuleDef StageOrderRule = RuleCatalog.FindRuleDef("Misc.StageOrder");
+                Run.instance.ruleBook.GetRuleChoice(StageOrderRule).extraData = StageOrder.Normal;
+            }
+        }
+
+
+
+        private static void ArtifactInITOnly(On.RoR2.Run.orig_OverrideRuleChoices orig, Run self, RuleChoiceMask mustInclude, RuleChoiceMask mustExclude, ulong runSeed)
+        {
+            orig(self, mustInclude, mustExclude, runSeed);
+            if (self && !(self is InfiniteTowerRun))
+            {
+                self.ForceChoice(mustInclude, mustExclude, RuleCatalog.FindRuleDef("Artifacts.AAAUseNormalStages").FindChoice("Off"));
+            }
+        }
+
+
+        private static void Server_IT_PrePopulateScene(On.RoR2.InfiniteTowerRun.orig_OnPrePopulateSceneServer orig, InfiniteTowerRun self, SceneDirector sceneDirector)
+        {
+            sceneDirector.RemoveAllExistingSpawnPoints();
+            orig(self, sceneDirector);
+            sceneDirector.monsterCredit = 0;
+            sceneDirector.teleporterSpawnCard = null;
         }
 
         private static void RemoveUnneededInteractables(SceneDirector arg1, DirectorCardCategorySelection dccs)

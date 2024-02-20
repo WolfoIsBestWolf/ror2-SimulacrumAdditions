@@ -122,7 +122,7 @@ namespace SimulacrumAdditions
                 else if (variant == 1)
                 {
                     master.inventory.SetEquipmentIndex(RoR2Content.Equipment.QuestVolatileBattery.equipmentIndex);
-                    master.inventory.GiveItem(SimuMain.ITHealthScaling, 100); //Double health cuz they die at half
+                    master.inventory.GiveItem(SimuMain.ITHealthScaling, 80); //Double health cuz they die at half
                     //master.inventory.GiveItem(RoR2Content.Items.BoostHp, (int)(bonusHP * 1.5f));
                 }
                 else if (variant == 2)

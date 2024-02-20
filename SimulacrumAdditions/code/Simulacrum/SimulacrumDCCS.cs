@@ -736,7 +736,8 @@ namespace SimulacrumAdditions
 
             dccsITDampCaveMonsters.AddCard(0, SimuLoopGrovetender); //Simu thing where it imitates other stages
             dccsITDampCaveMonsters.AddCard(1, SimuLoopMiniMushroom); //Simu thing where it imitates other stages
-            dccsITDampCaveMonsters.categories[2].cards[3].spawnDistance = DirectorCore.MonsterSpawnDistance.Standard; //Hermit Crab
+            dccsITDampCaveMonsters.categories[2].cards[3].spawnDistance = DirectorCore.MonsterSpawnDistance.Close; //Hermit Crab
+            dccsITDampCaveMonsters.AddCard(2, SimuLoopHermitCrab); //Simu thing where it imitates other stages
 
             dccsITSkyMeadowMonsters.AddCard(1, SimuLoopGreaterWisp); //Match vanilla
             dccsITSkyMeadowMonsters.categories[0].cards[1].selectionWeight = 2; //More GrandParents

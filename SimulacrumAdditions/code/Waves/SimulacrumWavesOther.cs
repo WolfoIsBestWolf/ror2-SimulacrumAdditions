@@ -21,7 +21,7 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveManyItems.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITFamilyWaveDamage;
             InfiniteTowerWaveManyItems.GetComponent<InfiniteTowerWaveController>().rewardOptionCount = 6;
             InfiniteTowerWaveManyItems.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
-            InfiniteTowerWaveManyItems.GetComponent<InfiniteTowerWaveController>().baseCredits = 200;
+            InfiniteTowerWaveManyItems.GetComponent<InfiniteTowerWaveController>().baseCredits = 160;
 
             InfiniteTowerWaveManyItemsUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "Wave {0} - Augment of Hoarding";
             InfiniteTowerWaveManyItemsUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "Monsters get higher stacks of items.";
@@ -47,7 +47,7 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveHeresy.AddComponent<SimulacrumExtrasHelper>().rewardDropTable = SimuMain.dtITHeresy;
             InfiniteTowerWaveHeresy.GetComponent<SimulacrumExtrasHelper>().rewardDisplayTier = ItemTier.Lunar;
 
-            InfiniteTowerWaveHeresy.GetComponent<InfiniteTowerWaveController>().baseCredits = 200;
+            InfiniteTowerWaveHeresy.GetComponent<InfiniteTowerWaveController>().baseCredits = 160;
             InfiniteTowerWaveHeresy.GetComponent<InfiniteTowerWaveController>().maxSquadSize = 12;
 
             Texture2D texITWaveLunarHeresy = new Texture2D(256, 256, TextureFormat.DXT5, false);
@@ -79,7 +79,7 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveCoffee.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITFamilyWaveDamage;
             InfiniteTowerWaveCoffee.GetComponent<InfiniteTowerWaveController>().rewardOptionCount = 3;
             InfiniteTowerWaveCoffee.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
-            InfiniteTowerWaveCoffee.GetComponent<InfiniteTowerWaveController>().baseCredits = 200;
+            InfiniteTowerWaveCoffee.GetComponent<InfiniteTowerWaveController>().baseCredits = 160;
 
             InfiniteTowerWaveCoffee.AddComponent<SimulacrumGiveItemsOnStart>().itemString = "AttackSpeedAndMoveSpeed";
             InfiniteTowerWaveCoffee.GetComponent<SimulacrumGiveItemsOnStart>().count = 6;
@@ -101,7 +101,7 @@ namespace SimulacrumAdditions
 
             InfiniteTowerWaveLepton.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITFamilyWaveHealing;
             InfiniteTowerWaveLepton.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
-            InfiniteTowerWaveLepton.GetComponent<InfiniteTowerWaveController>().baseCredits = 179;
+            InfiniteTowerWaveLepton.GetComponent<InfiniteTowerWaveController>().baseCredits = 160;
 
             InfiniteTowerWaveLepton.AddComponent<SimulacrumGiveItemsOnStart>().itemString = "TPHealingNova";
             InfiniteTowerWaveLepton.GetComponent<SimulacrumGiveItemsOnStart>().count = -1;
@@ -127,7 +127,7 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveBehemoth.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITFamilyWaveDamage;
             InfiniteTowerWaveBehemoth.GetComponent<InfiniteTowerWaveController>().rewardOptionCount = 3;
             InfiniteTowerWaveBehemoth.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
-            InfiniteTowerWaveBehemoth.GetComponent<InfiniteTowerWaveController>().baseCredits = 179;
+            InfiniteTowerWaveBehemoth.GetComponent<InfiniteTowerWaveController>().baseCredits = 160;
 
             InfiniteTowerWaveBehemoth.AddComponent<SimulacrumGiveItemsOnStart>().itemString = "Behemoth";
             InfiniteTowerWaveBehemoth.GetComponent<SimulacrumGiveItemsOnStart>().count = 0;
@@ -187,7 +187,7 @@ namespace SimulacrumAdditions
             GameObject InfiniteTowerWavePulseLunarUI = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentBossLunarWaveUI.prefab").WaitForCompletion(), "InfiniteTowerWavePulseLunarUI", false);
 
             InfiniteTowerWavePulseLunar.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITBasicBonusLunar;
-            InfiniteTowerWavePulseLunar.GetComponent<InfiniteTowerWaveController>().baseCredits = 179;
+            InfiniteTowerWavePulseLunar.GetComponent<InfiniteTowerWaveController>().baseCredits = 160;
             //
             GameObject PulseLunar = PrefabAPI.InstantiateClone(LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/MoonBatteryDesignPulse"), "ITPulseLunar", true);
             PulseLunar.GetComponent<PulseController>().finalRadius = 60;
@@ -220,7 +220,7 @@ namespace SimulacrumAdditions
             GameObject InfiniteTowerWavePulseVoidUI = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentBossVoidWaveUI.prefab").WaitForCompletion(), "InfiniteTowerWavePulseVoidUI", false);
 
             InfiniteTowerWavePulseVoid.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITBasicBonusVoid;
-            InfiniteTowerWavePulseVoid.GetComponent<InfiniteTowerWaveController>().baseCredits = 179;
+            InfiniteTowerWavePulseVoid.GetComponent<InfiniteTowerWaveController>().baseCredits = 160;
             //
             GameObject PulseVoid = PrefabAPI.InstantiateClone(PulseLunar, "ITPulseVoid", true);
             PulseVoid.GetComponent<PulseController>().finalRadius = 60;
@@ -270,7 +270,7 @@ namespace SimulacrumAdditions
             GameObject InfiniteTowerWavePulseSuckInwardUI = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentWaveUI.prefab").WaitForCompletion(), "InfiniteTowerWavePulseSuckInwardUI", false);
 
             InfiniteTowerWavePulseSuckInward.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITFamilyWaveUtility;
-            InfiniteTowerWavePulseSuckInward.GetComponent<InfiniteTowerWaveController>().baseCredits = 179;
+            InfiniteTowerWavePulseSuckInward.GetComponent<InfiniteTowerWaveController>().baseCredits = 160;
             //
             GameObject PulseSuckInward = PrefabAPI.InstantiateClone(PulseLunar, "ITPulseSuckInward", true);
             PulseSuckInward.GetComponent<PulseController>().finalRadius = 100;
@@ -321,7 +321,7 @@ namespace SimulacrumAdditions
             GameObject InfiniteTowerWavePulseNoHealingUI = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentWaveUI.prefab").WaitForCompletion(), "InfiniteTowerWavePulseNoHealingUI", false);
 
             InfiniteTowerWavePulseNoHealing.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITFamilyWaveHealing;
-            InfiniteTowerWavePulseNoHealing.GetComponent<InfiniteTowerWaveController>().baseCredits = 179;
+            InfiniteTowerWavePulseNoHealing.GetComponent<InfiniteTowerWaveController>().baseCredits = 160;
             ///
             GameObject PulseNoHealing = PrefabAPI.InstantiateClone(PulseLunar, "ITPulseNoHealing", true);
             PulseNoHealing.GetComponent<PulseController>().finalRadius = 150;

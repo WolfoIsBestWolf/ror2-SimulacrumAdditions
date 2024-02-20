@@ -18,7 +18,7 @@ using UnityEngine.Networking;
 namespace SimulacrumAdditions
 {
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("Wolfo.SimulacrumAdditions", "SimulacrumAdditions", "1.8.0")]
+    [BepInPlugin("Wolfo.SimulacrumAdditions", "SimulacrumAdditions", "1.9.0")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
 
     public class SimuMain : BaseUnityPlugin
@@ -102,8 +102,6 @@ namespace SimulacrumAdditions
                 DumpAllWaveInfo(ITBasicWaves);
                 DumpAllWaveInfo(ITBossWaves);
             }
-
-            //JungleScene.Test();
 
             MakePortal();
             SetupConstants();
@@ -389,6 +387,26 @@ namespace SimulacrumAdditions
                     sceneDirector.interactableCredit = 0;
                 }
             };*/
+
+            On.RoR2.UI.MainMenu.MainMenuController.Start += OneTimeLateRunner;
+        }
+
+        private void OneTimeLateRunner(On.RoR2.UI.MainMenu.MainMenuController.orig_Start orig, RoR2.UI.MainMenu.MainMenuController self)
+        {
+            orig(self);
+            for (int i = 0; i < SimuMain.ITSuperBossWaves.wavePrefabs.Length; i++)
+            {
+                if (ITSuperBossWaves.wavePrefabs[i].wavePrefab.name.EndsWith("ScavLunar"))
+                {
+                    InfiniteTowerExplicitSpawnWaveController temp = ITSuperBossWaves.wavePrefabs[i].wavePrefab.GetComponent<RoR2.InfiniteTowerExplicitSpawnWaveController>();
+                    CharacterSpawnCard cscScavLunarIT = Object.Instantiate(Addressables.LoadAssetAsync<CharacterSpawnCard>(key: "RoR2/Base/ScavLunar/cscScavLunar.asset").WaitForCompletion());
+                    cscScavLunarIT.name = "cscScavLunarIT";
+                    cscScavLunarIT.itemsToGrant = new ItemCountPair[] { new ItemCountPair { itemDef = RoR2Content.Items.AdaptiveArmor, count = 1 } };
+                    temp.spawnList[0].spawnCard = cscScavLunarIT;
+
+                }
+            }
+            On.RoR2.UI.MainMenu.MainMenuController.Start -= OneTimeLateRunner;
         }
 
         private void OptionChestColorsAndName(On.RoR2.PickupPickerController.orig_SetOptionsInternal orig, PickupPickerController self, PickupPickerController.Option[] newOptions)
@@ -396,10 +414,15 @@ namespace SimulacrumAdditions
             orig(self, newOptions);
             if (self.name.StartsWith("Option"))
             {
+                PickupIndexNetworker index = self.GetComponent<PickupIndexNetworker>();
                 PickupDisplay pickupDisplay = self.transform.GetChild(0).GetComponent<PickupDisplay>();
-                if (pickupDisplay.pickupIndex != PickupIndex.none)
+                pickupDisplay.pickupIndex = index.pickupIndex;
+                self.GetComponent<Highlight>().pickupIndex = index.pickupIndex;
+                self.GetComponent<Highlight>().isOn = true;
+
+                if (index.pickupIndex != PickupIndex.none)
                 {
-                    switch (pickupDisplay.pickupIndex.pickupDef.itemTier)
+                    switch (index.pickupIndex.pickupDef.itemTier)
                     {
                         case ItemTier.Tier1:
                             pickupDisplay.tier1ParticleEffect.SetActive(true);
@@ -427,12 +450,13 @@ namespace SimulacrumAdditions
                             pickupDisplay.voidParticleEffect.SetActive(true);
                             break;
                     }
-                    if (pickupDisplay.pickupIndex.pickupDef.itemTier == ItemOrangeTierDef.tier)
+                    if (index.pickupIndex.pickupDef.itemTier == ItemOrangeTierDef.tier)
                     {
                         pickupDisplay.equipmentParticleEffect.SetActive(true);
                     }
                 }
-               
+                
+
                 if (WConfig.cfgVoidTripleContentsInPing.Value)
                 {
                     string NameWithOptions = Language.GetString("OPTION_PICKUP_UNKNOWN_NAME");
@@ -577,11 +601,16 @@ namespace SimulacrumAdditions
                 {
                     self.attackSpeed *= 1 - 0.01f * numAspd;
                     int numITKillOnCompletion = self.inventory.GetItemCount(ITKillOnCompletion);
-                    if (numITKillOnCompletion == 79)
+                    if (numITKillOnCompletion > 77)
                     {
-                        self.AddBuff(RoR2Content.Buffs.Cloak);
+                        self.baseMoveSpeed = 0;
+                        self.moveSpeed = 0;                     
                         self.skillLocator.primary = null;
-                    }
+                        if (numITKillOnCompletion > 78)
+                        {
+                            self.AddBuff(RoR2Content.Buffs.Cloak);
+                        }
+                   }
                 }
                 if (self.HasBuff(SimuWavesMisc.bdSlippery))
                 {
@@ -1640,30 +1669,32 @@ namespace SimulacrumAdditions
                         ITBasicWaves.wavePrefabs[i].wavePrefab.GetComponent<SimulacrumExtrasHelper>().rewardOptionCount = 2;
                         break;
                     case "InfiniteTowerWaveArtifactGlass":
-                        ITBasicWaves.wavePrefabs[i].wavePrefab.GetComponent<RoR2.InfiniteTowerWaveController>().baseCredits = 179;
+                        //ITBasicWaves.wavePrefabs[i].wavePrefab.GetComponent<RoR2.InfiniteTowerWaveController>().baseCredits = 179;
                         break;
                     case "InfiniteTowerWaveArtifactMixEnemy":
                         ITBasicWaves.wavePrefabs[i].weight = 3f;
                         ITBasicWaves.wavePrefabs[i].wavePrefab.GetComponent<RoR2.InfiniteTowerWaveController>().rewardDropTable = dtAllTier;
-                        ITBasicWaves.wavePrefabs[i].wavePrefab.GetComponent<RoR2.InfiniteTowerWaveController>().baseCredits = 179;
+                        ITBasicWaves.wavePrefabs[i].wavePrefab.GetComponent<RoR2.InfiniteTowerWaveController>().baseCredits = 184;
                         break;
                     case "InfiniteTowerWaveArtifactBomb":
                     case "InfiniteTowerWaveArtifactWispOnDeath":
                         ITBasicWaves.wavePrefabs[i].weight = 2f;
-                        ITBasicWaves.wavePrefabs[i].wavePrefab.GetComponent<RoR2.InfiniteTowerWaveController>().baseCredits = 179;
+                        //ITBasicWaves.wavePrefabs[i].wavePrefab.GetComponent<RoR2.InfiniteTowerWaveController>().baseCredits = 179;
                         ITBasicWaves.wavePrefabs[i].wavePrefab.GetComponent<RoR2.InfiniteTowerWaveController>().rewardDropTable = dtITBasicWaveOnKill;
                         break;
                     case "InfiniteTowerWaveArtifactStatsOnLowHealth":
                     case "InfiniteTowerWaveArtifactSingleMonsterType":
                         ITBasicWaves.wavePrefabs[i].weight = 2f;
-                        ITBasicWaves.wavePrefabs[i].wavePrefab.GetComponent<RoR2.InfiniteTowerWaveController>().baseCredits = 179;
+                        ITBasicWaves.wavePrefabs[i].wavePrefab.GetComponent<RoR2.InfiniteTowerWaveController>().baseCredits = 159;
                         break;
                     case "InfiniteTowerWaveArtifactRandomLoadout":
                         ITBasicWaves.wavePrefabs[i].weight = 2f;
                         ITBasicWaves.wavePrefabs[i].wavePrefab.GetComponent<RoR2.InfiniteTowerWaveController>().rewardDropTable = dtAllTier;
+                        ITBasicWaves.wavePrefabs[i].wavePrefab.GetComponent<RoR2.InfiniteTowerWaveController>().baseCredits = 159;
                         break;
                     case "InfiniteTowerWaveArtifactSingleEliteType":
                         ITBasicWaves.wavePrefabs[i].weight = 3f;
+                        ITBasicWaves.wavePrefabs[i].wavePrefab.GetComponent<RoR2.InfiniteTowerWaveController>().baseCredits = 159;
                         break;
                 };
             }
@@ -1676,6 +1707,23 @@ namespace SimulacrumAdditions
 
             ITBasicWaves.wavePrefabs[0].weight = 100;
             ITBossWaves.wavePrefabs[0].weight = 90;
+
+
+
+            if (SimuMain.ITBossWaves.wavePrefabs.Length < 3)
+            {
+                GameObject InfiniteTowerWaveBossLunar = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveBossLunar.prefab").WaitForCompletion();
+                GameObject InfiniteTowerWaveBossVoid = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveBossVoid.prefab").WaitForCompletion();
+                GameObject InfiniteTowerWaveBossBrother = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveBossBrother.prefab").WaitForCompletion();
+
+                InfiniteTowerWaveCategory.WeightedWave WaveBossLunar = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveBossLunar, weight = 10 };
+                InfiniteTowerWaveCategory.WeightedWave WaveBossVoid = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveBossVoid, weight = 6 };
+                InfiniteTowerWaveCategory.WeightedWave WaveBossBrother = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveBossBrother, weight = 2 };
+                SimuMain.ITBossWaves.wavePrefabs = SimuMain.ITBossWaves.wavePrefabs.Add(WaveBossLunar, WaveBossVoid, WaveBossBrother);
+            }
+
+
+
 
             for (int i = 0; i < ITBossWaves.wavePrefabs.Length; i++)
             {
@@ -1708,6 +1756,8 @@ namespace SimulacrumAdditions
                 }
             }
 
+
+            //Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentArtifactEnigmaWaveUI.prefab").WaitForCompletion()
         }
 
 
@@ -2032,7 +2082,7 @@ namespace SimulacrumAdditions
             if (WConfig.cfgExtraDifficuly.Value)
             {
                 CombatDirector combatDirector = self.waveInstance.GetComponent<CombatDirector>();
-                combatDirector.eliteBias = Mathf.Min(combatDirector.eliteBias * 0.5f * (1 - (self.waveIndex - 50f) / 50f), combatDirector.eliteBias); //Why is it 1.5f in Simu anyways
+                combatDirector.eliteBias = Mathf.Min(combatDirector.eliteBias * 0.5f * (1 - (self.waveIndex - 60f) / 60f), combatDirector.eliteBias); //Why is it 1.5f in Simu anyways
                 combatDirector.eliteBias = Mathf.Max(combatDirector.eliteBias, 0.1f);
 
                 float creditsMulti = 1f + ((self.waveIndex - 1) * 2f / 100f);
@@ -2042,6 +2092,20 @@ namespace SimulacrumAdditions
                 }
                 waveController.immediateCreditsFraction *= creditsMulti;
                 Debug.Log("immediateCreditsFraction: " + waveController.immediateCreditsFraction + " eliteBias: " + combatDirector.eliteBias);
+
+                if (self.waveIndex < 11)
+                {
+                    if (self.waveIndex == 5)
+                    {
+                        waveController.baseCredits -= 100;
+                        waveController.immediateCreditsFraction -= 0.1f;
+                        waveController.wavePeriodSeconds += 5;
+                    }
+                    if (self.waveIndex == 10)
+                    {
+                        waveController.baseCredits -= 50;
+                    }
+                }
             }
             if (WConfig.cfgSpeedUpOnLaterWaves.Value)
             {
@@ -2058,10 +2122,6 @@ namespace SimulacrumAdditions
                 if (self.waveIndex < 11)
                 {
                     //waveController.wavePeriodSeconds += 5;
-                    if (waveController.isBossWave)
-                    {
-                        waveController.immediateCreditsFraction -= -0.1f;
-                    }   
                     waveController.maxSquadSize = 15;
                 }
                 else if (self.waveIndex > 20)
@@ -2172,6 +2232,28 @@ namespace SimulacrumAdditions
                                 else
                                 {
                                     self.enemyInventory.RemoveItem(tempDef, (int)(self.enemyInventory.GetItemCount(self.enemyInventory.itemAcquisitionOrder[i]) / 5f * 4f));
+                                }
+                            }
+                            break;
+                        case "InfiniteTowerWaveBasicEquipmentDrone(Clone)":
+                        case "InfiniteTowerWaveBossEquipmentDrone(Clone)":
+                            MeteorStormController[] meteorList = Object.FindObjectsOfType(typeof(MeteorStormController)) as MeteorStormController[];
+                            if (meteorList.Length > 0)
+                            {
+                                for (int i = 0; i < meteorList.Length; i++)
+                                {
+                                    Destroy(meteorList[i].gameObject);
+                                }
+                            }
+                            BuffWard[] buffWard = Object.FindObjectsOfType(typeof(BuffWard)) as BuffWard[];
+                            if (buffWard.Length > 0)
+                            {
+                                for (int i = 0; i < buffWard.Length; i++)
+                                {
+                                    if (buffWard[i].buffDef = RoR2Content.Buffs.Cripple)
+                                    {
+                                        Destroy(buffWard[i].gameObject);
+                                    }                                 
                                 }
                             }
                             break;

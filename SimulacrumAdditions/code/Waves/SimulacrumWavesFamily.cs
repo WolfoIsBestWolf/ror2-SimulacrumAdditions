@@ -199,8 +199,7 @@ namespace SimulacrumAdditions
             //Lunar
             InfiniteTowerWaveFamilyLunar.GetComponent<CombatDirector>().monsterCards = dccsLunarFamily;
             InfiniteTowerWaveFamilyLunar.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITBasicBonusLunar;
-            InfiniteTowerWaveFamilyLunar.GetComponent<InfiniteTowerWaveController>().baseCredits = 200;
-
+           
             InfiniteTowerWaveFamilyLunar.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerCurrentWaveUIFamilyLunar;
             InfiniteTowerCurrentWaveUIFamilyLunar.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "Wave {0} - Augment of the Moon";
             InfiniteTowerCurrentWaveUIFamilyLunar.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "The bulwark begin to falter.";
@@ -213,7 +212,6 @@ namespace SimulacrumAdditions
             //Void
             InfiniteTowerWaveFamilyVoid.GetComponent<CombatDirector>().monsterCards = dccsVoidFamily;
             InfiniteTowerWaveFamilyVoid.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITBasicBonusVoid;
-            InfiniteTowerWaveFamilyVoid.GetComponent<InfiniteTowerWaveController>().baseCredits = 200;
 
             InfiniteTowerWaveFamilyVoid.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerCurrentWaveUIFamilyVoid;
             InfiniteTowerCurrentWaveUIFamilyVoid.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "Wave {0} - Augment of the Void";
@@ -240,7 +238,7 @@ namespace SimulacrumAdditions
             {
                 InfiniteTowerWaveController temp = ITFamilyWaves[i].GetComponent<InfiniteTowerWaveController>();
                 CombatDirector combatdirector = ITFamilyWaves[i].GetComponent<CombatDirector>();
-                temp.baseCredits *= 1.26f;
+                temp.baseCredits = 184f;
                 temp.immediateCreditsFraction = 0.45f;
                 combatdirector.skipSpawnIfTooCheap = false;
             }
@@ -317,7 +315,7 @@ namespace SimulacrumAdditions
             ItemDef DroneWeaponsDisplay2 = LegacyResourcesAPI.Load<ItemDef>("ItemDefs/DroneWeaponsDisplay2");
             ItemDef CutHp = LegacyResourcesAPI.Load<ItemDef>("ItemDefs/CutHp");
             ItemDef HalfSpeedDoubleHealth = Addressables.LoadAssetAsync<ItemDef>(key: "RoR2/DLC1/HalfSpeedDoubleHealth/HalfSpeedDoubleHealth.asset").WaitForCompletion();
-            int damageDown = 75;
+            int damageDown = 80;
             int healthScaling = 50;
             int healthBoost = 10;
             int credits = 70;
@@ -514,8 +512,6 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveBossFamilyBoss.GetComponent<InfiniteTowerWaveController>().wavePeriodSeconds = 30;
             InfiniteTowerWaveBossFamilyBoss.GetComponent<CombatDirector>().skipSpawnIfTooCheap = false;
 
-
-
             InfiniteTowerWaveBossFamilyBoss.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWaveBossFamilyBossUI;
             InfiniteTowerWaveBossFamilyBossUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "Wave {0} - Boss Augment of Champions";
             InfiniteTowerWaveBossFamilyBossUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "Only bosses may spawn.";
@@ -638,24 +634,25 @@ namespace SimulacrumAdditions
             InfiniteTowerCurrentWaveUIFamilyVermin.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "You have invaded rampant breeding grounds.";
             //
             //Worms
-            BossInfiniteTowerWaveFamilyWorms.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITWurms;
+            BossInfiniteTowerWaveFamilyWorms.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITSpecialBossYellow;
             BossInfiniteTowerWaveFamilyWorms.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Boss;
 
             BossInfiniteTowerWaveFamilyWorms.GetComponent<CombatDirector>().eliteBias = 0f;
             BossInfiniteTowerWaveFamilyWorms.GetComponent<InfiniteTowerWaveController>().immediateCreditsFraction = 0.5f;
             BossInfiniteTowerWaveFamilyWorms.GetComponent<InfiniteTowerWaveController>().maxSquadSize = 4; //The director doesn't seem to really care
-            BossInfiniteTowerWaveFamilyWorms.GetComponent<InfiniteTowerWaveController>().baseCredits = 750f;
+            BossInfiniteTowerWaveFamilyWorms.GetComponent<InfiniteTowerWaveController>().baseCredits = 500f;
             BossInfiniteTowerWaveFamilyWorms.GetComponent<InfiniteTowerWaveController>().linearCreditsPerWave = 0;
             BossInfiniteTowerWaveFamilyWorms.GetComponent<InfiniteTowerWaveController>().wavePeriodSeconds = 15;
-            BossInfiniteTowerWaveFamilyWorms.AddComponent<SimulacrumExtrasHelper>().newRadius = 160;
+            BossInfiniteTowerWaveFamilyWorms.AddComponent<SimulacrumExtrasHelper>().newRadius = 180;
 
             EliteDef FireHonor = LegacyResourcesAPI.Load<EliteDef>("EliteDefs/FireHonor");
             EliteDef Lightning = LegacyResourcesAPI.Load<EliteDef>("EliteDefs/Lightning");
             BossInfiniteTowerWaveFamilyWorms.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList = new InfiniteTowerExplicitSpawnWaveController.SpawnInfo[]
             {
-                new InfiniteTowerExplicitSpawnWaveController.SpawnInfo{eliteDef = FireHonor, count = 1, spawnDistance = DirectorCore.MonsterSpawnDistance.Far, spawnCard = LegacyResourcesAPI.Load<CharacterSpawnCard>("SpawnCards/CharacterSpawnCards/cscElectricWorm")},
-                new InfiniteTowerExplicitSpawnWaveController.SpawnInfo{eliteDef = Lightning, count = 1, spawnDistance = DirectorCore.MonsterSpawnDistance.Far, spawnCard = LegacyResourcesAPI.Load<CharacterSpawnCard>("SpawnCards/CharacterSpawnCards/cscMagmaWorm")},
+                new InfiniteTowerExplicitSpawnWaveController.SpawnInfo{eliteDef = FireHonor, count = 0, spawnDistance = DirectorCore.MonsterSpawnDistance.Far, spawnCard = LegacyResourcesAPI.Load<CharacterSpawnCard>("SpawnCards/CharacterSpawnCards/cscElectricWorm")},
+                new InfiniteTowerExplicitSpawnWaveController.SpawnInfo{eliteDef = Lightning, count = 0, spawnDistance = DirectorCore.MonsterSpawnDistance.Far, spawnCard = LegacyResourcesAPI.Load<CharacterSpawnCard>("SpawnCards/CharacterSpawnCards/cscMagmaWorm")},
             };
+
 
             BossInfiniteTowerWaveFamilyWorms.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerCurrentWaveUIFamilyWorms;
             InfiniteTowerCurrentWaveUIFamilyWorms.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "Wave {0} - Boss Augment of Wurms";
@@ -668,7 +665,7 @@ namespace SimulacrumAdditions
             {
                 InfiniteTowerWaveController temp = ITFamilyWaves[i].GetComponent<InfiniteTowerWaveController>();
                 CombatDirector combatdirector = ITFamilyWaves[i].GetComponent<CombatDirector>();
-                temp.baseCredits *= 1.26f;
+                temp.baseCredits = 184f;
                 temp.immediateCreditsFraction = 0.4f;
                 //combatdirector.skipSpawnIfTooCheap = false;
             }
@@ -721,8 +718,6 @@ namespace SimulacrumAdditions
                         break;
                 }
             }
-
-
 
 
         }
