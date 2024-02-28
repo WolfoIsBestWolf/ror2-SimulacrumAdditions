@@ -1,6 +1,6 @@
 ## Simulacrum
 Starting on wave 50, every stage a ending portal will spawn to end a run peacefully.  
-A super boss wave (such as Mithrix) will be forced on wave 50, reoccuring every 30 waves. (they can still occur randomly).  
+A super boss wave (such as Mithrix) will be forced on wave 50, reoccuring every 30 waves. (they can still rarely occur randomly).  
 This makes getting to wave 50 a set goal and makes the gamemode "beatable".  
 One of these runs should take around an hour (similiar to loop Mithrix) and counts as a win.  
 
@@ -22,12 +22,13 @@ Boss Waves:\
 -In total raises Boss Augment count from 5 to 23 (+2 with supported mods).
 
 Every stage now uses it's own interactable spawn pool to make each stage feel more unique.\
-This means Shrine of Chance, Shrine of Woods, Shrine of Order and Cleansing Pools spawn in the game mode.
+This means Shrine of Chance, Shrine of Woods, Shrine of Order and Cleansing Pools now spawn in the game mode.
 
-More enemies are added to the spawn pool starting wave 21.\
-Void enemies are added to the spawn pool starting wave 61.
+Reintroduces the unused Void Coin. They can be used as an alternative to blood on void interactables in Simulacrum.\
+They drop like Lunar Coin and from Void Barrels. You start with 1.\
+Void Blood Payments can no longer be blocked. (in Simu only)
 
-![](https://cdn.discordapp.com/attachments/743886063738683413/955904648936583188/unknown.png)
+![Image of new Waves]( )
 
 ## Balance
 Special Boss Augments now have special scaling like how final bosses on normal runs do.\
@@ -38,32 +39,33 @@ Earlier stages reward more money.\
 Stage 5+ get less interactables.\
 You get more gold and more interactables will spawn in multiplayer
 
-The focus moves faster the more waves are completed.\
-For each stage completed, -1 second between regular waves.
+
 
 Late waves spawn more enemies at the start, leading to bigger enemies but also less time in the wave overall.\
 Elites spawn more often the more waves are completed.
 
 Items are now granted every 8 waves until the first red.\
 Afterwards every 4 then 2 waves, shortening after each red is added.\
-Enemies are no longer granted On Kill items.\
-Some overpowered items were blacklisted for enemy team usage. (Tesla Coil, Nkuhanas).
+Enemies are no longer granted useless items such as On Kill items.\
+Tesla Coil and Nkuhanas are blacklisted for enemies now.
 
 Only 20 enemies can be alive at a time instead of 30.\
 Really early waves even less because of how often flying enemies overwhelm the player.
 
-Special waves will get likelier after wave 25 and wave 50.
+Special waves will get likelier after wave 30 and wave 50.
 
-![](https://cdn.discordapp.com/attachments/1115182271276781698/1188585480762183740/image.png?ex=659b0f7d&is=65889a7d&hm=3f84f75a4e8590bc3331b66f745c507075e2f16e1da8ec197c3cee7ab3aec235&)
+![Image of new waves 2](https://cdn.discordapp.com/attachments/1115182271276781698/1188585480762183740/image.png?ex=659b0f7d&is=65889a7d&hm=3f84f75a4e8590bc3331b66f745c507075e2f16e1da8ec197c3cee7ab3aec235&)
 
 ## Other  
-Void Coins can be used as an alternative to blood on void interactables in Simulacrum.\
-They drop like Lunar Coin and from Void Barrels. You start with 1.\
-Void Blood Payments can no longer be blocked (in Simu)
-
 Adds 2 Simulacrum only Artifacts:\
--Artifact of Augments : Only augmented waves
--Artifact of Reality : Use normal stages instead of Simulacrum stages
+-Artifact of Augments : Only augmented waves\
+-Artifact of Reality : Use normal stages instead of Simulacrum stages. (For people who really want Sulfur Pools for example)
+
+More enemy types are added to the spawn pool starting wave 21.\
+Void enemies are added to the spawn pool starting wave 61.
+
+The focus moves faster the more waves are completed.\
+For each stage completed, -1 second between regular waves.
 
 Scavengers are given a random Void item in Simulacrum.\
 Enemies have a small chance to get a void item.  
@@ -79,6 +81,7 @@ You wont encounter your previous stage as your next stage (ie: Meadows -> Sanctu
 
 Simu Titanic Plains now plays Void Fields music\
 Simu Abyssal Depths now plays Void Locusts music\
+Simu Abyssal Depths has new Geysers for better navigation\
 Simu Rallypoint Delta now plays Snowy Forests music\
 Simu Simulacrum has ramps. 
 
@@ -88,17 +91,22 @@ Warbanners pop on Boss Waves similiar to teleporters.
 Fixes vanilla bugs where Clients don't teleport to the Crab.\
 Fixed vanilla bugs where Clients often don't get enemy indicators.
 
-![](https://cdn.discordapp.com/attachments/1115182271276781698/1191449266871357530/image.png?ex=65a57a99&is=65930599&hm=8e618870cf043209f0f66b908cf17ed3b29fb48149dba024e7f54cde2070eecb&)
+![Image of Void Coin](https://cdn.discordapp.com/attachments/1115182271276781698/1191449266871357530/image.png?ex=65ef4e99&is=65dcd999&hm=7bffb6c7b8820a46a0c4329305fab7f535d80cfa83bac8b66727411cdd5870d0&)
 
+## Skins
+For technical reasons the skins are their own mod, for more information on the skins go to it's [mod page](https://thunderstore.io/package/Wolfo/WolfoAlternateSkins/ ):\
+They aren't anything too special but I do hope they are still enjoyable.\
+[![wolfoAlternateSkins](https://gcdn.thunderstore.io/live/repository/icons/Wolfo-WolfoAlternateSkins-1.5.0.png.128x128_q95.jpg)](https://thunderstore.io/package/Wolfo/WolfoAlternateSkins/)
 
 ##
 Report bugs to @Wolfo.wolfo in the Risk of Rain 2 discord or RoR2 Modding discord.\
 If you're reporting a bug that isn't something obvious include the log file.\
-Generally happy about feedback
+Generally happy about gameplay feedback.
 
 Every player needs this mod installed.
 
-The balance of this mod can be questionable as Simulacrum sucks to balance.
+The balance of this mod can be questionable as Simulacrum sucks to balance and is far harder in Multiplayer.\
+This mod currently is balanced to be Difficult on Monsoon, difficulties like Typhoon and Inferno aren't recommended.
 
 Also download my other mods:\
 [VanillaArtifactsPlus](https://thunderstore.io/package/Wolfo/VanillaArtifactsPlus) for updated vanilla artifacts, noticible in the Augments.  
@@ -107,13 +115,32 @@ Also download my other mods:\
 [WolfoQualityOfLife](https://thunderstore.io/package/Wolfo/WolfoQualityOfLife/) for many visual improvements.  
 
 ##
-This mod is likely breaks [Judgement](https://thunderstore.io/package/Nuxlar/Judgement/), as at the moment it isn't made with keeping normal Simulacrum functional in mind.
+This mod is likely breaks [Judgement](https://thunderstore.io/package/Nuxlar/Judgement/), as at the moment it isn't made with keeping Simulacrum functional in mind.
 
 I already added make wave 50 special so [SimulacrumBossStageMod](https://thunderstore.io/package/Def/SimulacrumBossStageMod/) is a bit redundant.\
 I already speed up the crab so [SpeedUpSafeWard](https://thunderstore.io/package/Felix/SpeedUpSafeWard/) is redundant.
 
 ## Changelog:
 ```
+v1.9.1
+-Default zone radius increased from 60 to 65-80 depending on player count.
+-Increased size of Void Potential collider for easier pinging and reaching.
+-Moved up Effigy/Meteor clean up to be after the enemies die instead of when the next wave starts.
+-Added two Geysers to IT-Abyssal Depths (Bottom to Island 2, Bottom to Side Ridge)
+
+-Nerfed Guap Attack Speed, Damage and Cooldown
+-Nerfed Deepened Void Devestator stats and scaling.
+-Equipment/Ghost/P5 Mithrix wave spawn 2 starting wave 30 instead of 25 and are all limited to 2 now.
+-Ghost Void Jailer, Grandparent, Vagrant now have less attack speed and damage
+-Ghost Bosses can do certain attacks only once (Sun, Big Jump, Suck)
+-Equipment Molotov and Meteor drone will deal less damage.
+-Equipment drones leave broken ones for use again to get rid of excess equipment and for the funny.
+-Nerfed Slippery debuff slightly
+-Changed Void Barnacle type so they should spawn on the floor and Less Devestators in IT-Moon
+-Blacklisted Voidsent Flame. 
+
+-Fixed bug where SS2 Drones still spawned with Artifact of Real
+
 v1.9.0 : General nerf update
 -A lot of special waves no longer have about 15% more enemies than a default wave.
 -Wave 5/10 Boss wave spawn ~20% less enemies.
@@ -130,7 +157,7 @@ v1.9.0 : General nerf update
 
 -Fixed Artifact of Real not changing the weather or Newts for clients.
 -Fixed Orange Potentials not being Orange on Clients
--Fixed Twisted Scavengers in the normal game getting Adaptive Armor instead of just in IT.
+-Fixed Twisted Scavengers in the normal game getting Adaptive Armor instead of just in Simu.
 -ReAdds Lunar/Void Family and Mithrix boss waves if Judgement is installed.
 
 v1.8.3

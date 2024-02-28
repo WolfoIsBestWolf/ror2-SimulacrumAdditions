@@ -89,6 +89,7 @@ namespace SimulacrumAdditions
         public static ItemDef ITHealthScaling = ScriptableObject.CreateInstance<ItemDef>();
         public static ItemDef ITKillOnCompletion = ScriptableObject.CreateInstance<ItemDef>();
         public static ItemDef ITHorrorName = ScriptableObject.CreateInstance<ItemDef>();
+        public static ItemDef ITCooldownUp = ScriptableObject.CreateInstance<ItemDef>();
 
         public static MasterCatalog.MasterIndex IndexAffixHealingCore = MasterCatalog.MasterIndex.none;
 
@@ -113,7 +114,7 @@ namespace SimulacrumAdditions
             SimuWavesOther.MakeItemGivingWaves();
             GiantGup.Start();
             SuperMegaCrab.Start();
-            SimuWavesMisc.Start();
+            SimuWavesMain.Start();
             SimulacrumDCCS.Start();
 
             if (WConfig.cfgEnableArtifact.Value)
@@ -122,14 +123,12 @@ namespace SimulacrumAdditions
                 ArtifactStupid.MakeArtifact();
             }
 
-
             LanguageAPI.Add("INFINITETOWER_SUDDEN_DEATH", "<style=cWorldEvent>[WARNING] The Focus begins to falter..</style>", "en");
             LanguageAPI.Add("INFINITETOWER_OBJECTIVE_AWAITINGACTIVATION", "Activate the <style=cIsVoid>Focus</style>", "en");
             LanguageAPI.Add("INFINITETOWER_OBJECTIVE_TRAVEL", "Follow the <style=cIsVoid>Focus</style>", "en");
             LanguageAPI.Add("INFINITETOWER_OBJECTIVE_PORTAL", "Advance through the <style=cIsVoid>Infinite Portal</style>", "en");
 
             LanguageAPI.Add("MAP_INFINITETOWER_SUBTITLE_ITMOON", "Latest specimen", "en");
-
 
             //EquipmentCatalog.availability.CallWhenAvailable(MakeLateWaves);
             GameModeCatalog.availability.CallWhenAvailable(LateRunningMethod);
@@ -307,12 +306,14 @@ namespace SimulacrumAdditions
             //Add glows to Option Pickups
             GameObject VoidPotential = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/OptionPickup/OptionPickup.prefab").WaitForCompletion();
             GameObject OptionPickerPanel = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/OptionPickup/OptionPickerPanel.prefab").WaitForCompletion();
+            VoidPotential.transform.GetChild(0).GetChild(0).GetComponent<SphereCollider>().radius = 1.25f;
             VoidPotential.transform.GetChild(0).GetChild(1).localPosition = new Vector3(0, -0.5f, 0);
             VoidPotential.transform.GetChild(0).GetChild(2).localPosition = new Vector3(0, -0.5f, 0);
             VoidPotential.transform.GetChild(0).GetChild(3).localPosition = new Vector3(0, -0.5f, 0);
             VoidPotential.transform.GetChild(0).GetChild(4).localPosition = new Vector3(0, -0.5f, 0);
             VoidPotential.transform.GetChild(0).GetChild(5).localPosition = new Vector3(0, -0.5f, 0);
             VoidPotential.transform.GetChild(0).GetChild(6).localPosition = new Vector3(0, -0.5f, 0);
+            
             OptionPickerPanel.GetComponent<RoR2.UI.PickupPickerPanel>().maxColumnCount = 3;
 
             On.RoR2.PickupPickerController.SetOptionsInternal += OptionChestColorsAndName;
@@ -533,19 +534,19 @@ namespace SimulacrumAdditions
             {
                 if (ITBossWaves.wavePrefabs[0].weight > 1)
                 {
-                    ITBasicWaves.wavePrefabs[0].weight = 10; //More Wackies past this
+                    ITBasicWaves.wavePrefabs[0].weight = 20; //More Wackies past this
                     ITBasicWaves.GenerateWeightedSelection();
-                    ITBossWaves.wavePrefabs[0].weight = 9; //More Wackies past this
+                    ITBossWaves.wavePrefabs[0].weight = 18; //More Wackies past this
                     ITBossWaves.GenerateWeightedSelection();
                 }
             }
-            else if (self.waveIndex == 26)
+            else if (self.waveIndex == 29)
             {
                 if (ITBasicWaves.wavePrefabs[0].weight > 1)
                 {
-                    ITBasicWaves.wavePrefabs[0].weight = 50; //More Wackies past this
+                    ITBasicWaves.wavePrefabs[0].weight = 60; //More Wackies past this
                     ITBasicWaves.GenerateWeightedSelection();
-                    ITBossWaves.wavePrefabs[0].weight = 45; //More Wackies past this
+                    ITBossWaves.wavePrefabs[0].weight = 50; //More Wackies past this
                     ITBossWaves.GenerateWeightedSelection();
                 }
             }
@@ -560,7 +561,7 @@ namespace SimulacrumAdditions
             {
                 if (self.waveIndex % 5 != 0)
                 {
-                    int players = Mathf.Min(5, Run.instance.participatingPlayerCount - 1);
+                    int players = Mathf.Min(5, Run.instance.participatingPlayerCount);
                     self.Network_timerStart += self.waveIndex / 10 * players * 0.2f;
                 }
             }
@@ -612,20 +613,29 @@ namespace SimulacrumAdditions
                         }
                    }
                 }
-                if (self.HasBuff(SimuWavesMisc.bdSlippery))
+                int numCooldown = self.inventory.GetItemCount(ITCooldownUp);
+                if (numCooldown > 0)
+                {
+                    if (self.skillLocator.primary)
+                    {
+                        self.skillLocator.primary.cooldownScale = 1 + numCooldown/10;
+                    }
+                }
+
+                if (self.HasBuff(SimuWavesMain.bdSlippery))
                 {
                     if (self.teamComponent.teamIndex == TeamIndex.Monster)
                     {
-                        self.acceleration /= 6;
+                        self.acceleration /= 5;
                         self.moveSpeed *= 1.5f;
                     }
                     else
                     {
-                        self.acceleration /= 12;
-                        self.moveSpeed *= 2.25f;
+                        self.acceleration /= 10;
+                        self.moveSpeed *= 2f;
                     }
                 }
-                if (self.HasBuff(SimuWavesMisc.bdBadLuck))
+                if (self.HasBuff(SimuWavesMain.bdBadLuck))
                 {
                     self.master.luck = -3;
                 }
@@ -642,8 +652,36 @@ namespace SimulacrumAdditions
             if (kill > 0)
             {
                 self.combatSquad.RemoveMember(master);
-
                 CharacterBody body = master.GetBody();
+
+                int horror = master.inventory.GetItemCount(ITHorrorName);
+                if (horror > 0)
+                {
+                    if (body)
+                    {
+                        Transform modelTransform = body.GetComponent<ModelLocator>().modelTransform;
+                        if (modelTransform)
+                        {
+                            Highlight highlight = modelTransform.gameObject.AddComponent<Highlight>();
+                            CharacterModel component2 = modelTransform.GetComponent<CharacterModel>();
+                            if (component2)
+                            {
+                                bool flag = false;
+                                foreach (CharacterModel.RendererInfo rendererInfo in component2.baseRendererInfos)
+                                {
+                                    if (!rendererInfo.ignoreOverlays && !flag)
+                                    {
+                                        highlight.highlightColor = Highlight.HighlightColor.interactive;
+                                        highlight.targetRenderer = rendererInfo.renderer;
+                                        highlight.strength = 1f;
+                                        highlight.isOn = true;
+                                        flag = true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
                 if (NetworkServer.active)
                 {
                     body.AddBuff(RoR2Content.Buffs.Immune);
@@ -657,6 +695,26 @@ namespace SimulacrumAdditions
                     for (int i = 0; i < tempAI.skillDrivers.Length; i++)
                     {
                         tempAI.skillDrivers[i].maxUserHealthFraction = 1;
+
+                        //Imp
+                        //Grandparent, Brother, ClayBoss Special 1
+                         
+                        //Roboball, Utility = 0, Special -1
+
+                        if (kill == 4)
+                        {
+                            if (tempAI.skillDrivers[i].skillSlot == SkillSlot.Special)
+                            {
+                                tempAI.skillDrivers[i].maxTimesSelected = 1;
+                            }
+                        }
+                        if (kill == 5)
+                        {
+                            if (tempAI.skillDrivers[i].skillSlot == SkillSlot.Utility)
+                            {
+                                tempAI.skillDrivers[i].maxTimesSelected = 0;
+                            }
+                        }           
                     }
                     if (kill == 10)
                     {
@@ -690,6 +748,7 @@ namespace SimulacrumAdditions
             }
             GameObject eqDrone = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterMasters/EquipmentDroneMaster");
             eqDrone.GetComponent<RoR2.StartEvent>().enabled = false;
+            eqDrone.AddComponent<EquipmentDroneInSimulacrum>();
             Destroy(eqDrone.GetComponent<RoR2.SetDontDestroyOnLoad>());
         }
 
@@ -701,6 +760,7 @@ namespace SimulacrumAdditions
             GameObject eqDrone = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterMasters/EquipmentDroneMaster");
             eqDrone.GetComponent<RoR2.StartEvent>().enabled = true;
             eqDrone.AddComponent<RoR2.SetDontDestroyOnLoad>();
+            eqDrone.GetComponent<EquipmentDroneInSimulacrum>();
             SimulacrumDCCS.MakeITSand(false);
             if (WConfig.cfgVoidCoins.Value)
             {
@@ -732,8 +792,8 @@ namespace SimulacrumAdditions
                 switch (self.name)
                 {
                     case "InfiniteTowerWaveBossScav(Clone)":
-                        bonusBonusHPMulti *= 0.375f;
-                        bonusBonusDmgMulti = 0.4f;
+                        bonusBonusHPMulti *= 0.3f;
+                        bonusBonusDmgMulti = 0.3f;
                         break;
                     case "InfiniteTowerWaveBossBrother(Clone)":
                         bonusBonusHPMulti *= 2.5f;
@@ -747,7 +807,7 @@ namespace SimulacrumAdditions
                         bonusBonusDmgMulti = 0.4f;
                         break;
                     case "InfiniteTowerWaveBossSuperCrab(Clone)":
-                        bonusBonusHPMulti *= 0.8f;
+                        bonusBonusHPMulti *= 0.4f;
                         bonusBonusDmgMulti = 0.4f;
                         break;
                     case "InfiniteTowerWaveBossSuperRoboBallBoss(Clone)":
@@ -760,7 +820,7 @@ namespace SimulacrumAdditions
                         break;
                     case "InfiniteTowerWaveBossGiantGup(Clone)":
                         bonusBonusHPMulti = 2f;
-                        bonusBonusDmgMulti = 0.5f;
+                        bonusBonusDmgMulti = 0.4f;
                         break;
                     case "InfiniteTowerWaveBossFamilyWorms(Clone)":
                         bonusBonusHPMulti = -1f;
@@ -771,11 +831,10 @@ namespace SimulacrumAdditions
                     case "InfiniteTowerWaveBasicEquipmentDrone(Clone)":
                     case "InfiniteTowerWaveBossEquipmentDrone(Clone)":
                         InfiniteTowerExplicitSpawnWaveController eqDrone = self.GetComponent<InfiniteTowerExplicitSpawnWaveController>();
-
-                        bonusSpawns = Mathf.Min(3, waveIndex / 20);
-                        if (waveIndex > 20)
+ 
+                        if (waveIndex > 30)
                         {
-                            eqDrone.spawnList[0].count += bonusSpawns;
+                            eqDrone.spawnList[0].count++;
                         }
 
                         string eqToken = "<style=cWorldEvent>[WARNING] Running test with ";
@@ -819,22 +878,24 @@ namespace SimulacrumAdditions
                         break;
                     case "InfiniteTowerWaveBasicGhostHaunting(Clone)":
                         bonusBonusHPMulti = 1f;
-                        bonusSpawns = Mathf.Min(2, waveIndex / 25);
-                        self.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList[0].count += bonusSpawns;
+                        //bonusSpawns = Mathf.Min(2, waveIndex / 30);
+                        if (waveIndex > 30)
+                        {
+                            self.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList[0].count++;
+                        }                
                         break;
                     case "InfiniteTowerWaveBossGhostHaunting(Clone)":
                         //Explicit Spawn waves that shouldn't have special scaling
                         bonusBonusHPMulti = 0.25f;
-                        if (waveIndex > 34)
+                        if (waveIndex > 44)
                         {
                             self.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList[0].count++;
                         }
                         break;
                     case "InfiniteTowerWaveBrotherHaunt(Clone)":
                         bonusBonusHPMulti = 0.7f;
-                        if (waveIndex > 25)
+                        if (waveIndex > 30)
                         {
-                            bonusSpawns = Mathf.Min(2, waveIndex / 25);
                             self.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList[0].count++;
                         }
                         break;
@@ -1075,7 +1136,13 @@ namespace SimulacrumAdditions
                 SimulacrumExtrasHelper temp = (Run.instance as InfiniteTowerRun).waveInstance.GetComponent<SimulacrumExtrasHelper>();
                 if (temp && temp.newRadius > 0)
                 {
-                    self.radius = temp.newRadius;
+                    temp.newRadius += -5 + Run.instance.participatingPlayerCount * 5;
+                    self.safeWardController.wardStateMachine.state.SetFieldValue("radius", temp.newRadius);
+                }
+                else
+                {
+                    float newRadius = 60 + Run.instance.participatingPlayerCount * 5;
+                    self.safeWardController.wardStateMachine.state.SetFieldValue("radius", newRadius);
                 }
             }
         }
@@ -1111,7 +1178,7 @@ namespace SimulacrumAdditions
 
         public static void LateRunningMethod()
         {
-            SimuWavesMisc.LateChanges();
+            SimuWavesMain.LateChanges();
             RoR2Content.Items.BoostHp.hidden = true;
             IndexAffixHealingCore = MasterCatalog.FindMasterIndex("AffixEarthHealerMaster");
 
@@ -1233,13 +1300,10 @@ namespace SimulacrumAdditions
             DLC1Content.Items.ElementalRingVoid.tags = DLC1Content.Items.ElementalRingVoid.tags.Remove(ItemTag.Utility);
 
             DLC1Content.Items.TreasureCacheVoid.tags = DLC1Content.Items.TreasureCacheVoid.tags.Add(ItemTag.AIBlacklist);
-            DLC1Content.Items.CritGlassesVoid.tags = DLC1Content.Items.CritGlassesVoid.tags.Add(ItemTag.Count);
+            DLC1Content.Items.CritGlassesVoid.tags = DLC1Content.Items.CritGlassesVoid.tags.Add(ItemTag.AIBlacklist);
             DLC1Content.Items.MushroomVoid.tags = DLC1Content.Items.MushroomVoid.tags.Add(ItemTag.AIBlacklist);
             DLC1Content.Items.EquipmentMagazineVoid.tags = DLC1Content.Items.EquipmentMagazineVoid.tags.Add(ItemTag.AIBlacklist);
-
-
-
-
+            DLC1Content.Items.ExplodeOnDeathVoid.tags = DLC1Content.Items.ExplodeOnDeathVoid.tags.Add(ItemTag.AIBlacklist);
 
             if (WConfig.cfgDumpInfo.Value)
             {
@@ -1335,7 +1399,18 @@ namespace SimulacrumAdditions
                 return orig(bodyObject);
             };
 
-
+            ITCooldownUp.name = "ITCooldownUp";
+            ITCooldownUp.deprecatedTier = ItemTier.NoTier;
+            ITCooldownUp._itemTierDef = AACannon._itemTierDef;
+            ITCooldownUp.nameToken = "ITCooldownUp";
+            ITCooldownUp.pickupToken = "ITCooldownUp";
+            ITCooldownUp.descriptionToken = "10% longer cooldown";
+            ITCooldownUp.hidden = true;
+            ITCooldownUp.canRemove = false;
+            ITCooldownUp.pickupIconSprite = AACannon.pickupIconSprite;
+            ITCooldownUp.pickupModelPrefab = AACannon.pickupModelPrefab;
+            customItem = new CustomItem(ITCooldownUp, new ItemDisplayRule[0]);
+            ItemAPI.Add(customItem);
 
             //Fake Orange Tier for Orange Void Potentials
             ItemOrangeTierDef = ScriptableObject.CreateInstance<ItemTierDef>();
@@ -1940,11 +2015,13 @@ namespace SimulacrumAdditions
             SimulacrumExtrasHelper radiusManip = self.waveInstance.GetComponent<SimulacrumExtrasHelper>();
             if (radiusManip && radiusManip.newRadius > 0)
             {
+                radiusManip.newRadius += -5 + Run.instance.participatingPlayerCount * 5;
                 self.safeWardController.wardStateMachine.state.SetFieldValue("radius", radiusManip.newRadius);
             }
             else
             {
-                self.safeWardController.wardStateMachine.state.SetFieldValue("radius", 60f);
+                float newRadius = 60 + Run.instance.participatingPlayerCount*5;
+                self.safeWardController.wardStateMachine.state.SetFieldValue("radius", newRadius);
             }
             //
             InfiniteTowerWaveController waveController = self.waveInstance.GetComponent<InfiniteTowerWaveController>();
@@ -2192,6 +2269,42 @@ namespace SimulacrumAdditions
                     spawnOnTarget = run.safeWardController.transform
                 }, run.safeWardRng));
             }
+
+            if (self.name.EndsWith("EquipmentDrone(Clone)"))
+            {
+                MeteorStormController[] meteorList = Object.FindObjectsOfType(typeof(MeteorStormController)) as MeteorStormController[];
+                if (meteorList.Length > 0)
+                {
+                    for (int i = 0; i < meteorList.Length; i++)
+                    {
+                        Destroy(meteorList[i].gameObject);
+                    }
+                }
+                BuffWard[] buffWard = Object.FindObjectsOfType(typeof(BuffWard)) as BuffWard[];
+                if (buffWard.Length > 0)
+                {   
+                    GameObject onDestroyEffect = LegacyResourcesAPI.Load<GameObject>("Prefabs/Effects/BrittleDeath");
+                    //onDestroyEffect.GetComponent<EffectComponent>().soundName = "";
+                    //onDestroyEffect.GetComponent<EffectComponent>().soundName = "Play_char_glass_death";
+                    for (int i = 0; i < buffWard.Length; i++)
+                    {
+                        if (buffWard[i].buffDef = RoR2Content.Buffs.Cripple)
+                        {
+                            Destroy(buffWard[i].gameObject);
+                            EffectManager.SpawnEffect(onDestroyEffect, new EffectData
+                            {
+                                origin = buffWard[i].transform.position,
+                                rotation = buffWard[i].transform.rotation
+                            }, true);
+                        }
+                    }
+                }
+            }
+            if (Run.instance)
+            {
+                Run.instance.GetComponent<RoR2.EnemyInfoPanelInventoryProvider>().MarkAsDirty();
+            }
+            Debug.Log("OnAllEnemiesDefeatedServer  " + self);
         }
 
         public static void InfiniteTowerRun_CleanUpCurrentWave(On.RoR2.InfiniteTowerRun.orig_CleanUpCurrentWave orig, InfiniteTowerRun self)
@@ -2235,28 +2348,6 @@ namespace SimulacrumAdditions
                                 }
                             }
                             break;
-                        case "InfiniteTowerWaveBasicEquipmentDrone(Clone)":
-                        case "InfiniteTowerWaveBossEquipmentDrone(Clone)":
-                            MeteorStormController[] meteorList = Object.FindObjectsOfType(typeof(MeteorStormController)) as MeteorStormController[];
-                            if (meteorList.Length > 0)
-                            {
-                                for (int i = 0; i < meteorList.Length; i++)
-                                {
-                                    Destroy(meteorList[i].gameObject);
-                                }
-                            }
-                            BuffWard[] buffWard = Object.FindObjectsOfType(typeof(BuffWard)) as BuffWard[];
-                            if (buffWard.Length > 0)
-                            {
-                                for (int i = 0; i < buffWard.Length; i++)
-                                {
-                                    if (buffWard[i].buffDef = RoR2Content.Buffs.Cripple)
-                                    {
-                                        Destroy(buffWard[i].gameObject);
-                                    }                                 
-                                }
-                            }
-                            break;
                     }
                     if (Run.instance)
                     {
@@ -2274,11 +2365,11 @@ namespace SimulacrumAdditions
             InfiniteTowerRun run = Run.instance.GetComponent<InfiniteTowerRun>();
             if (run.waveInstance)
             {
-                self.radius = 60;
+                self.radius = 60 + Run.instance.participatingPlayerCount * 5;
             }
             else
             {
-                self.radius = 25;
+                self.radius = 30;
             }
             orig(self);
 
@@ -2290,7 +2381,7 @@ namespace SimulacrumAdditions
 
         public static void Travelling_OnEnter(On.EntityStates.InfiniteTowerSafeWard.Travelling.orig_OnEnter orig, EntityStates.InfiniteTowerSafeWard.Travelling self)
         {
-            self.radius = 25;
+            self.radius = 30;
             orig(self);
             if (WConfig.cfgSpeedUpOnLaterWaves.Value)
             {
@@ -2304,12 +2395,12 @@ namespace SimulacrumAdditions
                     speedMult += (waves - 25f) / 50f;
                     if (speedMult > 3) { speedMult = 3; }
                 }
-                self.zone.radius = Mathf.Min(self.radius * ((speedMult - 1f) / 1.5f + 1f), 60);
+                self.zone.radius = Mathf.Min(self.radius * ((speedMult - 1f) / 1.5f + 1f), 70);
                 self.travelSpeed *= speedMult;
                 self.pathMaxSpeed *= speedMult;
                 self.travelSpeed += 1f;
                 self.pathMaxSpeed += 1f;
-                Debug.Log("Wave:" + waves + " speedMult:" + speedMult + " TravellingSpeed:" + self.travelSpeed + " Radius::" + self.zone.radius);
+                Debug.Log("Wave:" + waves + " speedMult:" + speedMult + " TravellingSpeed:" + self.travelSpeed + " Radius:" + self.zone.radius);
             }
         }
 

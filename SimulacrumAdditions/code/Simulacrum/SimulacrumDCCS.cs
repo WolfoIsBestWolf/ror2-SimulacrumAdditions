@@ -446,6 +446,19 @@ namespace SimulacrumAdditions
                         break;
                     case "itdampcave":
                         ClassicStageInfo.instance.interactableCategories = dccsITDampCaveInteractablesW;
+
+                        GameObject GeyserHolder = GameObject.Find("/HOLDER: Geyser");
+                        if (GeyserHolder)
+                        {
+                            //Up to side path when fall of chain : Random Ass unused Geyser
+                            GeyserHolder.transform.GetChild(4).gameObject.SetActive(true);
+                            GeyserHolder.transform.GetChild(4).position = new Vector3(-75.6025f, -182.2917f, -247.026f); //-75.6025 -178.9915 -247.026;
+
+                            //Up to platform 2 incase you fall off : Using preexisting unused Geyser
+                            GeyserHolder.transform.GetChild(5).gameObject.SetActive(true);
+                            GeyserHolder.transform.GetChild(5).position = new Vector3(46f, -179.5f, -59f); //-75.6025 -178.9915 -247.026;
+                            GeyserHolder.transform.GetChild(5).GetChild(2).GetComponent<JumpVolume>().jumpVelocity = new Vector3(10f, 80f, -10);
+                        }
                         break;
                     case "itskymeadow":
                         ClassicStageInfo.instance.interactableCategories = dccsITSkyMeadowInteractablesW;
@@ -487,7 +500,6 @@ namespace SimulacrumAdditions
                             MoonArenaDynamicPillar.transform.GetChild(5).GetChild(0).localPosition = mooncolumnlocalpos;
                             MoonArenaDynamicPillar.transform.GetChild(5).GetChild(0).localEulerAngles = mooncolumnrotation;
                             MoonArenaDynamicPillar.transform.GetChild(5).GetChild(0).localScale = mooncolumnlocalscale;
-
                         }
                         break;
                 }
@@ -618,13 +630,21 @@ namespace SimulacrumAdditions
             };
 
             //Void Stage 4 rest stage 3
-            DirectorCard SimuLoopVoidBarnacle = new DirectorCard
+            DirectorCard SimuLoopVoidBarnacleOnWalls = new DirectorCard
             {
                 spawnCard = Addressables.LoadAssetAsync<CharacterSpawnCard>(key: "RoR2/DLC1/VoidBarnacle/cscVoidBarnacle.asset").WaitForCompletion(),
+                selectionWeight = 1,
+                preventOverhead = true,
+                minimumStageCompletions = 2,
+                spawnDistance = DirectorCore.MonsterSpawnDistance.Close
+            };
+            DirectorCard SimuLoopVoidBarnacle = new DirectorCard
+            {
+                spawnCard = Addressables.LoadAssetAsync<CharacterSpawnCard>(key: "RoR2/DLC1/VoidBarnacle/cscVoidBarnacleNoCast.asset").WaitForCompletion(),
                 selectionWeight = 2,
                 preventOverhead = true,
                 minimumStageCompletions = 0,
-                spawnDistance = DirectorCore.MonsterSpawnDistance.Close
+                spawnDistance = DirectorCore.MonsterSpawnDistance.Far
             };
             DirectorCard SimuLoopVoidReaver = new DirectorCard
             {
@@ -645,9 +665,9 @@ namespace SimulacrumAdditions
             DirectorCard SimuLoopVoidDevestator = new DirectorCard
             {
                 spawnCard = Addressables.LoadAssetAsync<CharacterSpawnCard>(key: "RoR2/DLC1/VoidMegaCrab/cscVoidMegaCrab.asset").WaitForCompletion(),
-                selectionWeight = 2,
+                selectionWeight = 1,
                 preventOverhead = true,
-                minimumStageCompletions = 2,
+                minimumStageCompletions = 3,
                 spawnDistance = DirectorCore.MonsterSpawnDistance.Standard
             };
             DirectorCard SimuLoopMiniMushroom = new DirectorCard
@@ -749,6 +769,7 @@ namespace SimulacrumAdditions
             dccsITMoonMonsters.AddCard(1, SimuLoopVoidReaver);
             dccsITMoonMonsters.AddCard(1, SimuLoopVoidJailer);
             dccsITMoonMonsters.AddCard(1, SimuLoopVoidBarnacle);
+            dccsITMoonMonsters.AddCard(1, SimuLoopVoidBarnacleOnWalls);
             dccsITMoonMonsters.categories[0].cards[0].selectionWeight = 4;
             dccsITMoonMonsters.categories[0].cards[1].selectionWeight = 4;
             dccsITMoonMonsters.categories[0].cards[1].selectionWeight = 3;

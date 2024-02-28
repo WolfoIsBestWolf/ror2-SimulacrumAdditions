@@ -78,7 +78,7 @@ namespace SimulacrumAdditions
             }
             if (Run.instance && Run.instance.GetComponent<InfiniteTowerRun>())
             {
-                Debug.LogWarning("Simulacrum : Added Sacrifice");
+                Debug.Log("Simulacrum : Added Sacrifice");
                 On.RoR2.Util.GetExpAdjustedDropChancePercent += SimulacrumNerfSacrifice;
             }
         }
@@ -101,7 +101,7 @@ namespace SimulacrumAdditions
             }
             if (Run.instance && Run.instance.GetComponent<InfiniteTowerRun>())
             {
-                Debug.LogWarning("Simulacrum : Removed Sacrifice");
+                Debug.Log("Simulacrum : Removed Sacrifice");
                 On.RoR2.Util.GetExpAdjustedDropChancePercent -= SimulacrumNerfSacrifice;
             }
         }

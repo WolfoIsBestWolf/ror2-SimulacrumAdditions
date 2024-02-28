@@ -7,7 +7,7 @@ using R2API;
 
 namespace SimulacrumAdditions
 {
-    public class SimuWavesMisc
+    public class SimuWavesMain
     {
         //public static CharacterSpawnCard[] AllCSCEquipmentDronesIT;
         public static CardRandomizer CardRandomizerEquipmentDrones;
@@ -123,8 +123,8 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveBossVoidElites.GetComponent<InfiniteTowerExplicitSpawnWaveController>().linearCreditsPerWave = 0;
             InfiniteTowerWaveBossVoidElites.GetComponent<InfiniteTowerExplicitSpawnWaveController>().immediateCreditsFraction = 0.3f;
             InfiniteTowerWaveBossVoidElites.GetComponent<InfiniteTowerExplicitSpawnWaveController>().secondsBeforeSuddenDeath = 120;
-            InfiniteTowerWaveBossVoidElites.GetComponent<InfiniteTowerExplicitSpawnWaveController>().wavePeriodSeconds = 60;
-            InfiniteTowerWaveBossVoidElites.AddComponent<SimulacrumExtrasHelper>().newRadius = 70;
+            InfiniteTowerWaveBossVoidElites.GetComponent<InfiniteTowerExplicitSpawnWaveController>().wavePeriodSeconds = 45;
+            InfiniteTowerWaveBossVoidElites.AddComponent<SimulacrumExtrasHelper>().newRadius = 80;
 
             CombatDirector WaveVoidEliteDirector = InfiniteTowerWaveBossVoidElites.AddComponent<CombatDirector>();
             WaveVoidEliteDirector.monsterCredit = 550;
@@ -168,9 +168,9 @@ namespace SimulacrumAdditions
             InfiniteTowerCurrentLunarEliteWaveUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = texITWaveLunarEliteIconS;
             InfiniteTowerCurrentLunarEliteWaveUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "Wave {0} - Augment of Perfection";
             InfiniteTowerCurrentLunarEliteWaveUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "Elites spawn as Perfected.";
-            InfiniteTowerCurrentLunarEliteWaveUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0.3f,0.6f,1f);
+            //InfiniteTowerCurrentLunarEliteWaveUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0.3f,0.6f,1f);
 
-            InfiniteTowerWaveCategory.WeightedWave ITLunarElites = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveLunarElites, weight = 6f, prerequisites = SimuMain.AfterWave5Prerequisite };
+            InfiniteTowerWaveCategory.WeightedWave ITLunarElites = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveLunarElites, weight = 6.5f, prerequisites = SimuMain.AfterWave5Prerequisite };
             //
             //
             //Malachite Elites
@@ -191,10 +191,10 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveMalachitesOnlyUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "Wave {0} - Augment of Malachite";
             InfiniteTowerWaveMalachitesOnlyUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "All enemies spawn as weakened Malachites.";
             InfiniteTowerWaveMalachitesOnlyUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color = new Color(0.5f, 0.75f, 0.25f, 1);
-            InfiniteTowerWaveMalachitesOnlyUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0.5f, 0.75f, 0.25f, 1);
+            //InfiniteTowerWaveMalachitesOnlyUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0.5f, 0.75f, 0.25f, 1);
             InfiniteTowerWaveMalachitesOnlyUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color(0.5f, 0.75f, 0.25f, 1);
 
-            InfiniteTowerWaveCategory.WeightedWave ITEliteMalachite = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveMalachitesOnly, weight = 4f, prerequisites = SimuMain.StartWave30Prerequisite};
+            InfiniteTowerWaveCategory.WeightedWave ITEliteMalachite = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveMalachitesOnly, weight = 4.5f, prerequisites = SimuMain.StartWave30Prerequisite};
             //
             //
             //Void Elites
@@ -212,7 +212,7 @@ namespace SimulacrumAdditions
             InfiniteTowerCurrentVoidEliteWaveUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color = new Color(1f, 0.8f, 1f, 1);
             InfiniteTowerCurrentVoidEliteWaveUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = bdEliteVoid.buffColor;
 
-            InfiniteTowerWaveCategory.WeightedWave ITVoidElites = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveVoidElites, weight = 6f, prerequisites = SimuMain.AfterWave5Prerequisite };
+            InfiniteTowerWaveCategory.WeightedWave ITVoidElites = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveVoidElites, weight = 6.5f, prerequisites = SimuMain.AfterWave5Prerequisite };
 
             //
             /*
@@ -345,7 +345,8 @@ namespace SimulacrumAdditions
         internal static void LateChanges()
         {
             CreateEquipmentDroneSpawnCards();
-            CreateGhostSpawnCards();
+            SimuWavesGhosts.CreateGhostSpawnCards();
+            SimuWavesGhosts.CreateBossGhostSpawnCards();
             //Mod Support
             CharacterSpawnCard cscDireseeker = null;
             CharacterSpawnCard[] CSCList = Object.FindObjectsOfType(typeof(CharacterSpawnCard)) as CharacterSpawnCard[];
@@ -581,7 +582,7 @@ namespace SimulacrumAdditions
             ItemDef BoostAttackSpeed = LegacyResourcesAPI.Load<ItemDef>("ItemDefs/BoostAttackSpeed");
             ItemDef Hoof = LegacyResourcesAPI.Load<ItemDef>("ItemDefs/Hoof");
             ItemDef AdaptiveArmor = LegacyResourcesAPI.Load<ItemDef>("ItemDefs/AdaptiveArmor");
-            ItemDef CutHP = LegacyResourcesAPI.Load<ItemDef>("ItAPI.Load<ItemDef>emDefs/CutHP");
+            ItemDef CutHP = LegacyResourcesAPI.Load<ItemDef>("ItemDefs/CutHP");
             ItemDef LunarBadLuck = LegacyResourcesAPI.Load<ItemDef>("ItemDefs/LunarBadLuck");
             ItemDef AutoCastEquipment = LegacyResourcesAPI.Load<ItemDef>("ItemDefs/AutoCastEquipment");
             ItemDef CloverVoid = LegacyResourcesAPI.Load<ItemDef>("ItemDefs/CloverVoid");
@@ -616,7 +617,7 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveBossEquipmentDrone.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITWaveTier2;
             InfiniteTowerWaveBossEquipmentDrone.AddComponent<SimulacrumExtrasHelper>().rewardDropTable = SimuMain.dtITSpecialEquipment;
             //InfiniteTowerWaveBossEquipmentDrone.GetComponent<SimulacrumExtrasHelper>().rewardDisplayTier = //Orange
-            InfiniteTowerWaveBossEquipmentDrone.GetComponent<SimulacrumExtrasHelper>().newRadius = 80;
+            InfiniteTowerWaveBossEquipmentDrone.GetComponent<SimulacrumExtrasHelper>().newRadius = 90;
             InfiniteTowerWaveBossEquipmentDrone.GetComponent<InfiniteTowerExplicitSpawnWaveController>().wavePeriodSeconds = 60;
 
             InfiniteTowerWaveBossEquipmentDrone.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerCurrentBossEquipmentDroneWaveUI;
@@ -682,32 +683,9 @@ namespace SimulacrumAdditions
             CardRandomizerBossGhost.name = "MulticscITGhostBoss";
             CardRandomizerBossGhost.sendOverNetwork = true;
 
-
-            MultiCharacterSpawnCard cscITGhostBoss = ScriptableObject.CreateInstance<MultiCharacterSpawnCard>();
-            cscITGhostBoss.masterPrefabs = new GameObject[]
-            {
-                LegacyResourcesAPI.Load<CharacterSpawnCard>("SpawnCards/CharacterSpawnCards/cscBrother").prefab,
-                LegacyResourcesAPI.Load<CharacterSpawnCard>("SpawnCards/CharacterSpawnCards/Titan/cscGrandparent").prefab,
-                LegacyResourcesAPI.Load<CharacterSpawnCard>("SpawnCards/CharacterSpawnCards/cscVagrant").prefab,
-                LegacyResourcesAPI.Load<CharacterSpawnCard>("SpawnCards/CharacterSpawnCards/cscSuperRoboBallBoss").prefab,
-                LegacyResourcesAPI.Load<CharacterSpawnCard>("SpawnCards/CharacterSpawnCards/cscClayBoss").prefab,
-                LegacyResourcesAPI.Load<CharacterSpawnCard>("SpawnCards/CharacterSpawnCards/cscImpBoss").prefab,
-            };
-            cscITGhostBoss.name = "cscITGhostBoss";
-            cscITGhostBoss.itemsToGrant = new ItemCountPair[] {
-                new ItemCountPair { itemDef = Ghost, count = 1 },
-                new ItemCountPair { itemDef = SimuMain.ITKillOnCompletion, count = 2 },
-                new ItemCountPair { itemDef = SimuMain.ITHorrorName, count = 1 },
-                new ItemCountPair { itemDef = BoostAttackSpeed, count = 1 },
-                new ItemCountPair { itemDef = Hoof, count = 3 },
-                new ItemCountPair { itemDef = SecondarySkillMagazine, count = 4 },
-                new ItemCountPair { itemDef = CritGlassesVoid, count = 200 },
-                new ItemCountPair { itemDef = AlienHead, count = 0 },
-            };
-
             InfiniteTowerWaveBossGhostHaunting.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList[0] = new InfiniteTowerExplicitSpawnWaveController.SpawnInfo
             {
-                spawnCard = cscITGhostBoss,
+                spawnCard = CardRandomizerBossGhost,
                 spawnDistance = DirectorCore.MonsterSpawnDistance.Far,
                 count = 1
             };
@@ -786,7 +764,7 @@ namespace SimulacrumAdditions
             CardRandomizerEquipmentDrones = InfiniteTowerWaveBasicEquipmentDrone.AddComponent<CardRandomizer>();
 
             InfiniteTowerWaveBasicEquipmentDrone.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList[0].spawnCard = null;
-            InfiniteTowerWaveBasicEquipmentDrone.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList[0].spawnDistance = DirectorCore.MonsterSpawnDistance.Far;
+            InfiniteTowerWaveBasicEquipmentDrone.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList[0].spawnDistance = DirectorCore.MonsterSpawnDistance.Standard;
 
             InfiniteTowerWaveBasicEquipmentDrone.GetComponent<InfiniteTowerExplicitSpawnWaveController>().immediateCreditsFraction = 0.12f;
             InfiniteTowerWaveBasicEquipmentDrone.GetComponent<InfiniteTowerExplicitSpawnWaveController>().baseCredits = 160;
@@ -801,7 +779,6 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveBasicEquipmentDrone.AddComponent<SimulacrumExtrasHelper>().rewardDropTable = SimuMain.dtITSpecialEquipment;
             //InfiniteTowerWaveJetpack.GetComponent<SimulacrumExtrasHelper>().rewardDisplayTier = //Orange;
             InfiniteTowerWaveBasicEquipmentDrone.GetComponent<SimulacrumExtrasHelper>().rewardOptionCount = 2;
-
 
             InfiniteTowerWaveBasicEquipmentDrone.GetComponent<SimulacrumExtrasHelper>().newRadius = 75;
             InfiniteTowerWaveBasicEquipmentDrone.GetComponent<InfiniteTowerExplicitSpawnWaveController>().isBossWave = false;
@@ -819,7 +796,7 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveBasicEquipmentDroneUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color(1f, 0.55f, 0.1f, 1);
             InfiniteTowerWaveBasicEquipmentDroneUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 0.65f, 0.25f, 1);
 
-            InfiniteTowerWaveCategory.WeightedWave ITBasicEquipmentDrone = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveBasicEquipmentDrone, weight = 12f, prerequisites = SimuMain.AfterWave5Prerequisite };
+            InfiniteTowerWaveCategory.WeightedWave ITBasicEquipmentDrone = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveBasicEquipmentDrone, weight = 14f, prerequisites = SimuMain.AfterWave5Prerequisite };
             SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(ITBasicEquipmentDrone);
             //
             //
@@ -863,7 +840,7 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveBossCharacters.GetComponent<InfiniteTowerExplicitSpawnWaveController>().baseCredits = 400;
             InfiniteTowerWaveBossCharacters.GetComponent<InfiniteTowerExplicitSpawnWaveController>().linearCreditsPerWave = 0;
             InfiniteTowerWaveBossCharacters.GetComponent<InfiniteTowerExplicitSpawnWaveController>().secondsBeforeSuddenDeath = 120;
-            InfiniteTowerWaveBossCharacters.AddComponent<SimulacrumExtrasHelper>().newRadius = 95;
+            InfiniteTowerWaveBossCharacters.AddComponent<SimulacrumExtrasHelper>().newRadius = 90;
             InfiniteTowerWaveBossCharacters.GetComponent<InfiniteTowerExplicitSpawnWaveController>().wavePeriodSeconds = 40;
 
             InfiniteTowerWaveBossCharacters.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier2;
@@ -971,8 +948,8 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveSurprise.GetComponent<InfiniteTowerWaveController>().secondsBeforeSuddenDeath *= 2;
 
             InfiniteTowerWaveSurprise.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWaveSurpriseUI;
-            InfiniteTowerWaveSurpriseUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "Wave {0} - Surprise";
-            InfiniteTowerWaveSurpriseUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "All credits are spent immediately.";
+            InfiniteTowerWaveSurpriseUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "Wave {0} - Augment of Surprise";
+            InfiniteTowerWaveSurpriseUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "All enemies spawn immediately.";
 
             InfiniteTowerWaveCategory.WeightedWave ITBasicSurprise = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveSurprise, weight = 4f, prerequisites = SimuMain.StartWave11Prerequisite };
             SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(ITBasicSurprise);
@@ -986,7 +963,7 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveBrotherHaunt.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
             InfiniteTowerWaveBrotherHaunt.GetComponent<InfiniteTowerWaveController>().baseCredits = 160;
             InfiniteTowerWaveBrotherHaunt.GetComponent<InfiniteTowerExplicitSpawnWaveController>().linearCreditsPerWave = 0;
-            InfiniteTowerWaveBrotherHaunt.AddComponent<SimulacrumExtrasHelper>().newRadius = 65;
+            InfiniteTowerWaveBrotherHaunt.AddComponent<SimulacrumExtrasHelper>().newRadius = 80;
 
             //If we made him Void Team the enemies would probably go after him when he's not actually real
             CharacterSpawnCard cscBrotherHauntIT = Object.Instantiate(LegacyResourcesAPI.Load<CharacterSpawnCard>("SpawnCards/CharacterSpawnCards/cscBrother"));
@@ -1046,7 +1023,7 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveBossEclipse8.GetComponent<InfiniteTowerWaveController>().baseCredits = 500;
             InfiniteTowerWaveBossEclipse8.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier3;
             InfiniteTowerWaveBossEclipse8.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITWaveTier3;
-            InfiniteTowerWaveBossEclipse8.AddComponent<SimulacrumExtrasHelper>().newRadius = 45;
+            InfiniteTowerWaveBossEclipse8.AddComponent<SimulacrumExtrasHelper>().newRadius = 50;
             InfiniteTowerWaveBossEclipse8.AddComponent<SimulacrumEclipseWaveHelper>();
 
             Texture2D texDifficultyEclipse8Icon = new Texture2D(256, 256, TextureFormat.DXT5, false);
@@ -1230,8 +1207,7 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveDeathLunar.GetComponent<InfiniteTowerWaveController>().baseCredits = 160;
             InfiniteTowerWaveDeathLunar.GetComponent<InfiniteTowerWaveController>().wavePeriodSeconds += 5;
             InfiniteTowerWaveDeathLunar.GetComponent<InfiniteTowerWaveController>().secondsAfterWave++;
-            InfiniteTowerWaveDeathLunar.AddComponent<SimulacrumExtrasHelper>().newRadius = 80;
-
+            InfiniteTowerWaveDeathLunar.AddComponent<SimulacrumExtrasHelper>().newRadius = 85;
 
             CharacterSpawnCard cscITSuicideLunar = Object.Instantiate(LegacyResourcesAPI.Load<CharacterSpawnCard>("SpawnCards/CharacterSpawnCards/cscLunarExploder"));
             cscITSuicideLunar.name = "cscITSuicideLunar";
@@ -1357,6 +1333,10 @@ namespace SimulacrumAdditions
         {
             if (Run.instance && Run.instance.GetComponent<InfiniteTowerRun>())
             {
+                if (self.characterBody.name.StartsWith("Equipment"))
+                {
+                    orig(self, contactPoint);
+                }
                 return;
             }
             orig(self, contactPoint);
@@ -1415,60 +1395,12 @@ namespace SimulacrumAdditions
             SimuMain.ITModSupportWaves.wavePrefabs = SimuMain.ITModSupportWaves.wavePrefabs.Add(ITBasicSS2RainbowElites);
         }
 
-
-        public static void CreateGhostSpawnCards()
-        {
-
-            MultiCharacterSpawnCard cscITGhostBasicSlow = ScriptableObject.CreateInstance<MultiCharacterSpawnCard>();
-            cscITGhostBasicSlow.masterPrefabs = new GameObject[]
-            {
-                Addressables.LoadAssetAsync<CharacterSpawnCard>(key: "RoR2/DLC1/VoidJailer/cscVoidJailer.asset").WaitForCompletion().prefab,
-                LegacyResourcesAPI.Load<CharacterSpawnCard>("SpawnCards/CharacterSpawnCards/cscLemurianBruiser").prefab,
-            };
-            cscITGhostBasicSlow.name = "cscITGhostBasicSlow";
-            cscITGhostBasicSlow.itemsToGrant = new ItemCountPair[] {
-                new ItemCountPair { itemDef = RoR2Content.Items.Ghost, count = 1 },
-                new ItemCountPair { itemDef = SimuMain.ITKillOnCompletion, count = 2 },
-                new ItemCountPair { itemDef = SimuMain.ITHorrorName, count = 1 },
-                new ItemCountPair { itemDef = RoR2Content.Items.BoostAttackSpeed, count = 3 },
-                new ItemCountPair { itemDef = RoR2Content.Items.SprintOutOfCombat, count = 2 },
-                new ItemCountPair { itemDef = DLC1Content.Items.CritGlassesVoid, count = 200 },
-            };
-
-            MultiCharacterSpawnCard cscITGhostBasicSpeedy = ScriptableObject.CreateInstance<MultiCharacterSpawnCard>();
-            cscITGhostBasicSpeedy.masterPrefabs = new GameObject[]
-            {
-                LegacyResourcesAPI.Load<CharacterSpawnCard>("SpawnCards/CharacterSpawnCards/cscClayBruiser").prefab,
-                LegacyResourcesAPI.Load<CharacterSpawnCard>("SpawnCards/CharacterSpawnCards/cscClayGrenadier").prefab,
-                LegacyResourcesAPI.Load<CharacterSpawnCard>("SpawnCards/CharacterSpawnCards/cscLunarGolem").prefab,
-            };
-            cscITGhostBasicSpeedy.name = "cscITGhostBasicSpeedy";
-            cscITGhostBasicSpeedy.itemsToGrant = new ItemCountPair[] {
-                new ItemCountPair { itemDef = RoR2Content.Items.Ghost, count = 1 },
-                new ItemCountPair { itemDef = SimuMain.ITKillOnCompletion, count = 2 },
-                new ItemCountPair { itemDef = SimuMain.ITHorrorName, count = 1 },
-                new ItemCountPair { itemDef = RoR2Content.Items.BoostAttackSpeed, count = 3 },
-                new ItemCountPair { itemDef = RoR2Content.Items.SprintOutOfCombat, count = 3 },
-                new ItemCountPair { itemDef = RoR2Content.Items.Hoof, count = 6 },
-                new ItemCountPair { itemDef = RoR2Content.Items.LunarBadLuck, count = 1 },
-                new ItemCountPair { itemDef = DLC1Content.Items.CritGlassesVoid, count = 200 },
-            };
-
-            CardRandomizerBasicGhost.cscList = new CharacterSpawnCard[] {
-                cscITGhostBasicSlow,
-                cscITGhostBasicSlow,
-                cscITGhostBasicSpeedy,
-                cscITGhostBasicSpeedy,
-                cscITGhostBasicSpeedy,
-            };
-        }
-
         public static void CreateEquipmentDroneSpawnCards()
         {
-            //
             CharacterSpawnCard cscEquipmentDroneIT = Object.Instantiate(Addressables.LoadAssetAsync<CharacterSpawnCard>(key: "RoR2/Base/Titan/cscTitanGold.asset").WaitForCompletion());
             cscEquipmentDroneIT.name = "cscEquipmentDroneIT";
             cscEquipmentDroneIT.nodeGraphType = RoR2.Navigation.MapNodeGroup.GraphType.Air;
+            cscEquipmentDroneIT.noElites = true;
             cscEquipmentDroneIT.prefab = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/Base/Drones/EquipmentDroneMaster.prefab").WaitForCompletion();
             cscEquipmentDroneIT.itemsToGrant = new ItemCountPair[] {
                 new ItemCountPair { itemDef = RoR2Content.Items.BoostEquipmentRecharge, count = 15 },//0
@@ -1488,14 +1420,14 @@ namespace SimulacrumAdditions
             CharacterSpawnCard cscEquipmentDroneITMolotov = Object.Instantiate(cscEquipmentDroneIT);
             cscEquipmentDroneITMolotov.name = "cscEquipmentDroneITMolotov";
             cscEquipmentDroneITMolotov.equipmentToGrant = new EquipmentDef[] { DLC1Content.Equipment.Molotov };
+            cscEquipmentDroneITMolotov.itemsToGrant[1].count = 20;
 
             CharacterSpawnCard cscEquipmentDroneITFireBallDash = Object.Instantiate(cscEquipmentDroneIT);
             cscEquipmentDroneITFireBallDash.name = "cscEquipmentDroneITFireBallDash";
             cscEquipmentDroneITFireBallDash.equipmentToGrant = new EquipmentDef[] { RoR2Content.Equipment.FireBallDash };
             cscEquipmentDroneITFireBallDash.itemsToGrant[0].count = 3;
             cscEquipmentDroneITFireBallDash.itemsToGrant[1].count = 70;
-            cscEquipmentDroneITFireBallDash.itemsToGrant[4].count = 4;
-            cscEquipmentDroneITFireBallDash.itemsToGrant[5].count = 4;
+            cscEquipmentDroneITFireBallDash.itemsToGrant[5].count = 2;
 
             CharacterSpawnCard cscEquipmentDroneITTeamWarCry = Object.Instantiate(cscEquipmentDroneIT);
             cscEquipmentDroneITTeamWarCry.name = "cscEquipmentDroneITTeamWarCry";
@@ -1511,8 +1443,8 @@ namespace SimulacrumAdditions
             CharacterSpawnCard cscEquipmentDroneITMeteor = Object.Instantiate(cscEquipmentDroneIT);
             cscEquipmentDroneITMeteor.name = "cscEquipmentDroneITMeteor";
             cscEquipmentDroneITMeteor.equipmentToGrant = new EquipmentDef[] { RoR2Content.Equipment.Meteor };
-            cscEquipmentDroneITMeteor.itemsToGrant[0].count = 16;
-            cscEquipmentDroneITMeteor.itemsToGrant[1].count = 0;
+            cscEquipmentDroneITMeteor.itemsToGrant[0].count = 15;
+            cscEquipmentDroneITMeteor.itemsToGrant[1].count = 20;
             cscEquipmentDroneITMeteor.itemsToGrant[4].count = 1;
             cscEquipmentDroneITMeteor.itemsToGrant[4].itemDef = RoR2Content.Items.ShieldOnly;
 
@@ -1547,51 +1479,5 @@ namespace SimulacrumAdditions
 
 
 
-    public class MultiCSC : CharacterSpawnCard
-    {
-        public override void Spawn(Vector3 position, Quaternion rotation, DirectorSpawnRequest directorSpawnRequest, ref SpawnCard.SpawnResult result)
-        {
-            int random = (int)(directorSpawnRequest.rng.nextNormalizedFloat * (float)this.cscList.Length);
-            cscList[random].Spawn(position, rotation, directorSpawnRequest, ref result);
-        }
 
-        public CharacterSpawnCard[] cscList;
-    }
-
-    //Card randomizer for EQ drones but not ghosts I guess???
-    public class CardRandomizer : MonoBehaviour
-    {
-        private void OnEnable()
-        {
-            InfiniteTowerExplicitSpawnWaveController controller = this.GetComponent<InfiniteTowerExplicitSpawnWaveController>();
-            if (!controller)
-            {
-                Debug.LogWarning("CardRandomizer on invalid object");
-                return;
-            }
-            if (!Run.instance)
-            {
-                Debug.LogWarning("CardRandomizer no run instance");
-                return;
-            }
-            if (UnityEngine.Networking.NetworkServer.active)
-            {
-                if (controller.spawnList.Length == 1)
-                {
-                    controller.spawnList[0].spawnCard = cscList[(int)(Run.instance.bossRewardRng.nextNormalizedFloat * (float)cscList.Length)];
-                }
-                else
-                {
-                    List<CharacterSpawnCard> newList = new List<CharacterSpawnCard>(cscList);
-                    for (int i = 0; i < controller.spawnList.Length; i++)
-                    {
-                        controller.spawnList[i].spawnCard = newList[(int)(Run.instance.bossRewardRng.nextNormalizedFloat * (float)newList.Count)];
-                        newList.Remove(controller.spawnList[i].spawnCard);
-                    }
-                }
-            }
-        }
-
-        public CharacterSpawnCard[] cscList;
-    }
 }

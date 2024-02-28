@@ -25,13 +25,11 @@ namespace SimulacrumAdditions
             ContentAddition.AddBody(GiantBody);
             ContentAddition.AddMaster(GiantMaster);
 
-
             GiantMaster.GetComponent<CharacterMaster>().bodyPrefab = GiantBody;
             if (!WConfig.cfgNewEnemiesVisible.Value)
             {
                 GiantBody.GetComponent<DeathRewards>().logUnlockableDef = null;
             }
-
 
             GiantBody.GetComponent<SetStateOnHurt>().canBeHitStunned = false;
             GiantBody.GetComponent<SetStateOnHurt>().canBeStunned = false;
@@ -53,10 +51,10 @@ namespace SimulacrumAdditions
             //Giant Gup gets special scaling in IT
             //Also remember he has Shiny Pearl
             //GiantCharacterBody.baseDamage *= 1f;
-            GiantCharacterBody.baseMaxHealth *= 1.4f; //Base Health is 1000
-            GiantCharacterBody.baseDamage *= 1.3f;
+            GiantCharacterBody.baseMaxHealth *= 1.6f; //Base Health is 1000
+            GiantCharacterBody.baseDamage *= 1.2f;
 
-            GiantCharacterBody.baseAttackSpeed *= 0.55f;
+            GiantCharacterBody.baseAttackSpeed = 0.35f;
             GiantCharacterBody.baseMoveSpeed *= 0.65f;
             GiantCharacterBody.baseJumpPower *= 2.5f;
             GiantCharacterBody.baseArmor = 20;
@@ -89,7 +87,7 @@ namespace SimulacrumAdditions
 
             //Master increase range of attacks or smth
             RoR2.CharacterAI.AISkillDriver[] ai = GiantMaster.GetComponents<RoR2.CharacterAI.AISkillDriver>();
-            ai[0].maxDistance = 90; //His range is giant
+            ai[0].maxDistance = 75; //His range is giant
 
             //
             GiantMaster.AddComponent<GivePickupsOnStart>().equipmentString = "Cleanse";
@@ -98,9 +96,16 @@ namespace SimulacrumAdditions
                 new GivePickupsOnStart.ItemInfo { itemString = ("BoostEquipmentRecharge"), count = 5, },
                 new GivePickupsOnStart.ItemInfo { itemString = ("AdaptiveArmor"), count = 1, },
                 new GivePickupsOnStart.ItemInfo { itemString = ("TeleportWhenOob"), count = 1, },
-                new GivePickupsOnStart.ItemInfo { itemString = ("ShinyPearl"), count = 1, },
+                new GivePickupsOnStart.ItemInfo { itemString = ("ShinyPearl"), count = 0, },
             };
-
+            GiantMaster.GetComponent<GivePickupsOnStart>().itemDefInfos = new GivePickupsOnStart.ItemDefInfo[]
+            {
+                new GivePickupsOnStart.ItemDefInfo
+                {
+                    count = 30,
+                    itemDef = SimuMain.ITCooldownUp
+                }
+            };
 
             //
             CharacterSpawnCard gupCard = RoR2.LegacyResourcesAPI.Load<CharacterSpawnCard>("SpawnCards/CharacterSpawnCards/cscGupBody");
@@ -120,9 +125,9 @@ namespace SimulacrumAdditions
 
             //Spawns
             InfiniteTowerWaveBossGiantGup.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/dccsGupFamily.asset").WaitForCompletion();
-            InfiniteTowerWaveBossGiantGup.GetComponent<InfiniteTowerExplicitSpawnWaveController>().baseCredits = 100;
+            InfiniteTowerWaveBossGiantGup.GetComponent<InfiniteTowerExplicitSpawnWaveController>().baseCredits = 50;
             InfiniteTowerWaveBossGiantGup.GetComponent<InfiniteTowerExplicitSpawnWaveController>().immediateCreditsFraction = 0;
-            InfiniteTowerWaveBossGiantGup.GetComponent<InfiniteTowerExplicitSpawnWaveController>().linearCreditsPerWave = 5;
+            InfiniteTowerWaveBossGiantGup.GetComponent<InfiniteTowerExplicitSpawnWaveController>().linearCreditsPerWave = 3;
             InfiniteTowerWaveBossGiantGup.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList[0].spawnCard = cscGiantGup;
             InfiniteTowerWaveBossGiantGup.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList[0].spawnDistance = DirectorCore.MonsterSpawnDistance.Far;
 

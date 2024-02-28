@@ -11,8 +11,8 @@ namespace SimulacrumAdditions
     {
         //public static GameObject GupBody = RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/GupBody");
         //public static GameObject GupMaster = RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterMasters/GupMaster");
-        public static GameObject SuperCrabBody = R2API.PrefabAPI.InstantiateClone(RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/VoidMegaCrabBody"), "SuperVoidMegaCrabBody", true);
-        public static GameObject SuperCrabMaster = R2API.PrefabAPI.InstantiateClone(RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterMasters/VoidMegaCrabMaster"), "SuperVoidMegaCrabMaster", true);
+        public static GameObject SuperCrabBody = R2API.PrefabAPI.InstantiateClone(RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/VoidMegaCrabBody"), "VoidSuperMegaCrabBody", true);
+        public static GameObject SuperCrabMaster = R2API.PrefabAPI.InstantiateClone(RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterMasters/VoidMegaCrabMaster"), "VoidSuperMegaCrabMaster", true);
 
         public static void Start()
         {
@@ -43,9 +43,10 @@ namespace SimulacrumAdditions
 
 
             //Stats
-            CrabCharacterBody.baseMaxHealth = 2000; //Base Health is 2800*1.6 cuz Trans Shrimp
-            CrabCharacterBody.baseDamage *= 0.25f; //Bro gets so many damage items
-            CrabCharacterBody.attackSpeed *= 0.75f;
+            CrabCharacterBody.baseMaxHealth = 1880; //Base Health is 2800*1.6 cuz Trans Shrimp
+            CrabCharacterBody.baseDamage *= 0.2f; //Bro gets so many damage items
+            CrabCharacterBody.baseMoveSpeed *= 0.75f;
+            CrabCharacterBody.baseAttackSpeed *= 0.75f;
             CrabCharacterBody.baseJumpPower *= 1.5f;
 
             CrabCharacterBody.PerformAutoCalculateLevelStats();
@@ -56,7 +57,7 @@ namespace SimulacrumAdditions
             //Crazy how much more effort it'd be to do it in the official way
             On.EntityStates.VoidMegaCrab.Weapon.FireCrabCannonBase.OnEnter += (orig, self) =>
             {
-                if (self.characterBody.name.StartsWith("Super"))
+                if (self.characterBody.name.StartsWith("VoidSuper"))
                 {
                     self.projectileCount += (int)(self.projectileCount*1.2f) + 1;
                 }
@@ -90,6 +91,14 @@ namespace SimulacrumAdditions
             //The bottom metal for some reason is tied to the hands
             //It's the mesh itself that seems fucked who the hell knows why
 
+            Transform rootOG = mdlVoidSuperMegaCrab.transform.GetChild(2).GetChild(0);
+            Transform rootCopy = mdlCrab.transform.GetChild(0).GetChild(0);
+            /*Transform[] transformsOG = rootOG.GetComponentsInChildren<Transform>();
+
+            for (int i = 0; i< transformsOG.Length; i++)
+            {
+                Debug.Log(transformsOG[i]);
+            }*/
             //
             //Maybe Scav item granter or smth idk
             SuperCrabMaster.AddComponent<GivePickupsOnStart>().itemInfos = new GivePickupsOnStart.ItemInfo[] {
@@ -97,12 +106,12 @@ namespace SimulacrumAdditions
                 new GivePickupsOnStart.ItemInfo { itemString = ("TeleportWhenOob"), count = 1, },
                 new GivePickupsOnStart.ItemInfo { itemString = ("ShieldOnly"), count = 1, },
                 //new GivePickupsOnStart.ItemInfo { itemString = ("RandomDamageZone"), count = 6, },
-                new GivePickupsOnStart.ItemInfo { itemString = ("CritGlassesVoid"), count = 100, },
+                new GivePickupsOnStart.ItemInfo { itemString = ("CritGlassesVoid"), count = 10, },
                 new GivePickupsOnStart.ItemInfo { itemString = ("BearVoid"), count = 1, },
                 new GivePickupsOnStart.ItemInfo { itemString = ("MissileVoid"), count = 1, },
                 new GivePickupsOnStart.ItemInfo { itemString = ("ElementalRingVoid"), count = 1, },
                 new GivePickupsOnStart.ItemInfo { itemString = ("EquipmentMagazineVoid"), count = 1, },
-                new GivePickupsOnStart.ItemInfo { itemString = ("SlowOnHitVoid"), count = 1, }, //Tentabaubel duration stacks so keep it low
+                //new GivePickupsOnStart.ItemInfo { itemString = ("SlowOnHitVoid"), count = 1, }, //Tentabaubel duration stacks so keep it low
                 new GivePickupsOnStart.ItemInfo { itemString = ("VoidMegaCrabItem"), count = 3, },
 
             };
@@ -126,8 +135,8 @@ namespace SimulacrumAdditions
 
             //Spawns
             InfiniteTowerWaveBossSuperCrab.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/DLC1/Common/dccsVoidFamily.asset").WaitForCompletion();
-            InfiniteTowerWaveBossSuperCrab.GetComponent<InfiniteTowerExplicitSpawnWaveController>().baseCredits = 50;
-            InfiniteTowerWaveBossSuperCrab.GetComponent<InfiniteTowerExplicitSpawnWaveController>().linearCreditsPerWave = 4;
+            InfiniteTowerWaveBossSuperCrab.GetComponent<InfiniteTowerExplicitSpawnWaveController>().baseCredits = 0;
+            InfiniteTowerWaveBossSuperCrab.GetComponent<InfiniteTowerExplicitSpawnWaveController>().linearCreditsPerWave = 0;
             InfiniteTowerWaveBossSuperCrab.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList[0].spawnCard = cscSuperCrab;
             InfiniteTowerWaveBossSuperCrab.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList[0].spawnDistance = DirectorCore.MonsterSpawnDistance.Far;
 

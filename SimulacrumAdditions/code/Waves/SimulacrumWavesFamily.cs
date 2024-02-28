@@ -643,7 +643,7 @@ namespace SimulacrumAdditions
             BossInfiniteTowerWaveFamilyWorms.GetComponent<InfiniteTowerWaveController>().baseCredits = 500f;
             BossInfiniteTowerWaveFamilyWorms.GetComponent<InfiniteTowerWaveController>().linearCreditsPerWave = 0;
             BossInfiniteTowerWaveFamilyWorms.GetComponent<InfiniteTowerWaveController>().wavePeriodSeconds = 15;
-            BossInfiniteTowerWaveFamilyWorms.AddComponent<SimulacrumExtrasHelper>().newRadius = 180;
+            BossInfiniteTowerWaveFamilyWorms.AddComponent<SimulacrumExtrasHelper>().newRadius = 160;
 
             EliteDef FireHonor = LegacyResourcesAPI.Load<EliteDef>("EliteDefs/FireHonor");
             EliteDef Lightning = LegacyResourcesAPI.Load<EliteDef>("EliteDefs/Lightning");
