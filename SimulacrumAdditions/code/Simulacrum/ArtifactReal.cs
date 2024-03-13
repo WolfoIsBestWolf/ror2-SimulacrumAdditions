@@ -7,7 +7,7 @@ using UnityEngine.AddressableAssets;
 
 namespace SimulacrumAdditions
 {
-    public class ArtifactStupid
+    public class ArtifactReal
     {
         public static ArtifactDef ArtifactUseNormalStages = ScriptableObject.CreateInstance<ArtifactDef>();
 

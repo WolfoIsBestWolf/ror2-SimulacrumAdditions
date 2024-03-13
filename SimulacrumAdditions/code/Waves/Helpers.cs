@@ -1,11 +1,13 @@
-﻿using R2API;
+﻿using BepInEx;
+using MonoMod.Cil;
+using R2API;
+using R2API.Utils;
 using RoR2;
-using RoR2.Navigation;
-//using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using System.Collections.Generic;
 using UnityEngine.Networking;
+using RoR2.Projectile;
 
 namespace SimulacrumAdditions
 {
@@ -54,6 +56,19 @@ namespace SimulacrumAdditions
         }
     }
 
+    public class SimuExplicitStats : MonoBehaviour
+    {
+        public int AddExtraAfterWave = -1;
+        public float hpBonusMulti = -1;
+        public float dmgBonusMulti = -1;
+
+        public void DoTheThing()
+        {
+
+        }
+
+
+    }
 
     public class SimuEquipmentWaveHelper : MonoBehaviour
     {
@@ -80,6 +95,16 @@ namespace SimulacrumAdditions
             {
                 RoR2Content.Equipment.QuestVolatileBattery.dropOnDeathChance = 0.015f;
                 EntityStates.QuestVolatileBattery.CountDown.explosionRadius /= 1.8f;
+            }
+            else if (variant == 3)
+            {
+                foreach (PlayerCharacterMasterController player in PlayerCharacterMasterController.instances)
+                {
+                    if (player.master.bodyInstanceObject)
+                    {
+                        player.master.GetBody().equipmentSlot.FireGummyClone();
+                    }
+                }
             }
         }
 
@@ -130,16 +155,32 @@ namespace SimulacrumAdditions
                     master.inventory.SetEquipmentIndex(RoR2Content.Equipment.AffixPoison.equipmentIndex);
                     master.inventory.GiveItem(RoR2Content.Items.BoostHp, bonusHP);
                 }
+                else if (variant == 3)
+                {
+                    if (master.inventory.GetItemCount(DLC1Content.Items.GummyCloneIdentifier) == 0)
+                    {
+                        master.inventory.SetEquipmentIndex(DLC1Content.Equipment.GummyClone.equipmentIndex);
+                        master.inventory.GiveItem(RoR2Content.Items.AutoCastEquipment, 1);
+                        master.inventory.GiveItem(RoR2Content.Items.EquipmentMagazine, 1);
+                        master.inventory.GiveItem(RoR2Content.Items.BoostHp, 3);
+                    }
+                    else
+                    {
+                        master.inventory.RemoveItem(RoR2Content.Items.BoostHp, 20);
+                        master.inventory.RemoveItem(RoR2Content.Items.BoostDamage, 20);
+                    }
+                }
             }
         }
     }
-
 
     public class SimuBuffWaveHelper : MonoBehaviour
     {
         protected CombatSquad combatSquad;
         public int variant = -1;
         public int count;
+        public float duration = -1;
+        public bool timed = false;
         public bool addToPlayer = false;
         public bool addToEnemies = true;
         public BuffDef buffDef;
@@ -155,7 +196,7 @@ namespace SimulacrumAdditions
                     controller.combatSquad.onMemberDiscovered += this.OnCombatSquadMemberDiscovered;
                 }
             }
-            
+
             if (addToPlayer && variant == -1)
             {
                 if (NetworkServer.active)
@@ -164,7 +205,14 @@ namespace SimulacrumAdditions
                     {
                         if (player.master.bodyInstanceObject)
                         {
-                            player.master.GetBody().AddBuff(buffDef);
+                            if (timed)
+                            {
+                                player.master.GetBody().AddTimedBuff(buffDef, duration);
+                            }
+                            else
+                            {
+                                player.master.GetBody().AddBuff(buffDef);
+                            }
                         }
                     }
                 }
@@ -188,11 +236,11 @@ namespace SimulacrumAdditions
                     foreach (PlayerCharacterMasterController player in PlayerCharacterMasterController.instances)
                     {
                         if (player.master.bodyInstanceObject)
-                        {   
+                        {
                             if (player.master.GetBody().HasBuff(buffDef))
                             {
                                 player.master.GetBody().RemoveBuff(buffDef);
-                            }                
+                            }
                         }
                     }
                 }
@@ -206,7 +254,14 @@ namespace SimulacrumAdditions
                 CharacterBody charBody = master.GetBody();
                 if (variant == -1)
                 {
-                    charBody.AddBuff(buffDef);
+                    if (timed)
+                    {
+                        charBody.AddTimedBuff(buffDef, duration);
+                    }
+                    else
+                    {
+                        charBody.AddBuff(buffDef);
+                    }
                 }
                 else if (variant == 0)
                 {
@@ -217,19 +272,105 @@ namespace SimulacrumAdditions
                         charBody.AddBuff(DLC1Content.Buffs.BearVoidReady);
                     }
                 }
-                else if (variant == 1)
-                {
-                    charBody.GetComponent<ModelLocator>().modelTransform.localScale *= 1.5f;
-                }
-                
             }
         }
     }
+
+    public class SimuWaveSizeModifier : MonoBehaviour
+    {
+        public float sizeModifier;
+        public ItemDef neededItem;
+
+        private void OnEnable()
+        {
+            On.RoR2.CharacterModel.Start += ChangeSize;
+        }
+
+        private void ChangeSize(On.RoR2.CharacterModel.orig_Start orig, CharacterModel self)
+        {
+            orig(self);
+            if (self.body.teamComponent.teamIndex != TeamIndex.Player)
+            {
+                if (neededItem == null || self.body.inventory.GetItemCount(neededItem) > 0)
+                {
+                    self.transform.localScale *= sizeModifier;
+
+                    if (self.body.aimOriginTransform)
+                    {
+                        self.body.aimOriginTransform.localPosition *= sizeModifier; //Ig???
+                    }
+                }
+            }
+
+        }
+
+        private void OnDisable()
+        {
+            On.RoR2.CharacterModel.Start -= ChangeSize;
+        }
+    }
+
+    public class SimuWaveAlwaysJumping : MonoBehaviour
+    {
+        private void OnEnable()
+        {
+            On.EntityStates.GenericCharacterMain.ProcessJump += AlwaysSpamJump;
+        }
+
+        private void OnDisable()
+        {
+            On.EntityStates.GenericCharacterMain.ProcessJump -= AlwaysSpamJump;
+        }
+
+        private void AlwaysSpamJump(On.EntityStates.GenericCharacterMain.orig_ProcessJump orig, EntityStates.GenericCharacterMain self)
+        {
+            self.jumpInputReceived = true;
+            orig(self);
+        }
+    }
+
+    public class SimuWaveBouncyProjectiles : MonoBehaviour
+    {
+        private static UnityEngine.PhysicMaterial bouncyMat = Addressables.LoadAssetAsync<PhysicMaterial>(key: "RoR2/DLC1/MajorAndMinorConstruct/physmatMinorConstructProjectile.physicMaterial").WaitForCompletion();
+
+        private void OnEnable()
+        {
+            On.RoR2.Projectile.ProjectileController.Start += BouncyProjectiles;
+        }
+
+        private void OnDisable()
+        {
+            On.RoR2.Projectile.ProjectileController.Start -= BouncyProjectiles;
+        }
+
+        private void BouncyProjectiles(On.RoR2.Projectile.ProjectileController.orig_Start orig, RoR2.Projectile.ProjectileController self)
+        {
+            orig(self);
+            if (self.myColliders.Length > 0)
+            {
+                self.myColliders[0].material = bouncyMat;
+                //self.myColliders[0].isTrigger = false; //Probably too invasive
+            }     
+            var a = self.GetComponent<ProjectileImpactExplosion>();
+            if (a)
+            {
+                a.destroyOnWorld = false;
+                a.impactOnWorld = false;
+            }
+            var b = self.GetComponent<ProjectileSingleTargetImpact>();
+            if (b)
+            {
+                b.destroyOnWorld = false;
+            }
+        }
+    }
+
 
     public class SimulacrumGiveItemsOnStart : MonoBehaviour
     {
         public int count;
         public bool hadCannotyCopy = false;
+        public bool hideItem = false;
         public float extraPer10Wave;
         public string itemString;
         public ItemIndex itemIndex = ItemIndex.None;
@@ -238,16 +379,20 @@ namespace SimulacrumAdditions
         {
             itemIndex = ItemCatalog.FindItemIndex(itemString);
             ItemDef def = ItemCatalog.GetItemDef(itemIndex);
+            if (itemIndex == ItemIndex.None)
+            {
+                Debug.LogWarning("SimulacrumGiveItemsOnStart : Null Item");
+                return;
+            }
             if (def.ContainsTag(ItemTag.CannotCopy))
             {
                 hadCannotyCopy = true;
                 def.tags = def.tags.Remove(ItemTag.CannotCopy);
             }
-            if (itemIndex == ItemIndex.None)
+            if (hideItem)
             {
-                Debug.LogWarning("SimulacrumGiveItemsOnStart : Null Item");
+                def.hidden = true;
             }
-
             if (NetworkServer.active)
             {
                 InfiniteTowerRun itRun = Run.instance.GetComponent<InfiniteTowerRun>();
@@ -264,13 +409,164 @@ namespace SimulacrumAdditions
                 hadCannotyCopy = false;
                 def.tags = def.tags.Add(ItemTag.CannotCopy);
             }
-
+            if (hideItem)
+            {
+                def.hidden = false;
+            }
             if (NetworkServer.active)
             {
                 InfiniteTowerRun itRun = Run.instance.GetComponent<InfiniteTowerRun>();
                 int amount = (int)(count + itRun.waveIndex / 10 * extraPer10Wave);
                 itRun.enemyInventory.RemoveItem(itemIndex, amount);
             }
+        }
+    }
+
+    public class SimulacrumInteractablesWaveHelper : MonoBehaviour
+    {
+        public InteractableSpawnCard spawnCard;
+        public float interval = 2;
+        public int spawnsOnStart = 0;
+
+        public float spawnedTimer;
+        public Xoroshiro128Plus rng;
+
+        private void OnEnable()
+        {
+            if (NetworkServer.active)
+            {
+                InfiniteTowerRun run = Run.instance.GetComponent<InfiniteTowerRun>();
+                rng = new Xoroshiro128Plus((ulong)((long)run.waveIndex ^ (long)Run.instance.seed));
+                base.gameObject.transform.position = run.safeWardController.transform.GetChild(2).GetChild(0).position;
+
+                for (int i = 0; i < spawnsOnStart; i++)
+                {
+                    DirectorPlacementRule placementRule = new DirectorPlacementRule
+                    {
+                        placementMode = DirectorPlacementRule.PlacementMode.Approximate,
+                        minDistance = 0,
+                        maxDistance = 60,
+                        position = base.gameObject.transform.position,
+                        spawnOnTarget = base.gameObject.transform
+                    };
+                    DirectorCore.instance.TrySpawnObject(new DirectorSpawnRequest(spawnCard, placementRule, this.rng));
+                }
+            }
+            else
+            {
+                Destroy(this);
+            }
+        }
+
+        private void FixedUpdate()
+        {
+            spawnedTimer -= Time.deltaTime;
+            if (spawnedTimer <= 0)
+            {
+                spawnedTimer += interval;
+                DirectorPlacementRule placementRule = new DirectorPlacementRule
+                {
+                    placementMode = DirectorPlacementRule.PlacementMode.Approximate,
+                    minDistance = 0,
+                    maxDistance = 60,
+                    position = base.gameObject.transform.position,
+                    spawnOnTarget = base.gameObject.transform
+                };
+                DirectorCore.instance.TrySpawnObject(new DirectorSpawnRequest(spawnCard, placementRule, this.rng));
+            }
+        }
+
+    }
+
+    public class SimulacrumEliteWaves : MonoBehaviour
+    {
+        public CombatDirector.EliteTierDef[] backupTiers;
+        public CombatDirector.EliteTierDef[] newTiers;
+        public bool lunarOnly = false;
+        public bool voidOnly = false;
+        public bool lunarPlusVoid = false;
+        public bool addLunar = false;
+
+        private void OnEnable()
+        {
+            backupTiers = CombatDirector.eliteTiers;
+
+            CombatDirector.EliteTierDef[] arrayL = new CombatDirector.EliteTierDef[2];
+            arrayL[0] = new CombatDirector.EliteTierDef
+            {
+                costMultiplier = 1,
+                eliteTypes = new EliteDef[1],
+                isAvailable = (SpawnCard.EliteRules rules) => CombatDirector.NotEliteOnlyArtifactActive(),
+                canSelectWithoutAvailableEliteDef = true,
+            };
+            if (lunarOnly)
+            {
+                arrayL[1] = new CombatDirector.EliteTierDef
+                {
+                    costMultiplier = 3f,
+                    eliteTypes = new EliteDef[]
+                    {
+                                RoR2Content.Elites.Lunar,
+                    },
+                    isAvailable = (SpawnCard.EliteRules rules) => true,
+                    canSelectWithoutAvailableEliteDef = false,
+                };
+                newTiers = arrayL;
+            }
+            else if (voidOnly)
+            {
+                arrayL[1] = new CombatDirector.EliteTierDef
+                {
+                    costMultiplier = 3f,
+                    eliteTypes = new EliteDef[]
+                    {
+                                DLC1Content.Elites.Void,
+                    },
+                    isAvailable = (SpawnCard.EliteRules rules) => true,
+                    canSelectWithoutAvailableEliteDef = false,
+                };
+                newTiers = arrayL;
+            }
+            else if (lunarPlusVoid)
+            {
+                arrayL[1] = new CombatDirector.EliteTierDef
+                {
+                    costMultiplier = 3f,
+                    eliteTypes = new EliteDef[]
+                    {
+                                RoR2Content.Elites.Lunar,
+                                DLC1Content.Elites.Void,
+                    },
+                    isAvailable = (SpawnCard.EliteRules rules) => true,
+                    canSelectWithoutAvailableEliteDef = false,
+                };
+                newTiers = arrayL;
+            }
+            else if (addLunar)
+            {
+                CombatDirector.eliteTiers[1].eliteTypes = CombatDirector.eliteTiers[1].eliteTypes.Add(RoR2Content.Elites.Lunar);
+                CombatDirector.eliteTiers[2].eliteTypes = CombatDirector.eliteTiers[2].eliteTypes.Add(RoR2Content.Elites.Lunar);
+            }
+
+
+            if (newTiers == null)
+            {
+                Debug.LogWarning("no elite tiers to overwrite");
+                return;
+            }
+            CombatDirector.eliteTiers = newTiers;
+        }
+        private void OnDisable()
+        {
+            if (addLunar)
+            {
+                CombatDirector.eliteTiers[1].eliteTypes = CombatDirector.eliteTiers[1].eliteTypes.Remove(RoR2Content.Elites.Lunar);
+                CombatDirector.eliteTiers[2].eliteTypes = CombatDirector.eliteTiers[2].eliteTypes.Remove(RoR2Content.Elites.Lunar);
+            }
+            if (backupTiers != null)
+            {
+                CombatDirector.eliteTiers = backupTiers;
+            }        
         }
     }
 
@@ -305,62 +601,105 @@ namespace SimulacrumAdditions
         }
     }
 
-
-    public class SimulacrumInteractablesWaveHelper : MonoBehaviour
+    public class SimulacrumArtifactTrialWave : MonoBehaviour
     {
-        public InteractableSpawnCard spawnCard;
-        public float interval = 2;
-        public int spawnsOnStart = 0;
-
-        public float spawnedTimer;
-        public Xoroshiro128Plus rng;
+        private ArtifactDef artifactDef;
+        private ArtifactDef artifactDef2;
+        private bool artifactWasEnabled;
+        private bool artifactWasEnabled2;
+        private CombatSquad combatSquad;
 
         private void OnEnable()
         {
-            if (!NetworkServer.active)
+            if (NetworkServer.active)
             {
-                Destroy(this);
-            }
-            InfiniteTowerRun run = Run.instance.GetComponent<InfiniteTowerRun>();
-            rng = new Xoroshiro128Plus((ulong)((long)run.waveIndex ^ (long)Run.instance.seed));
-            base.gameObject.transform.position = run.safeWardController.transform.GetChild(2).GetChild(0).position;
-
-            for (int i = 0; i < spawnsOnStart; i++)
-            {
-                DirectorPlacementRule placementRule = new DirectorPlacementRule
+                List<ArtifactDef> artifactList = new List<ArtifactDef>()
                 {
-                    placementMode = DirectorPlacementRule.PlacementMode.Approximate,
-                    minDistance = 0,
-                    maxDistance = 60,
-                    position = base.gameObject.transform.position,
-                    spawnOnTarget = base.gameObject.transform
+                    RoR2Content.Artifacts.bombArtifactDef,
+                    RoR2Content.Artifacts.wispOnDeath,
+                    RoR2Content.Artifacts.swarmsArtifactDef,
+                    RoR2Content.Artifacts.sacrificeArtifactDef,
+                    RoR2Content.Artifacts.mixEnemyArtifactDef,
+                    RoR2Content.Artifacts.singleMonsterTypeArtifactDef,
+                    RoR2Content.Artifacts.commandArtifactDef,
+                    RoR2Content.Artifacts.monsterTeamGainsItemsArtifactDef,
                 };
-                DirectorCore.instance.TrySpawnObject(new DirectorSpawnRequest(spawnCard, placementRule, this.rng));
+
+                ArtifactDef Brigade = ArtifactCatalog.FindArtifactDef("SingleEliteType");
+                if (Brigade != null)
+                {
+                    artifactList.Add(Brigade);
+                }
+
+
+                int random = WRect.random.Next(0, artifactList.Count);
+                artifactDef = artifactList[random];
+                artifactList.Remove(artifactDef);
+
+                int random2 = WRect.random.Next(0, artifactList.Count);
+                artifactDef2 = artifactList[random2];
+
+                this.artifactWasEnabled = RunArtifactManager.instance.IsArtifactEnabled(this.artifactDef);
+                RunArtifactManager.instance.SetArtifactEnabledServer(this.artifactDef, true);
+
+                this.artifactWasEnabled2 = RunArtifactManager.instance.IsArtifactEnabled(this.artifactDef2);
+                RunArtifactManager.instance.SetArtifactEnabledServer(this.artifactDef2, true);
+
+
+                InfiniteTowerWaveController controller = this.GetComponent<InfiniteTowerWaveController>();
+                if (controller && controller.combatSquad)
+                {
+                    combatSquad = controller.combatSquad;
+                    //controller.combatSquad.onMemberDiscovered += this.OnCombatSquadMemberDiscovered;
+                }
             }
         }
 
-        private void FixedUpdate()
+        private void OnDisable()
         {
-            spawnedTimer -= Time.deltaTime;
-            if (spawnedTimer <= 0)
+            if (NetworkServer.active && RunArtifactManager.instance)
             {
-                spawnedTimer += interval;
-                DirectorPlacementRule placementRule = new DirectorPlacementRule
-                {
-                    placementMode = DirectorPlacementRule.PlacementMode.Approximate,
-                    minDistance = 0,
-                    maxDistance = 60,
-                    position = base.gameObject.transform.position,
-                    spawnOnTarget = base.gameObject.transform
-                };
-                DirectorCore.instance.TrySpawnObject(new DirectorSpawnRequest(spawnCard, placementRule, this.rng));
+                //combatSquad.onMemberDiscovered -= this.OnCombatSquadMemberDiscovered;
+                RunArtifactManager.instance.SetArtifactEnabledServer(this.artifactDef2, this.artifactWasEnabled2);
+                RunArtifactManager.instance.SetArtifactEnabledServer(this.artifactDef, this.artifactWasEnabled);     
             }
         }
-      
+
+        protected virtual void OnCombatSquadMemberDiscovered(CharacterMaster master)
+        {
+            int kill = master.inventory.GetItemCount(SimuMain.ITKillOnCompletion);
+            if (kill > 0)
+            {
+                master.GetBody().RemoveBuff(RoR2Content.Buffs.Immune);
+                master.GetBody().healthComponent.Networkhealth *= 0.1f;
+
+            }
+        }
+
     }
 
-    //Nullify stack everyone wave
-    //Cripple + Knockback wave
-    //Maybe more
+    public class DisableRegeneratingScrap : MonoBehaviour
+    {
+        private bool wasEnabled;
 
+        private void OnEnable()
+        {
+            RuleDef ruleDef = RuleCatalog.FindRuleDef("Items." + DLC1Content.Items.RegeneratingScrap.name);
+            RuleChoiceDef ruleChoiceDef = (ruleDef != null) ? ruleDef.FindChoice("Off") : null;
+            if (ruleChoiceDef != null)
+            {
+                Run.instance.ruleBook.ApplyChoice(ruleChoiceDef);
+            }
+        }
+
+        private void OnDisable()
+        {
+            RuleDef ruleDef = RuleCatalog.FindRuleDef("Items." + DLC1Content.Items.RegeneratingScrap.name);
+            RuleChoiceDef ruleChoiceDef = (ruleDef != null) ? ruleDef.FindChoice("On") : null;
+            if (ruleChoiceDef != null)
+            {
+                Run.instance.ruleBook.ApplyChoice(ruleChoiceDef);
+            }
+        }
+    }
 }

@@ -44,7 +44,7 @@ namespace SimulacrumAdditions
             {
                 sceneDirector.interactableCredit = (int)(sceneDirector.interactableCredit * 0.75f); //450
             }
-            if (RunArtifactManager.instance.IsArtifactEnabled(ArtifactStupid.ArtifactUseNormalStages))
+            if (RunArtifactManager.instance.IsArtifactEnabled(ArtifactReal.ArtifactUseNormalStages))
             {
                 sceneDirector.interactableCredit += 100;
             }
@@ -209,10 +209,11 @@ namespace SimulacrumAdditions
                 ADVoidCoinBarrel.selectionWeight = 10;
             }
 
-            dccsInfiniteTowerInteractables.categories[0].cards = dccsInfiniteTowerInteractables.categories[0].cards.Remove(dccsInfiniteTowerInteractables.categories[0].cards[8], dccsInfiniteTowerInteractables.categories[0].cards[7], dccsInfiniteTowerInteractables.categories[0].cards[6], dccsInfiniteTowerInteractables.categories[0].cards[5]);
             dccsInfiniteTowerInteractables.categories[0].cards[2].selectionWeight -= 5; //Eq Barrel
-            dccsInfiniteTowerInteractables.categories[0].cards[4].selectionWeight -= 10; //Triple
-            dccsInfiniteTowerInteractables.categories[0].cards[5].selectionWeight -= 10; //Eq triple
+            dccsInfiniteTowerInteractables.categories[0].cards[3].selectionWeight -= 10; //Triple
+            dccsInfiniteTowerInteractables.categories[0].cards[4].selectionWeight += 5; //Lunar Chest
+            dccsInfiniteTowerInteractables.categories[0].cards[9].selectionWeight -= 10; //Eq triple
+            dccsInfiniteTowerInteractables.categories[0].cards = dccsInfiniteTowerInteractables.categories[0].cards.Remove(dccsInfiniteTowerInteractables.categories[0].cards[8], dccsInfiniteTowerInteractables.categories[0].cards[7], dccsInfiniteTowerInteractables.categories[0].cards[6], dccsInfiniteTowerInteractables.categories[0].cards[5]);
             dccsInfiniteTowerInteractables.AddCard(0, ADVoidCoinBarrel);
 
             dccsInfiniteTowerInteractables.categories[1].selectionWeight = 2f;
@@ -446,61 +447,13 @@ namespace SimulacrumAdditions
                         break;
                     case "itdampcave":
                         ClassicStageInfo.instance.interactableCategories = dccsITDampCaveInteractablesW;
-
-                        GameObject GeyserHolder = GameObject.Find("/HOLDER: Geyser");
-                        if (GeyserHolder)
-                        {
-                            //Up to side path when fall of chain : Random Ass unused Geyser
-                            GeyserHolder.transform.GetChild(4).gameObject.SetActive(true);
-                            GeyserHolder.transform.GetChild(4).position = new Vector3(-75.6025f, -182.2917f, -247.026f); //-75.6025 -178.9915 -247.026;
-
-                            //Up to platform 2 incase you fall off : Using preexisting unused Geyser
-                            GeyserHolder.transform.GetChild(5).gameObject.SetActive(true);
-                            GeyserHolder.transform.GetChild(5).position = new Vector3(46f, -179.5f, -59f); //-75.6025 -178.9915 -247.026;
-                            GeyserHolder.transform.GetChild(5).GetChild(2).GetComponent<JumpVolume>().jumpVelocity = new Vector3(10f, 80f, -10);
-                        }
                         break;
                     case "itskymeadow":
                         ClassicStageInfo.instance.interactableCategories = dccsITSkyMeadowInteractablesW;
                         break;
                     case "itmoon":
                         ClassicStageInfo.instance.interactableCategories = dccsITMoonInteractablesW;
-                        sceneDirector.interactableCredit += 50;
-                        GameObject MoonArenaDynamicPillar = GameObject.Find("/HOLDER: Stage");
-                        if (MoonArenaDynamicPillar)
-                        {
-                            Vector3 mooncolumnlocalpos = new Vector3(7.2f, -1.08f, 0f);
-                            Vector3 mooncolumnrotation = new Vector3(270.0198f, 0f, 0f);
-                            Vector3 mooncolumnlocalscale = new Vector3(1f, 1f, 1f);
-
-                            Vector3 borderScale = new Vector3(1.774f, 0.32f, 1.774f);
-
-                            MoonArenaDynamicPillar.transform.GetChild(1).GetChild(0).gameObject.SetActive(true);
-                            for(int i = 0; i < MoonArenaDynamicPillar.transform.GetChild(1).GetChild(0).childCount; i++)
-                            {
-                                MoonArenaDynamicPillar.transform.GetChild(1).GetChild(0).GetChild(i).localScale = borderScale;
-                            }
-
-                            MoonArenaDynamicPillar.transform.GetChild(2).GetChild(0).gameObject.SetActive(true);
-                            MoonArenaDynamicPillar.transform.GetChild(2).GetChild(0).localPosition = mooncolumnlocalpos;
-                            MoonArenaDynamicPillar.transform.GetChild(2).GetChild(0).localEulerAngles = mooncolumnrotation;
-                            MoonArenaDynamicPillar.transform.GetChild(2).GetChild(0).localScale = mooncolumnlocalscale;
-
-                            MoonArenaDynamicPillar.transform.GetChild(3).GetChild(0).gameObject.SetActive(true);
-                            MoonArenaDynamicPillar.transform.GetChild(3).GetChild(0).localPosition = mooncolumnlocalpos;
-                            MoonArenaDynamicPillar.transform.GetChild(3).GetChild(0).localEulerAngles = mooncolumnrotation;
-                            MoonArenaDynamicPillar.transform.GetChild(3).GetChild(0).localScale = mooncolumnlocalscale;
-
-                            MoonArenaDynamicPillar.transform.GetChild(4).GetChild(0).gameObject.SetActive(true);
-                            MoonArenaDynamicPillar.transform.GetChild(4).GetChild(0).localPosition = mooncolumnlocalpos;
-                            MoonArenaDynamicPillar.transform.GetChild(4).GetChild(0).localEulerAngles = mooncolumnrotation;
-                            MoonArenaDynamicPillar.transform.GetChild(4).GetChild(0).localScale = mooncolumnlocalscale;
-
-                            MoonArenaDynamicPillar.transform.GetChild(5).GetChild(0).gameObject.SetActive(true);
-                            MoonArenaDynamicPillar.transform.GetChild(5).GetChild(0).localPosition = mooncolumnlocalpos;
-                            MoonArenaDynamicPillar.transform.GetChild(5).GetChild(0).localEulerAngles = mooncolumnrotation;
-                            MoonArenaDynamicPillar.transform.GetChild(5).GetChild(0).localScale = mooncolumnlocalscale;
-                        }
+                        sceneDirector.interactableCredit += 50;              
                         break;
                 }
             }
@@ -509,7 +462,13 @@ namespace SimulacrumAdditions
         public static void ITMoonExtras(On.RoR2.SceneDirector.orig_Start orig, global::RoR2.SceneDirector self)
         {
             orig(self);
-            if (SceneInfo.instance && SceneInfo.instance.sceneDef.baseSceneName.StartsWith("itmoon"))
+            if (!SceneInfo.instance)
+            {
+                Debug.LogWarning("How no SceneInfo.instance??");
+                return;
+            }
+
+            if (SceneInfo.instance.sceneDef.baseSceneName.StartsWith("itmoon"))
             {
                 GameObject MoonArenaDynamicPillar = GameObject.Find("/HOLDER: Stage");
                 if (MoonArenaDynamicPillar)
@@ -545,7 +504,21 @@ namespace SimulacrumAdditions
                     MoonArenaDynamicPillar.transform.GetChild(5).GetChild(0).localPosition = mooncolumnlocalpos;
                     MoonArenaDynamicPillar.transform.GetChild(5).GetChild(0).localEulerAngles = mooncolumnrotation;
                     MoonArenaDynamicPillar.transform.GetChild(5).GetChild(0).localScale = mooncolumnlocalscale;
+                }
+            }
+            else if (SceneInfo.instance.sceneDef.baseSceneName.StartsWith("itdampcave"))
+            {
+                GameObject GeyserHolder = GameObject.Find("/HOLDER: Geyser");
+                if (GeyserHolder)
+                {
+                    //Up to side path when fall of chain : Random Ass unused Geyser
+                    GeyserHolder.transform.GetChild(4).gameObject.SetActive(true);
+                    GeyserHolder.transform.GetChild(4).position = new Vector3(-75.6025f, -182.2917f, -247.026f); //-75.6025 -178.9915 -247.026;
 
+                    //Up to platform 2 incase you fall off : Using preexisting unused Geyser
+                    GeyserHolder.transform.GetChild(5).gameObject.SetActive(true);
+                    GeyserHolder.transform.GetChild(5).position = new Vector3(46f, -179.5f, -59f); //-75.6025 -178.9915 -247.026;
+                    GeyserHolder.transform.GetChild(5).GetChild(2).GetComponent<JumpVolume>().jumpVelocity = new Vector3(10f, 80f, -10);
                 }
             }
         }

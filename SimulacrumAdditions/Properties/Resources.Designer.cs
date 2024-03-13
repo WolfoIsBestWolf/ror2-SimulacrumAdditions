@@ -253,6 +253,26 @@ namespace SimulacrumAdditions.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        public static byte[] texITWaveSizeBig {
+            get {
+                object obj = ResourceManager.GetObject("texITWaveSizeBig", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] texITWaveSizeSmall {
+            get {
+                object obj = ResourceManager.GetObject("texITWaveSizeSmall", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         public static byte[] texITWaveSuperDevestator {
             get {
                 object obj = ResourceManager.GetObject("texITWaveSuperDevestator", resourceCulture);

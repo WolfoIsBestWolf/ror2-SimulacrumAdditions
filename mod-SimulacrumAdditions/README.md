@@ -1,25 +1,30 @@
-## Simulacrum
+### Augments
 Starting on wave 50, every stage a ending portal will spawn to end a run peacefully.  
 A super boss wave (such as Mithrix) will be forced on wave 50, reoccuring every 30 waves. (they can still rarely occur randomly).  
 This makes getting to wave 50 a set goal and makes the gamemode "beatable".  
 One of these runs should take around an hour (similiar to loop Mithrix) and counts as a win.  
 
-Adds a large amount of Augments\
-Basic Waves:\
--Added 13 Family Event Augments.\
--Added 5 Artifact Augments.\
--Added 3 Elite Augments.\
--Added 7 Item Augments.\
--Added 15 Other Augments.
+__Adds a large amount of Augments__\
+-5 Artifact Augments. (+5 with mods)\
+-13 Family Event Augments. (+3 with mods)\
+-4 Item Augments.\
+-3 Equipment Augments.\
+-6 Buff Augments.\
+-4 Pulse Augments.
+-3 Elite Augments.\
+-16 Other Augments. (+1 with mods)
 
--In total raises Basic Augment count from 9 to 52 (+8 with supported mods).
+-6 Specific Boss Augments. (+1 with mods)\
+-5 Boss Artifact Augments.\
+-2 Boss Family Augment. (+1 with mods)\
+-1 Boss Elite Augment.\
+-3 Boss Item Augment.\
+-7 Other Boss Augments.
 
-Boss Waves:\
--Added 6 Special Boss Augments.\
--Added 4 Aritfact Boss Augments.\
--Added 8 Other Boss Augments.
+-In total raises Basic Augment count from 9 to 63 (+9 with supported mods).\
+-In total raises Boss Augment count from 5 to 28 (+2 with supported mods).
 
--In total raises Boss Augment count from 5 to 23 (+2 with supported mods).
+![Image of new Waves](https://raw.githubusercontent.com/WolfoIsBestWolf/ror2-SimulacrumAdditions/main/modPageImages/simuWavesNew.png)
 
 Every stage now uses it's own interactable spawn pool to make each stage feel more unique.\
 This means Shrine of Chance, Shrine of Woods, Shrine of Order and Cleansing Pools now spawn in the game mode.
@@ -27,10 +32,8 @@ This means Shrine of Chance, Shrine of Woods, Shrine of Order and Cleansing Pool
 Reintroduces the unused Void Coin. They can be used as an alternative to blood on void interactables in Simulacrum.\
 They drop like Lunar Coin and from Void Barrels. You start with 1.\
 Void Blood Payments can no longer be blocked. (in Simu only)
-
-![Image of new Waves]( )
-
-## Balance
+#
+### Balance
 Special Boss Augments now have special scaling like how final bosses on normal runs do.\
 Special Boss Augments now spawn with enemies too.\
 Mithrix will be in phase 3 during his augment.
@@ -38,8 +41,6 @@ Mithrix will be in phase 3 during his augment.
 Earlier stages reward more money.\
 Stage 5+ get less interactables.\
 You get more gold and more interactables will spawn in multiplayer
-
-
 
 Late waves spawn more enemies at the start, leading to bigger enemies but also less time in the wave overall.\
 Elites spawn more often the more waves are completed.
@@ -52,11 +53,10 @@ Tesla Coil and Nkuhanas are blacklisted for enemies now.
 Only 20 enemies can be alive at a time instead of 30.\
 Really early waves even less because of how often flying enemies overwhelm the player.
 
-Special waves will get likelier after wave 30 and wave 50.
 
-![Image of new waves 2](https://cdn.discordapp.com/attachments/1115182271276781698/1188585480762183740/image.png?ex=659b0f7d&is=65889a7d&hm=3f84f75a4e8590bc3331b66f745c507075e2f16e1da8ec197c3cee7ab3aec235&)
-
-## Other  
+![Image of new waves 2](https://raw.githubusercontent.com/WolfoIsBestWolf/ror2-SimulacrumAdditions/main/modPageImages/simuHorror.png)
+#
+### Miscellaneous
 Adds 2 Simulacrum only Artifacts:\
 -Artifact of Augments : Only augmented waves\
 -Artifact of Reality : Use normal stages instead of Simulacrum stages. (For people who really want Sulfur Pools for example)
@@ -64,18 +64,24 @@ Adds 2 Simulacrum only Artifacts:\
 More enemy types are added to the spawn pool starting wave 21.\
 Void enemies are added to the spawn pool starting wave 61.
 
+Special waves will get likelier after wave 30 and wave 50.
+
+The focus radius is slightly bigger per player during waves.\
+The focus radius is 50% bigger during travelling.\
+The focus radius expands after sitting down. This is helps with awkward focus positions in Meadows/Depths.\
+The focus will not begin travelling on it's own, instead waiting for you to activate it.\
 The focus moves faster the more waves are completed.\
-For each stage completed, -1 second between regular waves.
+For each stage completed, -0.8 second between regular waves.
 
 Scavengers are given a random Void item in Simulacrum.\
 Enemies have a small chance to get a void item.  
 
 There's a void themed teleport effect for the gamemode.  
 
-Void Potential Chests now can present choices from any tier.  
-Void Potentials use their respective tiers particle effects.  
+Void Potential Chests now can present choices from any tier.\
+Void Potentials use their respective tiers particle effects.\
+Void Potentials display their content in ping messages
 
-The Focus is bigger when moving and expands upon sitting down. This is helps with awkward focus positions in Meadows/Depths. 
 
 You wont encounter your previous stage as your next stage (ie: Meadows -> Sanctuary -> Meadows, no longer happens)
 
@@ -88,17 +94,18 @@ Simu Simulacrum has ramps.
 Fireworks, Squid Polyp, Drone Parts and Halcyon Seed are now available in Simulacrum.\
 Warbanners pop on Boss Waves similiar to teleporters.
 
-Fixes vanilla bugs where Clients don't teleport to the Crab.\
-Fixed vanilla bugs where Clients often don't get enemy indicators.
+Fixes vanilla bug where Clients don't teleport to the Crab.\
+Fixed vanilla bug where Clients often don't get enemy indicators.
 
-![Image of Void Coin](https://cdn.discordapp.com/attachments/1115182271276781698/1191449266871357530/image.png?ex=65ef4e99&is=65dcd999&hm=7bffb6c7b8820a46a0c4329305fab7f535d80cfa83bac8b66727411cdd5870d0&)
+![Image of Void Coin](https://raw.githubusercontent.com/WolfoIsBestWolf/ror2-SimulacrumAdditions/main/modPageImages/simuVoidCoin.png)
 
-## Skins
+#
+### Skins
 For technical reasons the skins are their own mod, for more information on the skins go to it's [mod page](https://thunderstore.io/package/Wolfo/WolfoAlternateSkins/ ):\
 They aren't anything too special but I do hope they are still enjoyable.\
 [![wolfoAlternateSkins](https://gcdn.thunderstore.io/live/repository/icons/Wolfo-WolfoAlternateSkins-1.5.0.png.128x128_q95.jpg)](https://thunderstore.io/package/Wolfo/WolfoAlternateSkins/)
 
-##
+#
 Report bugs to @Wolfo.wolfo in the Risk of Rain 2 discord or RoR2 Modding discord.\
 If you're reporting a bug that isn't something obvious include the log file.\
 Generally happy about gameplay feedback.
@@ -106,37 +113,84 @@ Generally happy about gameplay feedback.
 Every player needs this mod installed.
 
 The balance of this mod can be questionable as Simulacrum sucks to balance and is far harder in Multiplayer.\
-This mod currently is balanced to be Difficult on Monsoon, difficulties like Typhoon and Inferno aren't recommended.
+This mod currently is balanced to be difficult on Monsoon Multiplayer, difficulties like Typhoon and Inferno aren't accounted for.
 
-Also download my other mods:\
-[VanillaArtifactsPlus](https://thunderstore.io/package/Wolfo/VanillaArtifactsPlus) for updated vanilla artifacts, noticible in the Augments.  
+Also download my other mods, they are all balanced around each other:\
 [WolfoArtifacts](https://thunderstore.io/package/Wolfo/WolfoArtifacts) for some fun extra Artifacts and 3 more Artifact augments.  
 [LittleGameplayTweaks](https://thunderstore.io/package/Wolfo/LittleGameplayTweaks/) more enemy variety and some small changes and 4 more family augments.  
 [WolfoQualityOfLife](https://thunderstore.io/package/Wolfo/WolfoQualityOfLife/) for many visual improvements.  
 
 ##
-This mod is likely breaks [Judgement](https://thunderstore.io/package/Nuxlar/Judgement/), as at the moment it isn't made with keeping Simulacrum functional in mind.
+This mod likely breaks [Judgement](https://thunderstore.io/package/Nuxlar/Judgement/), as at the moment it isn't made with keeping Simulacrum functional in mind.
 
 I already added make wave 50 special so [SimulacrumBossStageMod](https://thunderstore.io/package/Def/SimulacrumBossStageMod/) is a bit redundant.\
 I already speed up the crab so [SpeedUpSafeWard](https://thunderstore.io/package/Felix/SpeedUpSafeWard/) is redundant.
 
 ## Changelog:
 ```
+v1.9.3
+-Added Augment of Frenzy
+-Added Augment of Tonic
+-Added Augment of Gummy
+-Added Augment of Mending
+-Added Augment of Ice
+-Added Augment of Big
+-Added Augment of Small
+-Added Augment of Invisibility
+-Added Augment of Nova
+-Added Augment of Reliquary
+-Added Augment of Bounciness
+-Added Boss only bosses Augment
+-Added Boss all enemies Augment
+-Added Boss lunar+void elites Augment
+-Added Boss Augment of Leeching
+-Added Boss 2 artifacts Augment
+
+-Changed Behemoth Augment to be a boss augment and reduced damage by 50%.
+-Removed/Replaced Drone Family wave, with boss wave with flame drones as support as they're really the only fun ones to fight.
+-Gave the Empyrean wave spawn the armor/attack speed/cooldown stat boosts they lacked.
+
+
+-Changed Director max spawn distance to always match radius
+
+-Ghost Elder Lemurian and Mithrix are slower.
+-Honor Augments have 30% less enemies, less damage, a large radius, and starts occuring later.
+-Boss Irradiance  Augment has 30% less enemies and 60% less damage.
+-Perfection Augment will have slightly less perfected elites.
+-Dead Mithrix wave will deal less damage and hurts enemies now.
+-Boss Equipment wave now has one less equipment drone.
+
+v1.9.2
+The Focus will no longer leave automatically after the mid-stage boss wave, instead it waits until you give it permission to leave.
+--This should help in multiplayer so everyone can regroup and get their loot. 
+--And also in case any printing needs to be done.
+
+-Fixed new Abyssal Geysers not being there for Clients.
+-Fixed Empyrean wave giving lunar loot and the spawn not having multiplied hp in multiplayer.
+-Limited Ghost Vagrant Explode to 1 and made extra delay less severe.
+-Increased Ghost Boss wave radius again.
+-Made crab move slightly slower between waves.
+-Fixed issue where Lepton heal radius doesn't match crab radius.
+
 v1.9.1
+-Added Augment of Emyprean for SS2 users.
 -Default zone radius increased from 60 to 65-80 depending on player count.
 -Increased size of Void Potential collider for easier pinging and reaching.
 -Moved up Effigy/Meteor clean up to be after the enemies die instead of when the next wave starts.
 -Added two Geysers to IT-Abyssal Depths (Bottom to Island 2, Bottom to Side Ridge)
+-Added VanillaArtifactsPlus as a dependency for various balance reasons.
 
 -Nerfed Guap Attack Speed, Damage and Cooldown
 -Nerfed Deepened Void Devestator stats and scaling.
 -Equipment/Ghost/P5 Mithrix wave spawn 2 starting wave 30 instead of 25 and are all limited to 2 now.
--Ghost Void Jailer, Grandparent, Vagrant now have less attack speed and damage
--Ghost Bosses can do certain attacks only once (Sun, Big Jump, Suck)
+-Ghost Void Jailer and Ghost Bosses now have less attack speed and damage.
+-Ghost Bosses can do certain attacks only once (Sun)
+-Ghost Grandparent Sun and Vagrant explode channeling take a lot longer now.
 -Equipment Molotov and Meteor drone will deal less damage.
 -Equipment drones leave broken ones for use again to get rid of excess equipment and for the funny.
 -Nerfed Slippery debuff slightly
 -Changed Void Barnacle type so they should spawn on the floor and Less Devestators in IT-Moon
+-Vengance Augment no longer has the artifact enabled for simplicity.
 -Blacklisted Voidsent Flame. 
 
 -Fixed bug where SS2 Drones still spawned with Artifact of Real

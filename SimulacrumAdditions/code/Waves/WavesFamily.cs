@@ -6,10 +6,10 @@ using UnityEngine.AddressableAssets;
 namespace SimulacrumAdditions
 {
     
-    public class SimulacrumWavesFamily
+    public class WavesFamily
     {
-        private static Color FamilyEventIconColor = new Color(1f, 0.95f, 0.75f, 1);
-        private static Color FamilyEventOutlineColor = new Color(0.8f, 0.78f, 0.5f, 1);
+        public static Color FamilyEventIconColor = new Color(1f, 0.95f, 0.75f, 1);
+        public static Color FamilyEventOutlineColor = new Color(0.8f, 0.78f, 0.5f, 1);
 
         //No more static
         public static void Start()
@@ -240,7 +240,7 @@ namespace SimulacrumAdditions
                 CombatDirector combatdirector = ITFamilyWaves[i].GetComponent<CombatDirector>();
                 temp.baseCredits = 184f;
                 temp.immediateCreditsFraction = 0.45f;
-                combatdirector.skipSpawnIfTooCheap = false;
+                //combatdirector.skipSpawnIfTooCheap = false;
             }
 
             GameObject[] ITFamilyUIs = {
@@ -275,8 +275,9 @@ namespace SimulacrumAdditions
             InfiniteTowerCurrentWaveUIFamilyGup.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = FamilyEventOutlineColor;
 
             LGTFamily();
-            //BossFamilyWave();
-            DroneFamilyWave();
+            BossFamilyWave();
+            //DroneFamilyWave();
+
         }
 
         public static void DroneFamilyWave()
@@ -289,13 +290,15 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveBossFamilyDrones.GetComponent<CombatDirector>().monsterCards = dccsITDrones;
             InfiniteTowerWaveBossFamilyDrones.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITWaveTier2;
 
-            InfiniteTowerWaveBossFamilyDrones.GetComponent<InfiniteTowerWaveController>().baseCredits = 320f;
-            InfiniteTowerWaveBossFamilyDrones.GetComponent<InfiniteTowerWaveController>().immediateCreditsFraction = 0.3f;
-            InfiniteTowerWaveBossFamilyDrones.GetComponent<InfiniteTowerWaveController>().wavePeriodSeconds = 10;
-            InfiniteTowerWaveBossFamilyDrones.GetComponent<InfiniteTowerWaveController>().maxSquadSize = 20;
+            InfiniteTowerWaveBossFamilyDrones.GetComponent<InfiniteTowerWaveController>().baseCredits = 300f;
+            InfiniteTowerWaveBossFamilyDrones.GetComponent<InfiniteTowerWaveController>().immediateCreditsFraction = 0f;
+            InfiniteTowerWaveBossFamilyDrones.GetComponent<InfiniteTowerWaveController>().wavePeriodSeconds = 30;
+            InfiniteTowerWaveBossFamilyDrones.GetComponent<InfiniteTowerWaveController>().maxSquadSize = 12;
             InfiniteTowerWaveBossFamilyDrones.GetComponent<CombatDirector>().eliteBias = 0.5f;
             InfiniteTowerWaveBossFamilyDrones.AddComponent<SimulacrumExtrasHelper>().newRadius = 140;
-            InfiniteTowerWaveBossFamilyDrones.AddComponent<SimuBuffWaveHelper>().variant = 1;
+
+            InfiniteTowerWaveBossFamilyDrones.AddComponent<SimuWaveSizeModifier>().sizeModifier = 2f;
+
 
             InfiniteTowerWaveBossFamilyDrones.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWaveBossDronesMachinesUI;
             InfiniteTowerWaveBossDronesMachinesUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "Wave {0} - Boss Augment of the Machines";
@@ -306,7 +309,8 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveBossDronesMachinesUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color *= FamilyEventOutlineColor;
 
 
-            InfiniteTowerWaveCategory.WeightedWave ITBossDrones = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveBossFamilyDrones, weight = 6f, prerequisites = SimuMain.StartWave11Prerequisite };
+
+            InfiniteTowerWaveCategory.WeightedWave ITBossDrones = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveBossFamilyDrones, weight = 4f, prerequisites = SimuMain.StartWave11Prerequisite };
             SimuMain.ITBossWaves.wavePrefabs = SimuMain.ITBossWaves.wavePrefabs.Add(ITBossDrones);
 
             ItemDef CaptainDefenseMatrix = LegacyResourcesAPI.Load<ItemDef>("ItemDefs/CaptainDefenseMatrix");
@@ -316,7 +320,7 @@ namespace SimulacrumAdditions
             ItemDef CutHp = LegacyResourcesAPI.Load<ItemDef>("ItemDefs/CutHp");
             ItemDef HalfSpeedDoubleHealth = Addressables.LoadAssetAsync<ItemDef>(key: "RoR2/DLC1/HalfSpeedDoubleHealth/HalfSpeedDoubleHealth.asset").WaitForCompletion();
             int damageDown = 80;
-            int healthScaling = 50;
+            int healthScaling = 40;
             int healthBoost = 10;
             int credits = 70;
 
@@ -403,8 +407,8 @@ namespace SimulacrumAdditions
             cscITDroneMega.prefab = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/Base/Drones/MegaDroneMaster.prefab").WaitForCompletion();
             cscITDroneMega.directorCreditCost = 350;
             cscITDroneMega.itemsToGrant[0].count = damageDown+18;
-            cscITDroneMega.itemsToGrant[1].count = healthScaling / 2;
-            cscITDroneMega.itemsToGrant[2].count = healthBoost / 2;
+            cscITDroneMega.itemsToGrant[1].count = healthScaling / 4;
+            cscITDroneMega.itemsToGrant[2].count = healthBoost / 3;
 
             CharacterSpawnCard cscITDroneColDrone = Object.Instantiate(cscITDroneFlame);
             cscITDroneColDrone.name = "cscITDroneColDrone";
@@ -445,22 +449,22 @@ namespace SimulacrumAdditions
                 spawnCard = cscITDroneColDrone,
                 selectionWeight = 1,
             });
-            dccsITDrones.AddCard(0, new DirectorCard
+            /*dccsITDrones.AddCard(0, new DirectorCard
             {
                 spawnCard = cscITDroneToolbot,
                 selectionWeight = 1,
-            });
+            });*/
             //1
             dccsITDrones.AddCard(1, new DirectorCard 
             {
                 spawnCard = cscITDroneFlame,
                 selectionWeight = 5,
             });
-            dccsITDrones.AddCard(1, new DirectorCard
+            /*dccsITDrones.AddCard(1, new DirectorCard
             {
                 spawnCard = cscITDroneEmergency,
                 selectionWeight = 2,
-            });
+            });*/
             dccsITDrones.AddCard(1, new DirectorCard
             {
                 spawnCard = cscITDroneStriker,
@@ -471,11 +475,11 @@ namespace SimulacrumAdditions
                 spawnCard = cscITDroneEngiWalker,
                 selectionWeight = 8,
             });
-            dccsITDrones.AddCard(1, new DirectorCard
+            /*dccsITDrones.AddCard(1, new DirectorCard
             {
                 spawnCard = cscITDroneEngiTurret,
                 selectionWeight = 2,
-            });
+            });*/
             dccsITDrones.AddCard(1, new DirectorCard
             {
                 spawnCard = cscITDroneMissile,
@@ -485,13 +489,13 @@ namespace SimulacrumAdditions
             dccsITDrones.AddCard(2, new DirectorCard
             {
                 spawnCard = cscITDrone,
-                selectionWeight = 10,
+                selectionWeight = 5,
             });
-            dccsITDrones.AddCard(2, new DirectorCard
+            /*dccsITDrones.AddCard(2, new DirectorCard
             {
                 spawnCard = cscITDroneTurret,
                 selectionWeight = 1,
-            });
+            });*/
 
 
 
@@ -507,9 +511,9 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveBossFamilyBoss.GetComponent<CombatDirector>().monsterCards = dccsBossesOnly;
             InfiniteTowerWaveBossFamilyBoss.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITWaveTier2;
 
-            InfiniteTowerWaveBossFamilyBoss.GetComponent<InfiniteTowerWaveController>().baseCredits = 600f;
+            InfiniteTowerWaveBossFamilyBoss.GetComponent<InfiniteTowerWaveController>().baseCredits = 500f;
             InfiniteTowerWaveBossFamilyBoss.GetComponent<InfiniteTowerWaveController>().immediateCreditsFraction = 0.4f;
-            InfiniteTowerWaveBossFamilyBoss.GetComponent<InfiniteTowerWaveController>().wavePeriodSeconds = 30;
+            InfiniteTowerWaveBossFamilyBoss.GetComponent<InfiniteTowerWaveController>().wavePeriodSeconds = 40;
             InfiniteTowerWaveBossFamilyBoss.GetComponent<CombatDirector>().skipSpawnIfTooCheap = false;
 
             InfiniteTowerWaveBossFamilyBoss.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWaveBossFamilyBossUI;
@@ -520,7 +524,7 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveBossFamilyBossUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color *= FamilyEventOutlineColor;
 
 
-            RoR2.InfiniteTowerWaveCategory.WeightedWave ITBossFamily = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveBossFamilyBoss, weight = 4, prerequisites = SimuMain.StartWave20Prerequisite };
+            RoR2.InfiniteTowerWaveCategory.WeightedWave ITBossFamily = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveBossFamilyBoss, weight = 4f, prerequisites = SimuMain.StartWave20Prerequisite };
             SimuMain.ITBossWaves.wavePrefabs = SimuMain.ITBossWaves.wavePrefabs.Add(ITBossFamily);
 
             dccsBossesOnly.AddCategory("Champions", 10);
@@ -573,7 +577,7 @@ namespace SimulacrumAdditions
             dccsBossesOnly.AddCard(0, new DirectorCard //cscVoidMegaCrab
             {
                 spawnCard = LegacyResourcesAPI.Load<CharacterSpawnCard>("SpawnCards/CharacterSpawnCards/cscVoidMegaCrab"),
-                selectionWeight = 1,
+                selectionWeight = 0,
             });
             dccsBossesOnly.AddCard(0, new DirectorCard //cscGrandparent
             {
@@ -638,11 +642,11 @@ namespace SimulacrumAdditions
             BossInfiniteTowerWaveFamilyWorms.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Boss;
 
             BossInfiniteTowerWaveFamilyWorms.GetComponent<CombatDirector>().eliteBias = 0f;
-            BossInfiniteTowerWaveFamilyWorms.GetComponent<InfiniteTowerWaveController>().immediateCreditsFraction = 0.5f;
+            BossInfiniteTowerWaveFamilyWorms.GetComponent<InfiniteTowerWaveController>().immediateCreditsFraction = 0.3f;
             BossInfiniteTowerWaveFamilyWorms.GetComponent<InfiniteTowerWaveController>().maxSquadSize = 4; //The director doesn't seem to really care
             BossInfiniteTowerWaveFamilyWorms.GetComponent<InfiniteTowerWaveController>().baseCredits = 500f;
             BossInfiniteTowerWaveFamilyWorms.GetComponent<InfiniteTowerWaveController>().linearCreditsPerWave = 0;
-            BossInfiniteTowerWaveFamilyWorms.GetComponent<InfiniteTowerWaveController>().wavePeriodSeconds = 15;
+            BossInfiniteTowerWaveFamilyWorms.GetComponent<InfiniteTowerWaveController>().wavePeriodSeconds = 20;
             BossInfiniteTowerWaveFamilyWorms.AddComponent<SimulacrumExtrasHelper>().newRadius = 160;
 
             EliteDef FireHonor = LegacyResourcesAPI.Load<EliteDef>("EliteDefs/FireHonor");
@@ -652,7 +656,6 @@ namespace SimulacrumAdditions
                 new InfiniteTowerExplicitSpawnWaveController.SpawnInfo{eliteDef = FireHonor, count = 0, spawnDistance = DirectorCore.MonsterSpawnDistance.Far, spawnCard = LegacyResourcesAPI.Load<CharacterSpawnCard>("SpawnCards/CharacterSpawnCards/cscElectricWorm")},
                 new InfiniteTowerExplicitSpawnWaveController.SpawnInfo{eliteDef = Lightning, count = 0, spawnDistance = DirectorCore.MonsterSpawnDistance.Far, spawnCard = LegacyResourcesAPI.Load<CharacterSpawnCard>("SpawnCards/CharacterSpawnCards/cscMagmaWorm")},
             };
-
 
             BossInfiniteTowerWaveFamilyWorms.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerCurrentWaveUIFamilyWorms;
             InfiniteTowerCurrentWaveUIFamilyWorms.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "Wave {0} - Boss Augment of Wurms";
@@ -664,7 +667,7 @@ namespace SimulacrumAdditions
             for (int i = 0; i < ITFamilyWaves.Length; i++)
             {
                 InfiniteTowerWaveController temp = ITFamilyWaves[i].GetComponent<InfiniteTowerWaveController>();
-                CombatDirector combatdirector = ITFamilyWaves[i].GetComponent<CombatDirector>();
+                //CombatDirector combatdirector = ITFamilyWaves[i].GetComponent<CombatDirector>();
                 temp.baseCredits = 184f;
                 temp.immediateCreditsFraction = 0.4f;
                 //combatdirector.skipSpawnIfTooCheap = false;
@@ -713,7 +716,7 @@ namespace SimulacrumAdditions
                         break;
                     case "dccsWormsFamily":
                         BossInfiniteTowerWaveFamilyWorms.GetComponent<CombatDirector>().monsterCards = FamilyDCCSs[i];
-                        RoR2.InfiniteTowerWaveCategory.WeightedWave ITWormsFamily = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = BossInfiniteTowerWaveFamilyWorms, weight = 4.5f, prerequisites = SimuMain.StartWave40Prerequisite };
+                        RoR2.InfiniteTowerWaveCategory.WeightedWave ITWormsFamily = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = BossInfiniteTowerWaveFamilyWorms, weight = 4f, prerequisites = SimuMain.StartWave40Prerequisite };
                         SimuMain.ITBossWaves.wavePrefabs = SimuMain.ITBossWaves.wavePrefabs.Add(ITWormsFamily);
                         break;
                 }

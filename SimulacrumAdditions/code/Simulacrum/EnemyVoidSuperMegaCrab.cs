@@ -9,10 +9,10 @@ namespace SimulacrumAdditions
 {
     public class SuperMegaCrab
     {
-        //public static GameObject GupBody = RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/GupBody");
-        //public static GameObject GupMaster = RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterMasters/GupMaster");
         public static GameObject SuperCrabBody = R2API.PrefabAPI.InstantiateClone(RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/VoidMegaCrabBody"), "VoidSuperMegaCrabBody", true);
         public static GameObject SuperCrabMaster = R2API.PrefabAPI.InstantiateClone(RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterMasters/VoidMegaCrabMaster"), "VoidSuperMegaCrabMaster", true);
+        public static FamilyDirectorCardCategorySelection dccsVoidFamilyNoBarnacle = UnityEngine.Object.Instantiate(Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/DLC1/Common/dccsVoidFamily.asset").WaitForCompletion());
+
 
         public static void Start()
         {
@@ -133,8 +133,11 @@ namespace SimulacrumAdditions
             cscSuperCrab.occupyPosition = true;
             //
 
+            dccsVoidFamilyNoBarnacle.categories[2].cards = dccsVoidFamilyNoBarnacle.categories[2].cards.Remove(dccsVoidFamilyNoBarnacle.categories[2].cards[1]);
+            dccsVoidFamilyNoBarnacle.name = "dccsVoidFamilyNoBarnacle";
+
             //Spawns
-            InfiniteTowerWaveBossSuperCrab.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/DLC1/Common/dccsVoidFamily.asset").WaitForCompletion();
+            InfiniteTowerWaveBossSuperCrab.GetComponent<CombatDirector>().monsterCards = dccsVoidFamilyNoBarnacle;
             InfiniteTowerWaveBossSuperCrab.GetComponent<InfiniteTowerExplicitSpawnWaveController>().baseCredits = 0;
             InfiniteTowerWaveBossSuperCrab.GetComponent<InfiniteTowerExplicitSpawnWaveController>().linearCreditsPerWave = 0;
             InfiniteTowerWaveBossSuperCrab.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList[0].spawnCard = cscSuperCrab;
@@ -142,8 +145,8 @@ namespace SimulacrumAdditions
 
             InfiniteTowerWaveBossSuperCrab.GetComponent<InfiniteTowerExplicitSpawnWaveController>().rewardDropTable = SimuMain.dtITWaveTier3;
             InfiniteTowerWaveBossSuperCrab.GetComponent<InfiniteTowerExplicitSpawnWaveController>().rewardDisplayTier = ItemTier.Tier3;
-            InfiniteTowerWaveBossSuperCrab.AddComponent<SimulacrumExtrasHelper>().rewardDropTable = SimuMain.dtITSuperVoid;
-            InfiniteTowerWaveBossSuperCrab.GetComponent<SimulacrumExtrasHelper>().rewardDisplayTier = ItemTier.VoidTier3;
+            InfiniteTowerWaveBossSuperCrab.AddComponent<SimulacrumExtrasHelper>().rewardDropTable = SimuMain.dtITVoid;
+            InfiniteTowerWaveBossSuperCrab.GetComponent<SimulacrumExtrasHelper>().rewardDisplayTier = ItemTier.VoidTier2;
             InfiniteTowerWaveBossSuperCrab.GetComponent<SimulacrumExtrasHelper>().newRadius = 110;
 
             InfiniteTowerWaveBossSuperCrab.GetComponent<InfiniteTowerExplicitSpawnWaveController>().secondsBeforeSuddenDeath *= 2f;

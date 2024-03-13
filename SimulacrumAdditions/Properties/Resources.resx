@@ -175,6 +175,12 @@
   <data name="texITWaveScavLunarIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>texITWaveScavLunarIcon .png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="texITWaveSizeBig" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>texITWaveSizeBig.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="texITWaveSizeSmall" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>texITWaveSizeSmall.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="texITWaveSuperDevestator" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>texITWaveSuperDevestator.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>

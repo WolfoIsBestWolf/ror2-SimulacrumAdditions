@@ -31,6 +31,8 @@ namespace SimulacrumAdditions
 
         public static ConfigEntry<bool> cfgMakeSpecialWavesMoreCommon;
 
+        public static ConfigEntry<bool> cfgAwaitTravel;
+
 
         public static ConfigEntry<int> cfgSimuEndingStartAtXWaves;
         public static ConfigEntry<int> cfgSimuEndingEveryXWaves;
@@ -51,6 +53,12 @@ namespace SimulacrumAdditions
                 "Speed up as waves go on",
                 true,
                 "The crab will travel faster the more waves are completed, mostly noticible later waves."
+            );
+            cfgAwaitTravel = ConfigFileUNSORTED.Bind(
+                "Main",
+                "Crab waits before travelling",
+                true,
+                "Like after wave 5, more time to do stuff before leaving or just to leave instantly."
             );
             cfgEnableArtifact = ConfigFileUNSORTED.Bind(
                 "Main",
