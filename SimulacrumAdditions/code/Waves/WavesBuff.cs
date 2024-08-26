@@ -229,7 +229,7 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveBossLeechingUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = LeechColor;
             InfiniteTowerWaveBossLeechingUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = LeechColor;
 
-            InfiniteTowerWaveCategory.WeightedWave BossLeechingWave = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveBossLeeching, weight = 5f, prerequisites = SimuMain.StartWave11Prerequisite };
+            InfiniteTowerWaveCategory.WeightedWave BossLeechingWave = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveBossLeeching, weight = 5f, prerequisites = SimuMain.StartWave20Prerequisite };
             SimuMain.ITBossWaves.wavePrefabs = SimuMain.ITBossWaves.wavePrefabs.Add(BossLeechingWave);
         }
 

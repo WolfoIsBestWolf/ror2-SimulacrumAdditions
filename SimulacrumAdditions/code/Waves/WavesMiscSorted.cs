@@ -67,7 +67,7 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveHeresyUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = HeresyColor;
             InfiniteTowerWaveHeresyUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = HeresyColor;
 
-            InfiniteTowerWaveCategory.WeightedWave ITHeresy = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveHeresy, weight = 7f, prerequisites = SimuMain.StartWave11Prerequisite };
+            InfiniteTowerWaveCategory.WeightedWave ITHeresy = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveHeresy, weight = 8f, prerequisites = SimuMain.StartWave11Prerequisite };
             SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(ITHeresy);
             //Automated ones
             //
@@ -380,10 +380,9 @@ namespace SimulacrumAdditions
             //InfiniteTowerWaveJetpack.GetComponent<SimulacrumExtrasHelper>().rewardDisplayTier = //Orange;
             InfiniteTowerWaveJetpack.GetComponent<SimulacrumExtrasHelper>().rewardOptionCount = 2;
 
-            //InfiniteTowerWaveJetpack.GetComponent<InfiniteTowerWaveController>().baseCredits *= 1.3f;
             InfiniteTowerWaveJetpack.GetComponent<InfiniteTowerWaveController>().immediateCreditsFraction *= 0.75f;
             InfiniteTowerWaveJetpack.GetComponent<CombatDirector>().eliteBias = 80000;
-            InfiniteTowerWaveJetpack.GetComponent<CombatDirector>().skipSpawnIfTooCheap = false;
+            //InfiniteTowerWaveJetpack.GetComponent<CombatDirector>().skipSpawnIfTooCheap = false;
             InfiniteTowerWaveJetpack.AddComponent<SimuEquipmentWaveHelper>();
             InfiniteTowerWaveJetpack.GetComponent<SimuEquipmentWaveHelper>().variant = 0;
             InfiniteTowerWaveJetpack.AddComponent<SetGravity>().newGravity = -20;
@@ -411,12 +410,10 @@ namespace SimulacrumAdditions
 
             InfiniteTowerWaveMalachitesOnly.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITBasicBonusGreen;
             InfiniteTowerWaveMalachitesOnly.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier2;
-            //InfiniteTowerWaveMalachitesOnly.GetComponent<InfiniteTowerWaveController>().immediateCreditsFraction = 0.15f;
-            //InfiniteTowerWaveMalachitesOnly.GetComponent<InfiniteTowerWaveController>().baseCredits += 30;
-            InfiniteTowerWaveMalachitesOnly.GetComponent<InfiniteTowerWaveController>().maxSquadSize = 10;
-            //InfiniteTowerWaveMalachitesOnly.GetComponent<InfiniteTowerWaveController>().wavePeriodSeconds += 10;
+            InfiniteTowerWaveMalachitesOnly.GetComponent<InfiniteTowerWaveController>().baseCredits *= 0.7f;
+            InfiniteTowerWaveMalachitesOnly.GetComponent<InfiniteTowerWaveController>().maxSquadSize = 12;
             InfiniteTowerWaveMalachitesOnly.GetComponent<CombatDirector>().eliteBias = 80000;
-            InfiniteTowerWaveMalachitesOnly.GetComponent<CombatDirector>().skipSpawnIfTooCheap = false;  //Refuses to spawn anything on late waves if on
+            //InfiniteTowerWaveMalachitesOnly.GetComponent<CombatDirector>().skipSpawnIfTooCheap = false;  //Refuses to spawn anything on late waves if on
             InfiniteTowerWaveMalachitesOnly.AddComponent<SimuEquipmentWaveHelper>().variant = 2;
 
             InfiniteTowerWaveMalachitesOnly.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWaveMalachitesOnlyUI;
@@ -441,7 +438,6 @@ namespace SimulacrumAdditions
             //InfiniteTowerWaveBattery.GetComponent<SimulacrumExtrasHelper>().rewardDisplayTier = //Orange;
             InfiniteTowerWaveBattery.GetComponent<SimulacrumExtrasHelper>().rewardOptionCount = 2;
 
-            //InfiniteTowerWaveBattery.GetComponent<InfiniteTowerWaveController>().baseCredits *= 1.6f;
             InfiniteTowerWaveBattery.GetComponent<InfiniteTowerWaveController>().immediateCreditsFraction = 0.15f;
             InfiniteTowerWaveBattery.GetComponent<CombatDirector>().eliteBias = 80000;
             InfiniteTowerWaveBattery.AddComponent<SimuEquipmentWaveHelper>().variant = 1;
@@ -519,15 +515,17 @@ namespace SimulacrumAdditions
 
             InfiniteTowerWaveGoobo.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITWaveTier1;
             InfiniteTowerWaveGoobo.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
+            InfiniteTowerWaveGoobo.GetComponent<InfiniteTowerWaveController>().rewardOptionCount = 6;
             //
             InfiniteTowerWaveGoobo.AddComponent<SimulacrumExtrasHelper>().rewardDropTable = SimuMain.dtITSpecialEquipment;
             //InfiniteTowerWaveGoobo.GetComponent<SimulacrumExtrasHelper>().rewardDisplayTier = //Orange;
             InfiniteTowerWaveGoobo.GetComponent<SimulacrumExtrasHelper>().rewardOptionCount = 2;
+            InfiniteTowerWaveGoobo.AddComponent<DisableArtifactOfSwarms>();
 
-            //InfiniteTowerWaveGoobo.GetComponent<InfiniteTowerWaveController>().baseCredits *= 1.6f;
             InfiniteTowerWaveGoobo.GetComponent<InfiniteTowerWaveController>().immediateCreditsFraction = 0.15f;
             InfiniteTowerWaveGoobo.GetComponent<InfiniteTowerWaveController>().baseCredits = 70;
-            InfiniteTowerWaveGoobo.GetComponent<InfiniteTowerWaveController>().wavePeriodSeconds = 45;
+            InfiniteTowerWaveGoobo.GetComponent<InfiniteTowerWaveController>().maxSquadSize = 12;
+            //InfiniteTowerWaveGoobo.GetComponent<InfiniteTowerWaveController>().wavePeriodSeconds = 45;
             InfiniteTowerWaveGoobo.GetComponent<CombatDirector>().eliteBias = 80000;
             InfiniteTowerWaveGoobo.AddComponent<SimuEquipmentWaveHelper>().variant = 3;
 
@@ -542,6 +540,7 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveCategory.WeightedWave ITBasicGoobo = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveGoobo, weight = 3f, prerequisites = SimuMain.StartWave15Prerequisite };
             SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(ITBasicGoobo);
 
+            //FixGooboSwarms.Fix();
 
         }
 

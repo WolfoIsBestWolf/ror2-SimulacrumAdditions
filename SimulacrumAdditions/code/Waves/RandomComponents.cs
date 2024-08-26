@@ -17,8 +17,9 @@ namespace SimulacrumAdditions
 			CharacterMaster master = this.GetComponent<CharacterMaster>();
 			if (master && master.teamIndex == TeamIndex.Player)
             {
-				master.inventory.GiveItem(RoR2Content.Items.BoostEquipmentRecharge, 15);
-				master.inventory.GiveItem(RoR2Content.Items.Hoof, 10);
+                master.inventory.RemoveItem(RoR2Content.Items.BoostEquipmentRecharge, master.inventory.GetItemCount(RoR2Content.Items.BoostEquipmentRecharge));
+                master.inventory.GiveItem(RoR2Content.Items.BoostEquipmentRecharge, 15);
+				//master.inventory.GiveItem(RoR2Content.Items.Hoof, 10);
 				UnityEngine.Object.DontDestroyOnLoad(base.gameObject);
 			}
 		}

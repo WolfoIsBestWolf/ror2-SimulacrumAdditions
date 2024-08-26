@@ -159,7 +159,7 @@ namespace SimulacrumAdditions
 
             InfiniteTowerWaveArtifactSwarm.GetComponent<ArtifactEnabler>().artifactDef = ArtifactDefSwarm;
             InfiniteTowerWaveArtifactSwarm.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerCurrentArtifactSwarmWaveUI;
-            InfiniteTowerWaveArtifactSwarm.GetComponent<InfiniteTowerWaveController>().baseCredits *= 1.5f;
+            //InfiniteTowerWaveArtifactSwarm.GetComponent<InfiniteTowerWaveController>().baseCredits *= 1.5f;
             InfiniteTowerWaveArtifactSwarm.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITWaveTier1;
             InfiniteTowerWaveArtifactSwarm.GetComponent<InfiniteTowerWaveController>().rewardOptionCount = 6;
 
@@ -271,6 +271,61 @@ namespace SimulacrumAdditions
 
             InfiniteTowerWaveCategory.WeightedWave ITBossArtifactBall = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveBossDoubleArtifact, weight = 6f, prerequisites = SimuMain.StartWave11Prerequisite };
             SimuMain.ITBossWaves.wavePrefabs = SimuMain.ITBossWaves.wavePrefabs.Add(ITBossArtifactBall);
+            //
+            //
+            //
+            
+            //Devotion Update
+            GameObject InfiniteTowerWaveArtifactDevotion = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveArtifactBomb.prefab").WaitForCompletion(), "InfiniteTowerWaveArtifactDevotion", true);
+            GameObject InfiniteTowerCurrentArtifactDevotionWaveUI = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentArtifactBombWaveUI.prefab").WaitForCompletion(), "InfiniteTowerCurrentArtifactDevotionWaveUI", false);
+            InfiniteTowerWaveArtifactPrerequisites ArtifacDevotionDisabledPrerequisite = ScriptableObject.CreateInstance<RoR2.InfiniteTowerWaveArtifactPrerequisites>();
+            ArtifactDef LemurianArtifact = Addressables.LoadAssetAsync<ArtifactDef>(key: "RoR2/CU8/Devotion.asset").WaitForCompletion();
+            InteractableSpawnCard iscLemurianEgg = Addressables.LoadAssetAsync<InteractableSpawnCard>(key: "RoR2/CU8/LemurianEgg/iscLemurianEgg.asset").WaitForCompletion();
+
+            InfiniteTowerWaveArtifactDevotion.GetComponent<ArtifactEnabler>().artifactDef = LemurianArtifact;
+            InfiniteTowerWaveArtifactDevotion.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerCurrentArtifactDevotionWaveUI;
+            InfiniteTowerWaveArtifactDevotion.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITWaveTier1;
+            InfiniteTowerWaveArtifactDevotion.GetComponent<InfiniteTowerWaveController>().rewardOptionCount = 2;
+
+            InfiniteTowerWaveArtifactDevotion.AddComponent<SimulacrumExtrasHelper>().rewardDisplayTier = ItemTier.Tier1;
+            InfiniteTowerWaveArtifactDevotion.GetComponent<SimulacrumExtrasHelper>().rewardDropTable = SimuMain.dtITWaveTier1;
+            InfiniteTowerWaveArtifactDevotion.GetComponent<SimulacrumExtrasHelper>().rewardOptionCount = 2;
+ 
+            InfiniteTowerWaveArtifactDevotion.AddComponent<SimulacrumInteractablesWaveHelper>();
+            InfiniteTowerWaveArtifactDevotion.GetComponent<SimulacrumInteractablesWaveHelper>().spawnCard = iscLemurianEgg;
+            InfiniteTowerWaveArtifactDevotion.GetComponent<SimulacrumInteractablesWaveHelper>().spawnsOnStart = 4;
+            InfiniteTowerWaveArtifactDevotion.GetComponent<SimulacrumInteractablesWaveHelper>().spawnedTimer = 99999;
+            InfiniteTowerWaveArtifactDevotion.GetComponent<SimulacrumInteractablesWaveHelper>().interval = 99999;
+
+            InfiniteTowerCurrentArtifactDevotionWaveUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = LemurianArtifact.smallIconSelectedSprite;
+            InfiniteTowerCurrentArtifactDevotionWaveUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "Wave {0} - Augment of Devotion";
+            InfiniteTowerCurrentArtifactDevotionWaveUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "Lemurian Eggs appear. Hatch them with an item.";
+ 
+            InfiniteTowerWaveCategory.WeightedWave ITBasicArtifactDevotion = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveArtifactDevotion, weight = 3f };
+            SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(ITBasicArtifactDevotion);
+            //
+            //
+            //Delusion
+            //Delusion Update
+            GameObject InfiniteTowerWaveArtifactDelusion = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveArtifactBomb.prefab").WaitForCompletion(), "InfiniteTowerWaveArtifactDelusion", true);
+            GameObject InfiniteTowerCurrentArtifactDelusionWaveUI = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentArtifactBombWaveUI.prefab").WaitForCompletion(), "InfiniteTowerCurrentArtifactDelusionWaveUI", false);
+            InfiniteTowerWaveArtifactPrerequisites ArtifacDelusionDisabledPrerequisite = ScriptableObject.CreateInstance<RoR2.InfiniteTowerWaveArtifactPrerequisites>();
+            ArtifactDef Delusion = Addressables.LoadAssetAsync<ArtifactDef>(key: "RoR2/CU8/Delusion.asset").WaitForCompletion();
+
+            InfiniteTowerWaveArtifactDelusion.GetComponent<ArtifactEnabler>().artifactDef = Delusion;
+            InfiniteTowerWaveArtifactDelusion.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerCurrentArtifactDelusionWaveUI;
+            InfiniteTowerWaveArtifactDelusion.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITWaveTier1;
+            InfiniteTowerWaveArtifactDelusion.GetComponent<InfiniteTowerWaveController>().rewardOptionCount = 3;
+            InfiniteTowerWaveArtifactDelusion.AddComponent<RunArtifactOfDelusion>();
+
+            InfiniteTowerCurrentArtifactDelusionWaveUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = Delusion.smallIconSelectedSprite;
+            InfiniteTowerCurrentArtifactDelusionWaveUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "Wave {0} - Augment of Delusion";
+            InfiniteTowerCurrentArtifactDelusionWaveUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "Risk your items on previously opened chests in a test of memory.";
+
+            InfiniteTowerWaveCategory.WeightedWave ITBasicArtifactDelusion = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveArtifactDelusion, weight = 2.5f };
+            SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(ITBasicArtifactDelusion);
+
+
             ModSupport();
         }
 

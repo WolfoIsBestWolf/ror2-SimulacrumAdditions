@@ -293,8 +293,8 @@ namespace SimulacrumAdditions
                 new ItemCountPair { itemDef = RoR2Content.Items.ExtraLife, count = 10 },//   
                 
                 new ItemCountPair { itemDef = SimuMain.ITKillOnCompletion, count = 15 },
-                new ItemCountPair { itemDef = SimuMain.ITDamageDown, count = 75 },
-                new ItemCountPair { itemDef = RoR2Content.Items.AlienHead, count = 1 },
+                new ItemCountPair { itemDef = SimuMain.ITDamageDown, count = 80 },
+                new ItemCountPair { itemDef = DLC1Content.Items.HalfSpeedDoubleHealth, count = 1 },
             };
 
             CharacterSpawnCard cscITDroneEmergency = Object.Instantiate(cscITDroneFlame);

@@ -97,6 +97,7 @@ namespace SimulacrumAdditions
         public static ItemDef ITKillOnCompletion = ScriptableObject.CreateInstance<ItemDef>();
         public static ItemDef ITHorrorName = ScriptableObject.CreateInstance<ItemDef>();
         public static ItemDef ITCooldownUp = ScriptableObject.CreateInstance<ItemDef>();
+        public static ItemDef ImmuneToVoidFog = ScriptableObject.CreateInstance<ItemDef>();
 
         public static MasterCatalog.MasterIndex IndexAffixHealingCore = MasterCatalog.MasterIndex.none;
 
@@ -107,9 +108,19 @@ namespace SimulacrumAdditions
         public float BossWeightUncommon = 6;
         public float BossWeightRare = 4;
 
+
         public void Awake()
         {
             //AkSoundEngine.SetState(this.id, this.valueId);
+
+
+            /*foreach (var item in Addressables.ResourceLocators)
+            {
+                foreach (var strng in item.Keys)
+                {
+                    Debug.Log(strng);
+                }
+            }*/
 
             WConfig.InitConfig();
             if (WConfig.cfgDumpInfo.Value)
@@ -138,9 +149,10 @@ namespace SimulacrumAdditions
             SimulacrumDCCS.Start();
             CrabActivateToTravel.Make();
 
+            ArtifactTweaks.Main();
             if (WConfig.cfgEnableArtifact.Value)
             {
-                Artifact.MakeArtifact();
+                ArtifactAugments.MakeArtifact();
                 ArtifactReal.MakeArtifact();
             }
 
@@ -599,8 +611,10 @@ namespace SimulacrumAdditions
             }
             if (NetworkServer.active)
             {
-                foreach (CharacterMaster characterMaster in CharacterMaster.readOnlyInstancesList)
+                for (int i = 0; i < CharacterMaster.instancesList.Count; i++)
                 {
+                    CharacterMaster characterMaster = CharacterMaster.instancesList[i];
+
                     if (characterMaster && characterMaster.inventory)
                     {
                         int itemCount = characterMaster.inventory.GetItemCount(ITKillOnCompletion);
@@ -610,16 +624,8 @@ namespace SimulacrumAdditions
                         }
                         if (itemCount > 6)
                         {
-                            CharacterBody body = characterMaster.GetBody();
-                            if (body)
-                            {
-                                body.healthComponent.Suicide(null, null, DamageType.Generic);
-                            }
                             characterMaster.TrueKill();
-                            if (characterMaster.playerCharacterMasterController == null)
-                            {
-                                Destroy(characterMaster.gameObject);
-                            }
+                            UnityEngine.Object.Destroy(characterMaster.gameObject, 2f);
                         }
                     }
                 }
@@ -978,12 +984,12 @@ namespace SimulacrumAdditions
                         spawnAsVoidTeam = true;
                         if (waveIndex > 29)
                         {
-                            self.spawnList[0].spawnCard.equipmentToGrant = new EquipmentDef[] { RoR2Content.Equipment.Blackhole };
+                            //self.spawnList[0].spawnCard.equipmentToGrant = new EquipmentDef[] { RoR2Content.Equipment.Blackhole };
                             self.spawnList[0].spawnCard.itemsToGrant[0].count = 1;
                         }
                         else
                         {
-                            self.spawnList[0].spawnCard.equipmentToGrant = new EquipmentDef[] { };
+                            //self.spawnList[0].spawnCard.equipmentToGrant = new EquipmentDef[] { };
                             self.spawnList[0].spawnCard.itemsToGrant[0].count = 0;
                         }
                         break;
@@ -1290,7 +1296,7 @@ namespace SimulacrumAdditions
 
             //This is where we'd need to add Fireworks
             //Fireworks is Interactable Related and that tagged is banned
-            //InfiniteTowerRunBase.blacklistedItems = InfiniteTowerRunBase.blacklistedItems.Add(RoR2Content.Items.Squid); //But Squid Polyp wouldn't work they just die
+            InfiniteTowerRunBase.blacklistedItems = InfiniteTowerRunBase.blacklistedItems.Add(RoR2Content.Items.Squid); //But Squid Polyp wouldn't work they just die
             InfiniteTowerRunBase.blacklistedItems = InfiniteTowerRunBase.blacklistedItems.Remove(RoR2Content.Items.TitanGoldDuringTP, DLC1Content.Items.DroneWeapons); //But Squid Polyp wouldn't work they just die
             InfiniteTowerRunBase.blacklistedTags = InfiniteTowerRunBase.blacklistedTags.Remove(ItemTag.InteractableRelated); //There's only two and Fireworks works plenty
 
@@ -1494,6 +1500,19 @@ namespace SimulacrumAdditions
             customItem = new CustomItem(ITCooldownUp, new ItemDisplayRule[0]);
             ItemAPI.Add(customItem);
 
+            ImmuneToVoidFog.name = "ImmuneToVoidFog";
+            ImmuneToVoidFog.deprecatedTier = ItemTier.NoTier;
+            ImmuneToVoidFog._itemTierDef = AACannon._itemTierDef;
+            ImmuneToVoidFog.nameToken = "ImmuneToVoidFog";
+            ImmuneToVoidFog.pickupToken = "ImmuneToVoidFog";
+            ImmuneToVoidFog.descriptionToken = "No damage from void fog";
+            ImmuneToVoidFog.hidden = true;
+            ImmuneToVoidFog.canRemove = false;
+            ImmuneToVoidFog.pickupIconSprite = AACannon.pickupIconSprite;
+            ImmuneToVoidFog.pickupModelPrefab = AACannon.pickupModelPrefab;
+            customItem = new CustomItem(ImmuneToVoidFog, new ItemDisplayRule[0]);
+            ItemAPI.Add(customItem);
+
             //Fake Orange Tier for Orange Void Potentials
             ItemOrangeTierDef = ScriptableObject.CreateInstance<ItemTierDef>();
             ItemTierDef Tier1 = Addressables.LoadAssetAsync<ItemTierDef>(key: "RoR2/Base/Common/Tier1Def.asset").WaitForCompletion();
@@ -1638,9 +1657,9 @@ namespace SimulacrumAdditions
 
             //Vanilla Void Boss Drop Table is kinda bad
             dtITVoid.voidTier1Weight = 60;
-            dtITVoid.voidTier2Weight = 30;
-            dtITVoid.voidTier3Weight = 10;
-            dtITVoid.voidBossWeight = 5;
+            dtITVoid.voidTier2Weight = 60;
+            dtITVoid.voidTier3Weight = 15;
+            dtITVoid.voidBossWeight = 10;
 
             //Wacky Tier for Wacky Artifacts
             dtAllTier.name = "dtAllTier";
@@ -1662,8 +1681,6 @@ namespace SimulacrumAdditions
             {
                 Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/VoidTriple/VoidTriple.prefab").WaitForCompletion().GetComponent<RoR2.OptionChestBehavior>().dropTable = dtAllTier;
             }
-
-
 
             //OnKill for On Kill Artifacts
             dtITBasicWaveOnKill.tier1Weight = 80f;
@@ -1694,8 +1711,8 @@ namespace SimulacrumAdditions
             dtITBossGreenVoid.tier2Weight = 80;
             dtITBossGreenVoid.tier3Weight = 7.5f;
             dtITBossGreenVoid.bossWeight = 7.5f;
-            dtITBossGreenVoid.voidTier1Weight = 50;
-            dtITBossGreenVoid.voidTier2Weight = 50;
+            dtITBossGreenVoid.voidTier1Weight = 20;
+            dtITBossGreenVoid.voidTier2Weight = 80;
             dtITBossGreenVoid.voidTier3Weight = 10;
             dtITBossGreenVoid.voidBossWeight = 10;
 
@@ -1762,23 +1779,23 @@ namespace SimulacrumAdditions
             //
             //Family Waves biased 
             dtITBossCategoryDamage.tier1Weight = 0;
-            dtITBossCategoryDamage.tier2Weight = 80f;
-            dtITBossCategoryDamage.tier3Weight = 20f;
-            dtITBossCategoryDamage.bossWeight = 20f;
+            dtITBossCategoryDamage.tier2Weight = 20f;
+            dtITBossCategoryDamage.tier3Weight = 10f;
+            dtITBossCategoryDamage.bossWeight = 5f;
             dtITBossCategoryDamage.name = "dtITBossCategoryDamage";
             dtITBossCategoryDamage.requiredItemTags = new ItemTag[] { ItemTag.Damage };
 
             dtITBossCategoryHealing.tier1Weight = 0;
-            dtITBossCategoryHealing.tier2Weight = 80f;
-            dtITBossCategoryHealing.tier3Weight = 25f;
-            dtITBossCategoryHealing.bossWeight = 25f;
+            dtITBossCategoryHealing.tier2Weight = 20f;
+            dtITBossCategoryHealing.tier3Weight = 10f;
+            dtITBossCategoryHealing.bossWeight = 5f;
             dtITBossCategoryHealing.name = "dtITBossCategoryHealing";
             dtITBossCategoryHealing.requiredItemTags = new ItemTag[] { ItemTag.Healing };
 
             dtITBossCategoryUtility.tier1Weight = 0;
-            dtITBossCategoryUtility.tier2Weight = 80f;
-            dtITBossCategoryUtility.tier3Weight = 20f;
-            dtITBossCategoryUtility.bossWeight = 20f;
+            dtITBossCategoryUtility.tier2Weight = 20f;
+            dtITBossCategoryUtility.tier3Weight = 10f;
+            dtITBossCategoryUtility.bossWeight = 5f;
             dtITBossCategoryUtility.name = "dtITBossCategoryUtility";
             dtITBossCategoryUtility.requiredItemTags = new ItemTag[] { ItemTag.Utility };
             //
@@ -2276,6 +2293,12 @@ namespace SimulacrumAdditions
                     waveController.wavePeriodSeconds *= 0.6f;
                 }
             }
+            if (RunArtifactManager.instance.IsArtifactEnabled(RoR2Content.Artifacts.swarmsArtifactDef))
+            {
+                waveController.maxSquadSize += 10;
+            }
+
+
             Debug.Log(self.waveIndex + " immediateCreditsFraction: " + waveController.immediateCreditsFraction + " eliteBias: " + combatDirector.eliteBias + " wavePeriodSeconds: " + waveController.wavePeriodSeconds);
 
         }

@@ -395,7 +395,7 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveDoubleBoss.GetComponent<InfiniteTowerWaveController>().secondsAfterWave = 14;
             InfiniteTowerWaveDoubleBoss.GetComponent<InfiniteTowerWaveController>().wavePeriodSeconds = 40;
             InfiniteTowerWaveDoubleBoss.GetComponent<CombatDirector>().eliteBias = 0f;
-            InfiniteTowerWaveDoubleBoss.GetComponent<CombatDirector>().skipSpawnIfTooCheap = true;
+            //InfiniteTowerWaveDoubleBoss.GetComponent<CombatDirector>().skipSpawnIfTooCheap = true;
             InfiniteTowerWaveDoubleBoss.AddComponent<SimulacrumExtrasHelper>().rewardDropTable = SimuMain.dtITWaveTier2;
             InfiniteTowerWaveDoubleBoss.GetComponent<SimulacrumExtrasHelper>().rewardDisplayTier = ItemTier.Tier2;
 
@@ -436,7 +436,7 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveBossDronesMachinesUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 0.7f, 0.4f);
             InfiniteTowerWaveBossDronesMachinesUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color(0.7f, 0.4f, 0);
 
-            InfiniteTowerWaveCategory.WeightedWave ITInfiniteTowerWaveBossWithDrone = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveBossWithDrone, weight = 6f, prerequisites = SimuMain.StartWave11Prerequisite };
+            InfiniteTowerWaveCategory.WeightedWave ITInfiniteTowerWaveBossWithDrone = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveBossWithDrone, weight = 6f, prerequisites = SimuMain.StartWave20Prerequisite };
             SimuMain.ITBossWaves.wavePrefabs = SimuMain.ITBossWaves.wavePrefabs.Add(ITInfiniteTowerWaveBossWithDrone);
 
 
@@ -907,13 +907,13 @@ namespace SimulacrumAdditions
             cscITCharacter.itemsToGrant = new ItemCountPair[] {
                 new ItemCountPair { itemDef = ExtraLifeVoid, count = 0 },
                 new ItemCountPair { itemDef = SimuMain.ITDamageDown, count = 70 },
-                new ItemCountPair { itemDef = SimuMain.ITHealthScaling, count = 850 }, //10x hp
+                new ItemCountPair { itemDef = SimuMain.ITHealthScaling, count = 820 }, //10x hp
                 new ItemCountPair { itemDef = LegacyResourcesAPI.Load<ItemDef>("ItemDefs/CloverVoid"), count = 1 },
                 new ItemCountPair { itemDef = LegacyResourcesAPI.Load<ItemDef>("ItemDefs/ElementalRingVoid"), count = 1 },
                 new ItemCountPair { itemDef = LegacyResourcesAPI.Load<ItemDef>("ItemDefs/EquipmentMagazineVoid"), count = 1 },
-                new ItemCountPair { itemDef = LegacyResourcesAPI.Load<ItemDef>("ItemDefs/BearVoid"), count = 1 },
-                new ItemCountPair { itemDef = LegacyResourcesAPI.Load<ItemDef>("ItemDefs/MushroomVoid"), count = 1 },
-                new ItemCountPair { itemDef = CritGlassesVoid, count = 4 },
+                //new ItemCountPair { itemDef = LegacyResourcesAPI.Load<ItemDef>("ItemDefs/BearVoid"), count = 1 },
+                //new ItemCountPair { itemDef = LegacyResourcesAPI.Load<ItemDef>("ItemDefs/MushroomVoid"), count = 1 },
+                new ItemCountPair { itemDef = CritGlassesVoid, count = 1 },
                 //new ItemCountPair { itemDef = AlienHead, count = 1 },
                 new ItemCountPair { itemDef = AdaptiveArmor, count = 1 },
                 new ItemCountPair { itemDef = UseAmbientLevel, count = 1 },
@@ -943,7 +943,7 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveBossCharacters.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITBossGreenVoid;
 
             InfiniteTowerWaveBossCharacters.AddComponent<SimuWaveSizeModifier>().sizeModifier = 2f;
-            InfiniteTowerWaveBossCharacters.AddComponent<SimuWaveSizeModifier>().neededItem = AdaptiveArmor;
+            InfiniteTowerWaveBossCharacters.GetComponent<SimuWaveSizeModifier>().neededItem = AdaptiveArmor;
 
             InfiniteTowerWaveBossCharacters.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWaveBossCharactersUI;
             InfiniteTowerWaveBossCharactersUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "Wave {0} - Boss Augment of Cell Breach";

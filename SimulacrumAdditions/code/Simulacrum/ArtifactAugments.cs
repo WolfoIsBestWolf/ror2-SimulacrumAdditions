@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 
 namespace SimulacrumAdditions
 {
-    public class Artifact
+    public class ArtifactAugments
     {
         public static ArtifactDef ArtifactSimulacrum = ScriptableObject.CreateInstance<ArtifactDef>();
 
@@ -36,26 +36,6 @@ namespace SimulacrumAdditions
 
             RunArtifactManager.onArtifactEnabledGlobal += OnArtifactEnabled;
             RunArtifactManager.onArtifactDisabledGlobal += OnArtifactDisabled;
-
-            if (WConfig.cfgSacrificeBalance.Value)
-            {
-                On.RoR2.InfiniteTowerWaveController.DropRewards += (orig, self) =>
-                {
-                    bool sacrifice = RunArtifactManager.instance.IsArtifactEnabled(RoR2Content.Artifacts.sacrificeArtifactDef);
-                    SimulacrumExtrasHelper temp = self.GetComponent<SimulacrumExtrasHelper>();
-                    if (sacrifice && self.rewardOptionCount > 1)
-                    {
-                        self.rewardOptionCount--;
-                        if (temp && temp.rewardOptionCount > 1)
-                        {
-                            temp.rewardOptionCount--;
-                        }
-                    }
-                    orig(self);
-                };
-                On.RoR2.Artifacts.SacrificeArtifactManager.OnArtifactEnabled += SacrificeArtifactManager_OnArtifactEnabled;
-                On.RoR2.Artifacts.SacrificeArtifactManager.OnArtifactDisabled += SacrificeArtifactManager_OnArtifactDisabled;
-            }
         }
 
         private static void WeeklyArtifactInITOnly(On.RoR2.WeeklyRun.orig_OverrideRuleChoices orig, WeeklyRun self, RuleChoiceMask mustInclude, RuleChoiceMask mustExclude, ulong runSeed)
@@ -64,49 +44,6 @@ namespace SimulacrumAdditions
             self.ForceChoice(mustInclude, mustExclude, RuleCatalog.FindRuleDef("Artifacts.AAAAugmentsOnly").FindChoice("Off"));
             self.ForceChoice(mustInclude, mustExclude, RuleCatalog.FindRuleDef("Artifacts.AAAUseNormalStages").FindChoice("Off"));
         }
-
-        private static void SacrificeArtifactManager_OnArtifactEnabled(On.RoR2.Artifacts.SacrificeArtifactManager.orig_OnArtifactEnabled orig, RunArtifactManager runArtifactManager, ArtifactDef artifactDef)
-        {
-            orig(runArtifactManager, artifactDef);
-            if (!NetworkServer.active)
-            {
-                return;
-            }
-            if (artifactDef != RoR2Content.Artifacts.sacrificeArtifactDef)
-            {
-                return;
-            }
-            if (Run.instance && Run.instance.GetComponent<InfiniteTowerRun>())
-            {
-                Debug.Log("Simulacrum : Added Sacrifice");
-                On.RoR2.Util.GetExpAdjustedDropChancePercent += SimulacrumNerfSacrifice;
-            }
-        }
-
-        private static float SimulacrumNerfSacrifice(On.RoR2.Util.orig_GetExpAdjustedDropChancePercent orig, float baseChancePercent, GameObject characterBodyObject)
-        {
-            return orig(baseChancePercent, characterBodyObject) * 0.7f;
-        }
-
-        private static void SacrificeArtifactManager_OnArtifactDisabled(On.RoR2.Artifacts.SacrificeArtifactManager.orig_OnArtifactDisabled orig, RunArtifactManager runArtifactManager, ArtifactDef artifactDef)
-        {
-            orig(runArtifactManager, artifactDef);
-            if (!NetworkServer.active)
-            {
-                return;
-            }
-            if (artifactDef != RoR2Content.Artifacts.sacrificeArtifactDef)
-            {
-                return;
-            }
-            if (Run.instance && Run.instance.GetComponent<InfiniteTowerRun>())
-            {
-                Debug.Log("Simulacrum : Removed Sacrifice");
-                On.RoR2.Util.GetExpAdjustedDropChancePercent -= SimulacrumNerfSacrifice;
-            }
-        }
-
-
 
         private static void OnArtifactEnabled(RunArtifactManager runArtifactManager, ArtifactDef artifactDef)
         {

@@ -5,7 +5,7 @@ This makes getting to wave 50 a set goal and makes the gamemode "beatable".
 One of these runs should take around an hour (similiar to loop Mithrix) and counts as a win.  
 
 __Adds a large amount of Augments__\
--5 Artifact Augments. (+5 with mods)\
+-7 Artifact Augments. (+5 with mods)\
 -13 Family Event Augments. (+3 with mods)\
 -4 Item Augments.\
 -3 Equipment Augments.\
@@ -14,7 +14,7 @@ __Adds a large amount of Augments__\
 -3 Elite Augments.\
 -16 Other Augments. (+1 with mods)
 
--6 Specific Boss Augments. (+1 with mods)\
+-6 Specific Boss Augments.\
 -5 Boss Artifact Augments.\
 -2 Boss Family Augment. (+1 with mods)\
 -1 Boss Elite Augment.\
@@ -61,6 +61,8 @@ Adds 2 Simulacrum only Artifacts:\
 -Artifact of Augments : Only augmented waves\
 -Artifact of Reality : Use normal stages instead of Simulacrum stages. (For people who really want Sulfur Pools for example)
 
+Makes Artifact of Devotion and Delusion functional in the game mode.
+
 More enemy types are added to the spawn pool starting wave 21.\
 Void enemies are added to the spawn pool starting wave 61.
 
@@ -100,10 +102,18 @@ Fixed vanilla bug where Clients often don't get enemy indicators.
 ![Image of Void Coin](https://raw.githubusercontent.com/WolfoIsBestWolf/ror2-SimulacrumAdditions/main/modPageImages/simuVoidCoin.png)
 
 #
-### Skins
+### Skins and Mod Support
 For technical reasons the skins are their own mod, for more information on the skins go to it's [mod page](https://thunderstore.io/package/Wolfo/WolfoAlternateSkins/ ):\
 They aren't anything too special but I do hope they are still enjoyable.\
 [![wolfoAlternateSkins](https://gcdn.thunderstore.io/live/repository/icons/Wolfo-WolfoAlternateSkins-1.5.0.png.128x128_q95.jpg)](https://thunderstore.io/package/Wolfo/WolfoAlternateSkins/)
+
+This mod depends on [VanillaArtifactsPlus](https://thunderstore.io/package/Wolfo/VanillaArtifactsPlus) for balancing Vengance. It's a rather light mod but you can check out the details on it's page.
+
+This mod adds Augments for:\
+[Starstorm2](https://thunderstore.io/package/TeamMoonstorm/Starstorm2/), for it's Artifacts and some events it adds. (2 Augments)\
+[LittleGameplayTweaks](https://thunderstore.io/package/Wolfo/LittleGameplayTweaks/), for the new artifacts I add there. (4 Augments)\
+[WolfoArtifacts](https://thunderstore.io/package/Wolfo/WolfoArtifacts), for the new family events I add there. (5 Augments)
+
 
 #
 Report bugs to @Wolfo.wolfo in the Risk of Rain 2 discord or RoR2 Modding discord.\
@@ -115,11 +125,6 @@ Every player needs this mod installed.
 The balance of this mod can be questionable as Simulacrum sucks to balance and is far harder in Multiplayer.\
 This mod currently is balanced to be difficult on Monsoon Multiplayer, difficulties like Typhoon and Inferno aren't accounted for.
 
-Also download my other mods, they are all balanced around each other:\
-[WolfoArtifacts](https://thunderstore.io/package/Wolfo/WolfoArtifacts) for some fun extra Artifacts and 3 more Artifact augments.  
-[LittleGameplayTweaks](https://thunderstore.io/package/Wolfo/LittleGameplayTweaks/) more enemy variety and some small changes and 4 more family augments.  
-[WolfoQualityOfLife](https://thunderstore.io/package/Wolfo/WolfoQualityOfLife/) for many visual improvements.  
-
 ##
 This mod likely breaks [Judgement](https://thunderstore.io/package/Nuxlar/Judgement/), as at the moment it isn't made with keeping Simulacrum functional in mind.
 
@@ -128,6 +133,31 @@ I already speed up the crab so [SpeedUpSafeWard](https://thunderstore.io/package
 
 ## Changelog:
 ```
+v1.10.0
+Added Augment of Devotion
+Artifact of Devotion : Now works in Simulacrum
+-Lemurian Eggs now spawn as random interactables. (As there are no drones)
+-Lemurians are now immune to void damage.
+-Lemurians evolve after every boss wave.
+--(To be determined if they have too little health and other balance concerns)
+
+Added Augment of Delusion
+Artifact of Delusion : Now works in Simulacrum
+-Resets chests after boss wave.
+
+Augment of Cell Breach :
+-Sizing of enemies was broken, all enemies were scaled to 2 while the evil character was scaled to 0.
+-Removed the 1 Weeping Fungus and 1 Safer Spaces from the character.
+-No longer gets Blackhole on wave 35+
+
+
+v1.9.4
+-Augment of Malachite, Flight will spawn less small enemies.
+-Augment of Malachite, Swarms spawn less enemies.
+-Augment of Gummy now disables Swarms due to Swarms not working properly with enemy Gummies.
+-Fixed issue where Boss Augment of Flames wouldn't end.
+-Blacklisted Squid Polyp
+
 v1.9.3
 -Added Augment of Frenzy
 -Added Augment of Tonic
@@ -145,14 +175,11 @@ v1.9.3
 -Added Boss lunar+void elites Augment
 -Added Boss Augment of Leeching
 -Added Boss 2 artifacts Augment
-
 -Changed Behemoth Augment to be a boss augment and reduced damage by 50%.
 -Removed/Replaced Drone Family wave, with boss wave with flame drones as support as they're really the only fun ones to fight.
 -Gave the Empyrean wave spawn the armor/attack speed/cooldown stat boosts they lacked.
 
-
 -Changed Director max spawn distance to always match radius
-
 -Ghost Elder Lemurian and Mithrix are slower.
 -Honor Augments have 30% less enemies, less damage, a large radius, and starts occuring later.
 -Boss Irradiance  Augment has 30% less enemies and 60% less damage.

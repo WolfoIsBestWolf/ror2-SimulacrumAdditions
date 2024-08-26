@@ -47,8 +47,9 @@ namespace SimulacrumAdditions
                         pickupIndex = PickupCatalog.FindPickupIndex(this.rewardDisplayTier),
                         pickerOptions = PickupPickerController.GenerateOptionsFromDropTable(this.rewardOptionCount, this.rewardDropTable, wave.rng),
                         rotation = Quaternion.identity,
+                        position = position,
                         prefabOverride = wave.rewardPickupPrefab
-                    }, position, vector);
+                    }, vector);
                     i++;
                     vector = rotation * vector;
                 }
@@ -85,7 +86,7 @@ namespace SimulacrumAdditions
                 bonusHP = Run.instance.GetComponent<InfiniteTowerRun>().waveIndex / 10 * 2;
                 if (variant == 2)
                 {
-                    bonusHP += 20;
+                    bonusHP += 10;
                 }
                 bonusHP *= Run.instance.participatingPlayerCount;
                 combatSquad = controller.combatSquad;
@@ -364,7 +365,6 @@ namespace SimulacrumAdditions
             }
         }
     }
-
 
     public class SimulacrumGiveItemsOnStart : MonoBehaviour
     {
@@ -699,6 +699,42 @@ namespace SimulacrumAdditions
             if (ruleChoiceDef != null)
             {
                 Run.instance.ruleBook.ApplyChoice(ruleChoiceDef);
+            }
+        }
+    }
+
+    public class RunArtifactOfDelusion : MonoBehaviour
+    {
+        private void OnEnable()
+        {
+            if (NetworkServer.active)
+            {
+                foreach (ChestBehavior chestBehavior in InstanceTracker.GetInstancesList<ChestBehavior>())
+                {
+                    chestBehavior.CallRpcResetChests();
+                }
+            }
+        }
+    }
+
+    public class DisableArtifactOfSwarms : MonoBehaviour
+    {
+        private bool wasEnabled;
+
+        private void OnEnable()
+        {
+            if (NetworkServer.active)
+            {
+                this.wasEnabled = RunArtifactManager.instance.IsArtifactEnabled(RoR2Content.Artifacts.Swarms);
+                RunArtifactManager.instance.SetArtifactEnabledServer(RoR2Content.Artifacts.Swarms, false);
+            }
+        }
+
+        private void OnDisable()
+        {
+            if (NetworkServer.active && RunArtifactManager.instance)
+            {
+                RunArtifactManager.instance.SetArtifactEnabledServer(RoR2Content.Artifacts.Swarms, this.wasEnabled);
             }
         }
     }

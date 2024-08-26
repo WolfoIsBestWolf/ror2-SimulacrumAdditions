@@ -199,7 +199,7 @@ namespace SimulacrumAdditions
         public static bool SimulacrumTrimmer(DirectorCard card)
         {
             GameObject prefab = card.spawnCard.prefab;
-            if (card.spawnCard.name.StartsWith("iscBroken") || card.spawnCard.name.StartsWith("Drone"))
+            if (card.spawnCard.name.StartsWith("iscBroken") || card.spawnCard.name.EndsWith("Drone"))
             {
                 return false;
             }
