@@ -142,6 +142,9 @@
   <data name="texITEquipmentBoss" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>texITEquipmentBoss.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="texITFalseSon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>texITFalseSon.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="texItFamilyBasic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>texItFamilyBasic.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>

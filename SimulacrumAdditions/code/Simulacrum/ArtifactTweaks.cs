@@ -22,7 +22,7 @@ namespace SimulacrumAdditions
             //Probably just add the spawn card into some category like chests but also they probably need some sort of immunity to void fog or smth
             //Probably upgrade every 5 waves
 
-            IL.RoR2.FogDamageController.FixedUpdate += (ILContext il) =>
+            IL.RoR2.FogDamageController.MyFixedUpdate += (ILContext il) =>
             {
                 ILCursor c = new ILCursor(il);
                 if (c.TryGotoNext(MoveType.Before,
@@ -84,7 +84,11 @@ namespace SimulacrumAdditions
                 {
                     if (RunArtifactManager.instance.IsArtifactEnabled(CU8Content.Artifacts.Devotion))
                     {
-                        DevotionInventoryController.ActivateDevotedEvolution();
+                        foreach (DevotionInventoryController devotion in DevotionInventoryController.InstanceList)
+                        {
+                            devotion.ActivateDevotedEvolution();
+                        }
+                        //DevotionInventoryController.ActivateDevotedEvolution();
                     }
                     if (RunArtifactManager.instance.IsArtifactEnabled(CU8Content.Artifacts.Delusion))
                     {

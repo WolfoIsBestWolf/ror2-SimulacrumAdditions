@@ -156,9 +156,8 @@ namespace SimulacrumAdditions
             texITWaveSuperDevestator.filterMode = FilterMode.Bilinear;
             Sprite texITWaveSuperDevestatorS = Sprite.Create(texITWaveSuperDevestator, WRect.rec64, WRect.half);
 
-            //Color GupColor = new Color32(255, 161, 15, 255);
-            //Color GupColor = new Color32(255, 122, 104, 255); 
-            Color Color = new Color(0.7f, 0.6278f, 1f, 1);
+            //Color Color = new Color(0.7f, 0.6278f, 1f, 1);
+            Color Color = new Color(1f, 0.6278f, 0.83f, 1);
             InfiniteTowerWaveBossSuperCrabUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = texITWaveSuperDevestatorS;
             InfiniteTowerWaveBossSuperCrabUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = Color;
             InfiniteTowerWaveBossSuperCrabUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = Color;

@@ -229,8 +229,8 @@ namespace SimulacrumAdditions
             CharacterSpawnCard cscEquipmentDroneITFireBallDash = Object.Instantiate(cscEquipmentDroneIT);
             cscEquipmentDroneITFireBallDash.name = "cscEquipmentDroneITFireBallDash";
             cscEquipmentDroneITFireBallDash.equipmentToGrant = new EquipmentDef[] { RoR2Content.Equipment.FireBallDash };
-            cscEquipmentDroneITFireBallDash.itemsToGrant[0].count = 3;
-            cscEquipmentDroneITFireBallDash.itemsToGrant[1].count = 70;
+            cscEquipmentDroneITFireBallDash.itemsToGrant[0].count = 25;
+            cscEquipmentDroneITFireBallDash.itemsToGrant[1].count = 98;
             cscEquipmentDroneITFireBallDash.itemsToGrant[5].count = 2;
 
             CharacterSpawnCard cscEquipmentDroneITTeamWarCry = Object.Instantiate(cscEquipmentDroneIT);

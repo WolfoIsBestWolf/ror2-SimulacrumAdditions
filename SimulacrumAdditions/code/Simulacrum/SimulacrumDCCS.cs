@@ -535,6 +535,15 @@ namespace SimulacrumAdditions
             DirectorCardCategorySelection dccsITSkyMeadowMonsters = Addressables.LoadAssetAsync<DirectorCardCategorySelection>(key: "RoR2/DLC1/itskymeadow/dccsITSkyMeadowMonsters.asset").WaitForCompletion();
             DirectorCardCategorySelection dccsITMoonMonsters = Addressables.LoadAssetAsync<DirectorCardCategorySelection>(key: "RoR2/DLC1/itmoon/dccsITMoonMonsters.asset").WaitForCompletion();
 
+            DirectorCardCategorySelection dccsITGolemplainsMonstersDLC2 = Addressables.LoadAssetAsync<DirectorCardCategorySelection>(key: "RoR2/DLC1/itgolemplains/dccsITGolemplainsMonstersDLC2.asset").WaitForCompletion();
+            //DirectorCardCategorySelection dccsITGooLakeMonsters = Addressables.LoadAssetAsync<DirectorCardCategorySelection>(key: "RoR2/DLC1/itgoolake/dccsITGooLakeMonsters.asset").WaitForCompletion();
+            //DirectorCardCategorySelection dccsITAncientLoftMonsters = Addressables.LoadAssetAsync<DirectorCardCategorySelection>(key: "RoR2/DLC1/itancientloft/dccsITAncientLoftMonsters.asset").WaitForCompletion();
+            DirectorCardCategorySelection dccsITFrozenWallMonstersDLC2 = Addressables.LoadAssetAsync<DirectorCardCategorySelection>(key: "RoR2/DLC1/itfrozenwall/dccsITFrozenWallMonstersDLC2.asset").WaitForCompletion();
+            DirectorCardCategorySelection dccsITDampCaveMonstersDLC2 = Addressables.LoadAssetAsync<DirectorCardCategorySelection>(key: "RoR2/DLC1/itdampcave/dccsITDampCaveMonstersDLC2.asset").WaitForCompletion();
+            DirectorCardCategorySelection dccsITSkyMeadowMonstersDLC2 = Addressables.LoadAssetAsync<DirectorCardCategorySelection>(key: "RoR2/DLC1/itskymeadow/dccsITSkyMeadowMonstersDLC2.asset").WaitForCompletion();
+            //DirectorCardCategorySelection dccsITMoonMonsters = Addressables.LoadAssetAsync<DirectorCardCategorySelection>(key: "RoR2/DLC1/itmoon/dccsITMoonMonsters.asset").WaitForCompletion();
+
+
             //PreLoop
             DirectorCard SimuBrass = new DirectorCard
             {
@@ -714,6 +723,11 @@ namespace SimulacrumAdditions
             dccsITGolemplainsMonsters.AddCard(2, SimuLoopMinorConstruct); //Match vanilla
             dccsITGolemplainsMonsters.AddCard(2, SimuLoopHermitCrab);  //Match vanilla
 
+            dccsITGolemplainsMonstersDLC2.AddCard(0, SimuLoopMegaConstruct); //Match vanilla
+            dccsITGolemplainsMonstersDLC2.AddCard(2, SimuLoopMinorConstruct); //Match vanilla
+            dccsITGolemplainsMonstersDLC2.AddCard(2, SimuLoopHermitCrab);  //Match vanilla
+
+
             //dccsITGooLakeMonsters.AddCard(0, SimuLoopVagrant);  //Simu thing where it imitates other stages
             //dccsITGooLakeMonsters.AddCard(1, SimuLoopGup);  //Simu thing where it imitates other stages
             dccsITGooLakeMonsters.AddCard(1, SimuLoopGolemSandy);
@@ -722,20 +736,38 @@ namespace SimulacrumAdditions
 
             dccsITAncientLoftMonsters.AddCard(1, SimuLoopElderLemurian); //Match my changes
             dccsITAncientLoftMonsters.AddCard(2, SimuLoopJellyfish); //More Jellyfish Ig?
-
+            //
+            //
             dccsITFrozenWallMonsters.AddCard(0, SimuLoopRoboBallBoss); //Match my changes
             dccsITFrozenWallMonsters.AddCard(2, SimuLoopVulture);  //Match my changes
             dccsITFrozenWallMonsters.categories[1].cards[2].selectionWeight = 2; //More Bison
 
+            dccsITFrozenWallMonstersDLC2.AddCard(0, SimuLoopRoboBallBoss); //Match my changes
+            dccsITFrozenWallMonstersDLC2.AddCard(2, SimuLoopVulture);  //Match my changes
+            dccsITFrozenWallMonstersDLC2.categories[1].cards[2].selectionWeight = 2; //More Bison
+            //
+            //
             dccsITDampCaveMonsters.AddCard(0, SimuLoopGrovetender); //Simu thing where it imitates other stages
             dccsITDampCaveMonsters.AddCard(1, SimuLoopMiniMushroom); //Simu thing where it imitates other stages
             dccsITDampCaveMonsters.categories[2].cards[3].spawnDistance = DirectorCore.MonsterSpawnDistance.Close; //Hermit Crab
             dccsITDampCaveMonsters.AddCard(2, SimuLoopHermitCrab); //Simu thing where it imitates other stages
 
+            dccsITDampCaveMonstersDLC2.AddCard(0, SimuLoopGrovetender); //Simu thing where it imitates other stages
+            dccsITDampCaveMonstersDLC2.AddCard(1, SimuLoopMiniMushroom); //Simu thing where it imitates other stages
+            dccsITDampCaveMonstersDLC2.categories[2].cards[3].spawnDistance = DirectorCore.MonsterSpawnDistance.Close; //Hermit Crab
+            dccsITDampCaveMonstersDLC2.AddCard(2, SimuLoopHermitCrab); //Simu thing where it imitates other stages
+            //
+            //
             dccsITSkyMeadowMonsters.AddCard(1, SimuLoopGreaterWisp); //Match vanilla
             dccsITSkyMeadowMonsters.categories[0].cards[1].selectionWeight = 2; //More GrandParents
             dccsITSkyMeadowMonsters.categories[1].cards[0].selectionWeight = 2; //More Parents
 
+            dccsITSkyMeadowMonstersDLC2.AddCard(1, SimuLoopGreaterWisp); //Match vanilla
+            dccsITSkyMeadowMonstersDLC2.categories[0].cards[1].selectionWeight = 2; //More GrandParents
+            dccsITSkyMeadowMonstersDLC2.categories[1].cards[0].selectionWeight = 2; //More Parents
+            dccsITSkyMeadowMonstersDLC2.categories[2].cards[3].selectionWeight = 2; //More Children
+            //
+            //
             dccsITMoonMonsters.categories[0].selectionWeight = 3;
             dccsITMoonMonsters.AddCategory("Minibosses", 1);
             dccsITMoonMonsters.AddCard(1, SimuLoopVoidDevestator);

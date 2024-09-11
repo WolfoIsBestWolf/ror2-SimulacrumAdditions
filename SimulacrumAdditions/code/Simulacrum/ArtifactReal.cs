@@ -63,15 +63,16 @@ namespace SimulacrumAdditions
             ScrapWhiteSuppressed.deprecatedTier = ItemTier.Tier1;
             ScrapGreenSuppressed.deprecatedTier = ItemTier.Tier2;
             ScrapRedSuppressed.deprecatedTier = ItemTier.Tier3;
-            On.RoR2.UI.LogBook.LogBookController.BuildStaticData += (orig) =>
+            On.RoR2.UI.LogBook.LogBookController.BuildPickupEntries += (orig, expand) =>
             {
                 ScrapWhiteSuppressed.deprecatedTier = ItemTier.NoTier;
                 ScrapGreenSuppressed.deprecatedTier = ItemTier.NoTier;
                 ScrapRedSuppressed.deprecatedTier = ItemTier.NoTier;
-                orig();
+                var A = orig(expand);
                 ScrapWhiteSuppressed.deprecatedTier = ItemTier.Tier1;
                 ScrapGreenSuppressed.deprecatedTier = ItemTier.Tier2;
                 ScrapRedSuppressed.deprecatedTier = ItemTier.Tier3;
+                return A;
             };
         }
 

@@ -143,6 +143,16 @@ namespace SimulacrumAdditions.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        public static byte[] texITFalseSon {
+            get {
+                object obj = ResourceManager.GetObject("texITFalseSon", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         public static byte[] texItFamilyBasic {
             get {
                 object obj = ResourceManager.GetObject("texItFamilyBasic", resourceCulture);

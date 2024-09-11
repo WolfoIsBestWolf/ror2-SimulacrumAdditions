@@ -3,6 +3,7 @@ using MonoMod.Cil;
 using R2API;
 using R2API.Utils;
 using RoR2;
+using RoR2.ExpansionManagement;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -49,7 +50,7 @@ namespace SimulacrumAdditions
                         rotation = Quaternion.identity,
                         position = position,
                         prefabOverride = wave.rewardPickupPrefab
-                    }, vector);
+                    }, position, vector);
                     i++;
                     vector = rotation * vector;
                 }
@@ -737,5 +738,21 @@ namespace SimulacrumAdditions
                 RunArtifactManager.instance.SetArtifactEnabledServer(RoR2Content.Artifacts.Swarms, this.wasEnabled);
             }
         }
+    }
+
+    public class ITWave_DLC2_Prerequisites : InfiniteTowerWavePrerequisites
+    {
+        public override bool AreMet(InfiniteTowerRun run)
+        {
+            if (run.IsExpansionEnabled(dlc2))
+            {
+                return run.waveIndex >= this.minimumWaveCount;
+            }
+            return false;
+        }
+
+        public static RoR2.ExpansionManagement.ExpansionDef dlc2 = Addressables.LoadAssetAsync<ExpansionDef>(key: "RoR2/DLC2/Common/DLC2.asset").WaitForCompletion();
+
+        private int minimumWaveCount;
     }
 }

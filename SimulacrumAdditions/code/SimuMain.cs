@@ -17,7 +17,7 @@ using UnityEngine.Networking;
 namespace SimulacrumAdditions
 {
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("Wolfo.SimulacrumAdditions", "SimulacrumAdditions", "1.9.3")]
+    [BepInPlugin("Wolfo.SimulacrumAdditions", "SimulacrumAdditions", "2.0.0")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
 
     public class SimuMain : BaseUnityPlugin
@@ -55,6 +55,10 @@ namespace SimulacrumAdditions
         public static RoR2.InfiniteTowerWaveCountPrerequisites StartWave35Prerequisite = ScriptableObject.CreateInstance<RoR2.InfiniteTowerWaveCountPrerequisites>();
         public static RoR2.InfiniteTowerWaveCountPrerequisites StartWave40Prerequisite = ScriptableObject.CreateInstance<RoR2.InfiniteTowerWaveCountPrerequisites>();
         public static RoR2.InfiniteTowerWaveCountPrerequisites StartWave50Prerequisite = ScriptableObject.CreateInstance<RoR2.InfiniteTowerWaveCountPrerequisites>();
+
+        public static RoR2.InfiniteTowerWaveCountPrerequisites StartWave20PrerequisiteDLC2 = ScriptableObject.CreateInstance<RoR2.InfiniteTowerWaveCountPrerequisites>();
+        public static RoR2.InfiniteTowerWaveCountPrerequisites StartWave40PrerequisiteDLC2 = ScriptableObject.CreateInstance<RoR2.InfiniteTowerWaveCountPrerequisites>();
+
         //
         //
         //Simu Wave Reward Drop Tables
@@ -112,6 +116,9 @@ namespace SimulacrumAdditions
         public void Awake()
         {
             //AkSoundEngine.SetState(this.id, this.valueId);
+
+            IL.RoR2.CharacterBody.RpcTeleportCharacterToSafety += FixUnstableTransmitterBeingStupid;
+
 
 
             /*foreach (var item in Addressables.ResourceLocators)
@@ -426,8 +433,28 @@ namespace SimulacrumAdditions
          
         }
 
+        private void FixUnstableTransmitterBeingStupid(ILContext il)
+        {
+            ILCursor c = new ILCursor(il);
 
- 
+            if (c.TryGotoNext(MoveType.Before,
+             x => x.MatchCall("RoR2.TeleportHelper", "TeleportBody")))
+            {
+                c.EmitDelegate<System.Func<Vector3, Vector3>>((teleportPosition) =>
+                {
+                    if (Run.instance && Run.instance.GetComponent<InfiniteTowerRun>())
+                    {
+                        return Run.instance.GetComponent<InfiniteTowerRun>().safeWardController.transform.position;
+                    }
+                    return teleportPosition;
+                });
+                Debug.Log("IL Found : Unstable Transmitter to Void Crab");
+            }
+            else
+            {
+                Debug.LogWarning("IL Failed : Unstable Transmitter to Void Crab");
+            }
+        }
 
         private void OneTimeLateRunner(On.RoR2.UI.MainMenu.MainMenuController.orig_Start orig, RoR2.UI.MainMenu.MainMenuController self)
         {
@@ -851,7 +878,7 @@ namespace SimulacrumAdditions
                 }
 
                 float bonusBonusHPMulti = 0.5f;
-                float bonusBonusDmgMulti = 1f;
+                float bonusBonusDmgMulti = 0.5f;
                 bool forcedSuperboss = false;
                 if (waveIndex >= SimuForcedBossStartAtXWaves && waveIndex % SimuForcedBossEveryXWaves == SimuForcedBossWaveRest)
                 {
@@ -1209,6 +1236,7 @@ namespace SimulacrumAdditions
             EndingPortal.transform.GetChild(2).GetChild(4).localScale *= 0.5f;
             EndingPortal.transform.GetChild(2).GetChild(4).GetComponent<EntityLocator>().entity = EndingPortal;
             EndingPortal.transform.GetChild(2).GetChild(5).gameObject.SetActive(true);
+            EndingPortal.transform.GetChild(2).GetChild(6).gameObject.SetActive(false);
             EndingPortal.transform.GetChild(2).GetChild(7).gameObject.SetActive(false);
             Destroy(EndingPortal.transform.GetChild(1).gameObject);
             Destroy(EndingPortal.transform.GetChild(0).gameObject);
@@ -1392,6 +1420,26 @@ namespace SimulacrumAdditions
             DLC1Content.Items.MushroomVoid.tags = DLC1Content.Items.MushroomVoid.tags.Add(ItemTag.AIBlacklist);
             DLC1Content.Items.EquipmentMagazineVoid.tags = DLC1Content.Items.EquipmentMagazineVoid.tags.Add(ItemTag.AIBlacklist);
             DLC1Content.Items.ExplodeOnDeathVoid.tags = DLC1Content.Items.ExplodeOnDeathVoid.tags.Add(ItemTag.AIBlacklist);
+            
+            
+            DLC1Content.Items.PrimarySkillShuriken.tags = DLC1Content.Items.PrimarySkillShuriken.tags.Add(ItemTag.AIBlacklist);
+
+
+            DLC2Content.Items.TeleportOnLowHealth.tags = DLC2Content.Items.TeleportOnLowHealth.tags.Add(ItemTag.Count);
+            DLC2Content.Items.ExtraStatsOnLevelUp.tags = DLC2Content.Items.ExtraStatsOnLevelUp.tags.Add(ItemTag.AIBlacklist);
+            DLC2Content.Items.DelayedDamage.tags = DLC2Content.Items.DelayedDamage.tags.Add(ItemTag.AIBlacklist);
+            DLC2Content.Items.GoldOnStageStart.tags = DLC2Content.Items.GoldOnStageStart.tags.Add(ItemTag.AIBlacklist);
+            DLC2Content.Items.IncreaseDamageOnMultiKill.tags = DLC2Content.Items.IncreaseDamageOnMultiKill.tags.Add(ItemTag.AIBlacklist);
+            DLC2Content.Items.ResetChests.tags = DLC2Content.Items.ResetChests.tags.Add(ItemTag.AIBlacklist);
+            DLC2Content.Items.LowerPricedChests.tags = DLC2Content.Items.LowerPricedChests.tags.Add(ItemTag.AIBlacklist);
+            DLC2Content.Items.TriggerEnemyDebuffs.tags = DLC2Content.Items.TriggerEnemyDebuffs.tags.Add(ItemTag.AIBlacklist);
+            DLC2Content.Items.BoostAllStats.tags = DLC2Content.Items.BoostAllStats.tags.Add(ItemTag.AIBlacklist);
+            DLC2Content.Items.ExtraShrineItem.tags = DLC2Content.Items.ExtraShrineItem.tags.Add(ItemTag.AIBlacklist);
+            DLC2Content.Items.NegateAttack.tags = DLC2Content.Items.NegateAttack.tags.Add(ItemTag.AIBlacklist);
+            DLC2Content.Items.OnLevelUpFreeUnlock.tags = DLC2Content.Items.OnLevelUpFreeUnlock.tags.Add(ItemTag.AIBlacklist);
+
+
+
 
             if (WConfig.cfgDumpInfo.Value)
             {
@@ -1648,6 +1696,12 @@ namespace SimulacrumAdditions
             StartWave40Prerequisite.name = "StartWave40Prerequisite";
             StartWave50Prerequisite.minimumWaveCount = 50;
             StartWave50Prerequisite.name = "StartWave50Prerequisite";
+
+            StartWave20PrerequisiteDLC2.minimumWaveCount = 20;
+            StartWave20PrerequisiteDLC2.name = "StartWave20PrerequisiteDLC2";
+            StartWave40PrerequisiteDLC2.minimumWaveCount = 40;
+            StartWave40PrerequisiteDLC2.name = "StartWave40PrerequisiteDLC2";
+
 
             //
             //Drop Pools
