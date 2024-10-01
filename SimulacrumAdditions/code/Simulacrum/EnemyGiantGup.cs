@@ -102,8 +102,8 @@ namespace SimulacrumAdditions
             {
                 new GivePickupsOnStart.ItemDefInfo
                 {
-                    count = 30,
-                    itemDef = SimuMain.ITCooldownUp
+                    count = 35,
+                    itemDef = ItemHelpers.ITCooldownUp
                 }
             };
 
@@ -125,7 +125,7 @@ namespace SimulacrumAdditions
 
             //Spawns
             InfiniteTowerWaveBossGiantGup.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/dccsGupFamily.asset").WaitForCompletion();
-            InfiniteTowerWaveBossGiantGup.GetComponent<InfiniteTowerExplicitSpawnWaveController>().baseCredits = 50;
+            InfiniteTowerWaveBossGiantGup.GetComponent<InfiniteTowerExplicitSpawnWaveController>().baseCredits = 5;
             InfiniteTowerWaveBossGiantGup.GetComponent<InfiniteTowerExplicitSpawnWaveController>().immediateCreditsFraction = 0;
             InfiniteTowerWaveBossGiantGup.GetComponent<InfiniteTowerExplicitSpawnWaveController>().linearCreditsPerWave = 3;
             InfiniteTowerWaveBossGiantGup.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList[0].spawnCard = cscGiantGup;
@@ -134,6 +134,10 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveBossGiantGup.GetComponent<InfiniteTowerExplicitSpawnWaveController>().rewardDropTable = SimuMain.dtITWaveTier2;
             InfiniteTowerWaveBossGiantGup.GetComponent<InfiniteTowerExplicitSpawnWaveController>().rewardDisplayTier = ItemTier.Tier2;
             InfiniteTowerWaveBossGiantGup.AddComponent<SimulacrumExtrasHelper>().newRadius = 110;
+
+            SimuExplicitStats simuExplicitStats = InfiniteTowerWaveBossGiantGup.AddComponent<SimuExplicitStats>();
+            simuExplicitStats.damageBonusMulti = 2f;
+            simuExplicitStats.hpBonusMulti = 0.4f;
 
             InfiniteTowerWaveBossGiantGup.GetComponent<InfiniteTowerExplicitSpawnWaveController>().secondsBeforeSuddenDeath *= 2f;
             //

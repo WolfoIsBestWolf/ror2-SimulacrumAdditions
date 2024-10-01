@@ -73,7 +73,7 @@ namespace SimulacrumAdditions
             self.weightedSelection.AddChoice(self.wavePrefabs[0].wavePrefab, 0);
             for (int i = 1; i < self.wavePrefabs.Length; i++)
             {
-                self.weightedSelection.AddChoice(self.wavePrefabs[i].wavePrefab, self.wavePrefabs[i].weight + 1);
+                self.weightedSelection.AddChoice(self.wavePrefabs[i].wavePrefab, self.wavePrefabs[i].weight);
             }
             return;
         }

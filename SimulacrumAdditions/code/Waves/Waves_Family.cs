@@ -6,13 +6,13 @@ using UnityEngine.AddressableAssets;
 namespace SimulacrumAdditions
 {
     
-    public class WavesFamily
+    public class Waves_Family
     {
         public static Color FamilyEventIconColor = new Color(1f, 0.95f, 0.75f, 1);
         public static Color FamilyEventOutlineColor = new Color(0.8f, 0.78f, 0.5f, 1);
 
         //No more static
-        public static void Start()
+        public static void MakeWaves()
         {
             FamilyDirectorCardCategorySelection dccsBeetleFamily = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/dccsBeetleFamily.asset").WaitForCompletion();
             FamilyDirectorCardCategorySelection dccsGolemFamily = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/dccsGolemFamily.asset").WaitForCompletion();
@@ -237,10 +237,9 @@ namespace SimulacrumAdditions
             for (int i = 0; i < ITFamilyWaves.Length; i++)
             {
                 InfiniteTowerWaveController temp = ITFamilyWaves[i].GetComponent<InfiniteTowerWaveController>();
-                CombatDirector combatdirector = ITFamilyWaves[i].GetComponent<CombatDirector>();
-                temp.baseCredits = 184f;
-                temp.immediateCreditsFraction = 0.45f;
-                //combatdirector.skipSpawnIfTooCheap = false;
+                ITFamilyWaves[i].GetComponent<CombatDirector>().skipSpawnIfTooCheap = false; ;
+                temp.baseCredits = 170f;
+                temp.immediateCreditsFraction = 0.35f;
             }
 
             GameObject[] ITFamilyUIs = {
@@ -330,10 +329,10 @@ namespace SimulacrumAdditions
             cscITDrone.nodeGraphType = RoR2.Navigation.MapNodeGroup.GraphType.Air;
             cscITDrone.directorCreditCost = 40;
             cscITDrone.itemsToGrant = new ItemCountPair[] {
-                new ItemCountPair { itemDef = SimuMain.ITDamageDown, count = (int)(damageDown*1.15f) },
-                new ItemCountPair { itemDef = SimuMain.ITHealthScaling, count = healthScaling/2 },
+                new ItemCountPair { itemDef = ItemHelpers.ITDamageDown, count = (int)(damageDown*1.15f) },
+                new ItemCountPair { itemDef = ItemHelpers.ITHealthScaling, count = healthScaling/2 },
                 new ItemCountPair { itemDef = RoR2Content.Items.BoostHp, count = healthBoost/2 },
-                new ItemCountPair { itemDef = SimuMain.ITAttackSpeedDown, count = 50},
+                new ItemCountPair { itemDef = ItemHelpers.ITAttackSpeedDown, count = 50},
                 new ItemCountPair { itemDef = HalfSpeedDoubleHealth, count = 1},
                 new ItemCountPair { itemDef = CutHp, count = 1},
             };
@@ -343,10 +342,10 @@ namespace SimulacrumAdditions
             cscITDroneStriker.prefab = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/Base/Drones/DroneBackupMaster.prefab").WaitForCompletion();
             cscITDroneStriker.directorCreditCost = credits * 2;
             cscITDroneStriker.itemsToGrant = new ItemCountPair[] {
-                new ItemCountPair { itemDef = SimuMain.ITDamageDown, count = damageDown },
-                new ItemCountPair { itemDef = SimuMain.ITHealthScaling, count = healthScaling},//
+                new ItemCountPair { itemDef = ItemHelpers.ITDamageDown, count = damageDown },
+                new ItemCountPair { itemDef = ItemHelpers.ITHealthScaling, count = healthScaling},//
                 new ItemCountPair { itemDef = RoR2Content.Items.BoostHp, count = healthBoost},
-                new ItemCountPair { itemDef = SimuMain.ITAttackSpeedDown, count = 0},//
+                new ItemCountPair { itemDef = ItemHelpers.ITAttackSpeedDown, count = 0},//
             };
 
             CharacterSpawnCard cscITDroneFlame = Object.Instantiate(cscITDrone);
@@ -354,8 +353,8 @@ namespace SimulacrumAdditions
             cscITDroneFlame.prefab = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/Base/Drones/FlameDroneMaster.prefab").WaitForCompletion();
             cscITDroneFlame.directorCreditCost = 60;
             cscITDroneFlame.itemsToGrant = new ItemCountPair[] {
-                new ItemCountPair { itemDef = SimuMain.ITDamageDown, count = damageDown },
-                new ItemCountPair { itemDef = SimuMain.ITHealthScaling, count = healthScaling },//
+                new ItemCountPair { itemDef = ItemHelpers.ITDamageDown, count = damageDown },
+                new ItemCountPair { itemDef = ItemHelpers.ITHealthScaling, count = healthScaling },//
                 new ItemCountPair { itemDef = RoR2Content.Items.BoostHp, count = healthBoost},
             };
 
@@ -364,10 +363,10 @@ namespace SimulacrumAdditions
             cscITDroneMissile.prefab = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/Base/Drones/DroneMissileMaster.prefab").WaitForCompletion();
             cscITDroneMissile.directorCreditCost = credits;
             cscITDroneMissile.itemsToGrant = new ItemCountPair[] {
-                new ItemCountPair { itemDef = SimuMain.ITDamageDown, count = (int)(damageDown*1.1f) },
-                new ItemCountPair { itemDef = SimuMain.ITHealthScaling, count = healthScaling  },//
+                new ItemCountPair { itemDef = ItemHelpers.ITDamageDown, count = (int)(damageDown*1.1f) },
+                new ItemCountPair { itemDef = ItemHelpers.ITHealthScaling, count = healthScaling  },//
                 new ItemCountPair { itemDef = RoR2Content.Items.BoostHp, count = healthBoost},
-                new ItemCountPair { itemDef = SimuMain.ITAttackSpeedDown, count = 33},//
+                new ItemCountPair { itemDef = ItemHelpers.ITAttackSpeedDown, count = 33},//
             };
 
             CharacterSpawnCard cscITDroneEngiWalker = Object.Instantiate(cscITDroneFlame);
@@ -390,10 +389,10 @@ namespace SimulacrumAdditions
             cscITDroneTurret.prefab = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/Base/Drones/Turret1Master.prefab").WaitForCompletion();
             cscITDroneTurret.directorCreditCost = credits/3;
             cscITDroneTurret.itemsToGrant = new ItemCountPair[] {
-                new ItemCountPair { itemDef = SimuMain.ITDamageDown, count = (int)(damageDown*1.25f) },
-                new ItemCountPair { itemDef = SimuMain.ITHealthScaling, count = healthScaling/4 },
+                new ItemCountPair { itemDef = ItemHelpers.ITDamageDown, count = (int)(damageDown*1.25f) },
+                new ItemCountPair { itemDef = ItemHelpers.ITHealthScaling, count = healthScaling/4 },
                 new ItemCountPair { itemDef = RoR2Content.Items.BoostHp, count = healthBoost/4},
-                new ItemCountPair { itemDef = SimuMain.ITAttackSpeedDown, count = 70},
+                new ItemCountPair { itemDef = ItemHelpers.ITAttackSpeedDown, count = 70},
             };
 
             CharacterSpawnCard cscITDroneEmergency = Object.Instantiate(cscITDroneFlame);
@@ -415,8 +414,8 @@ namespace SimulacrumAdditions
             cscITDroneColDrone.prefab = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/DroneCommander/DroneCommanderMaster.prefab").WaitForCompletion();
             cscITDroneColDrone.directorCreditCost = 240;
             cscITDroneColDrone.itemsToGrant = new ItemCountPair[] {
-                new ItemCountPair { itemDef = SimuMain.ITDamageDown, count = (int)(damageDown*1.15f) },
-                new ItemCountPair { itemDef = SimuMain.ITHealthScaling, count = healthScaling*2 },//1
+                new ItemCountPair { itemDef = ItemHelpers.ITDamageDown, count = (int)(damageDown*1.15f) },
+                new ItemCountPair { itemDef = ItemHelpers.ITHealthScaling, count = healthScaling*2 },//1
                 new ItemCountPair { itemDef = RoR2Content.Items.BoostHp, count = healthBoost*2 },
                 new ItemCountPair { itemDef = DroneWeaponsBoost, count = 1 },
                 new ItemCountPair { itemDef = DroneWeaponsDisplay1, count = 1 },
@@ -428,8 +427,8 @@ namespace SimulacrumAdditions
             cscITDroneToolbot.prefab = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/Base/Toolbot/ToolbotMonsterMaster.prefab").WaitForCompletion();
             cscITDroneToolbot.directorCreditCost = 240;
             cscITDroneToolbot.itemsToGrant = new ItemCountPair[] {
-                new ItemCountPair { itemDef = SimuMain.ITDamageDown, count = 70 },
-                new ItemCountPair { itemDef = SimuMain.ITHealthScaling, count = 300 },//1
+                new ItemCountPair { itemDef = ItemHelpers.ITDamageDown, count = 70 },
+                new ItemCountPair { itemDef = ItemHelpers.ITHealthScaling, count = 300 },//1
                 new ItemCountPair { itemDef = RoR2Content.Items.BoostHp, count = 10 },//1
                 new ItemCountPair { itemDef = CaptainDefenseMatrix, count = 1 },
             };
@@ -643,11 +642,14 @@ namespace SimulacrumAdditions
 
             BossInfiniteTowerWaveFamilyWorms.GetComponent<CombatDirector>().eliteBias = 0f;
             BossInfiniteTowerWaveFamilyWorms.GetComponent<InfiniteTowerWaveController>().immediateCreditsFraction = 0.3f;
-            BossInfiniteTowerWaveFamilyWorms.GetComponent<InfiniteTowerWaveController>().maxSquadSize = 4; //The director doesn't seem to really care
+            BossInfiniteTowerWaveFamilyWorms.GetComponent<InfiniteTowerWaveController>().maxSquadSize = 12; //The director doesn't seem to really care
             BossInfiniteTowerWaveFamilyWorms.GetComponent<InfiniteTowerWaveController>().baseCredits = 500f;
             BossInfiniteTowerWaveFamilyWorms.GetComponent<InfiniteTowerWaveController>().linearCreditsPerWave = 0;
             BossInfiniteTowerWaveFamilyWorms.GetComponent<InfiniteTowerWaveController>().wavePeriodSeconds = 20;
             BossInfiniteTowerWaveFamilyWorms.AddComponent<SimulacrumExtrasHelper>().newRadius = 160;
+
+            SimuExplicitStats simuExplicitStats = BossInfiniteTowerWaveFamilyWorms.AddComponent<SimuExplicitStats>();
+            simuExplicitStats.hpBonusMulti = -1;
 
             EliteDef FireHonor = LegacyResourcesAPI.Load<EliteDef>("EliteDefs/FireHonor");
             EliteDef Lightning = LegacyResourcesAPI.Load<EliteDef>("EliteDefs/Lightning");
@@ -667,10 +669,9 @@ namespace SimulacrumAdditions
             for (int i = 0; i < ITFamilyWaves.Length; i++)
             {
                 InfiniteTowerWaveController temp = ITFamilyWaves[i].GetComponent<InfiniteTowerWaveController>();
-                //CombatDirector combatdirector = ITFamilyWaves[i].GetComponent<CombatDirector>();
-                temp.baseCredits = 184f;
-                temp.immediateCreditsFraction = 0.4f;
-                //combatdirector.skipSpawnIfTooCheap = false;
+                ITFamilyWaves[i].GetComponent<CombatDirector>().skipSpawnIfTooCheap = false;
+                temp.baseCredits = 170f;
+                temp.immediateCreditsFraction = 0.35f;
             }
 
 

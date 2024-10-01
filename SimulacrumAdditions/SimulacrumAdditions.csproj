@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="code\Other\**" />
+    <EmbeddedResource Remove="code\Other\**" />
+    <None Remove="code\Other\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="oldduplicatorbundle" />
   </ItemGroup>
 
@@ -32,10 +38,6 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="code\Other\" />
   </ItemGroup>
 
 </Project>

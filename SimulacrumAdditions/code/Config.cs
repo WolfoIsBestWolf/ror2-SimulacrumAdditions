@@ -34,6 +34,10 @@ namespace SimulacrumAdditions
         public static ConfigEntry<bool> cfgAwaitTravel;
 
 
+        public static ConfigEntry<bool> cfgCrabRadius;
+        public static ConfigEntry<bool> cfgCrabRadiusPerPlayer;
+        public static ConfigEntry<bool> cfgWarbannerOnBoss;
+
         public static ConfigEntry<int> cfgSimuEndingStartAtXWaves;
         public static ConfigEntry<int> cfgSimuEndingEveryXWaves;
         public static ConfigEntry<int> cfgSuperBossStartAtXWaves;

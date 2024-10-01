@@ -36,7 +36,7 @@ namespace SimulacrumAdditions
 
             RunArtifactManager.onArtifactEnabledGlobal += OnArtifactEnabled;
             RunArtifactManager.onArtifactDisabledGlobal += OnArtifactDisabled;
-
+            On.RoR2.Run.OnDisable += Run_OnDisable;
 
             Addressables.LoadAssetAsync<SpawnCard>(key: "RoR2/DLC1/VoidSuppressor/iscVoidSuppressor.asset").WaitForCompletion().directorCreditCost = 5;
             //Since we got Void Soupper in Dissim we gotta fix the vanilla up
@@ -76,6 +76,16 @@ namespace SimulacrumAdditions
             };
         }
 
+        private static void Run_OnDisable(On.RoR2.Run.orig_OnDisable orig, Run self)
+        {
+            if (RunArtifactManager.instance && RunArtifactManager.instance.IsArtifactEnabled(ArtifactUseNormalStages))
+            {
+                RuleDef StageOrderRule = RuleCatalog.FindRuleDef("Misc.StageOrder");
+                Run.instance.ruleBook.GetRuleChoice(StageOrderRule).extraData = StageOrder.Normal;
+            }
+            orig(self);
+        }
+
         private static void OnArtifactEnabled(RunArtifactManager runArtifactManager, ArtifactDef artifactDef)
         {
             if (artifactDef != ArtifactUseNormalStages)
@@ -89,11 +99,28 @@ namespace SimulacrumAdditions
             SceneDirector.onGenerateInteractableCardSelection += RemoveUnneededInteractables;
         }
 
+        private static void OnArtifactDisabled(RunArtifactManager runArtifactManager, ArtifactDef artifactDef)
+        {
+            if (artifactDef != ArtifactUseNormalStages)
+            {
+                return;
+            }
+            On.RoR2.InfiniteTowerRun.OnPrePopulateSceneServer -= Server_IT_PrePopulateScene;
+            On.RoR2.SceneDirector.Start -= ArtifactReal_SceneDirector_Start;
+            SceneDirector.onGenerateInteractableCardSelection -= RemoveUnneededInteractables;
+            if (Run.instance)
+            {
+                RuleDef StageOrderRule = RuleCatalog.FindRuleDef("Misc.StageOrder");
+                Run.instance.ruleBook.GetRuleChoice(StageOrderRule).extraData = StageOrder.Normal;
+            }
+        }
+
         private static void ArtifactReal_SceneDirector_Start(On.RoR2.SceneDirector.orig_Start orig, SceneDirector self)
         {
             orig(self);
 
-            GameObject.Instantiate(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/Weather, InfiniteTower.prefab").WaitForCompletion());
+            GameObject ITWeather = GameObject.Instantiate(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/Weather, InfiniteTower.prefab").WaitForCompletion());
+            ITWeather.transform.GetChild(0).GetComponent<SetAmbientLight>().ApplyLighting();
             GameObject Weather = GameObject.Find("/Weather, Wispgraveyard");
             if (Weather)
             {
@@ -138,21 +165,7 @@ namespace SimulacrumAdditions
             }
         }
 
-        private static void OnArtifactDisabled(RunArtifactManager runArtifactManager, ArtifactDef artifactDef)
-        {
-            if (artifactDef != ArtifactUseNormalStages)
-            {
-                return;
-            }
-            On.RoR2.InfiniteTowerRun.OnPrePopulateSceneServer -= Server_IT_PrePopulateScene;
-            On.RoR2.SceneDirector.Start -= ArtifactReal_SceneDirector_Start;
-            SceneDirector.onGenerateInteractableCardSelection -= RemoveUnneededInteractables;
-            if (Run.instance)
-            {
-                RuleDef StageOrderRule = RuleCatalog.FindRuleDef("Misc.StageOrder");
-                Run.instance.ruleBook.GetRuleChoice(StageOrderRule).extraData = StageOrder.Normal;
-            }
-        }
+       
 
 
 
@@ -204,7 +217,7 @@ namespace SimulacrumAdditions
             {
                 return false;
             }
-            return !(prefab.GetComponent<RoR2.ShrineCombatBehavior>() | prefab.GetComponent<RoR2.OutsideInteractableLocker>() | prefab.GetComponent<RoR2.ShrineBossBehavior>() | prefab.GetComponent<RoR2.SeerStationController>() | prefab.GetComponent<RoR2.PortalStatueBehavior>());
+            return !(prefab.GetComponent<RoR2.ShrineCombatBehavior>() | prefab.GetComponent<RoR2.HalcyoniteShrineInteractable>() | prefab.GetComponent<RoR2.OutsideInteractableLocker>() | prefab.GetComponent<RoR2.ShrineBossBehavior>() | prefab.GetComponent<RoR2.SeerStationController>() | prefab.GetComponent<RoR2.PortalStatueBehavior>());
         }
     }
 

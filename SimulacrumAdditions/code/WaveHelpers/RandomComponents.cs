@@ -19,7 +19,6 @@ namespace SimulacrumAdditions
             {
                 master.inventory.RemoveItem(RoR2Content.Items.BoostEquipmentRecharge, master.inventory.GetItemCount(RoR2Content.Items.BoostEquipmentRecharge));
                 master.inventory.GiveItem(RoR2Content.Items.BoostEquipmentRecharge, 15);
-				//master.inventory.GiveItem(RoR2Content.Items.Hoof, 10);
 				UnityEngine.Object.DontDestroyOnLoad(base.gameObject);
 			}
 		}
@@ -41,6 +40,7 @@ namespace SimulacrumAdditions
     {
         public bool adjustSpawnCount = false;
         public CharacterSpawnCard[] cscList;
+
 
         public void DoTheThing(InfiniteTowerExplicitSpawnWaveController controller)
         {
@@ -74,7 +74,56 @@ namespace SimulacrumAdditions
                     }
                 }
             }
+
+            if (controller.name.EndsWith("EquipmentDrone(Clone)"))
+            {
+                AnnounceEquipmentDrone(controller);
+            }
+            
         }
+
+        public static void AnnounceEquipmentDrone(InfiniteTowerExplicitSpawnWaveController self)
+        {
+            string eqToken = "<style=cWorldEvent>[WARNING] Running test with ";
+            if (self.spawnList.Length == 2)
+            {
+                if (self.spawnList[0].spawnCard.equipmentToGrant[0].isLunar)
+                {
+                    eqToken = eqToken + "<color=#78AFFF>";
+                }
+                else
+                {
+                    eqToken = eqToken + "<color=#FF8000>";
+                }
+                eqToken = eqToken + Language.GetString(self.spawnList[0].spawnCard.equipmentToGrant[0].nameToken, "en") + "</color> and ";
+                if (self.spawnList[1].spawnCard.equipmentToGrant[0].isLunar)
+                {
+                    eqToken = eqToken + "<color=#78AFFF>";
+                }
+                else
+                {
+                    eqToken = eqToken + "<color=#FF8000>";
+                }
+                eqToken = eqToken + Language.GetString(self.spawnList[1].spawnCard.equipmentToGrant[0].nameToken, "en") + "</color></style>";
+            }
+            else
+            {
+                if (self.spawnList[0].spawnCard.equipmentToGrant[0].isLunar)
+                {
+                    eqToken = eqToken + "<color=#78AFFF>";
+                }
+                else
+                {
+                    eqToken = eqToken + "<color=#FF8000>";
+                }
+                eqToken = eqToken + Language.GetString(self.spawnList[0].spawnCard.equipmentToGrant[0].nameToken, "en") + "</color></style>";
+            }
+            Chat.SendBroadcastChat(new Chat.SimpleChatMessage
+            {
+                baseToken = eqToken,
+            });
+        }
+
     }
 
     public class EliteInclusiveDropTable : BasicPickupDropTable

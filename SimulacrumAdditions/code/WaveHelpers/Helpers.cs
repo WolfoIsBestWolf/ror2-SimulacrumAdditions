@@ -60,9 +60,11 @@ namespace SimulacrumAdditions
 
     public class SimuExplicitStats : MonoBehaviour
     {
-        public int AddExtraAfterWave = -1;
-        public float hpBonusMulti = -1;
-        public float dmgBonusMulti = -1;
+        public int ExtraSpawnAfterWave = -1;
+        public bool halfOnNonFinal = false;
+        public bool spawnAsVoidTeam = false;
+        public float hpBonusMulti = 0.5f;
+        public float damageBonusMulti = 0.5f;
 
         public void DoTheThing()
         {
@@ -149,7 +151,7 @@ namespace SimulacrumAdditions
                 else if (variant == 1)
                 {
                     master.inventory.SetEquipmentIndex(RoR2Content.Equipment.QuestVolatileBattery.equipmentIndex);
-                    master.inventory.GiveItem(SimuMain.ITHealthScaling, 80); //Double health cuz they die at half
+                    master.inventory.GiveItem(ItemHelpers.ITHealthScaling, 80); //Double health cuz they die at half
                     //master.inventory.GiveItem(RoR2Content.Items.BoostHp, (int)(bonusHP * 1.5f));
                 }
                 else if (variant == 2)
@@ -221,7 +223,7 @@ namespace SimulacrumAdditions
             }
             else if (variant == 0)
             {
-                count = 3 + (Run.instance.GetComponent<InfiniteTowerRun>().waveIndex) / 5;
+                count = 3 + (Run.instance.GetComponent<InfiniteTowerRun>().waveIndex) / 10;
             }
         }
 
@@ -668,7 +670,7 @@ namespace SimulacrumAdditions
 
         protected virtual void OnCombatSquadMemberDiscovered(CharacterMaster master)
         {
-            int kill = master.inventory.GetItemCount(SimuMain.ITKillOnCompletion);
+            int kill = master.inventory.GetItemCount(ItemHelpers.ITKillOnCompletion);
             if (kill > 0)
             {
                 master.GetBody().RemoveBuff(RoR2Content.Buffs.Immune);
@@ -740,19 +742,5 @@ namespace SimulacrumAdditions
         }
     }
 
-    public class ITWave_DLC2_Prerequisites : InfiniteTowerWavePrerequisites
-    {
-        public override bool AreMet(InfiniteTowerRun run)
-        {
-            if (run.IsExpansionEnabled(dlc2))
-            {
-                return run.waveIndex >= this.minimumWaveCount;
-            }
-            return false;
-        }
 
-        public static RoR2.ExpansionManagement.ExpansionDef dlc2 = Addressables.LoadAssetAsync<ExpansionDef>(key: "RoR2/DLC2/Common/DLC2.asset").WaitForCompletion();
-
-        private int minimumWaveCount;
-    }
 }

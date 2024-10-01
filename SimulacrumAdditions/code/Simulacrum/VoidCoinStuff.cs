@@ -3,6 +3,7 @@ using RoR2;
 using RoR2.Navigation;
 //using System;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.AddressableAssets;
 using System.Collections.Generic;
 
@@ -16,9 +17,10 @@ namespace SimulacrumAdditions
         public static void MakeVoidCoin()
         {
             CostTypeCatalog.modHelper.getAdditionalEntries += addVoidBloodCost;
-
             if (WConfig.cfgVoidCoins.Value)
             {
+                On.RoR2.PlayerCharacterMasterController.Start += StartWithOneVoidCoin;
+
                 GameObject VoidCoinBarrel = LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/Chest/VoidCoinBarrel");
                 ChestBehavior VoidBarrelChestBehavior = VoidCoinBarrel.AddComponent<ChestBehavior>();
                 VoidBarrelChestBehavior.dropTable = LegacyResourcesAPI.Load<ExplicitPickupDropTable>("DropTables/dtVoidCoin");
@@ -26,6 +28,20 @@ namespace SimulacrumAdditions
                 VoidBarrelChestBehavior.dropUpVelocityStrength = 20;
                 VoidBarrelChestBehavior.enabled = false;
             }
+        }
+
+
+        private static void StartWithOneVoidCoin(On.RoR2.PlayerCharacterMasterController.orig_Start orig, PlayerCharacterMasterController self)
+        {
+            orig(self);
+            Debug.Log(Run.instance);
+            if (NetworkServer.active && Run.instance && Run.instance.GetComponent<InfiniteTowerRun>())
+            {
+                self.master.GiveVoidCoins(1);
+                VoidCoinChance chance = self.gameObject.AddComponent<VoidCoinChance>();
+                float players = 1 + (Run.instance.participatingPlayerCount - 1) * 0.2f; //This probably don't really work
+                chance.chance /= players;
+            };
         }
 
         public static void VoidCoinRunStart()

@@ -7,13 +7,19 @@ using R2API;
 
 namespace SimulacrumAdditions
 {
-    public class WavesBuff
+    public class Waves_BuffRelated
     {
         public static BuffDef bdSlippery;
         public static BuffDef bdBadLuck;
 
-        internal static void MakeBuffWaves()
+        internal static void MakeWaves()
         {
+            Texture2D texITWaveDefaultWhite = new Texture2D(256, 256, TextureFormat.DXT5, false);
+            texITWaveDefaultWhite.LoadImage(Properties.Resources.texITWaveDefaultWhite, true);
+            texITWaveDefaultWhite.filterMode = FilterMode.Bilinear;
+            Sprite texITWaveDefaultWhiteS = Sprite.Create(texITWaveDefaultWhite, WRect.rec64, WRect.half);
+
+            #region Void Bear Spam
             //VoidBear
             GameObject InfiniteTowerWaveVoidBear = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveDefault.prefab").WaitForCompletion(), "InfiniteTowerWaveVoidBear", true);
             GameObject InfiniteTowerWaveVoidBearUI = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentBossVoidWaveUI.prefab").WaitForCompletion(), "InfiniteTowerWaveVoidBearUI", false);
@@ -26,7 +32,7 @@ namespace SimulacrumAdditions
 
             InfiniteTowerWaveVoidBear.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWaveVoidBearUI;
             InfiniteTowerWaveVoidBearUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "Wave {0} - Augment of Safety";
-            InfiniteTowerWaveVoidBearUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "Enemies block the first instances of damage.";
+            InfiniteTowerWaveVoidBearUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "Enemies block the first multiple instances of damage.";
 
             BuffDef BearVoidReady = LegacyResourcesAPI.Load<BuffDef>("BuffDefs/BearVoidReady");
             InfiniteTowerWaveVoidBearUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = BearVoidReady.iconSprite;
@@ -38,13 +44,9 @@ namespace SimulacrumAdditions
 
             InfiniteTowerWaveCategory.WeightedWave ITBasicVoidBear = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveVoidBear, weight = 5f, prerequisites = SimuMain.AfterWave5Prerequisite };
             SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(ITBasicVoidBear);
+            #endregion
             //
-            //
-            Texture2D texITWaveDefaultWhite = new Texture2D(256, 256, TextureFormat.DXT5, false);
-            texITWaveDefaultWhite.LoadImage(Properties.Resources.texITWaveDefaultWhite, true);
-            texITWaveDefaultWhite.filterMode = FilterMode.Bilinear;
-            Sprite texITWaveDefaultWhiteS = Sprite.Create(texITWaveDefaultWhite, WRect.rec64, WRect.half);
-
+            #region Unused Blindness
             //Blindness Buff
             GameObject InfiniteTowerWaveBlindness = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveDefault.prefab").WaitForCompletion(), "InfiniteTowerWaveBlindness", true);
             GameObject InfiniteTowerWaveBlindnessUI = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentWaveUI.prefab").WaitForCompletion(), "InfiniteTowerWaveBlindnessUI", false);
@@ -67,8 +69,9 @@ namespace SimulacrumAdditions
 
             InfiniteTowerWaveCategory.WeightedWave Blindness = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveBlindness, weight = 4f, prerequisites = SimuMain.AfterWave5Prerequisite };
             SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(Blindness);
+            #endregion
             //
-            //
+            #region Slippery Ground
             //Slippery Buff
             GameObject InfiniteTowerWaveSlippery = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveDefault.prefab").WaitForCompletion(), "InfiniteTowerWaveSlippery", true);
             GameObject InfiniteTowerWaveSlipperyUI = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentWaveUI.prefab").WaitForCompletion(), "InfiniteTowerWaveSlipperyUI", false);
@@ -85,7 +88,7 @@ namespace SimulacrumAdditions
             ContentAddition.AddBuffDef(bdSlippery);
 
             InfiniteTowerWaveSlippery.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWaveSlipperyUI;
-            InfiniteTowerWaveSlippery.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITFamilyWaveUtility;
+            InfiniteTowerWaveSlippery.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITCategoryUtility;
             InfiniteTowerWaveSlippery.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
             InfiniteTowerWaveSlippery.GetComponent<InfiniteTowerWaveController>().baseCredits = 160;
             InfiniteTowerWaveSlippery.AddComponent<SimuBuffWaveHelper>().variant = -1;
@@ -100,8 +103,9 @@ namespace SimulacrumAdditions
 
             InfiniteTowerWaveCategory.WeightedWave Slippery = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveSlippery, weight = 4f, prerequisites = SimuMain.AfterWave5Prerequisite };
             SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(Slippery);
+            #endregion
             //
-            //
+            #region No Procs
             //BadLuck Buff
             GameObject InfiniteTowerWaveBadLuck = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveDefault.prefab").WaitForCompletion(), "InfiniteTowerWaveBadLuck", true);
             GameObject InfiniteTowerWaveBadLuckUI = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentWaveUI.prefab").WaitForCompletion(), "InfiniteTowerWaveBadLuckUI", false);
@@ -135,8 +139,8 @@ namespace SimulacrumAdditions
 
             InfiniteTowerWaveCategory.WeightedWave BadLuck = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveBadLuck, weight = 4f, prerequisites = SimuMain.StartWave11Prerequisite };
             SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(BadLuck);
-            //
-            //
+            #endregion
+            #region No Cooldowns for everyone
             //NoCooldowns Buff
             GameObject InfiniteTowerWaveNoCooldowns = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveDefault.prefab").WaitForCompletion(), "InfiniteTowerWaveNoCooldowns", true);
             GameObject InfiniteTowerWaveNoCooldownsUI = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentWaveUI.prefab").WaitForCompletion(), "InfiniteTowerWaveNoCooldownsUI", false);
@@ -162,8 +166,9 @@ namespace SimulacrumAdditions
 
             InfiniteTowerWaveCategory.WeightedWave NoCooldownsWave = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveNoCooldowns, weight = 3f, prerequisites = SimuMain.StartWave11Prerequisite };
             SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(NoCooldownsWave);
+            #endregion
             //
-            //
+            #region Free Drugs for everyone
             //LunarTonic Buff
             GameObject InfiniteTowerWaveLunarTonic = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveDefault.prefab").WaitForCompletion(), "InfiniteTowerWaveLunarTonic", true);
             GameObject InfiniteTowerWaveLunarTonicUI = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentWaveUI.prefab").WaitForCompletion(), "InfiniteTowerWaveLunarTonicUI", false);
@@ -191,8 +196,9 @@ namespace SimulacrumAdditions
 
             InfiniteTowerWaveCategory.WeightedWave LunarTonicWave = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveLunarTonic, weight = 3f, prerequisites = SimuMain.StartWave11Prerequisite };
             SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(LunarTonicWave);
+            #endregion
             //
-            //
+            #region (Boss) Leeching
             //BossLeeching Buff
             GameObject InfiniteTowerWaveBossLeeching = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveBoss.prefab").WaitForCompletion(), "InfiniteTowerWaveBossLeeching", true);
             GameObject InfiniteTowerWaveBossLeechingUI = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentBossWaveUI.prefab").WaitForCompletion(), "InfiniteTowerWaveBossLeechingUI", false);
@@ -228,10 +234,12 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveBossLeechingUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color = LeechColor;
             InfiniteTowerWaveBossLeechingUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = LeechColor;
             InfiniteTowerWaveBossLeechingUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = LeechColor;
-
+            
             InfiniteTowerWaveCategory.WeightedWave BossLeechingWave = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveBossLeeching, weight = 5f, prerequisites = SimuMain.StartWave20Prerequisite };
             SimuMain.ITBossWaves.wavePrefabs = SimuMain.ITBossWaves.wavePrefabs.Add(BossLeechingWave);
+            #endregion
         }
+
 
     }
 

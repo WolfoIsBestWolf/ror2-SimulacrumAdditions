@@ -149,6 +149,11 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveBossSuperCrab.GetComponent<SimulacrumExtrasHelper>().rewardDisplayTier = ItemTier.VoidTier2;
             InfiniteTowerWaveBossSuperCrab.GetComponent<SimulacrumExtrasHelper>().newRadius = 110;
 
+            SimuExplicitStats simuExplicitStats = InfiniteTowerWaveBossSuperCrab.AddComponent<SimuExplicitStats>();
+            simuExplicitStats.damageBonusMulti = 0.4f;
+            simuExplicitStats.hpBonusMulti = 0.4f;
+            simuExplicitStats.halfOnNonFinal = true;
+
             InfiniteTowerWaveBossSuperCrab.GetComponent<InfiniteTowerExplicitSpawnWaveController>().secondsBeforeSuddenDeath *= 2f;
             //
             Texture2D texITWaveSuperDevestator = new Texture2D(256, 256, TextureFormat.DXT5, false);
