@@ -14,9 +14,14 @@ namespace SimulacrumAdditions
 {
     public class VoidSafeWard_Hooks
     {
+        public static float baseRadius = 65;
+        public static float radiusPerPlayer = 5;
 
         internal static void AddHooks()
         {
+            baseRadius = WConfig.cfgCrabRadius.Value;
+            radiusPerPlayer = WConfig.cfgCrabRadiusPerPlayer.Value;
+
             //Prevents explicit wave in basic waves whatever from moving crab 
             On.RoR2.InfiniteTowerRun.MoveSafeWard += (orig, self) =>
             {
@@ -74,6 +79,7 @@ namespace SimulacrumAdditions
                     GoldTitanManager.EndChannelingTitansServer(self.gameObject);
                 }
             };
+            On.EntityStates.InfiniteTowerSafeWard.AwaitingPortalUse.OnEnter += Radius_AwaitingPortalUse_OnEnter;
             On.EntityStates.InfiniteTowerSafeWard.AwaitingPortalUse.OnEnter += (orig, self) =>
             {
                 orig(self);
@@ -108,7 +114,23 @@ namespace SimulacrumAdditions
             };
         }
 
-
+        private static void Radius_AwaitingPortalUse_OnEnter(On.EntityStates.InfiniteTowerSafeWard.AwaitingPortalUse.orig_OnEnter orig, EntityStates.InfiniteTowerSafeWard.AwaitingPortalUse self)
+        {
+            self.zone = self.GetComponent<VerticalTubeZone>();
+            float newRadius = VoidSafeWard_Hooks.baseRadius + Run.instance.participatingPlayerCount * VoidSafeWard_Hooks.radiusPerPlayer;
+            if (self.zone && self.zone.radius > newRadius)
+            {
+                VoidSafeWard_Hooks.RadiusShrinker shrink = self.gameObject.AddComponent<VoidSafeWard_Hooks.RadiusShrinker>();
+                shrink.originalRadius = self.zone.radius;
+                shrink.newRadius = newRadius;
+                self.radius = self.zone.radius;
+            }
+            else
+            {
+                self.radius = newRadius;
+            }      
+            orig(self);
+        }
 
         public static void Waiting_SetRadius(On.EntityStates.InfiniteTowerSafeWard.AwaitingActivation.orig_OnEnter orig, EntityStates.InfiniteTowerSafeWard.AwaitingActivation self)
         {
@@ -117,11 +139,23 @@ namespace SimulacrumAdditions
             if (run.waveInstance)
             {
                 //Expand radius after travelling
-                self.radius = 60 + Run.instance.participatingPlayerCount * 5;
+                float newRadius = baseRadius + Run.instance.participatingPlayerCount * radiusPerPlayer;
+                self.radius = newRadius;
+
+                /*if (self.zone && self.zone.radius > newRadius)
+               {
+                   RadiusShrinker shrink = self.gameObject.AddComponent<RadiusShrinker>();
+                   shrink.originalRadius = self.zone.radius;
+                   shrink.newRadius = newRadius;
+               }
+               else
+               {
+                   self.radius = newRadius;
+               }*/
             }
             else
             {
-                self.radius = 30;
+                self.radius = baseRadius/2;
             }
             orig(self);
 
@@ -133,13 +167,21 @@ namespace SimulacrumAdditions
 
         public static void Travelling_RadiusAndSpeed(On.EntityStates.InfiniteTowerSafeWard.Travelling.orig_OnEnter orig, EntityStates.InfiniteTowerSafeWard.Travelling self)
         {
-            self.radius = 30;
+            //self.radius = baseRadius/2;
+            self.zone = self.GetComponent<VerticalTubeZone>();
+            self.radius = self.zone.radius;
+
+
             orig(self);
-            if (WConfig.cfgSpeedUpOnLaterWaves.Value)
+
+            float newRadius = baseRadius / 2;
+            float speedMult = 1;
+            float waves = Run.instance.GetComponent<InfiniteTowerRun>().Network_waveIndex;
+            if (WConfig.cfgCrabSpeedOnLaterWaves.Value)
             {
                 //Maybe travel at like two times the speed on Stage 6
-                float waves = Run.instance.GetComponent<InfiniteTowerRun>().Network_waveIndex;
-                float speedMult = (1f + (waves - 10f) / 50f) + 0.1f;
+
+                speedMult = (1f + (waves - 10f) / 50f) + 0.1f;
 
                 //Stage 5 Onward
                 if (waves > 30)
@@ -147,12 +189,25 @@ namespace SimulacrumAdditions
                     speedMult += (waves - 25f) / 50f;
                     if (speedMult > 3) { speedMult = 3; }
                 }
-                self.zone.radius = Mathf.Min(self.radius * (0.5f + 0.5f * speedMult), 45);
+                newRadius = Mathf.Min(newRadius * (0.5f + 0.5f * speedMult), baseRadius);
                 self.travelSpeed *= speedMult;
                 self.pathMaxSpeed *= speedMult;
 
-                Debug.Log("Wave:" + waves + " speedMult:" + speedMult + " TravellingSpeed:" + self.travelSpeed + " Radius:" + self.zone.radius);
             }
+
+            if (RunArtifactManager.instance && RunArtifactManager.instance.IsArtifactEnabled(ArtifactReal.ArtifactUseNormalStages))
+            {
+                newRadius = baseRadius;
+            }
+            else if(self.zone && self.zone.radius > newRadius)
+            {
+                VoidSafeWard_Hooks.RadiusShrinker shrink = self.gameObject.AddComponent<VoidSafeWard_Hooks.RadiusShrinker>();
+                shrink.originalRadius = self.zone.radius;
+                shrink.remove *= 2;
+                shrink.newRadius = newRadius;
+            }
+            Debug.Log("Wave:" + waves + " speedMult:" + speedMult + " TravellingSpeed:" + self.travelSpeed + " Radius:" + newRadius);
+
         }
 
 
@@ -161,16 +216,16 @@ namespace SimulacrumAdditions
             orig(self);
             if (Run.instance && Run.instance is InfiniteTowerRun && (Run.instance as InfiniteTowerRun).waveInstance)
             {
-                SimulacrumExtrasHelper temp = (Run.instance as InfiniteTowerRun).waveInstance.GetComponent<SimulacrumExtrasHelper>();
-                if (temp && temp.newRadius > 0)
+                SimulacrumExtrasHelper radiusManip = (Run.instance as InfiniteTowerRun).waveInstance.GetComponent<SimulacrumExtrasHelper>();
+                if (radiusManip && radiusManip.newRadius > 0)
                 {
-                    temp.newRadius += -5 + Run.instance.participatingPlayerCount * 5;
-                    self.safeWardController.wardStateMachine.state.SetFieldValue("radius", temp.newRadius);
-                    self.safeWardController.holdoutZoneController.baseRadius = temp.newRadius;
+                    float newRadius = VoidSafeWard_Hooks.baseRadius + (radiusManip.newRadius - 60) + (Run.instance.participatingPlayerCount) * VoidSafeWard_Hooks.radiusPerPlayer;
+                    self.safeWardController.wardStateMachine.state.SetFieldValue("radius", radiusManip.newRadius);
+                    self.safeWardController.holdoutZoneController.baseRadius = radiusManip.newRadius;
                 }
                 else
                 {
-                    float newRadius = 60 + Run.instance.participatingPlayerCount * 5;
+                    float newRadius = baseRadius + Run.instance.participatingPlayerCount * radiusPerPlayer;
                     self.safeWardController.wardStateMachine.state.SetFieldValue("radius", newRadius);
                     self.safeWardController.holdoutZoneController.baseRadius = newRadius;
                 }
@@ -178,6 +233,48 @@ namespace SimulacrumAdditions
         }
 
 
+
+
+        public class RadiusShrinker : MonoBehaviour
+        {
+            public float newRadius;
+            public float currentRadius;
+            public float originalRadius;
+            public float remove = 0.13f;
+            public InfiniteTowerSafeWardController crab;
+
+            public void Start()
+            {
+                currentRadius = originalRadius;
+                crab = Run.instance.GetComponent<InfiniteTowerRun>().safeWardController;
+                if (!crab)
+                {
+                    Debug.Log("No gameobject");
+                    Destroy(this);
+                }
+            }
+
+            public void FixedUpdate()
+            {
+                if (crab != null)
+                {
+                    if (currentRadius > newRadius)
+                    {
+                        currentRadius -= remove;
+                        crab.wardStateMachine.state.SetFieldValue("radius", currentRadius);
+                        crab.holdoutZoneController.baseRadius = currentRadius;
+                        ((EntityStates.InfiniteTowerSafeWard.BaseSafeWardState)crab.wardStateMachine.state).zone.Networkradius = currentRadius;
+                    }
+                    else
+                    {
+                        crab.wardStateMachine.state.SetFieldValue("radius", newRadius);
+                        crab.holdoutZoneController.baseRadius = newRadius;
+                        ((EntityStates.InfiniteTowerSafeWard.BaseSafeWardState)crab.wardStateMachine.state).zone.Networkradius = newRadius;
+                        Destroy(this);
+                    }
+                }
+            }
+        }
     }
 
 

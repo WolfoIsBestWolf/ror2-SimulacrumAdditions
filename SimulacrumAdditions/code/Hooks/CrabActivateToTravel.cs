@@ -18,11 +18,6 @@ namespace SimulacrumAdditions
                 On.EntityStates.InfiniteTowerSafeWard.Unburrow.OnEnter += Unburrow_OnEnter;
                 On.EntityStates.InfiniteTowerSafeWard.Unburrow.FixedUpdate += Unburrow_FixedUpdate;
             }
-           
-            LanguageAPI.Add("INFINITETOWER_OBJECTIVE_AWAITING_TRAVEL", "Awaiting permission to travel.");
-            LanguageAPI.Add("INFINITETOWER_TRAVEL_NOTICE", "<style=cWorldEvent>The focus awaits input to travel further.</style>");
-            LanguageAPI.Add("INFINITETOWER_TRAVEL_CONTEXT", "Begin travelling");
-
         }
 
         private static void Travelling_OnEnter(On.EntityStates.InfiniteTowerSafeWard.Travelling.orig_OnEnter orig, Travelling self)
@@ -34,6 +29,21 @@ namespace SimulacrumAdditions
 
         private static void Unburrow_OnEnter(On.EntityStates.InfiniteTowerSafeWard.Unburrow.orig_OnEnter orig, Unburrow self)
         {
+            self.zone = self.GetComponent<VerticalTubeZone>();
+            float newRadius = VoidSafeWard_Hooks.baseRadius + Run.instance.participatingPlayerCount * VoidSafeWard_Hooks.radiusPerPlayer;     
+            if (self.zone && self.zone.radius > newRadius)
+            {
+                VoidSafeWard_Hooks.RadiusShrinker shrink = self.gameObject.AddComponent<VoidSafeWard_Hooks.RadiusShrinker>();
+                shrink.originalRadius = self.zone.radius;
+                shrink.newRadius = newRadius;
+                self.radius = self.zone.radius;
+            }
+            else
+            {
+                self.radius = newRadius;
+            }
+            
+
             self.objectiveToken = "INFINITETOWER_OBJECTIVE_AWAITING_TRAVEL";
             orig(self);
             self.duration = 0;

@@ -13,23 +13,21 @@ namespace SimulacrumAdditions
     {
         //public static GameObject GupBody = RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/GupBody");
         //public static GameObject GupMaster = RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterMasters/GupMaster");
-        public static GameObject GiantBody = R2API.PrefabAPI.InstantiateClone(RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/GupBody"), "GupGiantBody", true);
-        public static GameObject GiantMaster = R2API.PrefabAPI.InstantiateClone(RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterMasters/GupMaster"), "GupGiantMaster", true);
+        public static GameObject GiantBody = PrefabAPI.InstantiateClone(RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/GupBody"), "GupGiantBody", true);
+        public static GameObject GiantMaster = PrefabAPI.InstantiateClone(RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterMasters/GupMaster"), "GupGiantMaster", true);
+        public static UnlockableDef unlockable = ScriptableObject.CreateInstance<UnlockableDef>();
 
         public static void Start()
         {
-            GameObject InfiniteTowerWaveBossGiantGup = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveBossScav.prefab").WaitForCompletion(), "InfiniteTowerWaveBossGiantGup", true);
-            GameObject InfiniteTowerWaveBossGiantGupUI = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentBossScavWaveUI.prefab").WaitForCompletion(), "InfiniteTowerCurrentBossGiantGupWaveUI", false);
+            GameObject InfiniteTowerWaveBossGiantGup = PrefabAPI.InstantiateClone(Const.ScavWave, "InfiniteTowerWaveBossGiantGup", true);
+            GameObject InfiniteTowerWaveBossGiantGupUI = PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentBossScavWaveUI.prefab").WaitForCompletion(), "InfiniteTowerCurrentBossGiantGupWaveUI", false);
             CharacterSpawnCard cscGiantGup;
 
             ContentAddition.AddBody(GiantBody);
             ContentAddition.AddMaster(GiantMaster);
 
             GiantMaster.GetComponent<CharacterMaster>().bodyPrefab = GiantBody;
-            if (!WConfig.cfgNewEnemiesVisible.Value)
-            {
-                GiantBody.GetComponent<DeathRewards>().logUnlockableDef = null;
-            }
+
 
             GiantBody.GetComponent<SetStateOnHurt>().canBeHitStunned = false;
             GiantBody.GetComponent<SetStateOnHurt>().canBeStunned = false;
@@ -37,13 +35,10 @@ namespace SimulacrumAdditions
 
             CharacterBody GiantCharacterBody = GiantBody.GetComponent<CharacterBody>();
 
-            LanguageAPI.Add("GIANTGUP_BODY_NAME", "Guap", "en");
             GiantCharacterBody.baseNameToken = "GIANTGUP_BODY_NAME";
             GiantCharacterBody.isChampion = true;
 
-            Texture2D GiantGupBodyIcon = new Texture2D(128, 128, TextureFormat.DXT5, false);
-            GiantGupBodyIcon.LoadImage(Properties.Resources.GiantGupBody, true);
-            GiantGupBodyIcon.filterMode = FilterMode.Bilinear;
+            Texture2D GiantGupBodyIcon = Assets.Bundle.LoadAsset<Texture2D>("Assets/Simulacrum/Main/GiantGupBody.png");
             GiantGupBodyIcon.wrapMode = TextureWrapMode.Clamp;
             GiantCharacterBody.portraitIcon = GiantGupBodyIcon;
 
@@ -51,14 +46,17 @@ namespace SimulacrumAdditions
             //Giant Gup gets special scaling in IT
             //Also remember he has Shiny Pearl
             //GiantCharacterBody.baseDamage *= 1f;
-            GiantCharacterBody.baseMaxHealth *= 1.6f; //Base Health is 1000
+            GiantCharacterBody.baseMaxHealth *= 4f; //Base Health is 1000
             GiantCharacterBody.baseDamage *= 1.2f;
 
-            GiantCharacterBody.baseAttackSpeed = 0.35f;
-            GiantCharacterBody.baseMoveSpeed *= 0.65f;
+            GiantCharacterBody.baseAttackSpeed = 0.3f;
+            GiantCharacterBody.baseMoveSpeed *= 0.6f;
             GiantCharacterBody.baseJumpPower *= 2.5f;
             GiantCharacterBody.baseArmor = 20;
             GiantCharacterBody.PerformAutoCalculateLevelStats();
+            GiantCharacterBody.bodyFlags |= CharacterBody.BodyFlags.ImmuneToExecutes;
+            GiantCharacterBody.bodyFlags |= CharacterBody.BodyFlags.ImmuneToVoidDeath;
+            GiantCharacterBody.bodyFlags |= CharacterBody.BodyFlags.ImmuneToLava;
 
             //
             bool wasAdded;
@@ -69,7 +67,10 @@ namespace SimulacrumAdditions
             //Visuals
             GameObject mdlGup = GiantBody.transform.GetChild(0).GetChild(0).gameObject;
             mdlGup.transform.localScale = new Vector3(3.5f, 3.5f, 3.5f);
-
+            //Ears
+            mdlGup.GetComponent<ChildLocator>().FindChild("MainBody4").GetChild(0).localScale = new Vector3(3.5f, 3.5f, 3.5f);
+            mdlGup.GetComponent<ChildLocator>().FindChild("MainBody4").GetChild(1).localScale = new Vector3(3.5f, 3.5f, 3.5f);
+            //
             mdlGup.GetComponent<ModelPanelParameters>().minDistance = 5;
             mdlGup.GetComponent<ModelPanelParameters>().maxDistance = 9;
 
@@ -97,6 +98,7 @@ namespace SimulacrumAdditions
                 new GivePickupsOnStart.ItemInfo { itemString = ("AdaptiveArmor"), count = 1, },
                 new GivePickupsOnStart.ItemInfo { itemString = ("TeleportWhenOob"), count = 1, },
                 new GivePickupsOnStart.ItemInfo { itemString = ("ShinyPearl"), count = 0, },
+                new GivePickupsOnStart.ItemInfo { itemString = ("CutHp"), count = 0, },
             };
             GiantMaster.GetComponent<GivePickupsOnStart>().itemDefInfos = new GivePickupsOnStart.ItemDefInfo[]
             {
@@ -141,9 +143,7 @@ namespace SimulacrumAdditions
 
             InfiniteTowerWaveBossGiantGup.GetComponent<InfiniteTowerExplicitSpawnWaveController>().secondsBeforeSuddenDeath *= 2f;
             //
-            Texture2D texITWaveGupIcon = new Texture2D(256, 256, TextureFormat.DXT5, false);
-            texITWaveGupIcon.LoadImage(Properties.Resources.texITWaveGupIcon, true);
-            texITWaveGupIcon.filterMode = FilterMode.Bilinear;
+            Texture2D texITWaveGupIcon = Assets.Bundle.LoadAsset<Texture2D>("Assets/Simulacrum/Wave/waveGupBoss.png");
             Sprite texITWaveGupIconS = Sprite.Create(texITWaveGupIcon, WRect.rec64, WRect.half);
 
             //Color GupColor = new Color32(255, 161, 15, 255);
@@ -154,18 +154,26 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveBossGiantGupUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = GupColor;
 
             InfiniteTowerWaveBossGiantGup.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWaveBossGiantGupUI;
-            InfiniteTowerWaveBossGiantGupUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "Wave {0} - Boss Augment of the Giant";
-            InfiniteTowerWaveBossGiantGupUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "Goodness Gracious.";
+            InfiniteTowerWaveBossGiantGupUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BOSS_GIANTGUP";
+            InfiniteTowerWaveBossGiantGupUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BOSS_GIANTGUP"; //Gurp failed
             //
             RoR2.InfiniteTowerWaveCategory.WeightedWave ITGiantGup = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveBossGiantGup, weight = 7, prerequisites = SimuMain.StartWave20Prerequisite };
             SimuMain.ITBossWaves.wavePrefabs = SimuMain.ITBossWaves.wavePrefabs.Add(ITGiantGup);
 
-            /*ITGiantGup.weight = 25;
-            SimuMain.ITBossWaves.wavePrefabs = SimuMain.ITBossWaves.wavePrefabs.Add(ITGiantGup);*/
 
-            /*ITGiantGup.weight = 5000;
-			SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(ITGiantGup);*/
-            //, prerequisites = SimuMain.Wave11OrGreaterPrerequisite
+            //
+            unlockable.cachedName = "Logs.GupGiantBody.0";
+            unlockable.nameToken = "UNLOCKABLE_LOG_GIANTGUP";
+           
+            ContentAddition.AddUnlockableDef(unlockable);
+            if (!WConfig.cfgNewEnemiesVisible.Value)
+            {
+                GiantBody.GetComponent<DeathRewards>().logUnlockableDef = null;
+            }
+            else
+            {
+                GiantBody.GetComponent<DeathRewards>().logUnlockableDef = unlockable;
+            }
         }
     }
 
@@ -272,7 +280,16 @@ namespace SimulacrumAdditions
                                 moneyMultiplier = this.moneyMultiplier
                             }.Perform();
                         }
-                        PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(RoR2Content.Items.ShinyPearl.itemIndex), characterBody.corePosition, Vector3.up * 20f);
+                        PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(RoR2Content.Items.Pearl.itemIndex), characterBody.corePosition, Vector3.up * 20f);
+
+
+                        if (GiantGup.unlockable && Run.instance.CanUnlockableBeGrantedThisRun(GiantGup.unlockable))
+                        {
+                            GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(DeathRewards.logbookPrefab, characterBody.corePosition, UnityEngine.Random.rotation);
+                            gameObject.GetComponentInChildren<UnlockPickup>().unlockableDef = GiantGup.unlockable;
+                            gameObject.GetComponent<TeamFilter>().teamIndex = TeamIndex.Player;
+                            NetworkServer.Spawn(gameObject);
+                        }
                     }
 
                     DestroyBodyAsapServer();

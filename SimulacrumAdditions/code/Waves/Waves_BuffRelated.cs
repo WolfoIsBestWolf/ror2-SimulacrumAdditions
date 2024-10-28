@@ -14,15 +14,13 @@ namespace SimulacrumAdditions
 
         internal static void MakeWaves()
         {
-            Texture2D texITWaveDefaultWhite = new Texture2D(256, 256, TextureFormat.DXT5, false);
-            texITWaveDefaultWhite.LoadImage(Properties.Resources.texITWaveDefaultWhite, true);
-            texITWaveDefaultWhite.filterMode = FilterMode.Bilinear;
+            Texture2D texITWaveDefaultWhite = Assets.Bundle.LoadAsset<Texture2D>("Assets/Simulacrum/Wave/waveBasicWhite.png");
             Sprite texITWaveDefaultWhiteS = Sprite.Create(texITWaveDefaultWhite, WRect.rec64, WRect.half);
 
             #region Void Bear Spam
             //VoidBear
-            GameObject InfiniteTowerWaveVoidBear = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveDefault.prefab").WaitForCompletion(), "InfiniteTowerWaveVoidBear", true);
-            GameObject InfiniteTowerWaveVoidBearUI = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentBossVoidWaveUI.prefab").WaitForCompletion(), "InfiniteTowerWaveVoidBearUI", false);
+            GameObject InfiniteTowerWaveVoidBear = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveVoidBear", true);
+            GameObject InfiniteTowerWaveVoidBearUI = PrefabAPI.InstantiateClone(Const.VoidWaveUI, "InfiniteTowerWaveVoidBearUI", false);
 
             InfiniteTowerWaveVoidBear.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITBasicBonusVoid;
             InfiniteTowerWaveVoidBear.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
@@ -31,8 +29,8 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveVoidBear.GetComponent<InfiniteTowerWaveController>().baseCredits = 160;
 
             InfiniteTowerWaveVoidBear.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWaveVoidBearUI;
-            InfiniteTowerWaveVoidBearUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "Wave {0} - Augment of Safety";
-            InfiniteTowerWaveVoidBearUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "Enemies block the first multiple instances of damage.";
+            InfiniteTowerWaveVoidBearUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_VOIDBEAR";
+            InfiniteTowerWaveVoidBearUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_VOIDBEAR";
 
             BuffDef BearVoidReady = LegacyResourcesAPI.Load<BuffDef>("BuffDefs/BearVoidReady");
             InfiniteTowerWaveVoidBearUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = BearVoidReady.iconSprite;
@@ -48,8 +46,8 @@ namespace SimulacrumAdditions
             //
             #region Unused Blindness
             //Blindness Buff
-            GameObject InfiniteTowerWaveBlindness = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveDefault.prefab").WaitForCompletion(), "InfiniteTowerWaveBlindness", true);
-            GameObject InfiniteTowerWaveBlindnessUI = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentWaveUI.prefab").WaitForCompletion(), "InfiniteTowerWaveBlindnessUI", false);
+            GameObject InfiniteTowerWaveBlindness = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveBlindness", true);
+            GameObject InfiniteTowerWaveBlindnessUI = PrefabAPI.InstantiateClone(Const.BasicWaveUI, "InfiniteTowerWaveBlindnessUI", false);
 
             InfiniteTowerWaveBlindness.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWaveBlindnessUI;
             InfiniteTowerWaveBlindness.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITWaveTier1;
@@ -60,8 +58,8 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveBlindness.GetComponent<SimuBuffWaveHelper>().addToEnemies = false;
             InfiniteTowerWaveBlindness.GetComponent<SimuBuffWaveHelper>().buffDef = Addressables.LoadAssetAsync<BuffDef>(key: "RoR2/DLC1/Common/Buffs/bdBlinded.asset").WaitForCompletion();
 
-            InfiniteTowerWaveBlindnessUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "Wave {0} - Augment of Blindness";
-            InfiniteTowerWaveBlindnessUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "It becomes hard to see.";
+            InfiniteTowerWaveBlindnessUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_BLIND";
+            InfiniteTowerWaveBlindnessUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_BLIND";
             InfiniteTowerWaveBlindnessUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color = new Color(0.2f, 0.2f, 0.2f);
             InfiniteTowerWaveBlindnessUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0.2f, 0.2f, 0.2f);
             InfiniteTowerWaveBlindnessUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0.2f, 0.2f, 0.2f);
@@ -73,8 +71,8 @@ namespace SimulacrumAdditions
             //
             #region Slippery Ground
             //Slippery Buff
-            GameObject InfiniteTowerWaveSlippery = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveDefault.prefab").WaitForCompletion(), "InfiniteTowerWaveSlippery", true);
-            GameObject InfiniteTowerWaveSlipperyUI = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentWaveUI.prefab").WaitForCompletion(), "InfiniteTowerWaveSlipperyUI", false);
+            GameObject InfiniteTowerWaveSlippery = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveSlippery", true);
+            GameObject InfiniteTowerWaveSlipperyUI = PrefabAPI.InstantiateClone(Const.BasicWaveUI, "InfiniteTowerWaveSlipperyUI", false);
 
             BuffDef Weak = RoR2.LegacyResourcesAPI.Load<BuffDef>("buffdefs/Weak");
             BuffDef bdOutOfCombatArmorBuff = Addressables.LoadAssetAsync<BuffDef>(key: "RoR2/DLC1/OutOfCombatArmor/bdOutOfCombatArmorBuff.asset").WaitForCompletion();
@@ -95,8 +93,8 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveSlippery.GetComponent<SimuBuffWaveHelper>().addToPlayer = true;
             InfiniteTowerWaveSlippery.GetComponent<SimuBuffWaveHelper>().buffDef = bdSlippery;
 
-            InfiniteTowerWaveSlipperyUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "Wave {0} - Augment of Friction";
-            InfiniteTowerWaveSlipperyUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "The ground turns slippery.";
+            InfiniteTowerWaveSlipperyUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_SLIPPERY";
+            InfiniteTowerWaveSlipperyUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_SLIPPERY";
             InfiniteTowerWaveSlipperyUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color = new Color(0.9f, 0.8f, 1f);
             InfiniteTowerWaveSlipperyUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0.9f, 0.8f, 1f);
             InfiniteTowerWaveSlipperyUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color(0.8f, 0.7f, 0.9f);
@@ -107,8 +105,8 @@ namespace SimulacrumAdditions
             //
             #region No Procs
             //BadLuck Buff
-            GameObject InfiniteTowerWaveBadLuck = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveDefault.prefab").WaitForCompletion(), "InfiniteTowerWaveBadLuck", true);
-            GameObject InfiniteTowerWaveBadLuckUI = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentWaveUI.prefab").WaitForCompletion(), "InfiniteTowerWaveBadLuckUI", false);
+            GameObject InfiniteTowerWaveBadLuck = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveBadLuck", true);
+            GameObject InfiniteTowerWaveBadLuckUI = PrefabAPI.InstantiateClone(Const.BasicWaveUI, "InfiniteTowerWaveBadLuckUI", false);
             Color BadLuckColor = new Color(0.7f, 0.8f, 0.3f);
 
             bdBadLuck = ScriptableObject.CreateInstance<BuffDef>();
@@ -130,8 +128,8 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveBadLuck.GetComponent<SimuBuffWaveHelper>().addToEnemies = false;
             InfiniteTowerWaveBadLuck.GetComponent<SimuBuffWaveHelper>().buffDef = bdBadLuck;
 
-            InfiniteTowerWaveBadLuckUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "Wave {0} - Augment of Misfortune";
-            InfiniteTowerWaveBadLuckUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "Luck down.";
+            InfiniteTowerWaveBadLuckUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_BADLUCK";
+            InfiniteTowerWaveBadLuckUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_BADLUCK";
             InfiniteTowerWaveBadLuckUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = texITWaveDefaultWhiteS;
             InfiniteTowerWaveBadLuckUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color = BadLuckColor;
             InfiniteTowerWaveBadLuckUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = BadLuckColor;
@@ -142,8 +140,8 @@ namespace SimulacrumAdditions
             #endregion
             #region No Cooldowns for everyone
             //NoCooldowns Buff
-            GameObject InfiniteTowerWaveNoCooldowns = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveDefault.prefab").WaitForCompletion(), "InfiniteTowerWaveNoCooldowns", true);
-            GameObject InfiniteTowerWaveNoCooldownsUI = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentWaveUI.prefab").WaitForCompletion(), "InfiniteTowerWaveNoCooldownsUI", false);
+            GameObject InfiniteTowerWaveNoCooldowns = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveNoCooldowns", true);
+            GameObject InfiniteTowerWaveNoCooldownsUI = PrefabAPI.InstantiateClone(Const.BasicWaveUI, "InfiniteTowerWaveNoCooldownsUI", false);
 
             BuffDef NoCooldowns = LegacyResourcesAPI.Load<BuffDef>("BuffDefs/NoCooldowns");
 
@@ -157,8 +155,8 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveNoCooldowns.GetComponent<SimulacrumGiveItemsOnStart>().count = 3;
             InfiniteTowerWaveNoCooldowns.GetComponent<SimulacrumGiveItemsOnStart>().hideItem = true;
 
-            InfiniteTowerWaveNoCooldownsUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "Wave {0} - Augment of Frenzy";
-            InfiniteTowerWaveNoCooldownsUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "Skills have no cooldowns.";
+            InfiniteTowerWaveNoCooldownsUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_NOCOOLDOWN";
+            InfiniteTowerWaveNoCooldownsUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_NOCOOLDOWN";
             InfiniteTowerWaveNoCooldownsUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = NoCooldowns.iconSprite;
             InfiniteTowerWaveNoCooldownsUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color = NoCooldowns.buffColor;
             InfiniteTowerWaveNoCooldownsUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = NoCooldowns.buffColor * 1.2f;
@@ -170,8 +168,8 @@ namespace SimulacrumAdditions
             //
             #region Free Drugs for everyone
             //LunarTonic Buff
-            GameObject InfiniteTowerWaveLunarTonic = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveDefault.prefab").WaitForCompletion(), "InfiniteTowerWaveLunarTonic", true);
-            GameObject InfiniteTowerWaveLunarTonicUI = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentWaveUI.prefab").WaitForCompletion(), "InfiniteTowerWaveLunarTonicUI", false);
+            GameObject InfiniteTowerWaveLunarTonic = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveLunarTonic", true);
+            GameObject InfiniteTowerWaveLunarTonicUI = PrefabAPI.InstantiateClone(Const.BasicWaveUI, "InfiniteTowerWaveLunarTonicUI", false);
 
             BuffDef LunarTonic = LegacyResourcesAPI.Load<BuffDef>("BuffDefs/TonicBuff");
 
@@ -188,8 +186,8 @@ namespace SimulacrumAdditions
 
             Color TonicColor = new Color(0.7f,0.8f,1f);
 
-            InfiniteTowerWaveLunarTonicUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "Wave {0} - Augment of Tonic";
-            InfiniteTowerWaveLunarTonicUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "Monsters have a short stat boost and are crippled afterwards.";
+            InfiniteTowerWaveLunarTonicUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_TONIC";
+            InfiniteTowerWaveLunarTonicUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_TONIC";
             InfiniteTowerWaveLunarTonicUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = LunarTonic.iconSprite;
             InfiniteTowerWaveLunarTonicUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = TonicColor;
             InfiniteTowerWaveLunarTonicUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = TonicColor;
@@ -200,8 +198,8 @@ namespace SimulacrumAdditions
             //
             #region (Boss) Leeching
             //BossLeeching Buff
-            GameObject InfiniteTowerWaveBossLeeching = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveBoss.prefab").WaitForCompletion(), "InfiniteTowerWaveBossLeeching", true);
-            GameObject InfiniteTowerWaveBossLeechingUI = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentBossWaveUI.prefab").WaitForCompletion(), "InfiniteTowerWaveBossLeechingUI", false);
+            GameObject InfiniteTowerWaveBossLeeching = PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveBoss.prefab").WaitForCompletion(), "InfiniteTowerWaveBossLeeching", true);
+            GameObject InfiniteTowerWaveBossLeechingUI = PrefabAPI.InstantiateClone(Const.BossWaveUI, "InfiniteTowerWaveBossLeechingUI", false);
 
             BuffDef LifeSteal = LegacyResourcesAPI.Load<BuffDef>("BuffDefs/LifeSteal");
 
@@ -229,8 +227,8 @@ namespace SimulacrumAdditions
             simulacrumGiveItemsOnStart.itemString = "BarrierOnOverHeal";
 
 
-            InfiniteTowerWaveBossLeechingUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "Wave {0} - Boss Augment of Leeching";
-            InfiniteTowerWaveBossLeechingUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "Monsters heal on hit and healing is increased.";
+            InfiniteTowerWaveBossLeechingUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BOSS_LEECH";
+            InfiniteTowerWaveBossLeechingUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BOSS_LEECH";
             InfiniteTowerWaveBossLeechingUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color = LeechColor;
             InfiniteTowerWaveBossLeechingUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = LeechColor;
             InfiniteTowerWaveBossLeechingUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = LeechColor;

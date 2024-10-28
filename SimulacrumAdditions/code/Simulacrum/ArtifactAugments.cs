@@ -13,20 +13,18 @@ namespace SimulacrumAdditions
         public static void MakeArtifact()
         {
             Rect rec = new Rect(0, 0, 64, 64);
-            Texture2D ArtifactOn = new Texture2D(64, 64, TextureFormat.RGBA32, false);
+            Texture2D ArtifactOn = Assets.Bundle.LoadAsset<Texture2D>("Assets/Simulacrum/Main/ArtifactOn.png");
             ArtifactOn.filterMode = FilterMode.Trilinear;
-            ArtifactOn.LoadImage(Properties.Resources.ArtifactOn, true);
             Sprite ArtifactOnS = Sprite.Create(ArtifactOn, rec, new Vector2(0, 0));
 
-            Texture2D ArtifactOff = new Texture2D(64, 64, TextureFormat.RGBA32, false);
+            Texture2D ArtifactOff = Assets.Bundle.LoadAsset<Texture2D>("Assets/Simulacrum/Main/ArtifactOff.png");
             ArtifactOff.filterMode = FilterMode.Trilinear;
-            ArtifactOff.LoadImage(Properties.Resources.ArtifactOff, true);
             Sprite ArtifactOffS = Sprite.Create(ArtifactOff, rec, new Vector2(0, 0));
 
 
             ArtifactSimulacrum.cachedName = "AAAAugmentsOnly";
-            ArtifactSimulacrum.nameToken = "Artifact of Augments";
-            ArtifactSimulacrum.descriptionToken = "All waves will be augmented waves.";
+            ArtifactSimulacrum.nameToken = "ARTIFACT_AUGMENTS_NAME";
+            ArtifactSimulacrum.descriptionToken = "ARTIFACT_AUGMENTS_DESCRIPTION";
             ArtifactSimulacrum.smallIconSelectedSprite = ArtifactOnS;
             ArtifactSimulacrum.smallIconDeselectedSprite = ArtifactOffS;
             ContentAddition.AddArtifactDef(ArtifactSimulacrum);

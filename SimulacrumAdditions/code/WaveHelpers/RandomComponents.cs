@@ -15,11 +15,14 @@ namespace SimulacrumAdditions
 		private void Start()
 		{
 			CharacterMaster master = this.GetComponent<CharacterMaster>();
-			if (master && master.teamIndex == TeamIndex.Player)
+            this.gameObject.AddComponent<DevotedLemurianController>();
+
+            if (master && master.teamIndex == TeamIndex.Player)
             {
                 master.inventory.RemoveItem(RoR2Content.Items.BoostEquipmentRecharge, master.inventory.GetItemCount(RoR2Content.Items.BoostEquipmentRecharge));
                 master.inventory.GiveItem(RoR2Content.Items.BoostEquipmentRecharge, 15);
-				UnityEngine.Object.DontDestroyOnLoad(base.gameObject);
+                master.inventory.GiveItem(RoR2Content.Items.BoostHp, 5);
+                UnityEngine.Object.DontDestroyOnLoad(base.gameObject);
 			}
 		}
 	}
@@ -84,43 +87,48 @@ namespace SimulacrumAdditions
 
         public static void AnnounceEquipmentDrone(InfiniteTowerExplicitSpawnWaveController self)
         {
-            string eqToken = "<style=cWorldEvent>[WARNING] Running test with ";
+            //This would not be translated locally, probably fix that?
+            string main = Language.GetString("ITWAVE_EQUIPMENTDRONE_ANNOUNCE");
+
+            string equipment = "";
             if (self.spawnList.Length == 2)
             {
                 if (self.spawnList[0].spawnCard.equipmentToGrant[0].isLunar)
                 {
-                    eqToken = eqToken + "<color=#78AFFF>";
+                    equipment = equipment + "<color=#78AFFF>";
                 }
                 else
                 {
-                    eqToken = eqToken + "<color=#FF8000>";
+                    equipment = equipment + "<color=#FF8000>";
                 }
-                eqToken = eqToken + Language.GetString(self.spawnList[0].spawnCard.equipmentToGrant[0].nameToken, "en") + "</color> and ";
+                equipment = equipment + Language.GetString(self.spawnList[0].spawnCard.equipmentToGrant[0].nameToken) + "</color> & ";
                 if (self.spawnList[1].spawnCard.equipmentToGrant[0].isLunar)
                 {
-                    eqToken = eqToken + "<color=#78AFFF>";
+                    equipment = equipment + "<color=#78AFFF>";
                 }
                 else
                 {
-                    eqToken = eqToken + "<color=#FF8000>";
+                    equipment = equipment + "<color=#FF8000>";
                 }
-                eqToken = eqToken + Language.GetString(self.spawnList[1].spawnCard.equipmentToGrant[0].nameToken, "en") + "</color></style>";
+                equipment = equipment + Language.GetString(self.spawnList[1].spawnCard.equipmentToGrant[0].nameToken) + "</color>";
             }
             else
             {
                 if (self.spawnList[0].spawnCard.equipmentToGrant[0].isLunar)
                 {
-                    eqToken = eqToken + "<color=#78AFFF>";
+                    equipment = equipment + "<color=#78AFFF>";
                 }
                 else
                 {
-                    eqToken = eqToken + "<color=#FF8000>";
+                    equipment = equipment + "<color=#FF8000>";
                 }
-                eqToken = eqToken + Language.GetString(self.spawnList[0].spawnCard.equipmentToGrant[0].nameToken, "en") + "</color></style>";
+                equipment = equipment + Language.GetString(self.spawnList[0].spawnCard.equipmentToGrant[0].nameToken) + "</color>";
             }
+
+            string token = string.Format(main, equipment);
             Chat.SendBroadcastChat(new Chat.SimpleChatMessage
             {
-                baseToken = eqToken,
+                baseToken = token,
             });
         }
 

@@ -17,31 +17,30 @@ namespace SimulacrumAdditions
         public static void MakeVoidCoin()
         {
             CostTypeCatalog.modHelper.getAdditionalEntries += addVoidBloodCost;
-            if (WConfig.cfgVoidCoins.Value)
-            {
-                On.RoR2.PlayerCharacterMasterController.Start += StartWithOneVoidCoin;
+            On.RoR2.PlayerCharacterMasterController.Start += StartWithOneVoidCoin;
 
-                GameObject VoidCoinBarrel = LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/Chest/VoidCoinBarrel");
-                ChestBehavior VoidBarrelChestBehavior = VoidCoinBarrel.AddComponent<ChestBehavior>();
-                VoidBarrelChestBehavior.dropTable = LegacyResourcesAPI.Load<ExplicitPickupDropTable>("DropTables/dtVoidCoin");
-                VoidBarrelChestBehavior.dropTransform = VoidCoinBarrel.transform.GetChild(0).GetComponent<ChildLocator>().FindChild("Bulb");
-                VoidBarrelChestBehavior.dropUpVelocityStrength = 20;
-                VoidBarrelChestBehavior.enabled = false;
-            }
+            GameObject VoidCoinBarrel = LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/Chest/VoidCoinBarrel");
+            ChestBehavior VoidBarrelChestBehavior = VoidCoinBarrel.AddComponent<ChestBehavior>();
+            VoidBarrelChestBehavior.dropTable = LegacyResourcesAPI.Load<ExplicitPickupDropTable>("DropTables/dtVoidCoin");
+            VoidBarrelChestBehavior.dropTransform = VoidCoinBarrel.transform.GetChild(0).GetComponent<ChildLocator>().FindChild("Bulb");
+            VoidBarrelChestBehavior.dropUpVelocityStrength = 20;
+            VoidBarrelChestBehavior.enabled = false;
         }
 
 
         private static void StartWithOneVoidCoin(On.RoR2.PlayerCharacterMasterController.orig_Start orig, PlayerCharacterMasterController self)
         {
             orig(self);
-            Debug.Log(Run.instance);
-            if (NetworkServer.active && Run.instance && Run.instance.GetComponent<InfiniteTowerRun>())
+            if (WConfig.cfgVoidCoins.Value)
             {
-                self.master.GiveVoidCoins(1);
-                VoidCoinChance chance = self.gameObject.AddComponent<VoidCoinChance>();
-                float players = 1 + (Run.instance.participatingPlayerCount - 1) * 0.2f; //This probably don't really work
-                chance.chance /= players;
-            };
+                if (NetworkServer.active && Run.instance && Run.instance.GetComponent<InfiniteTowerRun>())
+                {
+                    self.master.GiveVoidCoins(1);
+                    VoidCoinChance chance = self.gameObject.AddComponent<VoidCoinChance>();
+                    float players = 1 + (Run.instance.participatingPlayerCount - 1) * 0.2f; //This probably don't really work
+                    chance.chance /= players;
+                };
+            }
         }
 
         public static void VoidCoinRunStart()
@@ -85,8 +84,7 @@ namespace SimulacrumAdditions
             //Void Coin <color=#F4ADFA>
             //<color=#FF70FF><sprite name=\"VoidCoin\" tint=1>1 or </color><color=#CE2929>{0}% HP</color>"
             //<color=#FF24FF><sprite name=\"VoidCoin\" tint=1>1</color> or <color=#671414>{0}% HP</color>"
-            //LanguageAPI.Add("COST_VOIDCOINBLOOD_FORMAT", "<color=#FF40FF><sprite name=\"VoidCoin\" tint=1><color=#FF5BFF>1 or <color=#CE2929>{0}% HP</color></color></color>", "en");
-            LanguageAPI.Add("COST_VOIDCOINBLOOD_FORMAT", "<color=#FF349F><sprite name=\"VoidCoin\" tint=1>1 or <color=#DA1D1D>{0}% HP</color></color>", "en");
+           
             //Cost Tier Thing
             CostTypeVoidCoinBlood = new CostTypeDef();
             //CostTypeVoidCoinBlood.name = "VoidCoinOrBlood";

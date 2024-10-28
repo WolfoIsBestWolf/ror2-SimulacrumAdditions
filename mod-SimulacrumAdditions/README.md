@@ -6,11 +6,11 @@ This makes getting to wave 50 a set goal and makes the gamemode "beatable".\
 One of these runs should take around an hour (similiar to loop Mithrix) and counts as a win.  
 
 __Adds a very large amount of Augments__\
-In total raises Basic Augment count from 9 to 66 (+9 with supported mods).\
+In total raises Basic Augment count from 9 to 65 (+9 with supported mods).\
 In total raises Boss Augment count from 5 to 30 (+1 with supported mods).\
 
 Basic Augments
-- 7 Artifact Augments. (+5 with mods)\
+- 6 Artifact Augments. (+5 with mods)\
 - 13 Family Event Augments. (+3 with mods)\
 - 5 Item Augments.\
 - 3 Equipment Augments.\
@@ -47,6 +47,8 @@ The focus will not begin travelling on it's own, instead waiting for you to acti
 The focus moves faster the more waves are completed.\
 For each stage completed, -0.8 second between regular waves.
 
+The latest wave will be shown on the game end screen.
+
 Fireworks are now available in Simulacrum for VanillaVoids support.\
 Warbanners pop on Boss Waves similiar to teleporters.\
 Unstable Transmitter now teleports you to the Focus, just like falling off the map would.
@@ -57,8 +59,12 @@ Adds 2 Simulacrum only Artifacts:
 
 Artifact of Augments : Only augmented waves. For when the normal ~50% chance isn't enough for you.
 
-Artifact of Reality : Use normal stages instead of Simulacrum stages.\
--Stage order is still random.
+Artifact of Reality : Use normal stages in random order instead of the small set of Simulacrum stages.\
+-Void Fields and Void Locust can appear too.\
+-Stage order is still random.\
+-Newt Shrines replaced with Eradicators.
+
+Nerfs Artifact of Sacrifice in Simulacrum. (Only 2 options per potential)
 #
 
 ### Balance
@@ -75,7 +81,7 @@ Elites spawn more often the more waves are completed.
 
 Items are now granted every 8 waves until the first red.\
 Afterwards every 4 then 2 waves, shortening after each red is added.\
-Enemies are no longer granted useless items such as Regenerative Scrap.\
+Enemies are no longer granted useless items such as Regenerative Scrap, Sale Star, Sonch Whispers, War Bonds.\
 Shuriken, Singularity Band, Nkuhanas Opinion are blacklisted for enemies now.
 
 Only 20 enemies can be alive at a time instead of 30.\
@@ -87,7 +93,7 @@ Really early waves even less because of how often flying enemies overwhelm the p
 
 ### Miscellaneous
 
-Makes Artifact of Devotion functional in the game mode.
+Makes Artifact of Devotion functional in the game mode. (Eggs spawn despite no drones, evolves every boss wave)
 
 More enemy types are added to the spawn pool starting wave 21.\
 Void enemies are added to the spawn pool starting wave 61.
@@ -144,6 +150,11 @@ Generally happy about gameplay feedback.
 
 The balance of this mod can be questionable as Simulacrum sucks to balance and is far harder in Multiplayer.\
 This mod currently is balanced to be rather difficult on Monsoon Multiplayer, difficulties like Typhoon and Inferno will not be accounted for.\
+
+
+### Translations
+Translations are possible as of version 2.3.0. None are included as of now.
+
 
 ##
 I already added make wave 50 special so [SimulacrumBossStageMod](https://thunderstore.io/package/Def/SimulacrumBossStageMod/) is a bit redundant.\

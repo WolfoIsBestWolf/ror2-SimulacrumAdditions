@@ -1,0 +1,52 @@
+ManifestFileVersion: 0
+CRC: 2134306656
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 97cb9f0c3fa25c1d81ee747b95c7aecc
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: b0363f7088f9761414f730641bf9a24b
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Simulacrum/Wave/waveFalseSon.png
+- Assets/Simulacrum/Wave/waveEquipmentBoss.png
+- Assets/Simulacrum/Main/Artifact2_On.png
+- Assets/Simulacrum/Main/GiantGupBody.png
+- Assets/Simulacrum/Main/texRampPulseNoHeal.png
+- Assets/Simulacrum/Main/texRampPulseVoid.png
+- Assets/Simulacrum/Wave/waveGupYellow.png
+- Assets/Simulacrum/Wave/waveVoidBlue.png
+- Assets/Simulacrum/Wave/waveFalseSonGreen.png
+- Assets/Simulacrum/Wave/waveEclipse.png
+- Assets/Simulacrum/Wave/waveGup.png
+- Assets/Simulacrum/Wave/waveSMALL.png
+- Assets/Simulacrum/Wave/waveAWU.png
+- Assets/Simulacrum/Wave/waveGhost.png
+- Assets/Simulacrum/Wave/waveEclipseAlt.png
+- Assets/Simulacrum/Wave/waveVoidling.png
+- Assets/Simulacrum/Wave/waveJetpack.png
+- Assets/Simulacrum/Wave/waveBasicWhite.png
+- Assets/Simulacrum/Wave/waveBIG.png
+- Assets/Simulacrum/Wave/waveGupBoss.png
+- Assets/Simulacrum/Wave/waveEquipment.png
+- Assets/Simulacrum/Wave/waveGhostBoss.png
+- Assets/Simulacrum/Wave/waveFamily.png
+- Assets/Simulacrum/Wave/waveVoid.png
+- Assets/Simulacrum/Main/ArtifactOff.png
+- Assets/Simulacrum/Main/texRampPulseLunar.png
+- Assets/Simulacrum/Main/texRampPulseSuck.png
+- Assets/Simulacrum/Wave/waveHalcy.png
+- Assets/Simulacrum/Wave/waveLunarWhite.png
+- Assets/Simulacrum/Wave/waveVoid2.png
+- Assets/Simulacrum/Main/Artifact2_Off.png
+- Assets/Simulacrum/Wave/waveGoldTitan.png
+- Assets/Simulacrum/Main/ArtifactOn.png
+- Assets/Simulacrum/Wave/waveHeresy.png
+- Assets/Simulacrum/Wave/waveBossMountain.png
+- Assets/Simulacrum/Wave/waveScavLunar.png
+Dependencies: []

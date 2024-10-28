@@ -77,6 +77,20 @@ namespace SimulacrumAdditions
             this.age += Time.deltaTime;
         }
 
+        public override void FixedUpdate()
+        {
+            this.fixedAge += this.GetDeltaTime();
+            if (NetworkServer.active)
+            {
+                this.pulseTimer -= base.GetDeltaTime();
+                if (this.pulseTimer < 0f)
+                {
+                    this.pulseTimer = EntityStates.Missions.Moon.MoonBatteryDesignActive.pulseInterval;
+                    this.CreatePulseServer();
+                }
+            }
+        }
+
         public override void OnExit()
         {
  

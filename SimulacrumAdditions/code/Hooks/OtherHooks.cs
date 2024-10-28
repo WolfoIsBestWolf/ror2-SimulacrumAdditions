@@ -4,11 +4,15 @@ using R2API;
 using R2API.Utils;
 using RoR2;
 using RoR2.ExpansionManagement;
-using System.Security;
+using System.Collections.Generic;
 using System.Security.Permissions;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Networking;
+using RoR2.UI;
+using RoR2.Stats;
+using RoR2.UI.LogBook;
 
 namespace SimulacrumAdditions
 {
@@ -28,7 +32,210 @@ namespace SimulacrumAdditions
             //Fake Ass Ending Overwrite
             On.RoR2.EventFunctions.BeginEnding += SimulacrumEndingBeginEnding;
 
+            //Wave on End screen
+            if (WConfig.cfgWaveOnEndScreen.Value)
+            {
+                On.RoR2.UI.GameEndReportPanelController.SetDisplayData += GameEndReportPanelController_SetDisplayData;
+            }
 
+            //Reset button
+            On.RoR2.UI.InfiniteTowerMenuController.OnEventSystemDiscovered += InfiniteTowerMenuController_OnEventSystemDiscovered;
+
+        }
+
+        private static void InfiniteTowerMenuController_OnEventSystemDiscovered(On.RoR2.UI.InfiniteTowerMenuController.orig_OnEventSystemDiscovered orig, InfiniteTowerMenuController self, MPEventSystem eventSystem)
+        {
+            orig(self, eventSystem);
+            if (WConfig.ResetStatsButton.Value)
+            {
+                Transform JuicePannel = self.transform.GetChild(0).GetChild(1).GetChild(0);
+                Transform ResetButton = JuicePannel.Find("Reset");
+                if (JuicePannel.childCount == 2)
+                {
+                    GameObject newButton = GameObject.Instantiate(JuicePannel.GetChild(1).gameObject, JuicePannel);
+                    newButton.name = "Reset";
+                    newButton.GetComponent<UnityEngine.UI.Image>().color = Color.red;
+                    newButton.transform.GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "Reset selected Survivor";
+                    ResetButton = newButton.transform;
+                    JuicePannel.GetChild(1).SetAsLastSibling();
+                }
+                if (ResetButton)
+                {
+                    ResetButton.GetChild(2).gameObject.SetActive(false);
+                    HGButton button = ResetButton.GetComponent<HGButton>();
+
+                    ResetWavesCounter travelComamnd = self.gameObject.AddComponent<ResetWavesCounter>();
+                    button.onClick.m_PersistentCalls = new UnityEngine.Events.PersistentCallGroup
+                    {
+                        m_Calls = new List<UnityEngine.Events.PersistentCall>()
+                        {
+                            new UnityEngine.Events.PersistentCall
+                            {
+                                m_Target = travelComamnd,
+                                m_MethodName = "Reset",
+                                m_Mode = UnityEngine.Events.PersistentListenerMode.Void,
+                                m_Arguments = new UnityEngine.Events.ArgumentCache
+                                {
+                                }
+                            },
+                            new UnityEngine.Events.PersistentCall
+                            {
+                                m_Target = self,
+                                m_MethodName = "UpdateDisplayedSurvivor",
+                                m_Mode = UnityEngine.Events.PersistentListenerMode.Void,
+                                m_Arguments = new UnityEngine.Events.ArgumentCache
+                                {
+                                }
+                            }
+                        }
+                    };
+                }
+            }
+        }
+
+
+        public class ResetWavesCounter : MonoBehaviour
+        {
+            public void Reset()
+            {
+                Debug.LogWarning("Attempting to reset Simulacrum Wave High-scores");
+
+                MPEventSystem eventSystem = MPEventSystem.instancesList[0];
+                UserProfile userProfile;
+                if (eventSystem == null)
+                {
+                    userProfile = null;
+                }
+                else
+                {
+                    LocalUser localUser = eventSystem.localUser;
+                    userProfile = ((localUser != null) ? localUser.userProfile : null);
+                }
+                UserProfile userProfile2 = userProfile;
+                if (userProfile2 != null)
+                {
+                    StatSheet statSheet = userProfile2.statSheet;
+                    SurvivorDef survivorPreference = userProfile2.GetSurvivorPreference();
+                    if (survivorPreference)
+                    {
+                        string bodyName = BodyCatalog.GetBodyName(SurvivorCatalog.GetBodyIndexFromSurvivorIndex(survivorPreference.survivorIndex));
+                        Debug.LogWarning("Resetting for " + bodyName);
+                        statSheet.SetStatValueFromString(PerBodyStatDef.highestInfiniteTowerWaveReachedEasy.FindStatDef(bodyName ?? ""), "0");
+                        statSheet.SetStatValueFromString(PerBodyStatDef.highestInfiniteTowerWaveReachedNormal.FindStatDef(bodyName ?? ""), "0");
+                        statSheet.SetStatValueFromString(PerBodyStatDef.highestInfiniteTowerWaveReachedHard.FindStatDef(bodyName ?? ""), "0");
+
+                    }
+                    /*
+					foreach (SurvivorDef survivorDef in SurvivorCatalog.survivorDefs)
+					{
+						if (survivorDef.bodyPrefab)
+						{
+							CharacterBody body = survivorDef.bodyPrefab.GetComponent<CharacterBody>();
+							if (body)
+							{
+								string bodyName = BodyCatalog.GetBodyName(body.bodyIndex);
+								Debug.LogWarning("Resetting for " + bodyName);
+								statSheet.SetStatValueFromString(PerBodyStatDef.highestInfiniteTowerWaveReachedEasy.FindStatDef(bodyName ?? ""), "0");
+								statSheet.SetStatValueFromString(PerBodyStatDef.highestInfiniteTowerWaveReachedNormal.FindStatDef(bodyName ?? ""), "0");
+								statSheet.SetStatValueFromString(PerBodyStatDef.highestInfiniteTowerWaveReachedHard.FindStatDef(bodyName ?? ""), "0");
+
+							}
+						}
+
+					}
+					*/
+                }
+            }
+        }
+
+
+        private static void GameEndReportPanelController_SetDisplayData(On.RoR2.UI.GameEndReportPanelController.orig_SetDisplayData orig, GameEndReportPanelController self, GameEndReportPanelController.DisplayData newDisplayData)
+        {
+            orig(self, newDisplayData);
+
+
+
+            if (Run.instance && Run.instance.GetComponent<InfiniteTowerRun>())
+            {
+                LastWaveHolder lastWave = Run.instance.GetComponent<LastWaveHolder>();
+                if (!lastWave)
+                {
+                    return;
+                }
+                GameObject UI = lastWave.LatestWave;
+                if (UI)
+                {
+                    if (Run.instance.GetComponent<InfiniteTowerRun>().waveInstance)
+                    {
+                        UI = Run.instance.GetComponent<InfiniteTowerRun>().waveInstance.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab;
+                    }
+                  
+                }
+                if (UI)
+                {
+                    if (self.selectedDifficultyLabel)
+                    {
+                        if (!lastWave.UIThing)
+                        {
+
+                            GameObject newWaveSlot = Object.Instantiate(self.selectedDifficultyLabel.transform.parent.gameObject, self.selectedDifficultyLabel.transform.parent.parent);
+                            newWaveSlot.transform.SetSiblingIndex(1);
+                            lastWave.UIThing = newWaveSlot;
+
+
+                            newWaveSlot.transform.GetChild(0).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "Last Wave:";
+
+                            string waveToken = UI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token;
+                            waveToken = Language.GetString(waveToken);
+                            waveToken = string.Format(waveToken, (Run.instance as InfiniteTowerRun).waveIndex);
+                            //waveToken = "<color=#FFFFFF>" + waveToken + "</color>";
+                            newWaveSlot.transform.GetChild(2).GetComponent<RoR2.UI.LanguageTextMeshController>().token = waveToken;
+
+                            UnityEngine.UI.Image newSprite = newWaveSlot.transform.GetChild(3).GetComponent<UnityEngine.UI.Image>();
+                            UnityEngine.UI.Image waveSprite = UI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>();
+
+                            newSprite.sprite = waveSprite.sprite;
+                            newSprite.color = waveSprite.color;
+                           
+                            //Color underlin e colro
+                            newWaveSlot.transform.GetChild(2).GetComponent<RoR2.UI.HGTextMeshProUGUI>().color = UI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color;
+                            //newWaveSlot.transform.GetChild(2).GetComponent<RoR2.UI.HGTextMeshProUGUI>().m_underlineColor = UI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color;
+                            //newWaveSlot.transform.GetChild(2).GetComponent<RoR2.UI.HGTextMeshProUGUI>().fontStyle |= TMPro.FontStyles.Underline;
+                            newWaveSlot.transform.GetChild(2).SetAsLastSibling();
+
+                            try
+                            {
+                                if (UI.transform.GetChild(0).childCount == 4)
+                                {
+                                    GameObject Sprite2 = GameObject.Instantiate(newSprite.gameObject, newWaveSlot.transform);
+                                    waveSprite = UI.transform.GetChild(0).GetChild(3).GetChild(0).GetComponent<UnityEngine.UI.Image>();
+                                    newSprite = Sprite2.GetComponent<Image>();
+                                    newSprite.sprite = waveSprite.sprite;
+                                    newSprite.color = waveSprite.color;
+                                }
+                            }
+                            catch (System.Exception e)
+                            {
+
+                            }
+
+
+                            TooltipProvider toolTip = newWaveSlot.AddComponent<TooltipProvider>();
+                            toolTip.titleToken = waveToken;
+                            toolTip.titleColor = UI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color;
+                            toolTip.bodyToken = UI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token;
+                        }
+                    }
+                }
+            }
+
+        }
+
+
+        public class LastWaveHolder : MonoBehaviour
+        {
+            public GameObject UIThing;
+            public GameObject LatestWave;
         }
 
         public static void SimulacrumEndingBeginEnding(On.RoR2.EventFunctions.orig_BeginEnding orig, EventFunctions self, GameEndingDef gameEndingDef)

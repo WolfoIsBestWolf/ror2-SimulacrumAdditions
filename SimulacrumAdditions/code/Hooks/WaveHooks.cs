@@ -52,7 +52,7 @@ namespace SimulacrumAdditions
             orig(self);
 
 
-            if (WConfig.cfgSpeedUpOnLaterWaves.Value)
+            if (WConfig.cfgFasterWavesLater.Value)
             {
                 if (self.waveIndex % 5 != 0)
                 {
@@ -82,7 +82,27 @@ namespace SimulacrumAdditions
                         }
                         if (itemCount > 6)
                         {
-                            characterMaster.TrueKill();
+                            try
+                            {
+                                characterMaster.TrueKill();                   
+                            }
+                            catch (System.Exception e)
+                            {
+                                Debug.Log(e);
+                                if (characterMaster.inventory.GetItemCount(RoR2Content.Items.ExtraLife) > 0)
+                                {
+                                    characterMaster.inventory.ResetItem(RoR2Content.Items.ExtraLife);
+                                }
+                                if (characterMaster.inventory.GetItemCount(DLC1Content.Items.ExtraLifeVoid) > 0)
+                                {
+                                    characterMaster.inventory.ResetItem(DLC1Content.Items.ExtraLifeVoid);
+                                }
+                                characterMaster.CancelInvoke("RespawnExtraLife");
+                                characterMaster.CancelInvoke("PlayExtraLifeSFX");
+                                characterMaster.CancelInvoke("RespawnExtraLifeVoid");
+                                characterMaster.CancelInvoke("PlayExtraLifeVoidSFX");
+                                characterMaster.CancelInvoke("RespawnExtraLifeShrine");
+                            }                        
                             UnityEngine.Object.Destroy(characterMaster.gameObject, 2f);
                         }
                     }
@@ -346,6 +366,7 @@ namespace SimulacrumAdditions
         public static void InfiniteTowerRun_BeginNextWave(On.RoR2.InfiniteTowerRun.orig_InitializeWaveController orig, global::RoR2.InfiniteTowerRun self)
         {
             orig(self);
+
             if (NetworkServer.active)
             {
                 GoldTitanManager.TryStartChannelingTitansServer(self.safeWardController.gameObject, self.safeWardController.gameObject.transform.position, null, null);
@@ -356,26 +377,36 @@ namespace SimulacrumAdditions
             //Radius
             SimulacrumExtrasHelper radiusManip = self.waveInstance.GetComponent<SimulacrumExtrasHelper>();
 
-            float newRadius = 60;
+            float newRadius = VoidSafeWard_Hooks.baseRadius;
+            float originalRadius = self.safeWardController.wardStateMachine.GetComponent<VerticalTubeZone>().radius;
 
             if (radiusManip && radiusManip.newRadius > 0)
             {
-                newRadius = radiusManip.newRadius - 5 + Run.instance.participatingPlayerCount * 5;
-
+                newRadius = VoidSafeWard_Hooks.baseRadius + (radiusManip.newRadius - 60) + (Run.instance.participatingPlayerCount) * VoidSafeWard_Hooks.radiusPerPlayer;
             }
             else
             {
-                newRadius += Run.instance.participatingPlayerCount * 5;
+                newRadius += Run.instance.participatingPlayerCount * VoidSafeWard_Hooks.radiusPerPlayer;
                 if (waveController.isBossWave)
                 {
                     newRadius += 5;
                 }
             }
+            if (originalRadius > newRadius)
+            {
+                VoidSafeWard_Hooks.RadiusShrinker shrink = self.gameObject.AddComponent<VoidSafeWard_Hooks.RadiusShrinker>();
+                shrink.originalRadius = originalRadius;
+                shrink.newRadius = newRadius;
+            }
+            else
+            {
+                self.safeWardController.wardStateMachine.state.SetFieldValue("radius", newRadius);
+                self.safeWardController.holdoutZoneController.baseRadius = newRadius;
+            }
 
-            self.safeWardController.wardStateMachine.state.SetFieldValue("radius", newRadius);
-            self.safeWardController.holdoutZoneController.baseRadius = newRadius;
-            combatDirector.minSpawnRange = 20;
-            combatDirector.maxSpawnDistance = newRadius;
+
+            combatDirector.minSpawnRange = 15;
+            combatDirector.maxSpawnDistance = newRadius-5;
 
 
             //
@@ -425,8 +456,7 @@ namespace SimulacrumAdditions
                                 self.enemyInventory.GiveItem(RoR2Content.Items.BoostHp, self.waveIndex / 10 * 2);
                                 Chat.SendBroadcastChat(new Chat.SimpleChatMessage
                                 {
-                                    //baseToken = "<style=cWorldEvent>[WARNING] <color=#307FFF>Visions of Heresy</color> has been integrated into the Simulacrum...!</style>",
-                                    baseToken = "<style=cWorldEvent>[WARNING] Running test with <color=#307FFF>Visions of Heresy</color></style>",
+                                     baseToken = "ITWAVE_HERESY_ANNOUNCE_EYE",
                                 });
                             }
                             else
@@ -437,8 +467,7 @@ namespace SimulacrumAdditions
                                 self.enemyInventory.GiveItem(ItemHelpers.ITDamageDown, 5);
                                 Chat.SendBroadcastChat(new Chat.SimpleChatMessage
                                 {
-                                    //baseToken = "<style=cWorldEvent>[WARNING] <color=#307FFF>Hooks and Strides of Heresy</color> have been integrated into the Simulacrum...!</style>",
-                                    baseToken = "<style=cWorldEvent>[WARNING] Running test with <color=#307FFF>Hooks and Strides of Heresy</color></style>",
+                                     baseToken = "ITWAVE_HERESY_ANNOUNCE_ARM",
                                 });
                             }
                         }
@@ -464,7 +493,7 @@ namespace SimulacrumAdditions
 
                 if (NetworkServer.active)
                 {
-                    if (WConfig.cfgSimuCreditsRebalance.Value)
+                    if (WConfig.cfgSimuMoreGold.Value)
                     {
                         self.waveInstance.GetComponent<CombatDirector>().goldRewardCoefficient *= self.participatingPlayerCount; //Keep in mind cost doesn't scale money just gets divided by player count
                         self.waveInstance.GetComponent<CombatDirector>().goldRewardCoefficient *= Mathf.Max(0.75f, 1.5f - 0.5f * (self.waveIndex / 20));
@@ -514,8 +543,10 @@ namespace SimulacrumAdditions
 
             if (WConfig.cfgExtraDifficuly.Value)
             {
-                combatDirector.eliteBias = Mathf.Min(combatDirector.eliteBias * 0.5f * (1 - (self.waveIndex - 1 - 60f) / 60f), combatDirector.eliteBias); //Why is it 1.5f in Simu anyways
-                combatDirector.eliteBias = Mathf.Max(combatDirector.eliteBias, 0.1f);
+                /*combatDirector.eliteBias = Mathf.Min(combatDirector.eliteBias * 0.5f * (1 - (self.waveIndex - 1 - 70f) / 70f), combatDirector.eliteBias); //Why is it 1.5f in Simu anyways
+                combatDirector.eliteBias = Mathf.Max(combatDirector.eliteBias, 0.5f);*/
+                combatDirector.eliteBias = Mathf.Min(combatDirector.eliteBias - (float)self.waveIndex / 100f, combatDirector.eliteBias); //Why is it 1.5f in Simu anyways
+                combatDirector.eliteBias = Mathf.Max(combatDirector.eliteBias, 0.5f);
 
                 float creditsMulti = 1f + ((self.waveIndex - 1) * 2f / 100f);
                 if (creditsMulti > 3)
@@ -525,7 +556,7 @@ namespace SimulacrumAdditions
                 waveController.immediateCreditsFraction *= creditsMulti;
 
             }
-            if (WConfig.cfgSpeedUpOnLaterWaves.Value)
+            if (WConfig.cfgFasterWavesLater.Value)
             {
                 if (self.waveIndex % 5 == 0)
                 {
@@ -558,11 +589,11 @@ namespace SimulacrumAdditions
                 }
                 else if (self.waveIndex > 20)
                 {
-                    waveController.wavePeriodSeconds *= 0.85f;
+                    waveController.wavePeriodSeconds *= 0.9f;
                 }
                 else if (self.waveIndex > 40)
                 {
-                    waveController.wavePeriodSeconds *= 0.75f;
+                    waveController.wavePeriodSeconds *= 0.8f;
                 }
                 else if (self.waveIndex > 60)
                 {
@@ -573,10 +604,16 @@ namespace SimulacrumAdditions
             {
                 waveController.maxSquadSize += 10;
             }
-
+            if (waveController.immediateCreditsFraction < 0)
+            {
+                waveController.immediateCreditsFraction = 0f;
+            }
 
             Debug.Log(self.waveIndex + " immediateCreditsFraction: " + waveController.immediateCreditsFraction + " eliteBias: " + combatDirector.eliteBias + " wavePeriodSeconds: " + waveController.wavePeriodSeconds);
-
+            
+            Hooks_Other.LastWaveHolder lastWaveInfo = self.gameObject.GetComponent<Hooks_Other.LastWaveHolder>();
+            lastWaveInfo.LatestWave = waveController.overlayEntries[1].prefab;
+ 
         }
 
 
@@ -631,76 +668,79 @@ namespace SimulacrumAdditions
         private static void InfiniteTowerWaveController_OnCombatSquadMemberDiscovered(On.RoR2.InfiniteTowerWaveController.orig_OnCombatSquadMemberDiscovered orig, InfiniteTowerWaveController self, CharacterMaster master)
         {
             orig(self, master);
-
-            int kill = master.inventory.GetItemCount(ItemHelpers.ITKillOnCompletion);
-            if (kill > 0)
+            if (master.inventory)
             {
-                self.combatSquad.RemoveMember(master);
-                CharacterBody body = master.GetBody();
-
-                if (master.inventory.GetItemCount(ItemHelpers.ITDisableAllSkills) > 0)
+                int kill = master.inventory.GetItemCount(ItemHelpers.ITKillOnCompletion);
+                if (kill > 0)
                 {
-                    body.AddBuff(DLC2Content.Buffs.DisableAllSkills);
-                    body.AddBuff(RoR2Content.Buffs.Nullified);
-                }
+                    self.combatSquad.RemoveMember(master);
+                    CharacterBody body = master.GetBody();
 
-                int horror = master.inventory.GetItemCount(ItemHelpers.ITHorrorName);
-                if (horror > 0)
-                { 
- 
-                }
-                if (NetworkServer.active)
-                {
-                    RoR2.CharacterAI.BaseAI tempAI = master.GetComponent<RoR2.CharacterAI.BaseAI>();
-                    if (tempAI)
-                    {
-                        tempAI.fullVision = true;
-                    }
-                    for (int i = 0; i < tempAI.skillDrivers.Length; i++)
-                    {
-                        tempAI.skillDrivers[i].maxUserHealthFraction = 1;
-                        if (kill == 4)
-                        {
-                            if (tempAI.skillDrivers[i].skillSlot == SkillSlot.Special)
-                            {
-                                tempAI.skillDrivers[i].maxTimesSelected = 1;
-                            }
-                        }
-                        else if (kill == 5)
-                        {
-                            if (tempAI.skillDrivers[i].skillSlot == SkillSlot.Utility)
-                            {
-                                tempAI.skillDrivers[i].maxTimesSelected = 0;
-                            }
-                        }
-                        else if (kill == 6)
-                        {
-                            if (tempAI.skillDrivers[i].skillSlot == SkillSlot.Utility)
-                            {
-                                tempAI.skillDrivers[i].maxTimesSelected = 2;
-                            }
-                        }
-                    }
-                    if (kill == 10)
+                    if (master.inventory.GetItemCount(ItemHelpers.ITDisableAllSkills) > 0)
                     {
                         body.AddBuff(DLC2Content.Buffs.DisableAllSkills);
-                    }
-                    if (kill == 78 || kill == 15)
-                    {
-                    }
-                    else
-                    {
-                        body.AddBuff(RoR2Content.Buffs.Immune);
+                        body.AddBuff(RoR2Content.Buffs.Nullified);
                     }
 
+                    int horror = master.inventory.GetItemCount(ItemHelpers.ITHorrorName);
+                    if (horror > 0)
+                    {
+
+                    }
+                    if (NetworkServer.active)
+                    {
+                        RoR2.CharacterAI.BaseAI tempAI = master.GetComponent<RoR2.CharacterAI.BaseAI>();
+                        if (tempAI)
+                        {
+                            tempAI.fullVision = true;
+                        }
+                        for (int i = 0; i < tempAI.skillDrivers.Length; i++)
+                        {
+                            tempAI.skillDrivers[i].maxUserHealthFraction = 1;
+                            if (kill == 4)
+                            {
+                                if (tempAI.skillDrivers[i].skillSlot == SkillSlot.Special)
+                                {
+                                    tempAI.skillDrivers[i].maxTimesSelected = 1;
+                                }
+                            }
+                            else if (kill == 5)
+                            {
+                                if (tempAI.skillDrivers[i].skillSlot == SkillSlot.Utility)
+                                {
+                                    tempAI.skillDrivers[i].maxTimesSelected = 0;
+                                }
+                            }
+                            else if (kill == 6)
+                            {
+                                if (tempAI.skillDrivers[i].skillSlot == SkillSlot.Utility)
+                                {
+                                    tempAI.skillDrivers[i].maxTimesSelected = 2;
+                                }
+                            }
+                        }
+                        if (kill == 10)
+                        {
+                            body.AddBuff(DLC2Content.Buffs.DisableAllSkills);
+                        }
+                        if (kill == 78 || kill == 15)
+                        {
+                        }
+                        else
+                        {
+                            body.AddBuff(RoR2Content.Buffs.Immune);
+                        }
+
+                    }
                 }
-            }
-            else if (self.hasEnabledEnemyIndicators && master.masterIndex == SimuMain.IndexAffixHealingCore)
-            {
-                self.combatSquad.RemoveMember(master);
-            }
+                else if (self.hasEnabledEnemyIndicators && master.masterIndex == SimuMain.IndexAffixHealingCore)
+                {
+                    self.combatSquad.RemoveMember(master);
+                }
 
+            }
         }
+            
     }
 
 

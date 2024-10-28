@@ -22,8 +22,8 @@ namespace SimulacrumAdditions
 
             #region Design
             //Lunar
-            GameObject InfiniteTowerWavePulseLunar = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveDefault.prefab").WaitForCompletion(), "InfiniteTowerWavePulseLunar", true);
-            GameObject InfiniteTowerWavePulseLunarUI = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentBossLunarWaveUI.prefab").WaitForCompletion(), "InfiniteTowerWavePulseLunarUI", false);
+            GameObject InfiniteTowerWavePulseLunar = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWavePulseLunar", true);
+            GameObject InfiniteTowerWavePulseLunarUI = PrefabAPI.InstantiateClone(Const.LunarWaveUI, "InfiniteTowerWavePulseLunarUI", false);
 
             InfiniteTowerWavePulseLunar.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITBasicBonusLunar;
             InfiniteTowerWavePulseLunar.GetComponent<InfiniteTowerWaveController>().baseCredits = 160;
@@ -40,21 +40,22 @@ namespace SimulacrumAdditions
             Pulse1.buffDef = Cripple;
             Pulse1.buffDuration = 3;
             Pulse1.pulsePrefab = PulseLunar;
-            Pulse1.baseForce = 7000;
+            Pulse1.baseForce = 6000;
             Pulse1.pulseInterval = 1.5f;
 
-            SimulacrumPulseWave Pulse2 = InfiniteTowerWavePulseLunar.AddComponent<SimulacrumPulseWave>();
+            SimulacrumPulseWave Pulse2;
+            /*SimulacrumPulseWave Pulse2 = InfiniteTowerWavePulseLunar.AddComponent<SimulacrumPulseWave>();
             Pulse2.buffDef = Cripple;
             Pulse2.buffDuration = 3;
             Pulse2.pulsePrefab = PulseLunar;
-            Pulse2.baseForce = 6000;
+            Pulse2.baseForce = 2000;
             Pulse2.pulseInterval = 1.5f;
-            Pulse2.affectedTeam = TeamIndex.Monster;
+            Pulse2.affectedTeam = TeamIndex.Monster;*/
 
             //
             InfiniteTowerWavePulseLunar.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWavePulseLunarUI;
-            InfiniteTowerWavePulseLunarUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "Wave {0} - Augment of Design";
-            InfiniteTowerWavePulseLunarUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "A crippling pulse is being emmited.";
+            InfiniteTowerWavePulseLunarUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_PULSE_LUNAR";
+            InfiniteTowerWavePulseLunarUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_PULSE_LUNAR";
             InfiniteTowerWavePulseLunarUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = Cripple.iconSprite;
             InfiniteTowerWavePulseLunarUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color = Cripple.buffColor;
             InfiniteTowerWavePulseLunarUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0.55f, 0.85f, 0.95f);
@@ -66,8 +67,8 @@ namespace SimulacrumAdditions
             #region Nullifcation
             //
             //Void
-            GameObject InfiniteTowerWavePulseVoid = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveDefault.prefab").WaitForCompletion(), "InfiniteTowerWavePulseVoid", true);
-            GameObject InfiniteTowerWavePulseVoidUI = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentBossVoidWaveUI.prefab").WaitForCompletion(), "InfiniteTowerWavePulseVoidUI", false);
+            GameObject InfiniteTowerWavePulseVoid = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWavePulseVoid", true);
+            GameObject InfiniteTowerWavePulseVoidUI = PrefabAPI.InstantiateClone(Const.VoidWaveUI, "InfiniteTowerWavePulseVoidUI", false);
 
             InfiniteTowerWavePulseVoid.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITBasicBonusVoid;
             InfiniteTowerWavePulseVoid.GetComponent<InfiniteTowerWaveController>().baseCredits = 160;
@@ -76,8 +77,7 @@ namespace SimulacrumAdditions
             PulseVoid.GetComponent<PulseController>().finalRadius = 75;
             PulseVoid.GetComponent<PulseController>().duration = 0.6f;
             Material matNewVoid = GameObject.Instantiate(PulseLunar.transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>().material);
-            Texture2D texRampPulseVoid = new Texture2D(256, 8, TextureFormat.DXT1, false);
-            texRampPulseVoid.LoadImage(Properties.Resources.texRampPulseVoid, true);
+            Texture2D texRampPulseVoid = Assets.Bundle.LoadAsset<Texture2D>("Assets/Simulacrum/Main/texRampPulseVoid.png");
             texRampPulseVoid.wrapMode = TextureWrapMode.Clamp;
             texRampPulseVoid.filterMode = FilterMode.Point;
             matNewVoid.SetTexture("_RemapTex", texRampPulseVoid);
@@ -104,8 +104,8 @@ namespace SimulacrumAdditions
             Pulse2.affectedTeam = TeamIndex.Monster;
             //
             InfiniteTowerWavePulseVoid.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWavePulseVoidUI;
-            InfiniteTowerWavePulseVoidUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "Wave {0} - Augment of Nullifciation";
-            InfiniteTowerWavePulseVoidUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "Nullifying grounded subjects.";
+            InfiniteTowerWavePulseVoidUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_PULSE_VOID";
+            InfiniteTowerWavePulseVoidUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_PULSE_VOID";
             InfiniteTowerWavePulseVoidUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = Nullified.iconSprite;
             InfiniteTowerWavePulseVoidUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color = Nullified.buffColor;
             InfiniteTowerWavePulseVoidUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = Nullified.buffColor;
@@ -117,8 +117,8 @@ namespace SimulacrumAdditions
             #region Big Suck
             //
             //Reverse Force
-            GameObject InfiniteTowerWavePulseSuckInward = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveDefault.prefab").WaitForCompletion(), "InfiniteTowerWavePulseSuckInward", true);
-            GameObject InfiniteTowerWavePulseSuckInwardUI = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentWaveUI.prefab").WaitForCompletion(), "InfiniteTowerWavePulseSuckInwardUI", false);
+            GameObject InfiniteTowerWavePulseSuckInward = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWavePulseSuckInward", true);
+            GameObject InfiniteTowerWavePulseSuckInwardUI = PrefabAPI.InstantiateClone(Const.BasicWaveUI, "InfiniteTowerWavePulseSuckInwardUI", false);
 
             InfiniteTowerWavePulseSuckInward.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITCategoryUtility;
             InfiniteTowerWavePulseSuckInward.GetComponent<InfiniteTowerWaveController>().baseCredits = 160;
@@ -128,8 +128,7 @@ namespace SimulacrumAdditions
             PulseSuckInward.GetComponent<PulseController>().duration = 1f;
             PulseSuckInward.transform.localPosition = new Vector3(0, -2.5f, 0);
             Material matNewPulseSuckInward = GameObject.Instantiate(PulseLunar.transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>().material);
-            Texture2D texRampPulsematNewPulseSuckInward = new Texture2D(256, 8, TextureFormat.DXT1, false);
-            texRampPulsematNewPulseSuckInward.LoadImage(Properties.Resources.texRampPulseSuck, true);
+            Texture2D texRampPulsematNewPulseSuckInward = Assets.Bundle.LoadAsset<Texture2D>("Assets/Simulacrum/Main/texRampPulseSuck.png");
             texRampPulsematNewPulseSuckInward.wrapMode = TextureWrapMode.Clamp;
             texRampPulsematNewPulseSuckInward.filterMode = FilterMode.Point;
             matNewPulseSuckInward.SetTexture("_RemapTex", texRampPulsematNewPulseSuckInward);
@@ -144,20 +143,20 @@ namespace SimulacrumAdditions
             Pulse1.buffDef = null;
             Pulse1.buffDuration = 0;
             Pulse1.pulsePrefab = PulseSuckInward;
-            Pulse1.baseForce = -11000;
-            Pulse1.pulseInterval = 1.15f;
+            Pulse1.baseForce = -7500;
+            Pulse1.pulseInterval = 1.3f;
 
             Pulse2 = InfiniteTowerWavePulseSuckInward.AddComponent<SimulacrumPulseWave>();
             Pulse2.buffDef = null;
             Pulse2.buffDuration = 0;
             Pulse2.pulsePrefab = PulseSuckInward;
             Pulse2.baseForce = -11000;
-            Pulse2.pulseInterval = 1.15f;
+            Pulse2.pulseInterval = 1.3f;
             Pulse2.affectedTeam = TeamIndex.Monster;
             //
             InfiniteTowerWavePulseSuckInward.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWavePulseSuckInwardUI;
-            InfiniteTowerWavePulseSuckInwardUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "Wave {0} - Augment of Attraction";
-            InfiniteTowerWavePulseSuckInwardUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "Grounded monsters get pulled inwards.";
+            InfiniteTowerWavePulseSuckInwardUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_PULSE_BIGSUCK";
+            InfiniteTowerWavePulseSuckInwardUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_PULSE_BIGSUCK";
             //InfiniteTowerWavePulseSuckInwardUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color = new Color(0.55f, 0.55f, 0.5f);
             InfiniteTowerWavePulseSuckInwardUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = ElementalRingVoidCooldown.iconSprite;
             InfiniteTowerWavePulseSuckInwardUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color = ElementalRingVoidCooldown.buffColor;
@@ -169,8 +168,8 @@ namespace SimulacrumAdditions
             #endregion
             #region Malachite Pulse
             //PulseNoHealing
-            GameObject InfiniteTowerWavePulseNoHealing = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveDefault.prefab").WaitForCompletion(), "InfiniteTowerWavePulseNoHealing", true);
-            GameObject InfiniteTowerWavePulseNoHealingUI = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentWaveUI.prefab").WaitForCompletion(), "InfiniteTowerWavePulseNoHealingUI", false);
+            GameObject InfiniteTowerWavePulseNoHealing = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWavePulseNoHealing", true);
+            GameObject InfiniteTowerWavePulseNoHealingUI = PrefabAPI.InstantiateClone(Const.BasicWaveUI, "InfiniteTowerWavePulseNoHealingUI", false);
 
             InfiniteTowerWavePulseNoHealing.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITCategoryHealing;
             InfiniteTowerWavePulseNoHealing.GetComponent<InfiniteTowerWaveController>().baseCredits = 160;
@@ -179,8 +178,7 @@ namespace SimulacrumAdditions
             PulseNoHealing.GetComponent<PulseController>().finalRadius = 150;
             PulseNoHealing.GetComponent<PulseController>().duration = 1.5f;
             Material matNewPulseNoHealing = GameObject.Instantiate(PulseLunar.transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>().material);
-            Texture2D texRampPulsematNewPulseNoHealing = new Texture2D(256, 8, TextureFormat.DXT1, false);
-            texRampPulsematNewPulseNoHealing.LoadImage(Properties.Resources.texRampPulseNoHeal, true);
+            Texture2D texRampPulsematNewPulseNoHealing = Assets.Bundle.LoadAsset<Texture2D>("Assets/Simulacrum/Main/texRampPulseNoHeal.png");
             texRampPulsematNewPulseNoHealing.wrapMode = TextureWrapMode.Clamp;
             texRampPulsematNewPulseNoHealing.filterMode = FilterMode.Point;
             matNewPulseNoHealing.SetTexture("_RemapTex", texRampPulsematNewPulseNoHealing);
@@ -198,8 +196,8 @@ namespace SimulacrumAdditions
             InfiniteTowerWavePulseNoHealing.GetComponent<SimulacrumPulseWave>().pulseInterval = 1.5f;
             //
             InfiniteTowerWavePulseNoHealing.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWavePulseNoHealingUI;
-            InfiniteTowerWavePulseNoHealingUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "Wave {0} - Augment of Poison";
-            InfiniteTowerWavePulseNoHealingUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "Your healing will be disabled if pulsed.";
+            InfiniteTowerWavePulseNoHealingUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_PULSE_MALACHITE";
+            InfiniteTowerWavePulseNoHealingUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_PULSE_MALACHITE";
             //InfiniteTowerWavePulseNoHealingUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color = new Color(0.3f, 0.6f, 0.3f);
             InfiniteTowerWavePulseNoHealingUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = HealingDisabled.iconSprite;
             InfiniteTowerWavePulseNoHealingUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color = HealingDisabled.buffColor;

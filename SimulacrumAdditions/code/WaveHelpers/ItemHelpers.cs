@@ -100,6 +100,7 @@ namespace SimulacrumAdditions
             ITHorrorName.pickupModelPrefab = AACannon.pickupModelPrefab;
             customItem = new CustomItem(ITHorrorName, new ItemDisplayRule[0]);
             ItemAPI.Add(customItem);
+
             On.RoR2.Util.GetBestBodyName += (orig, bodyObject) =>
             {
                 if (bodyObject)
@@ -109,7 +110,8 @@ namespace SimulacrumAdditions
                     {
                         if (characterBody.inventory.GetItemCount(ITHorrorName) > 0)
                         {
-                            return "Unknown Horror";
+                            return Language.GetString("HORROR_BODY_NAME");
+                            //return "Unknown Horror";
                         }
                     }
                 }
@@ -152,7 +154,7 @@ namespace SimulacrumAdditions
             ITMakeDudeInvisible.canRemove = false;
             ITMakeDudeInvisible.pickupIconSprite = AACannon.pickupIconSprite;
             ITMakeDudeInvisible.pickupModelPrefab = AACannon.pickupModelPrefab;
-            customItem = new CustomItem(ImmuneToVoidFog, new ItemDisplayRule[0]);
+            customItem = new CustomItem(ITMakeDudeInvisible, new ItemDisplayRule[0]);
             ItemAPI.Add(customItem);
 
             ITDisableAllSkills.name = "ITDisableAllSkills";
@@ -165,7 +167,7 @@ namespace SimulacrumAdditions
             ITDisableAllSkills.canRemove = false;
             ITDisableAllSkills.pickupIconSprite = AACannon.pickupIconSprite;
             ITDisableAllSkills.pickupModelPrefab = AACannon.pickupModelPrefab;
-            customItem = new CustomItem(ImmuneToVoidFog, new ItemDisplayRule[0]);
+            customItem = new CustomItem(ITDisableAllSkills, new ItemDisplayRule[0]);
             ItemAPI.Add(customItem);
 
 
@@ -218,18 +220,30 @@ namespace SimulacrumAdditions
 
                     }
                 }
-                int numCooldown = self.inventory.GetItemCount(ItemHelpers.ITCooldownUp);
+                float numCooldown = self.inventory.GetItemCount(ItemHelpers.ITCooldownUp);
                 if (numCooldown > 0)
                 {
                     if (self.skillLocator.primary)
                     {
-                        self.skillLocator.primary.cooldownScale = 1 + numCooldown / 10;
+                        self.skillLocator.primary.cooldownScale *= (1 + (numCooldown / 10));
+                    }
+                    if (self.skillLocator.secondaryBonusStockSkill)
+                    {
+                        self.skillLocator.secondaryBonusStockSkill.cooldownScale *= 1 + numCooldown / 10;
+                    }
+                    if (self.skillLocator.utilityBonusStockSkill)
+                    {
+                        self.skillLocator.utilityBonusStockSkill.cooldownScale *= 1 + numCooldown / 10;
+                    }
+                    if (self.skillLocator.specialBonusStockSkill)
+                    {
+                        self.skillLocator.specialBonusStockSkill.cooldownScale *= 1 + numCooldown / 10;
                     }
                 }
 
                 if (self.HasBuff(Waves_BuffRelated.bdSlippery))
                 {
-                    self.acceleration /= 5;
+                    self.acceleration /= 7.5f;
                     self.moveSpeed *= 1.5f;
                 }
                 if (self.HasBuff(Waves_BuffRelated.bdBadLuck))

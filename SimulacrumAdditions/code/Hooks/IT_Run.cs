@@ -71,10 +71,10 @@ namespace SimulacrumAdditions
             {
                 self.enemyItemPeriod /= 2;
             }
-            else if (self.enemyItemPatternIndex >= 10 && self.enemyItemPeriod > 3)
+            /*else if (self.enemyItemPatternIndex >= 10 && self.enemyItemPeriod > 3)
             {
                 self.enemyItemPeriod /= 2;
-            }
+            }*/
 
             orig(self);
 
@@ -136,17 +136,22 @@ namespace SimulacrumAdditions
 
         public static GameObject ForceSuperBossWave(On.RoR2.InfiniteTowerWaveCategory.orig_SelectWavePrefab orig, InfiniteTowerWaveCategory self, InfiniteTowerRun run, Xoroshiro128Plus rng)
         {
-            GameObject temp = orig(self, run, rng);
-            Debug.Log(run.waveIndex + " SelectWavePrefab  " + temp);
-
-            //Debug.LogWarning(run.waveIndex % 50);
             if (run.waveIndex >= SimuMain.SimuForcedBossStartAtXWaves && run.waveIndex % SimuMain.SimuForcedBossEveryXWaves == SimuMain.SimuForcedBossWaveRest)
             {
-                SimuMain.ITSuperBossWaves.GenerateWeightedSelection();
-                temp = SimuMain.ITSuperBossWaves.weightedSelection.Evaluate(rng.nextNormalizedFloat);
+                //SimuMain.ITSuperBossWaves.GenerateWeightedSelection();
+                //temp = SimuMain.ITSuperBossWaves.weightedSelection.Evaluate(rng.nextNormalizedFloat);
+                //temp = SimuMain.ITSuperBossWaves.SelectWavePrefab(run, rng);
+                GameObject temp = orig(SimuMain.ITSuperBossWaves, run, rng);
                 Debug.Log("Forcing SuperBoss");
+                Debug.Log(run.waveIndex + " Forced SuperBoss  " + temp);
+                return temp;
             }
-            return temp;
+            else
+            {
+                GameObject temp = orig(self, run, rng);
+                Debug.Log(run.waveIndex + " SelectWavePrefab  " + temp);
+                return temp;
+            }
         }
 
         public static void PreventRepeatingStages(On.RoR2.InfiniteTowerRun.orig_OnWaveAllEnemiesDefeatedServer orig, InfiniteTowerRun self, InfiniteTowerWaveController wc)
@@ -192,6 +197,7 @@ namespace SimulacrumAdditions
             eqDrone.GetComponent<RoR2.StartEvent>().enabled = false;
             eqDrone.AddComponent<EquipmentDroneInSimulacrum>();
             Object.Destroy(eqDrone.GetComponent<RoR2.SetDontDestroyOnLoad>());
+            self.gameObject.AddComponent<Hooks_Other.LastWaveHolder>();
         }
 
         private static void ITRun_SetThingsOn_End(On.RoR2.InfiniteTowerRun.orig_OnDestroy orig, InfiniteTowerRun self)
@@ -200,7 +206,7 @@ namespace SimulacrumAdditions
             GameObject eqDrone = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterMasters/EquipmentDroneMaster");
             eqDrone.GetComponent<RoR2.StartEvent>().enabled = true;
             eqDrone.AddComponent<RoR2.SetDontDestroyOnLoad>();
-            eqDrone.GetComponent<EquipmentDroneInSimulacrum>();
+            Object.Destroy(eqDrone.GetComponent<EquipmentDroneInSimulacrum>());
             SimulacrumDCCS.MakeITSand(false);
             if (WConfig.cfgVoidCoins.Value)
             {

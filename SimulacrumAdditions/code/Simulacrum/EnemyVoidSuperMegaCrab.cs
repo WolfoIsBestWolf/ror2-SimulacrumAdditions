@@ -3,39 +3,35 @@ using RoR2;
 using RoR2.Navigation;
 //using System;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.AddressableAssets;
 
 namespace SimulacrumAdditions
 {
     public class SuperMegaCrab
     {
-        public static GameObject SuperCrabBody = R2API.PrefabAPI.InstantiateClone(RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/VoidMegaCrabBody"), "VoidSuperMegaCrabBody", true);
-        public static GameObject SuperCrabMaster = R2API.PrefabAPI.InstantiateClone(RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterMasters/VoidMegaCrabMaster"), "VoidSuperMegaCrabMaster", true);
+        public static GameObject SuperCrabBody = PrefabAPI.InstantiateClone(RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/VoidMegaCrabBody"), "VoidSuperMegaCrabBody", true);
+        public static GameObject SuperCrabMaster = PrefabAPI.InstantiateClone(RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterMasters/VoidMegaCrabMaster"), "VoidSuperMegaCrabMaster", true);
         public static FamilyDirectorCardCategorySelection dccsVoidFamilyNoBarnacle = UnityEngine.Object.Instantiate(Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/DLC1/Common/dccsVoidFamily.asset").WaitForCompletion());
-
+        public static UnlockableDef unlockable = ScriptableObject.CreateInstance<UnlockableDef>();
 
         public static void Start()
         {
             //InfiniteTowerWaveBossSuperCrab
-            GameObject InfiniteTowerWaveBossSuperCrab = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveBossScav.prefab").WaitForCompletion(), "InfiniteTowerWaveBossSuperVoidMegaCrab", true);
-            GameObject InfiniteTowerWaveBossSuperCrabUI = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentBossScavWaveUI.prefab").WaitForCompletion(), "InfiniteTowerWaveBossSuperVoidMegaCrabUI", false);
+            GameObject InfiniteTowerWaveBossSuperCrab = PrefabAPI.InstantiateClone(Const.ScavWave, "InfiniteTowerWaveBossSuperVoidMegaCrab", true);
+            GameObject InfiniteTowerWaveBossSuperCrabUI = PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentBossScavWaveUI.prefab").WaitForCompletion(), "InfiniteTowerWaveBossSuperVoidMegaCrabUI", false);
             CharacterSpawnCard cscSuperCrab;
 
             ContentAddition.AddBody(SuperCrabBody);
             ContentAddition.AddMaster(SuperCrabMaster);
-
-
             SuperCrabMaster.GetComponent<CharacterMaster>().bodyPrefab = SuperCrabBody;
-            if (!WConfig.cfgNewEnemiesVisible.Value)
-            {
-                SuperCrabBody.GetComponent<DeathRewards>().logUnlockableDef = null;
-            }
+
 
 
             CharacterBody CrabCharacterBody = SuperCrabBody.GetComponent<CharacterBody>();
             CrabCharacterBody.bodyFlags |= CharacterBody.BodyFlags.ImmuneToVoidDeath;
 
-            LanguageAPI.Add("SUPERMEGACRAB_BODY_NAME", "Deepend Void Devastator", "en");
+
             CrabCharacterBody.baseNameToken = "SUPERMEGACRAB_BODY_NAME";
 
             Texture VoidSuperMegaCrabBody = Addressables.LoadAssetAsync<Texture>(key: "RoR2/DLC1/VoidSuperMegaCrabBody.png").WaitForCompletion();
@@ -43,7 +39,7 @@ namespace SimulacrumAdditions
 
 
             //Stats
-            CrabCharacterBody.baseMaxHealth = 1880; //Base Health is 2800*1.6 cuz Trans Shrimp
+            CrabCharacterBody.baseMaxHealth = 1875*2; //Base Health is 2800*1.6 cuz Trans Shrimp
             CrabCharacterBody.baseDamage *= 0.2f; //Bro gets so many damage items
             CrabCharacterBody.baseMoveSpeed *= 0.75f;
             CrabCharacterBody.baseAttackSpeed *= 0.75f;
@@ -63,6 +59,7 @@ namespace SimulacrumAdditions
                 }
                 orig(self);
             };
+            On.EntityStates.VoidMegaCrab.DeathState.OnExit += DeathState_OnExit;
 
 
             //Visuals
@@ -110,10 +107,13 @@ namespace SimulacrumAdditions
                 new GivePickupsOnStart.ItemInfo { itemString = ("BearVoid"), count = 1, },
                 new GivePickupsOnStart.ItemInfo { itemString = ("MissileVoid"), count = 1, },
                 new GivePickupsOnStart.ItemInfo { itemString = ("ElementalRingVoid"), count = 1, },
-                new GivePickupsOnStart.ItemInfo { itemString = ("EquipmentMagazineVoid"), count = 1, },
+                //new GivePickupsOnStart.ItemInfo { itemString = ("EquipmentMagazineVoid"), count = 1, },
                 //new GivePickupsOnStart.ItemInfo { itemString = ("SlowOnHitVoid"), count = 1, }, //Tentabaubel duration stacks so keep it low
                 new GivePickupsOnStart.ItemInfo { itemString = ("VoidMegaCrabItem"), count = 3, },
-
+                new GivePickupsOnStart.ItemInfo { itemString = ("CutHp"), count = 1, }
+            };
+            SuperCrabMaster.GetComponent<GivePickupsOnStart>().itemDefInfos = new GivePickupsOnStart.ItemDefInfo[] {
+                new GivePickupsOnStart.ItemDefInfo { itemDef = ItemHelpers.ITCooldownUp, count = 5, },
             };
             //SuperCrabMaster.AddComponent<GivePickupsOnStart>().equipmentString = "Tonic";
 
@@ -156,9 +156,7 @@ namespace SimulacrumAdditions
 
             InfiniteTowerWaveBossSuperCrab.GetComponent<InfiniteTowerExplicitSpawnWaveController>().secondsBeforeSuddenDeath *= 2f;
             //
-            Texture2D texITWaveSuperDevestator = new Texture2D(256, 256, TextureFormat.DXT5, false);
-            texITWaveSuperDevestator.LoadImage(Properties.Resources.texITWaveSuperDevestator, true);
-            texITWaveSuperDevestator.filterMode = FilterMode.Bilinear;
+            Texture2D texITWaveSuperDevestator = Assets.Bundle.LoadAsset<Texture2D>("Assets/Simulacrum/Wave/waveVoid.png");
             Sprite texITWaveSuperDevestatorS = Sprite.Create(texITWaveSuperDevestator, WRect.rec64, WRect.half);
 
             //Color Color = new Color(0.7f, 0.6278f, 1f, 1);
@@ -168,20 +166,42 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveBossSuperCrabUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = Color;
 
             InfiniteTowerWaveBossSuperCrab.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWaveBossSuperCrabUI;
-            InfiniteTowerWaveBossSuperCrabUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "Wave {0} - Boss Augment of the Devastator";
-            InfiniteTowerWaveBossSuperCrabUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "Face the deepened Void Devastator.";
+            InfiniteTowerWaveBossSuperCrabUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BOSS_SUPERCRAB";
+            InfiniteTowerWaveBossSuperCrabUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BOSS_SUPERCRAB";
             //
             RoR2.InfiniteTowerWaveCategory.WeightedWave ITSuperCrab = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveBossSuperCrab, weight = 4f, prerequisites = SimuMain.StartWave35Prerequisite };
             SimuMain.ITBossWaves.wavePrefabs = SimuMain.ITBossWaves.wavePrefabs.Add(ITSuperCrab);
             SimuMain.ITSuperBossWaves.wavePrefabs = SimuMain.ITSuperBossWaves.wavePrefabs.Add(ITSuperCrab);
 
-            //SimuMain.ITSuperBossWaves.wavePrefabs = new InfiniteTowerWaveCategory.WeightedWave[] { ITSuperCrab };
 
-            /*ITSuperCrab.weight = 5000;
-            ITSuperCrab.prerequisites = null;
-            SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(ITSuperCrab); */
+            unlockable.cachedName = "Logs.VoidSuperMegaCrabBody.0";
+            unlockable.nameToken = "UNLOCKABLE_LOG_SUPERMEGACRAB";
+           
+            R2API.ContentAddition.AddUnlockableDef(unlockable);
+            if (!WConfig.cfgNewEnemiesVisible.Value)
+            {
+                SuperCrabBody.GetComponent<DeathRewards>().logUnlockableDef = null;
+            }
+            else
+            {
+                SuperCrabBody.GetComponent<DeathRewards>().logUnlockableDef = unlockable;
+            }
         }
 
+        private static void DeathState_OnExit(On.EntityStates.VoidMegaCrab.DeathState.orig_OnExit orig, EntityStates.VoidMegaCrab.DeathState self)
+        {
+            orig(self);
+            if (self.characterBody.name.StartsWith("VoidSuper"))
+            {
+                if (SuperMegaCrab.unlockable && Run.instance.CanUnlockableBeGrantedThisRun(SuperMegaCrab.unlockable))
+                {
+                    GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(DeathRewards.logbookPrefab, self.characterBody.corePosition, UnityEngine.Random.rotation);
+                    gameObject.GetComponentInChildren<UnlockPickup>().unlockableDef = SuperMegaCrab.unlockable;
+                    gameObject.GetComponent<TeamFilter>().teamIndex = TeamIndex.Player;
+                    NetworkServer.Spawn(gameObject);
+                }
+            }      
+        }
     }
 
 

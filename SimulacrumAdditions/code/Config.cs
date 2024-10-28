@@ -1,5 +1,13 @@
 using BepInEx;
 using BepInEx.Configuration;
+using RiskOfOptions;
+using RiskOfOptions.Options;
+using System;
+using System.Collections.Generic;
+using UnityEngine;
+using RoR2.Stats;
+using RoR2;
+using RoR2.UI;
 
 namespace SimulacrumAdditions
 {
@@ -10,19 +18,22 @@ namespace SimulacrumAdditions
         //public static ConfigEntry<bool> SimuMultiplayerChanges;
 
         //public static ConfigEntry<bool> SimulacrumEnemyItemChanges;
-        public static ConfigEntry<bool> cfgSpeedUpOnLaterWaves;
+        public static ConfigEntry<bool> cfgFasterWavesLater;
+        public static ConfigEntry<bool> cfgCrabSpeedOnLaterWaves;
         public static ConfigEntry<bool> cfgVoidTripleAllTier;
         public static ConfigEntry<bool> cfgVoidTripleContentsInPing;
 
         public static ConfigEntry<bool> cfgSimuCreditsRebalance;
-        public static ConfigEntry<bool> cfgOnlySpecialBossesLate;
+        public static ConfigEntry<bool> cfgSimuMoreGold;
+        //public static ConfigEntry<bool> cfgOnlySpecialBossesLate;
         public static ConfigEntry<bool> cfgDifferentTeleportEffect;
         public static ConfigEntry<bool> cfgVoidsEverywhere;
         public static ConfigEntry<bool> cfgExtraDifficuly;
         public static ConfigEntry<bool> cfgNewEnemiesVisible;
         public static ConfigEntry<bool> cfgDumpInfo;
         public static ConfigEntry<bool> cfgVoidCoins;
-        public static ConfigEntry<bool> cfgEnableArtifact;
+        public static ConfigEntry<bool> cfgEnableArtifactAugments;
+        public static ConfigEntry<bool> cfgEnableArtifactStages;
         public static ConfigEntry<bool> cfgMusicSuperBoss;
         public static ConfigEntry<bool> cfgSacrificeBalance;
 
@@ -32,44 +43,68 @@ namespace SimulacrumAdditions
         public static ConfigEntry<bool> cfgMakeSpecialWavesMoreCommon;
 
         public static ConfigEntry<bool> cfgAwaitTravel;
+        public static ConfigEntry<bool> cfgWaveOnEndScreen;
 
-
-        public static ConfigEntry<bool> cfgCrabRadius;
-        public static ConfigEntry<bool> cfgCrabRadiusPerPlayer;
+        public static ConfigEntry<float> ArtifactOfRealityBonusRadius;
+        public static ConfigEntry<float> cfgCrabRadius;
+        public static ConfigEntry<float> cfgCrabRadiusPerPlayer;
         public static ConfigEntry<bool> cfgWarbannerOnBoss;
+        //public static ConfigEntry<bool> cfgBorderForCompleted;
 
         public static ConfigEntry<int> cfgSimuEndingStartAtXWaves;
         public static ConfigEntry<int> cfgSimuEndingEveryXWaves;
         public static ConfigEntry<int> cfgSuperBossStartAtXWaves;
         public static ConfigEntry<int> cfgSuperBossEveryXWaves;
 
+        public static ConfigEntry<bool> ResetStatsButton;
+
+        public static void RiskConfig()
+        {
+            ModSettingsManager.SetModDescription("Simulacrum Gaming");
+            Sprite texITWaveGupIconBasicS = Sprite.Create(Assets.Bundle.LoadAsset<Texture2D>("Assets/Simulacrum/Wave/waveGupYellow.png"), WRect.rec64, WRect.half);
+            RiskOfOptions.ModSettingsManager.SetModIcon(texITWaveGupIconBasicS);
+
+            ModSettingsManager.AddOption(new CheckBoxOption(ResetStatsButton));
+            ModSettingsManager.AddOption(new CheckBoxOption(cfgNewEnemiesVisible, true));
+            ModSettingsManager.AddOption(new CheckBoxOption(cfgVoidCoins));
+            ModSettingsManager.AddOption(new CheckBoxOption(cfgVoidTripleAllTier, true));
+
+            ModSettingsManager.AddOption(new CheckBoxOption(cfgSacrificeBalance));
+
+            ModSettingsManager.AddOption(new CheckBoxOption(cfgFasterWavesLater));
+            ModSettingsManager.AddOption(new CheckBoxOption(cfgExtraDifficuly));
+            ModSettingsManager.AddOption(new CheckBoxOption(cfgSimuMoreGold, false));
+            ModSettingsManager.AddOption(new CheckBoxOption(cfgSimuCreditsRebalance, true));
+            ModSettingsManager.AddOption(new CheckBoxOption(cfgItemsEvery8, true));
+            ModSettingsManager.AddOption(new CheckBoxOption(cfgItemsFrequently, true));
+
+
+            ModSettingsManager.AddOption(new CheckBoxOption(cfgCrabSpeedOnLaterWaves));
+
+           
+           
+         
+
+
+        }
+
 
         public static void InitConfig()
         {
+            ResetStatsButton = ConfigFileUNSORTED.Bind(
+                "Main", 
+                "Reset Wave Count Button", 
+                false, 
+                "Add a button on the Simulacrum select screen to reset a specific characters wave count."
+            );
+
             cfgMusicSuperBoss = ConfigFileUNSORTED.Bind(
                 "Main",
                 "Music for Super Boss waves",
                 true,
                 "Like Mithrix theme for Mithrix wave."
             );
-            cfgSpeedUpOnLaterWaves = ConfigFileUNSORTED.Bind(
-                "Main",
-                "Speed up as waves go on",
-                true,
-                "The crab will travel faster the more waves are completed, mostly noticible later waves."
-            );
-            cfgAwaitTravel = ConfigFileUNSORTED.Bind(
-                "Main",
-                "Crab waits before travelling",
-                true,
-                "Like after wave 5, more time to do stuff before leaving or just to leave instantly."
-            );
-            cfgEnableArtifact = ConfigFileUNSORTED.Bind(
-                "Main",
-                "Enable Artifact of Augments",
-                true,
-                "An Artifact that allows only special augments."
-            );
+
             cfgVoidCoins = ConfigFileUNSORTED.Bind(
                  "Main",
                  "Add Void Coins",
@@ -82,48 +117,109 @@ namespace SimulacrumAdditions
                 true,
                 "With this they can give items from any tier, normally they use a normal chest pool."
             );
-            cfgDumpInfo = ConfigFileUNSORTED.Bind(
-                "Main",
-                "Wave Info Dump",
-                false,
-                "Dump wave info on startup in log"
-            );
-            cfgVoidTripleContentsInPing = ConfigFileUNSORTED.Bind(
+           cfgVoidTripleContentsInPing = ConfigFileUNSORTED.Bind(
                 "Main",
                 "Void Potential contents in ping message",
                 true,
                 "When pinging a Void Potential the items inside will be in the ping message. Requested for more easily sharing items inside Void Potentials."
             );
-
+            cfgNewEnemiesVisible = ConfigFileUNSORTED.Bind(
+                "Main",
+                "Logbook Entries for Simu only bosses",
+                false,
+                "Add reskins of enemies added by mod to Logbook."
+            );
             cfgDifferentTeleportEffect = ConfigFileUNSORTED.Bind(
                 "Main",
                 "Simulacrum Teleport Effect",
                 true,
                 "Void themed teleport effect for Simulacrum runs"
             );
-            cfgItemsEvery8 = ConfigFileUNSORTED.Bind(
-                "Main : Balance",
-                "Items every 8 Waves",
+            cfgWaveOnEndScreen = ConfigFileUNSORTED.Bind(
+                "Main",
+                "Wave name on end screen",
                 true,
-                "Default item period is every 8 waves. Fits better with the run ending at wave 50."
+                "More info"
             );
-            cfgItemsFrequently = ConfigFileUNSORTED.Bind(
-                "Main : Balance",
-                "Items are given more frequently later",
+
+            //
+            //Crab stuff
+            cfgCrabSpeedOnLaterWaves = ConfigFileUNSORTED.Bind(
+                "Main : Crab",
+                "Speed up as waves go on",
                 true,
-                "Default item period is every 8 waves. Fits better with the run ending at wave 50."
+                "The crab will travel faster the more waves are completed, mostly noticible later waves."
             );
+            cfgAwaitTravel = ConfigFileUNSORTED.Bind(
+                "Main : Crab",
+                "Crab waits before travelling",
+                true,
+                "Like after wave 5, more time to do stuff before leaving or just to leave instantly."
+            );
+            cfgCrabRadius = ConfigFileUNSORTED.Bind(
+                 "Main : Crab",
+                 "Crab Radius : Base Radius",
+                 65f,
+                 "Vanilla radius is 60."
+             );
+            cfgCrabRadiusPerPlayer = ConfigFileUNSORTED.Bind(
+                 "Main : Crab",
+                 "Crab Radius : Per Player",
+                 5f,
+                 "Radius increase per player including player 1. Vanilla radius is 0."
+             );
             cfgVoidsEverywhere = ConfigFileUNSORTED.Bind(
                 "Main",
                 "Void Enemies on all stages",
                 true,
                 "After wave 60 void enemies will spawn on all simu stages."
             );
+            //
+            //Artifacts
+            cfgEnableArtifactAugments = ConfigFileUNSORTED.Bind(
+                "Main : Artifacts",
+                "Enable Artifact of Augments",
+                true,
+                "An Artifact that allows only special augments."
+            );
+            cfgEnableArtifactStages = ConfigFileUNSORTED.Bind(
+                "Main : Artifacts",
+                "Enable Artifact of Reality",
+                true,
+                "An Artifact that makes the game mode use normal stages instead of simu variants"
+            );
+            ArtifactOfRealityBonusRadius = ConfigFileUNSORTED.Bind(
+                "Main : Artifacts",
+                "Artifact of Reality : Larger Radius",
+                10f,
+                "Bonus radius since default stages are often bigger and have weird cornerns"
+            );
+
+            //
+            //Balance Stuff
+            cfgItemsEvery8 = ConfigFileUNSORTED.Bind(
+                "Simulacrum : Balance",
+                "Items every 8 Waves",
+                true,
+                "Give items every 8 waves. Fits better with the run ending at wave 50."
+            );
+            cfgItemsFrequently = ConfigFileUNSORTED.Bind(
+                "Simulacrum : Balance",
+                "Items are given more frequently later",
+                true,
+                "Items will be added twice as frequently after the first Red"
+            );
             cfgSimuCreditsRebalance = ConfigFileUNSORTED.Bind(
                 "Simulacrum : Balance",
                 "Simulacrum Credits Rebalance",
                 true,
-                "Get more hold early on, Stages have 630 to 400 credits depending on stages completed and get more credits in multiplayer. Vanilla they always have 600."
+                "Get more credits early on, Stages have 630 to 400 credits depending on stages completed and get more credits in multiplayer. Vanilla they always have 600 regardless of stage/player count."
+            );
+            cfgSimuMoreGold = ConfigFileUNSORTED.Bind(
+                "Simulacrum : Balance",
+                "Simulacrum Gold Balance",
+                true,
+                "Gold is multiplied per player amount. Gain 50% more gold at the start and 25% less gold starting at wave 30. Helps with early looting and makes it so you won't instantly be able to afford every chest later on."
             );
             cfgExtraDifficuly = ConfigFileUNSORTED.Bind(
                 "Simulacrum : Balance",
@@ -137,14 +233,14 @@ namespace SimulacrumAdditions
                 true,
                 "30% less item drops from enemies and 1 less option in potentials"
             );
-            cfgNewEnemiesVisible = ConfigFileUNSORTED.Bind(
-                "Main",
-                "Logbook Entries",
-                false,
-                "Add reskins of enemies added by mod to Logbook"
+            cfgFasterWavesLater = ConfigFileUNSORTED.Bind(
+                "Simulacrum : Balance",
+                "Waves get faster later",
+                true,
+                "Less time between waves and waves spawn enemies faster."
             );
-
-
+            //
+            //
             cfgSimuEndingStartAtXWaves = ConfigFileUNSORTED.Bind(
                 "Simulacrum : Ending Portal",
                 "Ending Start Wave",
@@ -171,6 +267,15 @@ namespace SimulacrumAdditions
             );
 
             ////////////////////////
+            cfgDumpInfo = ConfigFileUNSORTED.Bind(
+            "Testing",
+                "Wave Info Dump",
+                false,
+                "Dump wave info on startup in log"
+            );
+
+            RiskConfig();
+
         }
 
     }

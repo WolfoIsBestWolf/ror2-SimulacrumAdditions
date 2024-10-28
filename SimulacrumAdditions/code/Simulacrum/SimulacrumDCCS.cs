@@ -196,7 +196,7 @@ namespace SimulacrumAdditions
             DirectorCard ADVoidCoinBarrel = new DirectorCard
             {
                 spawnCard = VoidCoinBarrel,
-                selectionWeight = 110,
+                selectionWeight = 10,
             };
             DirectorCard ADSafteyBarrel = new DirectorCard
             {
@@ -204,10 +204,6 @@ namespace SimulacrumAdditions
                 selectionWeight = 1,
             };
 
-            if (WConfig.cfgVoidCoins.Value)
-            {
-                ADVoidCoinBarrel.selectionWeight = 10;
-            }
 
             dccsInfiniteTowerInteractables.categories[0].cards[2].selectionWeight -= 5; //Eq Barrel
             dccsInfiniteTowerInteractables.categories[0].cards[3].selectionWeight -= 10; //Triple
@@ -313,7 +309,7 @@ namespace SimulacrumAdditions
             DirectorCard ADShrineCleanse = new DirectorCard
             {
                 spawnCard = Addressables.LoadAssetAsync<SpawnCard>(key: "RoR2/Base/ShrineCleanse/iscShrineCleanse.asset").WaitForCompletion(),
-                selectionWeight = 3,
+                selectionWeight = 4,
             };
 
             DirectorCard ADShrineHealing = new DirectorCard
@@ -345,7 +341,7 @@ namespace SimulacrumAdditions
             DirectorCard ADShrineCleanseSand = new DirectorCard
             {
                 spawnCard = Addressables.LoadAssetAsync<SpawnCard>(key: "RoR2/Base/ShrineCleanse/iscShrineCleanseSandy.asset").WaitForCompletion(),
-                selectionWeight = 2,
+                selectionWeight = 3,
             };
 
             DirectorCard ADShrineOrderSnow = new DirectorCard
@@ -379,7 +375,8 @@ namespace SimulacrumAdditions
             dccsITAncientLoftInteractablesW.AddCard(0, ADCategoryChest2Utility);
             dccsITAncientLoftInteractablesW.categories[1].selectionWeight = 6.5f; //Healing Cleanse
             dccsITAncientLoftInteractablesW.categories[1].cards[0] = ADShrineCleanse;
-            dccsITAncientLoftInteractablesW.AddCard(1, ADShrineHealing);      
+            dccsITAncientLoftInteractablesW.AddCard(1, ADShrineHealing);
+            dccsITAncientLoftInteractablesW.AddCard(1, ADShrineChance);
             //
             dccsITFrozenWallInteractablesW.AddCard(0, ADCategoryChest1Utility);
             dccsITFrozenWallInteractablesW.AddCard(0, ADCategoryChest2Utility);
@@ -394,7 +391,8 @@ namespace SimulacrumAdditions
             dccsITDampCaveInteractablesW.AddCard(0, ADGreenMultiShop);
             dccsITDampCaveInteractablesW.AddCard(0, ADAdaptiveChest);
             dccsITDampCaveInteractablesW.categories[1].selectionWeight = 5f; //Blood Healing
-            dccsITDampCaveInteractablesW.AddCard(1, ADShrineHealing);  
+            dccsITDampCaveInteractablesW.AddCard(1, ADShrineHealing);
+            dccsITDampCaveInteractablesW.AddCard(1, ADShrineChance);
             //
             dccsITSkyMeadowInteractablesW.AddCard(0, ADCategoryChest1Healing);
             dccsITSkyMeadowInteractablesW.AddCard(0, ADCategoryChest2Healing);
@@ -521,6 +519,12 @@ namespace SimulacrumAdditions
                     GeyserHolder.transform.GetChild(5).GetChild(2).GetComponent<JumpVolume>().jumpVelocity = new Vector3(10f, 80f, -10);
                 }
             }
+            else if (SceneInfo.instance.sceneDef.baseSceneName.StartsWith("itancientloft"))
+            {
+                GameObject Terrain = GameObject.Find("/HOLDER: Terrain");
+                MeshRenderer render = Terrain.transform.GetChild(6).GetChild(4).GetComponent<MeshRenderer>();
+                render.materials = new Material[] { render.material };
+            }
         }
 
 
@@ -563,10 +567,6 @@ namespace SimulacrumAdditions
                 spawnDistance = DirectorCore.MonsterSpawnDistance.Standard
             };
 
-            dccsITFrozenWallMonsters.AddCard(0, SimuElectricWorm);
-            dccsITDampCaveMonsters.AddCard(0, SimuElectricWorm);
-            //dccsITSkyMeadowMonsters.AddCard(0, SimuElectricWorm);
-            dccsITSkyMeadowMonsters.AddCard(2, SimuBrass);  //Match vanilla
 
             //Some of these are meant to be with LittleGameplayTweaks but kinda don't care
             DirectorCard SimuLoopVulture = new DirectorCard
@@ -631,7 +631,7 @@ namespace SimulacrumAdditions
             DirectorCard SimuLoopVoidReaver = new DirectorCard
             {
                 spawnCard = Addressables.LoadAssetAsync<CharacterSpawnCard>(key: "RoR2/Base/Nullifier/cscNullifier.asset").WaitForCompletion(),
-                selectionWeight = 3,
+                selectionWeight = 4,
                 preventOverhead = true,
                 minimumStageCompletions = 0,
                 spawnDistance = DirectorCore.MonsterSpawnDistance.Standard
@@ -697,7 +697,7 @@ namespace SimulacrumAdditions
             {
                 spawnCard = RoR2.LegacyResourcesAPI.Load<CharacterSpawnCard>("SpawnCards/CharacterSpawnCards/cscLemurianBruiser"),
                 preventOverhead = false,
-                selectionWeight = 1,
+                selectionWeight = 2,
                 minimumStageCompletions = 2,
                 spawnDistance = DirectorCore.MonsterSpawnDistance.Standard
             };
@@ -717,57 +717,125 @@ namespace SimulacrumAdditions
                 minimumStageCompletions = 2,
                 spawnDistance = DirectorCore.MonsterSpawnDistance.Standard
             };
+            DirectorCard SimuLoopcscRoboBallMini = new DirectorCard
+            {
+                spawnCard = Addressables.LoadAssetAsync<CharacterSpawnCard>(key: "RoR2/Base/RoboBallBoss/cscRoboBallMini.asset").WaitForCompletion(),
+                selectionWeight = 1,
+                preventOverhead = false,
+                minimumStageCompletions = 2,
+                spawnDistance = DirectorCore.MonsterSpawnDistance.Standard
+            };
+            DirectorCard cscChild = new DirectorCard
+            {
+                spawnCard = Addressables.LoadAssetAsync<CharacterSpawnCard>(key: "RoR2/DLC2/Child/cscChild.asset").WaitForCompletion(),
+                selectionWeight = 1,
+                preventOverhead = false,
+                minimumStageCompletions = 0,
+                spawnDistance = DirectorCore.MonsterSpawnDistance.Standard
+            };
+            DirectorCard cscParent = new DirectorCard
+            {
+                spawnCard = Addressables.LoadAssetAsync<CharacterSpawnCard>(key: "RoR2/Base/Parent/cscParent.asset").WaitForCompletion(),
+                selectionWeight = 1,
+                preventOverhead = false,
+                minimumStageCompletions = 2,
+                spawnDistance = DirectorCore.MonsterSpawnDistance.Standard
+            };
+            DirectorCard cscGrandparent = new DirectorCard
+            {
+                spawnCard = Addressables.LoadAssetAsync<CharacterSpawnCard>(key: "RoR2/Base/Grandparent/cscGrandparent.asset").WaitForCompletion(),
+                selectionWeight = 1,
+                preventOverhead = false,
+                minimumStageCompletions = 2,
+                spawnDistance = DirectorCore.MonsterSpawnDistance.Standard
+            };
+            DirectorCard cscBison = new DirectorCard
+            {
+                spawnCard = Addressables.LoadAssetAsync<CharacterSpawnCard>(key: "RoR2/Base/Bison/cscBison.asset").WaitForCompletion(),
+                selectionWeight = 1,
+                preventOverhead = false,
+                minimumStageCompletions = 2,
+                spawnDistance = DirectorCore.MonsterSpawnDistance.Standard
+            };
             //Minimum Stage completion 3 is wave 31
+ 
+            //0  0 - 10
+            //1 10 - 20
+            //2 20 - 30
+            //3 30 - 40
+            //4 40 - 50
 
-            dccsITGolemplainsMonsters.AddCard(0, SimuLoopMegaConstruct); //Match vanilla
-            dccsITGolemplainsMonsters.AddCard(2, SimuLoopMinorConstruct); //Match vanilla
-            dccsITGolemplainsMonsters.AddCard(2, SimuLoopHermitCrab);  //Match vanilla
+            #region Plains
+            dccsITGolemplainsMonsters.AddCard(0, SimuLoopMegaConstruct);
+            dccsITGolemplainsMonsters.AddCard(2, SimuLoopMinorConstruct);
+            dccsITGolemplainsMonsters.AddCard(2, SimuLoopHermitCrab);
 
-            dccsITGolemplainsMonstersDLC2.AddCard(0, SimuLoopMegaConstruct); //Match vanilla
-            dccsITGolemplainsMonstersDLC2.AddCard(2, SimuLoopMinorConstruct); //Match vanilla
-            dccsITGolemplainsMonstersDLC2.AddCard(2, SimuLoopHermitCrab);  //Match vanilla
+            dccsITGolemplainsMonstersDLC2.categories[1].cards[2].minimumStageCompletions = 2; //Halc
+            dccsITGolemplainsMonstersDLC2.AddCard(0, SimuLoopMegaConstruct);
+            dccsITGolemplainsMonstersDLC2.AddCard(2, SimuLoopMinorConstruct);
+            dccsITGolemplainsMonstersDLC2.AddCard(2, SimuLoopHermitCrab);
 
+            dccsITGolemplainsMonstersDLC2.AddCard(0, cscGrandparent);
+            dccsITGolemplainsMonstersDLC2.AddCard(1, cscParent);
 
+            dccsITGolemplainsMonstersDLC2.AddCard(1, cscChild);//Pre-loop
+            dccsITGolemplainsMonstersDLC2.AddCard(1, cscBison);
+#endregion
+            #region Aquaduct
             //dccsITGooLakeMonsters.AddCard(0, SimuLoopVagrant);  //Simu thing where it imitates other stages
             //dccsITGooLakeMonsters.AddCard(1, SimuLoopGup);  //Simu thing where it imitates other stages
             dccsITGooLakeMonsters.AddCard(1, SimuLoopGolemSandy);
             dccsITGooLakeMonsters.AddCard(1, SimuLoopAcidLarva);
             //Has Loop Templar by default
-
+#endregion
+            #region Ancient Loft
             dccsITAncientLoftMonsters.AddCard(1, SimuLoopElderLemurian); //Match my changes
             dccsITAncientLoftMonsters.AddCard(2, SimuLoopJellyfish); //More Jellyfish Ig?
-            //
-            //
+#endregion
+            #region Rallypoint 
             dccsITFrozenWallMonsters.AddCard(0, SimuLoopRoboBallBoss); //Match my changes
+            dccsITFrozenWallMonsters.AddCard(1, SimuLoopcscRoboBallMini);
             dccsITFrozenWallMonsters.AddCard(2, SimuLoopVulture);  //Match my changes
             dccsITFrozenWallMonsters.categories[1].cards[2].selectionWeight = 2; //More Bison
+            dccsITFrozenWallMonsters.AddCard(0, SimuElectricWorm); //Pre-loop
 
             dccsITFrozenWallMonstersDLC2.AddCard(0, SimuLoopRoboBallBoss); //Match my changes
+            dccsITFrozenWallMonstersDLC2.AddCard(1, SimuLoopcscRoboBallMini);
             dccsITFrozenWallMonstersDLC2.AddCard(2, SimuLoopVulture);  //Match my changes
             dccsITFrozenWallMonstersDLC2.categories[1].cards[2].selectionWeight = 2; //More Bison
-            //
-            //
+            dccsITFrozenWallMonstersDLC2.AddCard(0, SimuElectricWorm); //Pre-loop
+
+            #endregion
+            #region Abyss
             dccsITDampCaveMonsters.AddCard(0, SimuLoopGrovetender); //Simu thing where it imitates other stages
             dccsITDampCaveMonsters.AddCard(1, SimuLoopMiniMushroom); //Simu thing where it imitates other stages
+            dccsITDampCaveMonsters.AddCard(1, SimuLoopAcidLarva); //Simu thing where it imitates other stages
             dccsITDampCaveMonsters.categories[2].cards[3].spawnDistance = DirectorCore.MonsterSpawnDistance.Close; //Hermit Crab
-            dccsITDampCaveMonsters.AddCard(2, SimuLoopHermitCrab); //Simu thing where it imitates other stages
+            dccsITDampCaveMonsters.AddCard(2, SimuLoopHermitCrab);
+            dccsITDampCaveMonsters.AddCard(0, SimuElectricWorm);
 
+            dccsITDampCaveMonstersDLC2.AddCard(0, SimuElectricWorm); //Pre loop
+
+            dccsITDampCaveMonstersDLC2.categories[1].cards[4].minimumStageCompletions = 2;
             dccsITDampCaveMonstersDLC2.AddCard(0, SimuLoopGrovetender); //Simu thing where it imitates other stages
             dccsITDampCaveMonstersDLC2.AddCard(1, SimuLoopMiniMushroom); //Simu thing where it imitates other stages
+            dccsITDampCaveMonstersDLC2.AddCard(1, SimuLoopAcidLarva); //Simu thing where it imitates other stages
             dccsITDampCaveMonstersDLC2.categories[2].cards[3].spawnDistance = DirectorCore.MonsterSpawnDistance.Close; //Hermit Crab
-            dccsITDampCaveMonstersDLC2.AddCard(2, SimuLoopHermitCrab); //Simu thing where it imitates other stages
-            //
-            //
-            dccsITSkyMeadowMonsters.AddCard(1, SimuLoopGreaterWisp); //Match vanilla
+            dccsITDampCaveMonstersDLC2.AddCard(2, SimuLoopHermitCrab); //Simu thing where it imitates other stages       
+#endregion
+            #region Sky Meadow
+            dccsITSkyMeadowMonsters.AddCard(2, SimuBrass);  //Pre loop
+            dccsITSkyMeadowMonsters.AddCard(1, SimuLoopGreaterWisp);
             dccsITSkyMeadowMonsters.categories[0].cards[1].selectionWeight = 2; //More GrandParents
             dccsITSkyMeadowMonsters.categories[1].cards[0].selectionWeight = 2; //More Parents
 
+            dccsITSkyMeadowMonstersDLC2.AddCard(2, SimuBrass);  //Pre loop
             dccsITSkyMeadowMonstersDLC2.AddCard(1, SimuLoopGreaterWisp); //Match vanilla
             dccsITSkyMeadowMonstersDLC2.categories[0].cards[1].selectionWeight = 2; //More GrandParents
             dccsITSkyMeadowMonstersDLC2.categories[1].cards[0].selectionWeight = 2; //More Parents
             dccsITSkyMeadowMonstersDLC2.categories[2].cards[3].selectionWeight = 2; //More Children
-            //
-            //
+            #endregion
+            #region Moon
             dccsITMoonMonsters.categories[0].selectionWeight = 3;
             dccsITMoonMonsters.AddCategory("Minibosses", 1);
             dccsITMoonMonsters.AddCard(1, SimuLoopVoidDevestator);
@@ -778,8 +846,9 @@ namespace SimulacrumAdditions
             dccsITMoonMonsters.categories[0].cards[0].selectionWeight = 4;
             dccsITMoonMonsters.categories[0].cards[1].selectionWeight = 4;
             dccsITMoonMonsters.categories[0].cards[1].selectionWeight = 3;
-
-
+            #endregion
+            #region Void Late Stuff
+            /*
             DirectorCard LateVoidReaver = new DirectorCard
             {
                 spawnCard = Addressables.LoadAssetAsync<CharacterSpawnCard>(key: "RoR2/Base/Nullifier/cscNullifier.asset").WaitForCompletion(),
@@ -791,7 +860,7 @@ namespace SimulacrumAdditions
             {
                 spawnCard = Addressables.LoadAssetAsync<CharacterSpawnCard>(key: "RoR2/DLC1/VoidJailer/cscVoidJailer.asset").WaitForCompletion(),
                 selectionWeight = 1,
-                minimumStageCompletions = 6,
+                minimumStageCompletions = 7,
                 spawnDistance = DirectorCore.MonsterSpawnDistance.Close
             };
             DirectorCard LateVoidDevestator = new DirectorCard
@@ -832,7 +901,8 @@ namespace SimulacrumAdditions
                 dccsITDampCaveMonsters.AddCard(4, LateVoidDevestator);
                 dccsITSkyMeadowMonsters.AddCard(4, LateVoidDevestator);
             }
-
+            */
+            #endregion
         }
 
     }

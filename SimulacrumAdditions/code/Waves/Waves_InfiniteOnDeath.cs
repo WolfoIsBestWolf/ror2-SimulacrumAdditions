@@ -19,8 +19,8 @@ namespace SimulacrumAdditions
             BuffDef BanditSkull = LegacyResourcesAPI.Load<BuffDef>("BuffDefs/DeathMark");
             //
             #region Void Implosion Death
-            GameObject InfiniteTowerWaveDeathVoid = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveDefault.prefab").WaitForCompletion(), "InfiniteTowerWaveDeathVoid", true);
-            GameObject InfiniteTowerWaveDeathVoidUI = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentBossVoidWaveUI.prefab").WaitForCompletion(), "InfiniteTowerWaveDeathVoidUI", false);
+            GameObject InfiniteTowerWaveDeathVoid = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveDeathVoid", true);
+            GameObject InfiniteTowerWaveDeathVoidUI = PrefabAPI.InstantiateClone(Const.VoidWaveUI, "InfiniteTowerWaveDeathVoidUI", false);
 
             InfiniteTowerWaveDeathVoid.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITBasicBonusVoid;
             InfiniteTowerWaveDeathVoid.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
@@ -67,8 +67,8 @@ namespace SimulacrumAdditions
             //RerollSpawnInterval like closer to how long between each wave
 
             InfiniteTowerWaveDeathVoid.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWaveDeathVoidUI;
-            InfiniteTowerWaveDeathVoidUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "Wave {0} - Augment of Implosion";
-            InfiniteTowerWaveDeathVoidUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "Endless void implosions occur.";
+            InfiniteTowerWaveDeathVoidUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_DEATHVOID";
+            InfiniteTowerWaveDeathVoidUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_DEATHVOID";
             InfiniteTowerWaveDeathVoidUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = BanditSkull.iconSprite;
             InfiniteTowerWaveDeathVoidUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color = new Color(0.8f, 0.4f, 0.8f);
             InfiniteTowerWaveDeathVoidUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0.8f, 0.4f, 0.8f);
@@ -79,8 +79,8 @@ namespace SimulacrumAdditions
             #endregion
             #region Lunar Exploder Deaths
             //
-            GameObject InfiniteTowerWaveDeathLunar = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveDefault.prefab").WaitForCompletion(), "InfiniteTowerWaveDeathLunar", true);
-            GameObject InfiniteTowerWaveDeathLunarUI = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentBossLunarWaveUI.prefab").WaitForCompletion(), "InfiniteTowerWaveDeathLunarUI", false);
+            GameObject InfiniteTowerWaveDeathLunar = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveDeathLunar", true);
+            GameObject InfiniteTowerWaveDeathLunarUI = PrefabAPI.InstantiateClone(Const.LunarWaveUI, "InfiniteTowerWaveDeathLunarUI", false);
 
             InfiniteTowerWaveDeathLunar.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITBasicBonusLunar;
             InfiniteTowerWaveDeathLunar.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
@@ -121,14 +121,14 @@ namespace SimulacrumAdditions
             secondDirector.monsterCards = dccsITSuicideWaveLunar;
             secondDirector.monsterCredit = 10000;
             secondDirector.teamIndex = TeamIndex.Void;
-            secondDirector.maxSeriesSpawnInterval = 0.8f;
-            secondDirector.minSeriesSpawnInterval = 0.7f;
-            secondDirector.maxRerollSpawnInterval = 2.3f;
+            secondDirector.maxSeriesSpawnInterval = 1.5f;
+            secondDirector.minSeriesSpawnInterval = 1f;
+            secondDirector.maxRerollSpawnInterval = 2.5f;
             secondDirector.minRerollSpawnInterval = 2f;
 
             InfiniteTowerWaveDeathLunar.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWaveDeathLunarUI;
-            InfiniteTowerWaveDeathLunarUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "Wave {0} - Augment of Blaze";
-            InfiniteTowerWaveDeathLunarUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "The ground gets covered in lunar flames.";
+            InfiniteTowerWaveDeathLunarUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_DEATHLUNAR";
+            InfiniteTowerWaveDeathLunarUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_DEATHLUNAR";
             InfiniteTowerWaveDeathLunarUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = BanditSkull.iconSprite;
             InfiniteTowerWaveDeathLunarUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color = new Color(0.4f, 0.8f, 0.8f);
             InfiniteTowerWaveDeathLunarUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0.4f, 0.8f, 0.8f);
@@ -139,8 +139,8 @@ namespace SimulacrumAdditions
             #endregion
             #region Mending Core Spam
             //
-            GameObject InfiniteTowerWaveDeathMendingCore = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveDefault.prefab").WaitForCompletion(), "InfiniteTowerWaveDeathMendingCore", true);
-            GameObject InfiniteTowerWaveDeathMendingCoreUI = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentWaveUI.prefab").WaitForCompletion(), "InfiniteTowerWaveDeathMendingCoreUI", false);
+            GameObject InfiniteTowerWaveDeathMendingCore = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveDeathMendingCore", true);
+            GameObject InfiniteTowerWaveDeathMendingCoreUI = PrefabAPI.InstantiateClone(Const.BasicWaveUI, "InfiniteTowerWaveDeathMendingCoreUI", false);
 
             InfiniteTowerWaveDeathMendingCore.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITCategoryHealing;
             InfiniteTowerWaveDeathMendingCore.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
@@ -186,8 +186,8 @@ namespace SimulacrumAdditions
             secondDirector.minRerollSpawnInterval = 0.1f;
 
             InfiniteTowerWaveDeathMendingCore.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWaveDeathMendingCoreUI;
-            InfiniteTowerWaveDeathMendingCoreUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "Wave {0} - Augment of Mending";
-            InfiniteTowerWaveDeathMendingCoreUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "Endless healing cores spawn.";
+            InfiniteTowerWaveDeathMendingCoreUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_DEATHHEALING";
+            InfiniteTowerWaveDeathMendingCoreUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_DEATHHEALING";
             InfiniteTowerWaveDeathMendingCoreUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color = new Color32(161, 231, 79, 255);
             InfiniteTowerWaveDeathMendingCoreUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color32(161, 231, 79, 255);
             InfiniteTowerWaveDeathMendingCoreUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color32(161, 231, 79, 255);
@@ -197,8 +197,8 @@ namespace SimulacrumAdditions
             #endregion
             #region Freeze Spam
             //
-            GameObject InfiniteTowerWaveDeathIceElite = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveDefault.prefab").WaitForCompletion(), "InfiniteTowerWaveDeathIceElite", true);
-            GameObject InfiniteTowerWaveDeathIceEliteUI = R2API.PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentBossLunarWaveUI.prefab").WaitForCompletion(), "InfiniteTowerWaveDeathIceEliteUI", false);
+            GameObject InfiniteTowerWaveDeathIceElite = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveDeathIceElite", true);
+            GameObject InfiniteTowerWaveDeathIceEliteUI = PrefabAPI.InstantiateClone(Const.LunarWaveUI, "InfiniteTowerWaveDeathIceEliteUI", false);
 
             InfiniteTowerWaveDeathIceElite.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITBasicWaveOnKill;
             InfiniteTowerWaveDeathIceElite.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
@@ -263,8 +263,8 @@ namespace SimulacrumAdditions
             //RerollSpawnInterval like closer to how long between each wave
 
             InfiniteTowerWaveDeathIceElite.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWaveDeathIceEliteUI;
-            InfiniteTowerWaveDeathIceEliteUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "Wave {0} - Augment of Ice";
-            InfiniteTowerWaveDeathIceEliteUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "Endless freezing shocks occur.";
+            InfiniteTowerWaveDeathIceEliteUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_DEATHICE";
+            InfiniteTowerWaveDeathIceEliteUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_DEATHICE";
             InfiniteTowerWaveDeathIceEliteUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = BanditSkull.iconSprite;
             InfiniteTowerWaveDeathIceEliteUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color = new Color32(214, 247, 247, 255);
             InfiniteTowerWaveDeathIceEliteUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color32(214, 247, 247, 255);

@@ -21,23 +21,9 @@ namespace SimulacrumAdditions
             //Make Devotion actually work
             //Probably just add the spawn card into some category like chests but also they probably need some sort of immunity to void fog or smth
             //Probably upgrade every 5 waves
+            IL.RoR2.FogDamageController.MyFixedUpdate += NoFogLemurianDamage;
+            On.RoR2.DevotionInventoryController.Awake += DevotionInventoryController_Awake;
 
-            IL.RoR2.FogDamageController.MyFixedUpdate += (ILContext il) =>
-            {
-                ILCursor c = new ILCursor(il);
-                if (c.TryGotoNext(MoveType.Before,
-                 x => x.MatchLdcR4(0.5f),
-                 x => x.MatchMul()
-                ))
-                {
-                    c.Next.Operand = 0f;
-                    Debug.Log("IL Found : IL.RoR2.FogDamageController.FixedUpdate");
-                }
-                else
-                {
-                    Debug.LogWarning("IL Failed : IL.RoR2.FogDamageController.FixedUpdate");
-                }
-            };
             On.RoR2.InfiniteTowerWaveController.OnAllEnemiesDefeatedServer += ActivateNewArtifacts_OnAllEnemiesDefeatedServer;
 
 
@@ -50,25 +36,55 @@ namespace SimulacrumAdditions
 
             SceneDirector.onGenerateInteractableCardSelection += SimulacrumDevotionAddEgg;
 
+            On.RoR2.InfiniteTowerWaveController.DropRewards += LessOptionsDuringSacrifice;
+            On.RoR2.Artifacts.SacrificeArtifactManager.OnArtifactEnabled += SacrificeArtifactManager_OnArtifactEnabled;
+            On.RoR2.Artifacts.SacrificeArtifactManager.OnArtifactDisabled += SacrificeArtifactManager_OnArtifactDisabled;
+        }
+
+        private static void LessOptionsDuringSacrifice(On.RoR2.InfiniteTowerWaveController.orig_DropRewards orig, InfiniteTowerWaveController self)
+        {
             if (WConfig.cfgSacrificeBalance.Value)
             {
-                On.RoR2.InfiniteTowerWaveController.DropRewards += (orig, self) =>
+                bool sacrifice = RunArtifactManager.instance.IsArtifactEnabled(RoR2Content.Artifacts.sacrificeArtifactDef);
+                SimulacrumExtrasHelper temp = self.GetComponent<SimulacrumExtrasHelper>();
+                if (sacrifice && self.rewardOptionCount > 1)
                 {
-                    bool sacrifice = RunArtifactManager.instance.IsArtifactEnabled(RoR2Content.Artifacts.sacrificeArtifactDef);
-                    SimulacrumExtrasHelper temp = self.GetComponent<SimulacrumExtrasHelper>();
-                    if (sacrifice && self.rewardOptionCount > 1)
+                    self.rewardOptionCount--;
+                    if (temp && temp.rewardOptionCount > 1)
                     {
-                        self.rewardOptionCount--;
-                        if (temp && temp.rewardOptionCount > 1)
-                        {
-                            temp.rewardOptionCount--;
-                        }
+                        temp.rewardOptionCount--;
                     }
-                    orig(self);
-                };
-                On.RoR2.Artifacts.SacrificeArtifactManager.OnArtifactEnabled += SacrificeArtifactManager_OnArtifactEnabled;
-                On.RoR2.Artifacts.SacrificeArtifactManager.OnArtifactDisabled += SacrificeArtifactManager_OnArtifactDisabled;
+                }
             }
+           
+            orig(self);
+        }
+
+        private static void DevotionInventoryController_Awake(On.RoR2.DevotionInventoryController.orig_Awake orig, DevotionInventoryController self)
+        {
+            orig(self);
+            if (Run.instance && Run.instance.GetComponent<InfiniteTowerRun>())
+            {
+                self._devotionMinionInventory.GiveItem(RoR2Content.Items.BoostHp, 5);
+            }
+        }
+
+        private static void NoFogLemurianDamage(ILContext il)
+        {
+            ILCursor c = new ILCursor(il);
+            if (c.TryGotoNext(MoveType.Before,
+             x => x.MatchLdcR4(0.5f),
+             x => x.MatchMul()
+            ))
+            {
+                c.Next.Operand = 0.00f;
+                Debug.Log("IL Found : IL.RoR2.FogDamageController.FixedUpdate");
+            }
+            else
+            {
+                Debug.LogWarning("IL Failed : IL.RoR2.FogDamageController.FixedUpdate");
+            }
+            
         }
 
         private static void ActivateNewArtifacts_OnAllEnemiesDefeatedServer(On.RoR2.InfiniteTowerWaveController.orig_OnAllEnemiesDefeatedServer orig, InfiniteTowerWaveController self)
@@ -82,20 +98,9 @@ namespace SimulacrumAdditions
                 }
                 if (self.isBossWave)
                 {
-                    if (RunArtifactManager.instance.IsArtifactEnabled(CU8Content.Artifacts.Devotion))
+                    foreach (DevotionInventoryController devotionInventoryController in DevotionInventoryController.InstanceList)
                     {
-                        foreach (DevotionInventoryController devotion in DevotionInventoryController.InstanceList)
-                        {
-                            devotion.ActivateDevotedEvolution();
-                        }
-                        //DevotionInventoryController.ActivateDevotedEvolution();
-                    }
-                    if (RunArtifactManager.instance.IsArtifactEnabled(CU8Content.Artifacts.Delusion))
-                    {
-                        /*foreach (ChestBehavior chestBehavior in InstanceTracker.GetInstancesList<ChestBehavior>())
-                        {
-                            chestBehavior.CallRpcResetChests();
-                        }*/
+                        devotionInventoryController.UpdateAllMinions(true);
                     }
                 }
             }
@@ -129,11 +134,15 @@ namespace SimulacrumAdditions
             {
                 return;
             }
-            if (Run.instance && Run.instance.GetComponent<InfiniteTowerRun>())
+            if (WConfig.cfgSacrificeBalance.Value)
             {
-                Debug.Log("Simulacrum : Added Sacrifice");
-                On.RoR2.Util.GetExpAdjustedDropChancePercent += SimulacrumNerfSacrifice;
+                if (Run.instance && Run.instance.GetComponent<InfiniteTowerRun>())
+                {
+                    Debug.Log("Simulacrum : Added Sacrifice");
+                    On.RoR2.Util.GetExpAdjustedDropChancePercent += SimulacrumNerfSacrifice;
+                }
             }
+            
         }
 
         private static float SimulacrumNerfSacrifice(On.RoR2.Util.orig_GetExpAdjustedDropChancePercent orig, float baseChancePercent, GameObject characterBodyObject)
@@ -152,10 +161,13 @@ namespace SimulacrumAdditions
             {
                 return;
             }
-            if (Run.instance && Run.instance.GetComponent<InfiniteTowerRun>())
+            if (WConfig.cfgSacrificeBalance.Value)
             {
-                Debug.Log("Simulacrum : Removed Sacrifice");
-                On.RoR2.Util.GetExpAdjustedDropChancePercent -= SimulacrumNerfSacrifice;
+                if (Run.instance && Run.instance.GetComponent<InfiniteTowerRun>())
+                {
+                    Debug.Log("Simulacrum : Removed Sacrifice");
+                    On.RoR2.Util.GetExpAdjustedDropChancePercent -= SimulacrumNerfSacrifice;
+                }
             }
         }
     }

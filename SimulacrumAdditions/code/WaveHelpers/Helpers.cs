@@ -1,14 +1,9 @@
-﻿using BepInEx;
-using MonoMod.Cil;
-using R2API;
-using R2API.Utils;
-using RoR2;
-using RoR2.ExpansionManagement;
+﻿using RoR2;
+using RoR2.Projectile;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Networking;
-using RoR2.Projectile;
 
 namespace SimulacrumAdditions
 {
@@ -223,7 +218,7 @@ namespace SimulacrumAdditions
             }
             else if (variant == 0)
             {
-                count = 3 + (Run.instance.GetComponent<InfiniteTowerRun>().waveIndex) / 10;
+                count = 2 + (Run.instance.GetComponent<InfiniteTowerRun>().waveIndex) / 10;
             }
         }
 
@@ -354,7 +349,7 @@ namespace SimulacrumAdditions
             {
                 self.myColliders[0].material = bouncyMat;
                 //self.myColliders[0].isTrigger = false; //Probably too invasive
-            }     
+            }
             var a = self.GetComponent<ProjectileImpactExplosion>();
             if (a)
             {
@@ -400,6 +395,10 @@ namespace SimulacrumAdditions
             {
                 InfiniteTowerRun itRun = Run.instance.GetComponent<InfiniteTowerRun>();
                 int amount = (int)(count + itRun.waveIndex / 10 * extraPer10Wave);
+                if (amount < 1)
+                {
+                    amount = 1;
+                }
                 itRun.enemyInventory.GiveItem(itemIndex, amount);
             }
         }
@@ -420,6 +419,10 @@ namespace SimulacrumAdditions
             {
                 InfiniteTowerRun itRun = Run.instance.GetComponent<InfiniteTowerRun>();
                 int amount = (int)(count + itRun.waveIndex / 10 * extraPer10Wave);
+                if (amount < 1)
+                {
+                    amount = 1;
+                }
                 itRun.enemyInventory.RemoveItem(itemIndex, amount);
             }
         }
@@ -430,6 +433,7 @@ namespace SimulacrumAdditions
         public InteractableSpawnCard spawnCard;
         public float interval = 2;
         public int spawnsOnStart = 0;
+        public int maxDistance = 55;
 
         public float spawnedTimer;
         public Xoroshiro128Plus rng;
@@ -471,7 +475,7 @@ namespace SimulacrumAdditions
                 {
                     placementMode = DirectorPlacementRule.PlacementMode.Approximate,
                     minDistance = 0,
-                    maxDistance = 60,
+                    maxDistance = maxDistance,
                     position = base.gameObject.transform.position,
                     spawnOnTarget = base.gameObject.transform
                 };
@@ -569,7 +573,7 @@ namespace SimulacrumAdditions
             if (backupTiers != null)
             {
                 CombatDirector.eliteTiers = backupTiers;
-            }        
+            }
         }
     }
 
@@ -606,17 +610,39 @@ namespace SimulacrumAdditions
 
     public class SimulacrumArtifactTrialWave : MonoBehaviour
     {
-        private ArtifactDef artifactDef;
-        private ArtifactDef artifactDef2;
-        private bool artifactWasEnabled;
-        private bool artifactWasEnabled2;
-        private CombatSquad combatSquad;
+        public ArtifactDef artifactDef;
+        public ArtifactDef artifactDef2;
+        public bool artifactWasEnabled;
+        public bool artifactWasEnabled2;
+        public int count = 0;
 
-        private void OnEnable()
+        public void Awake()
         {
             if (NetworkServer.active)
             {
-                List<ArtifactDef> artifactList = new List<ArtifactDef>()
+                RollArtifact();
+            }
+            RunArtifactManager.onArtifactEnabledGlobal += ArtifactListerner;
+        }
+
+        private void ArtifactListerner([JetBrains.Annotations.NotNull] RunArtifactManager runArtifactManager, [JetBrains.Annotations.NotNull] ArtifactDef artifactDef)
+        {
+            InfiniteTowerWaveController controller = this.GetComponent<InfiniteTowerWaveController>();
+            GameObject ui = controller.overlayEntries[1].prefab;
+            if (count == 0)
+            {
+                ui.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = artifactDef.smallIconSelectedSprite;
+            }
+            else if (count == 1)
+            {
+                ui.transform.GetChild(0).GetChild(3).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = artifactDef.smallIconSelectedSprite;
+            }
+            count++;
+        }
+
+        public void RollArtifact()
+        {
+            List<ArtifactDef> artifactList = new List<ArtifactDef>()
                 {
                     RoR2Content.Artifacts.bombArtifactDef,
                     RoR2Content.Artifacts.wispOnDeath,
@@ -628,43 +654,41 @@ namespace SimulacrumAdditions
                     RoR2Content.Artifacts.monsterTeamGainsItemsArtifactDef,
                 };
 
-                ArtifactDef Brigade = ArtifactCatalog.FindArtifactDef("SingleEliteType");
-                if (Brigade != null)
-                {
-                    artifactList.Add(Brigade);
-                }
+            ArtifactDef Brigade = ArtifactCatalog.FindArtifactDef("SingleEliteType");
+            if (Brigade != null)
+            {
+                artifactList.Add(Brigade);
+            }
+
+            int random = WRect.random.Next(0, artifactList.Count);
+            artifactDef = artifactList[random];
+            artifactList.Remove(artifactDef);
+
+            int random2 = WRect.random.Next(0, artifactList.Count);
+            artifactDef2 = artifactList[random2];
 
 
-                int random = WRect.random.Next(0, artifactList.Count);
-                artifactDef = artifactList[random];
-                artifactList.Remove(artifactDef);
+        }
 
-                int random2 = WRect.random.Next(0, artifactList.Count);
-                artifactDef2 = artifactList[random2];
-
+        public void OnEnable()
+        {
+            if (NetworkServer.active)
+            {
                 this.artifactWasEnabled = RunArtifactManager.instance.IsArtifactEnabled(this.artifactDef);
                 RunArtifactManager.instance.SetArtifactEnabledServer(this.artifactDef, true);
 
                 this.artifactWasEnabled2 = RunArtifactManager.instance.IsArtifactEnabled(this.artifactDef2);
                 RunArtifactManager.instance.SetArtifactEnabledServer(this.artifactDef2, true);
-
-
-                InfiniteTowerWaveController controller = this.GetComponent<InfiniteTowerWaveController>();
-                if (controller && controller.combatSquad)
-                {
-                    combatSquad = controller.combatSquad;
-                    //controller.combatSquad.onMemberDiscovered += this.OnCombatSquadMemberDiscovered;
-                }
             }
         }
 
         private void OnDisable()
         {
+            RunArtifactManager.onArtifactEnabledGlobal -= ArtifactListerner;
             if (NetworkServer.active && RunArtifactManager.instance)
             {
-                //combatSquad.onMemberDiscovered -= this.OnCombatSquadMemberDiscovered;
                 RunArtifactManager.instance.SetArtifactEnabledServer(this.artifactDef2, this.artifactWasEnabled2);
-                RunArtifactManager.instance.SetArtifactEnabledServer(this.artifactDef, this.artifactWasEnabled);     
+                RunArtifactManager.instance.SetArtifactEnabledServer(this.artifactDef, this.artifactWasEnabled);
             }
         }
 
@@ -702,20 +726,6 @@ namespace SimulacrumAdditions
             if (ruleChoiceDef != null)
             {
                 Run.instance.ruleBook.ApplyChoice(ruleChoiceDef);
-            }
-        }
-    }
-
-    public class RunArtifactOfDelusion : MonoBehaviour
-    {
-        private void OnEnable()
-        {
-            if (NetworkServer.active)
-            {
-                foreach (ChestBehavior chestBehavior in InstanceTracker.GetInstancesList<ChestBehavior>())
-                {
-                    chestBehavior.CallRpcResetChests();
-                }
             }
         }
     }

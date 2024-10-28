@@ -21,7 +21,7 @@ namespace SimulacrumAdditions
                 new ItemCountPair { itemDef = ItemHelpers.ITHorrorName, count = 1 },
 
                 new ItemCountPair { itemDef = ItemHelpers.ITAttackSpeedDown, count = 40 },
-                new ItemCountPair { itemDef = DLC1Content.Items.CritGlassesVoid, count = 200 },
+                new ItemCountPair { itemDef = DLC1Content.Items.CritGlassesVoid, count = 20 },
                 new ItemCountPair { itemDef = ItemHelpers.ITDamageDown, count = 30 },
             };
 
@@ -39,7 +39,7 @@ namespace SimulacrumAdditions
 
                 //new ItemCountPair { itemDef = RoR2Content.Items.BoostAttackSpeed, count = 0 },
                 //new ItemCountPair { itemDef = RoR2Content.Items.SprintOutOfCombat, count = 0 },
-                new ItemCountPair { itemDef = DLC1Content.Items.CritGlassesVoid, count = 200 },
+                new ItemCountPair { itemDef = DLC1Content.Items.CritGlassesVoid, count = 20 },
                 new ItemCountPair { itemDef = RoR2Content.Items.Hoof, count = 1 },
                 new ItemCountPair { itemDef = DLC1Content.Items.HalfSpeedDoubleHealth, count = 1 },
             };
@@ -62,7 +62,7 @@ namespace SimulacrumAdditions
                 new ItemCountPair { itemDef = RoR2Content.Items.SprintOutOfCombat, count = 3 },
                 new ItemCountPair { itemDef = RoR2Content.Items.Hoof, count = 5 },
                 new ItemCountPair { itemDef = RoR2Content.Items.LunarBadLuck, count = 1 },
-                new ItemCountPair { itemDef = DLC1Content.Items.CritGlassesVoid, count = 200 },
+                new ItemCountPair { itemDef = DLC1Content.Items.CritGlassesVoid, count = 20 },
             };
 
             Waves_SpecialGuy.CardRandomizerBasicGhost.cscList = new CharacterSpawnCard[] {
@@ -87,7 +87,7 @@ namespace SimulacrumAdditions
                 new ItemCountPair { itemDef = RoR2Content.Items.TeleportWhenOob, count = 1 },
                 new ItemCountPair { itemDef = ItemHelpers.ITKillOnCompletion, count = 2 },
                 new ItemCountPair { itemDef = ItemHelpers.ITHorrorName, count = 1 },
-                new ItemCountPair { itemDef = DLC1Content.Items.CritGlassesVoid, count = 200 },
+                new ItemCountPair { itemDef = DLC1Content.Items.CritGlassesVoid, count = 20 },
 
                 new ItemCountPair { itemDef = RoR2Content.Items.BoostAttackSpeed, count = 1 },
                 //new ItemCountPair { itemDef = RoR2Content.Items.Hoof, count = 0 },
@@ -108,9 +108,9 @@ namespace SimulacrumAdditions
                 new ItemCountPair { itemDef = RoR2Content.Items.TeleportWhenOob, count = 1 },
                 new ItemCountPair { itemDef = ItemHelpers.ITKillOnCompletion, count = 6 },
                 new ItemCountPair { itemDef = ItemHelpers.ITHorrorName, count = 1 },
-                new ItemCountPair { itemDef = DLC1Content.Items.CritGlassesVoid, count = 200 },
+                new ItemCountPair { itemDef = DLC1Content.Items.CritGlassesVoid, count = 20 },
 
-                new ItemCountPair { itemDef = DLC1Content.Items.HalfSpeedDoubleHealth, count = 200 },
+                new ItemCountPair { itemDef = DLC1Content.Items.HalfSpeedDoubleHealth, count = 50 },
                 new ItemCountPair { itemDef = RoR2Content.Items.BoostAttackSpeed, count = 1 },
                 new ItemCountPair { itemDef = RoR2Content.Items.Hoof, count = 1 },
                 new ItemCountPair { itemDef = RoR2Content.Items.SecondarySkillMagazine, count = 6 },
@@ -127,7 +127,8 @@ namespace SimulacrumAdditions
                 new ItemCountPair { itemDef = RoR2Content.Items.TeleportWhenOob, count = 1 },
                 new ItemCountPair { itemDef = ItemHelpers.ITKillOnCompletion, count = 5 },
                 new ItemCountPair { itemDef = ItemHelpers.ITHorrorName, count = 1 },
-                new ItemCountPair { itemDef = DLC1Content.Items.CritGlassesVoid, count = 200 },
+                new ItemCountPair { itemDef = ItemHelpers.ITCooldownUp, count = 5 },
+                new ItemCountPair { itemDef = DLC1Content.Items.CritGlassesVoid, count = 20 },
 
                 //new ItemCountPair { itemDef = RoR2Content.Items.AlienHead, count = 0 },
                 //new ItemCountPair { itemDef = RoR2Content.Items.Hoof, count = 0 },
@@ -143,7 +144,7 @@ namespace SimulacrumAdditions
                 //new ItemCountPair { itemDef = RoR2Content.Items.TeleportWhenOob, count = 1 },
                 new ItemCountPair { itemDef = ItemHelpers.ITKillOnCompletion, count = 4 },
                 new ItemCountPair { itemDef = ItemHelpers.ITHorrorName, count = 1 },
-                new ItemCountPair { itemDef = DLC1Content.Items.CritGlassesVoid, count = 200 },
+                new ItemCountPair { itemDef = DLC1Content.Items.CritGlassesVoid, count = 20 },
 
                 new ItemCountPair { itemDef = ItemHelpers.ITAttackSpeedDown, count = 10 },
                 new ItemCountPair { itemDef = RoR2Content.Items.LunarBadLuck, count = 1 },
@@ -170,7 +171,7 @@ namespace SimulacrumAdditions
                 new ItemCountPair { itemDef = RoR2Content.Items.TeleportWhenOob, count = 1 },
                 new ItemCountPair { itemDef = ItemHelpers.ITKillOnCompletion, count = 4 },
                 new ItemCountPair { itemDef = ItemHelpers.ITHorrorName, count = 1 },
-                new ItemCountPair { itemDef = DLC1Content.Items.CritGlassesVoid, count = 200 },
+                new ItemCountPair { itemDef = DLC1Content.Items.CritGlassesVoid, count = 20 },
 
                 new ItemCountPair { itemDef = RoR2Content.Items.Hoof, count = 2 },
                 //new ItemCountPair { itemDef = RoR2Content.Items.LunarBadLuck, count = 1 },
@@ -247,7 +248,7 @@ namespace SimulacrumAdditions
             CharacterSpawnCard cscEquipmentDroneITMeteor = Object.Instantiate(cscEquipmentDroneIT);
             cscEquipmentDroneITMeteor.name = "cscEquipmentDroneITMeteor";
             cscEquipmentDroneITMeteor.equipmentToGrant = new EquipmentDef[] { RoR2Content.Equipment.Meteor };
-            cscEquipmentDroneITMeteor.itemsToGrant[0].count = 15;
+            cscEquipmentDroneITMeteor.itemsToGrant[0].count = 14;
             cscEquipmentDroneITMeteor.itemsToGrant[1].count = 20;
             cscEquipmentDroneITMeteor.itemsToGrant[4].count = 1;
             cscEquipmentDroneITMeteor.itemsToGrant[4].itemDef = RoR2Content.Items.ShieldOnly;
@@ -291,7 +292,6 @@ namespace SimulacrumAdditions
             cscITDroneFlame.itemsToGrant = new ItemCountPair[] {
                 new ItemCountPair { itemDef = ItemHelpers.ITHealthScaling, count = 10},//
                 new ItemCountPair { itemDef = RoR2Content.Items.ExtraLife, count = 10 },//   
-                
                 new ItemCountPair { itemDef = ItemHelpers.ITKillOnCompletion, count = 15 },
                 new ItemCountPair { itemDef = ItemHelpers.ITDamageDown, count = 80 },
                 new ItemCountPair { itemDef = DLC1Content.Items.HalfSpeedDoubleHealth, count = 1 },
