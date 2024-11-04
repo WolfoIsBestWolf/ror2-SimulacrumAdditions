@@ -1,5 +1,9 @@
 ## Changelog:
 ```
+v2.3.2
+Added Augment of Shuriken, Elixir and Meridian
+
+v2.3.1 - Fixed an issue with the file structure causing mod to not function.
 v2.3.0
 Made language file so mod can be translated.
 Put textures in AssetBundle

@@ -167,7 +167,7 @@ namespace SimulacrumAdditions
             InfiniteTowerCurrentBossFalseSonWaveUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color(1f, 0.95f, 0.55f, 1);
             InfiniteTowerCurrentBossFalseSonWaveUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 1f, 0.4f, 1);
 
-            InfiniteTowerWaveCategory.WeightedWave ITBossFalseSon = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveBossFalseSon, weight = ITSpecialBossWaveWeight, prerequisites = SimuMain.StartWave30PrerequisiteDLC2 };
+            InfiniteTowerWaveCategory.WeightedWave ITBossFalseSon = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveBossFalseSon, weight = ITSpecialBossWaveWeight, prerequisites = SimuMain.DLC2_StartWave30Prerequisite };
 #endregion
 
             #region SuperRoboBall

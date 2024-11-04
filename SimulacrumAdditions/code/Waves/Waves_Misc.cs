@@ -206,7 +206,25 @@ namespace SimulacrumAdditions
             SimuMain.ITBossWaves.wavePrefabs = SimuMain.ITBossWaves.wavePrefabs.Add(ITBossEclipse8);
             #endregion
 
+            #region MeridianStorm
+            GameObject InfiniteTowerWaveMeridianStorm = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveItemMeridianStorm", true);
+            GameObject InfiniteTowerWaveMeridianStormUI = PrefabAPI.InstantiateClone(Const.BasicWaveUI, "InfiniteTowerWaveItemMeridianStormUI", false);
 
+            InfiniteTowerWaveMeridianStorm.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWaveMeridianStormUI;
+            //InfiniteTowerWaveMeridianStorm.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITCategoryHealing;
+
+            InfiniteTowerWaveMeridianStorm.AddComponent<SimulacrumLightningStormWave>();
+
+            InfiniteTowerWaveMeridianStormUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_PMSTORM";
+            InfiniteTowerWaveMeridianStormUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_PMSTORM";
+            InfiniteTowerWaveMeridianStormUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color = new Color(0.52f, 0.79f, 1f);
+            InfiniteTowerWaveMeridianStormUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = Addressables.LoadAssetAsync<BuffDef>(key: "RoR2/Base/ShockNearby/bdTeslaField.asset").WaitForCompletion().iconSprite;
+            InfiniteTowerWaveMeridianStormUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0.52f, 0.79f, 1f);
+            InfiniteTowerWaveMeridianStormUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color(0.52f, 0.79f, 1f);
+
+            InfiniteTowerWaveCategory.WeightedWave ITMeridianStorm = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveMeridianStorm, weight = 2f, prerequisites = SimuMain.DLC2_StartWave15Prerequisite };
+            SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(ITMeridianStorm);
+            #endregion
         }
 
 

@@ -26,5 +26,13 @@ namespace SimulacrumAdditions
         public static GameObject LunarWaveUI = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentBossLunarWaveUI.prefab").WaitForCompletion();
         public static GameObject VoidWaveUI = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentBossVoidWaveUI.prefab").WaitForCompletion();
 
+
+
+        public static void MakeValues()
+        {
+
+        }
+
     }
+
 }

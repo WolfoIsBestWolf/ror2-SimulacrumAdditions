@@ -393,12 +393,13 @@ namespace SimulacrumAdditions
             }
             if (NetworkServer.active)
             {
-                InfiniteTowerRun itRun = Run.instance.GetComponent<InfiniteTowerRun>();
-                int amount = (int)(count + itRun.waveIndex / 10 * extraPer10Wave);
-                if (amount < 1)
+                InfiniteTowerRun itRun = Run.instance.GetComponent<InfiniteTowerRun>();               
+                int bonusAmount = (int)(itRun.waveIndex / 10 * extraPer10Wave);
+                if (bonusAmount < 0)
                 {
-                    amount = 1;
+                    bonusAmount = 0;
                 }
+                int amount = count + bonusAmount;
                 itRun.enemyInventory.GiveItem(itemIndex, amount);
             }
         }
@@ -418,11 +419,12 @@ namespace SimulacrumAdditions
             if (NetworkServer.active)
             {
                 InfiniteTowerRun itRun = Run.instance.GetComponent<InfiniteTowerRun>();
-                int amount = (int)(count + itRun.waveIndex / 10 * extraPer10Wave);
-                if (amount < 1)
+                int bonusAmount = (int)(itRun.waveIndex / 10 * extraPer10Wave);
+                if (bonusAmount < 0)
                 {
-                    amount = 1;
+                    bonusAmount = 0;
                 }
+                int amount = count + bonusAmount;
                 itRun.enemyInventory.RemoveItem(itemIndex, amount);
             }
         }
@@ -704,6 +706,55 @@ namespace SimulacrumAdditions
         }
 
     }
+
+    public class SimulacrumLightningStormWave : MonoBehaviour
+    {
+        public GameObject LightningStorm;
+        public GameObject LightningStrike;
+
+        public void OnEnable()
+        {
+            LightningStrike = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC2/meridian/DisableSkillsLightning/LightningStrikeInstance.prefab").WaitForCompletion();
+            LightningStrike.GetComponent<TeamComponent>().teamIndex = TeamIndex.Neutral;
+            var Lightning = LightningStrike.GetComponent<LightningStrikeInstance>();
+            Lightning.blastDamageType = new DamageTypeCombo
+            {
+                damageType = DamageType.LunarRuin,
+                damageTypeExtended = DamageTypeExtended.DamagePercentOfMaxHealth
+            };
+
+            if (NetworkServer.active)
+            {
+                if (!LightningStorm)
+                {
+                    LightningStorm = GameObject.Instantiate(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC2/meridian/DisableSkillsLightning/LightningStormController.prefab").WaitForCompletion());
+                    NetworkServer.Spawn(LightningStorm);
+                }
+                LightningStorm.GetComponent<LightningStormController>().stormActive = false;
+                LightningStorm.GetComponent<LightningStormController>().ServerSetStormActive(true);
+            }
+        }
+
+        public void OnDisable()
+        {
+            if (LightningStorm)
+            {
+                LightningStorm.GetComponent<LightningStormController>().ServerSetStormActive(false);
+                GameObject.Destroy(LightningStorm, 3);
+            }
+
+            LightningStrike.GetComponent<TeamComponent>().teamIndex = TeamIndex.Monster;
+            var Lightning = LightningStrike.GetComponent<LightningStrikeInstance>();
+            Lightning.blastDamageType = new DamageTypeCombo
+            {
+                damageType = DamageType.LunarRuin,
+                damageTypeExtended = DamageTypeExtended.ApplyBuffPermanently | DamageTypeExtended.DamagePercentOfMaxHealth
+            };
+        }
+ 
+
+    }
+
 
     public class DisableRegeneratingScrap : MonoBehaviour
     {

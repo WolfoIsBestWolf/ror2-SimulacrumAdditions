@@ -68,8 +68,11 @@ namespace SimulacrumAdditions
 
         public static InfiniteTowerRun Simu_Run_Run;
 
-        public static ITWave_DLC2_Prerequisites StartWave15PrerequisiteDLC2 = ScriptableObject.CreateInstance<ITWave_DLC2_Prerequisites>();
-        public static ITWave_DLC2_Prerequisites StartWave30PrerequisiteDLC2 = ScriptableObject.CreateInstance<ITWave_DLC2_Prerequisites>();
+        public static ITWave_DLC_Prerequisites DLC1_StartWave10Prerequisite = ScriptableObject.CreateInstance<ITWave_DLC_Prerequisites>();
+
+        public static ITWave_DLC_Prerequisites DLC2_StartWave10Prerequisite = ScriptableObject.CreateInstance<ITWave_DLC_Prerequisites>();
+        public static ITWave_DLC_Prerequisites DLC2_StartWave15Prerequisite = ScriptableObject.CreateInstance<ITWave_DLC_Prerequisites>();
+        public static ITWave_DLC_Prerequisites DLC2_StartWave30Prerequisite = ScriptableObject.CreateInstance<ITWave_DLC_Prerequisites>();
 
         //
         //
@@ -724,10 +727,12 @@ namespace SimulacrumAdditions
             AfterWave5EndWave30Prerequisite.maximumWaveCount = 30;
             AfterWave5EndWave30Prerequisite.name = "AfterWave5EndWave30Prerequisite";
 
-            StartWave15PrerequisiteDLC2.minimumWaveCount = 15;
-            StartWave15PrerequisiteDLC2.name = "StartWave15PrerequisiteDLC2";
-            StartWave30PrerequisiteDLC2.minimumWaveCount = 30;
-            StartWave30PrerequisiteDLC2.name = "StartWave30PrerequisiteDLC2";
+            DLC2_StartWave10Prerequisite.minimumWaveCount = 10;
+            DLC2_StartWave10Prerequisite.name = "StartWave10PrerequisiteDLC2";
+            DLC2_StartWave15Prerequisite.minimumWaveCount = 15;
+            DLC2_StartWave15Prerequisite.name = "StartWave15PrerequisiteDLC2";
+            DLC2_StartWave30Prerequisite.minimumWaveCount = 30;
+            DLC2_StartWave30Prerequisite.name = "StartWave30PrerequisiteDLC2";
 
 
             //
@@ -1167,18 +1172,18 @@ namespace SimulacrumAdditions
              "  Percent for Default: " + defaultWeight / totalWeight);
         }
 
-        public class ITWave_DLC2_Prerequisites : InfiniteTowerWavePrerequisites
+        public class ITWave_DLC_Prerequisites : InfiniteTowerWavePrerequisites
         {
             public override bool AreMet(InfiniteTowerRun run)
             {
-                if (run.IsExpansionEnabled(dlc2))
+                if (run.IsExpansionEnabled(requiredDLC))
                 {
                     return run.waveIndex >= this.minimumWaveCount;
                 }
                 return false;
             }
 
-            public static ExpansionDef dlc2 = Addressables.LoadAssetAsync<ExpansionDef>(key: "RoR2/DLC2/Common/DLC2.asset").WaitForCompletion();
+            public static ExpansionDef requiredDLC = Addressables.LoadAssetAsync<ExpansionDef>(key: "RoR2/DLC2/Common/DLC2.asset").WaitForCompletion();
 
             public int minimumWaveCount;
         }
