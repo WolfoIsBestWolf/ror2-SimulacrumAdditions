@@ -29,7 +29,7 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveAlwaysJumpingUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0.8f, 1, 0.6f);
             InfiniteTowerWaveAlwaysJumpingUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color(0.8f, 1, 0.6f);
 
-            InfiniteTowerWaveCategory.WeightedWave AlwaysJumpingWave = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveAlwaysJumping, weight = 3f, prerequisites = SimuMain.AfterWave5Prerequisite };
+            InfiniteTowerWaveCategory.WeightedWave AlwaysJumpingWave = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveAlwaysJumping, weight = 2.5f, prerequisites = SimuMain.AfterWave5Prerequisite };
             SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(AlwaysJumpingWave);
             #endregion
 
@@ -207,13 +207,20 @@ namespace SimulacrumAdditions
             #endregion
 
             #region MeridianStorm
-            GameObject InfiniteTowerWaveMeridianStorm = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveItemMeridianStorm", true);
-            GameObject InfiniteTowerWaveMeridianStormUI = PrefabAPI.InstantiateClone(Const.BasicWaveUI, "InfiniteTowerWaveItemMeridianStormUI", false);
+            GameObject InfiniteTowerWaveMeridianStorm = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveMeridianStorm", true);
+            GameObject InfiniteTowerWaveMeridianStormUI = PrefabAPI.InstantiateClone(Const.BasicWaveUI, "InfiniteTowerWaveMeridianStormUI", false);
 
             InfiniteTowerWaveMeridianStorm.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWaveMeridianStormUI;
             //InfiniteTowerWaveMeridianStorm.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITCategoryHealing;
 
             InfiniteTowerWaveMeridianStorm.AddComponent<SimulacrumLightningStormWave>();
+
+
+            InteractableSpawnCard Geode = Addressables.LoadAssetAsync<InteractableSpawnCard>(key: "RoR2/DLC2/iscGeode.asset").WaitForCompletion();
+            Geode.orientToFloor = false;
+            InfiniteTowerWaveMeridianStorm.GetComponent<InfiniteTowerWaveController>().rewardPickupPrefab = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC2/FragmentPotentialPickup.prefab").WaitForCompletion();
+            InfiniteTowerWaveMeridianStorm.GetComponent<InfiniteTowerWaveController>().rewardOptionCount = 4;
+            InfiniteTowerWaveMeridianStorm.GetComponent<InfiniteTowerWaveController>().baseCredits += 10;
 
             InfiniteTowerWaveMeridianStormUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_PMSTORM";
             InfiniteTowerWaveMeridianStormUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_PMSTORM";
@@ -224,6 +231,28 @@ namespace SimulacrumAdditions
 
             InfiniteTowerWaveCategory.WeightedWave ITMeridianStorm = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveMeridianStorm, weight = 2f, prerequisites = SimuMain.DLC2_StartWave15Prerequisite };
             SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(ITMeridianStorm);
+            #endregion
+
+            #region Knockback Strong
+            //KnockbackFin
+            GameObject InfiniteTowerWaveKnockback = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveKnockback", true);
+            GameObject InfiniteTowerWaveKnockbackUI = PrefabAPI.InstantiateClone(Const.BasicWaveUI, "InfiniteTowerWaveKnockbackUI", false);
+
+            InfiniteTowerWaveKnockback.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWaveKnockbackUI;
+            InfiniteTowerWaveKnockback.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITCategoryUtility;
+
+            //InfiniteTowerWaveKnockback.AddComponent<SimulacrumGiveItemsOnStart>().itemString = "KnockBackHitEnemies";
+            //InfiniteTowerWaveKnockback.GetComponent<SimulacrumGiveItemsOnStart>().count = 1;
+            InfiniteTowerWaveKnockback.AddComponent<Simulacrum_KnockbackWave>();
+
+            InfiniteTowerWaveKnockbackUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_KNOCKBACKFIN";
+            InfiniteTowerWaveKnockbackUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_KNOCKBACKFIN";
+            InfiniteTowerWaveKnockbackUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color = new Color32(219, 122, 173,255);
+            InfiniteTowerWaveKnockbackUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color32(216, 95, 148, 255);
+            InfiniteTowerWaveKnockbackUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color32(216, 95, 148, 255);
+
+            InfiniteTowerWaveCategory.WeightedWave ITKnockback = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveKnockback, weight = 3f, prerequisites = SimuMain.StartWave11Prerequisite };
+            SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(ITKnockback);
             #endregion
         }
 

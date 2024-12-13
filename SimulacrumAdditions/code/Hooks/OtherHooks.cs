@@ -24,8 +24,6 @@ namespace SimulacrumAdditions
             //Fix ORANGE tier
             On.RoR2.PickupCatalog.FindPickupIndex_ItemTier += PickupCatalog_FindPickupIndex_ItemTier;
             
-            IL.RoR2.CharacterBody.RpcTeleportCharacterToSafety += FixUnstableTransmitterBeingStupid;
-
             //Give Simu Scavs Void Items
             On.RoR2.ScavengerItemGranter.Start += SimuGiveScavVoidItems;
 
@@ -50,13 +48,46 @@ namespace SimulacrumAdditions
             {
                 Transform JuicePannel = self.transform.GetChild(0).GetChild(1).GetChild(0);
                 Transform ResetButton = JuicePannel.Find("Reset");
+                Transform ResetAllButton = JuicePannel.Find("ResetAll");
+                Transform Set50ButtonD = JuicePannel.Find("Set50D");
+                Transform Set50ButtonR = JuicePannel.Find("Set50R");
+                Transform Set50ButtonM = JuicePannel.Find("Set50M");
                 if (JuicePannel.childCount == 2)
                 {
-                    GameObject newButton = GameObject.Instantiate(JuicePannel.GetChild(1).gameObject, JuicePannel);
+                    GameObject originalButton = JuicePannel.GetChild(1).gameObject;
+
+
+                    GameObject newButton = GameObject.Instantiate(originalButton, JuicePannel);
+                    newButton.name = "ResetAll";
+                    newButton.GetComponent<UnityEngine.UI.Image>().color = Color.red;
+                    newButton.transform.GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "Reset all Survivors";
+                    ResetAllButton = newButton.transform;
+
+                    newButton = GameObject.Instantiate(originalButton, JuicePannel);
                     newButton.name = "Reset";
                     newButton.GetComponent<UnityEngine.UI.Image>().color = Color.red;
                     newButton.transform.GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "Reset selected Survivor";
                     ResetButton = newButton.transform;
+
+                    newButton = GameObject.Instantiate(originalButton, JuicePannel);
+                    newButton.name = "Set50D";
+                    newButton.GetComponent<UnityEngine.UI.Image>().color = Color.magenta;
+                    newButton.transform.GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "Set to 50 for selected Driz";
+                    Set50ButtonD = newButton.transform;
+
+                    newButton = GameObject.Instantiate(originalButton, JuicePannel);
+                    newButton.name = "Set50R";
+                    newButton.GetComponent<UnityEngine.UI.Image>().color = Color.magenta;
+                    newButton.transform.GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "Set to 50 for selected Rain";
+                    Set50ButtonR = newButton.transform;
+
+                    newButton = GameObject.Instantiate(originalButton, JuicePannel);
+                    newButton.name = "Set50M";
+                    newButton.GetComponent<UnityEngine.UI.Image>().color = Color.magenta;
+                    newButton.transform.GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "Set to 50 for selected Mons";
+                    Set50ButtonM = newButton.transform;
+
+
                     JuicePannel.GetChild(1).SetAsLastSibling();
                 }
                 if (ResetButton)
@@ -90,6 +121,139 @@ namespace SimulacrumAdditions
                         }
                     };
                 }
+                if (ResetAllButton)
+                {
+                    ResetAllButton.GetChild(2).gameObject.SetActive(false);
+                    HGButton button = ResetAllButton.GetComponent<HGButton>();
+
+                    ResetWavesCounter travelComamnd = self.gameObject.AddComponent<ResetWavesCounter>();
+                    button.onClick.m_PersistentCalls = new UnityEngine.Events.PersistentCallGroup
+                    {
+                        m_Calls = new List<UnityEngine.Events.PersistentCall>()
+                        {
+                            new UnityEngine.Events.PersistentCall
+                            {
+                                m_Target = travelComamnd,
+                                m_MethodName = "ResetAll",
+                                m_Mode = UnityEngine.Events.PersistentListenerMode.Void,
+                                m_Arguments = new UnityEngine.Events.ArgumentCache
+                                {
+                                }
+                            },
+                            new UnityEngine.Events.PersistentCall
+                            {
+                                m_Target = self,
+                                m_MethodName = "UpdateDisplayedSurvivor",
+                                m_Mode = UnityEngine.Events.PersistentListenerMode.Void,
+                                m_Arguments = new UnityEngine.Events.ArgumentCache
+                                {
+                                }
+                            }
+                        }
+                    };
+                }
+                if (Set50ButtonD)
+                {
+                    Set50ButtonD.GetChild(2).gameObject.SetActive(false);
+                    HGButton button = Set50ButtonD.GetComponent<HGButton>();
+
+                    ResetWavesCounter travelComamnd = self.gameObject.AddComponent<ResetWavesCounter>();
+                    button.onClick.m_PersistentCalls = new UnityEngine.Events.PersistentCallGroup
+                    {
+                        m_Calls = new List<UnityEngine.Events.PersistentCall>()
+                        {
+                            new UnityEngine.Events.PersistentCall
+                            {
+                                m_Target = travelComamnd,
+                                m_MethodName = "Set50D",
+                                m_Mode = UnityEngine.Events.PersistentListenerMode.Void,
+                                m_Arguments = new UnityEngine.Events.ArgumentCache
+                                {
+                                }
+                            },
+                            new UnityEngine.Events.PersistentCall
+                            {
+                                m_Target = self,
+                                m_MethodName = "UpdateDisplayedSurvivor",
+                                m_Mode = UnityEngine.Events.PersistentListenerMode.Void,
+                                m_Arguments = new UnityEngine.Events.ArgumentCache
+                                {
+                                }
+                            }
+                        }
+                    };
+
+
+                }
+                if (Set50ButtonR)
+                {
+                    Set50ButtonR.GetChild(2).gameObject.SetActive(false);
+                    HGButton button = Set50ButtonR.GetComponent<HGButton>();
+
+                    ResetWavesCounter travelComamnd = self.gameObject.AddComponent<ResetWavesCounter>();
+                    button.onClick.m_PersistentCalls = new UnityEngine.Events.PersistentCallGroup
+                    {
+                        m_Calls = new List<UnityEngine.Events.PersistentCall>()
+                        {
+                            new UnityEngine.Events.PersistentCall
+                            {
+                                m_Target = travelComamnd,
+                                m_MethodName = "Set50R",
+                                m_Mode = UnityEngine.Events.PersistentListenerMode.Void,
+                                m_Arguments = new UnityEngine.Events.ArgumentCache
+                                {
+                                }
+                            },
+                            new UnityEngine.Events.PersistentCall
+                            {
+                                m_Target = self,
+                                m_MethodName = "UpdateDisplayedSurvivor",
+                                m_Mode = UnityEngine.Events.PersistentListenerMode.Void,
+                                m_Arguments = new UnityEngine.Events.ArgumentCache
+                                {
+                                }
+                            }
+                        }
+                    };
+
+
+                }
+                if (Set50ButtonM)
+                {
+                    Set50ButtonM.GetChild(2).gameObject.SetActive(false);
+                    HGButton button = Set50ButtonM.GetComponent<HGButton>();
+
+                    ResetWavesCounter travelComamnd = self.gameObject.AddComponent<ResetWavesCounter>();
+                    button.onClick.m_PersistentCalls = new UnityEngine.Events.PersistentCallGroup
+                    {
+                        m_Calls = new List<UnityEngine.Events.PersistentCall>()
+                        {
+                            new UnityEngine.Events.PersistentCall
+                            {
+                                m_Target = travelComamnd,
+                                m_MethodName = "Set50M",
+                                m_Mode = UnityEngine.Events.PersistentListenerMode.Void,
+                                m_Arguments = new UnityEngine.Events.ArgumentCache
+                                {
+                                }
+                            },
+                            new UnityEngine.Events.PersistentCall
+                            {
+                                m_Target = self,
+                                m_MethodName = "UpdateDisplayedSurvivor",
+                                m_Mode = UnityEngine.Events.PersistentListenerMode.Void,
+                                m_Arguments = new UnityEngine.Events.ArgumentCache
+                                {
+                                }
+                            }
+                        }
+                    };
+
+
+                }
+
+
+
             }
         }
 
@@ -124,28 +288,113 @@ namespace SimulacrumAdditions
                         statSheet.SetStatValueFromString(PerBodyStatDef.highestInfiniteTowerWaveReachedNormal.FindStatDef(bodyName ?? ""), "0");
                         statSheet.SetStatValueFromString(PerBodyStatDef.highestInfiniteTowerWaveReachedHard.FindStatDef(bodyName ?? ""), "0");
 
-                    }
-                    /*
-					foreach (SurvivorDef survivorDef in SurvivorCatalog.survivorDefs)
-					{
-						if (survivorDef.bodyPrefab)
-						{
-							CharacterBody body = survivorDef.bodyPrefab.GetComponent<CharacterBody>();
-							if (body)
-							{
-								string bodyName = BodyCatalog.GetBodyName(body.bodyIndex);
-								Debug.LogWarning("Resetting for " + bodyName);
-								statSheet.SetStatValueFromString(PerBodyStatDef.highestInfiniteTowerWaveReachedEasy.FindStatDef(bodyName ?? ""), "0");
-								statSheet.SetStatValueFromString(PerBodyStatDef.highestInfiniteTowerWaveReachedNormal.FindStatDef(bodyName ?? ""), "0");
-								statSheet.SetStatValueFromString(PerBodyStatDef.highestInfiniteTowerWaveReachedHard.FindStatDef(bodyName ?? ""), "0");
-
-							}
-						}
-
-					}
-					*/
+                    } 
                 }
             }
+
+            public void ResetAll()
+            {
+                Debug.LogWarning("Attempting to reset ALL Simulacrum Wave High-scores");
+
+                MPEventSystem eventSystem = MPEventSystem.instancesList[0];
+                UserProfile userProfile;
+                if (eventSystem == null)
+                {
+                    userProfile = null;
+                }
+                else
+                {
+                    LocalUser localUser = eventSystem.localUser;
+                    userProfile = ((localUser != null) ? localUser.userProfile : null);
+                }
+                UserProfile userProfile2 = userProfile;
+                if (userProfile2 != null)
+                {
+                    StatSheet statSheet = userProfile2.statSheet;
+                    foreach (SurvivorDef survivorDef in SurvivorCatalog.survivorDefs)
+                    {
+                        if (survivorDef.bodyPrefab)
+                        {
+                            CharacterBody body = survivorDef.bodyPrefab.GetComponent<CharacterBody>();
+                            if (body)
+                            {
+                                string bodyName = BodyCatalog.GetBodyName(body.bodyIndex);
+                                Debug.LogWarning("Resetting for " + bodyName);
+                                statSheet.SetStatValueFromString(PerBodyStatDef.highestInfiniteTowerWaveReachedEasy.FindStatDef(bodyName ?? ""), "0");
+                                statSheet.SetStatValueFromString(PerBodyStatDef.highestInfiniteTowerWaveReachedNormal.FindStatDef(bodyName ?? ""), "0");
+                                statSheet.SetStatValueFromString(PerBodyStatDef.highestInfiniteTowerWaveReachedHard.FindStatDef(bodyName ?? ""), "0");
+
+                            }
+                        }
+
+                    }
+                }
+            }
+
+            public void Set50D()
+            {
+                Set50(0);
+            }
+            public void Set50R()
+            {
+                Set50(1);
+            }
+            public void Set50M()
+            {
+                Set50(2);
+            }
+
+            public void Set50(int difficulty)
+            {
+                Debug.LogWarning("Attempting to set 50 Simulacrum Wave High-scores");
+
+
+
+
+                MPEventSystem eventSystem = MPEventSystem.instancesList[0];
+                UserProfile userProfile;
+                if (eventSystem == null)
+                {
+                    userProfile = null;
+                }
+                else
+                {
+                    LocalUser localUser = eventSystem.localUser;
+                    userProfile = ((localUser != null) ? localUser.userProfile : null);
+                }
+                UserProfile userProfile2 = userProfile;
+                if (userProfile2 != null)
+                {
+                    StatSheet statSheet = userProfile2.statSheet;
+                    SurvivorDef survivorPreference = userProfile2.GetSurvivorPreference();
+                    if (survivorPreference)
+                    {
+                        string bodyName = BodyCatalog.GetBodyName(SurvivorCatalog.GetBodyIndexFromSurvivorIndex(survivorPreference.survivorIndex));
+                        Debug.LogWarning("Setting 50 for " + bodyName);
+                        /*
+                        statSheet.SetStatValueFromString(PerBodyStatDef.highestInfiniteTowerWaveReachedEasy.FindStatDef(bodyName ?? ""), "0");
+                        statSheet.SetStatValueFromString(PerBodyStatDef.highestInfiniteTowerWaveReachedNormal.FindStatDef(bodyName ?? ""), "0");
+                        statSheet.SetStatValueFromString(PerBodyStatDef.highestInfiniteTowerWaveReachedHard.FindStatDef(bodyName ?? ""), "0");
+                        */
+
+
+                        if (difficulty == 0)
+                        {
+                            statSheet.SetStatValueFromString(PerBodyStatDef.highestInfiniteTowerWaveReachedEasy.FindStatDef(bodyName ?? ""), "50");
+                        }
+                        else if (difficulty == 1)
+                        {
+                            statSheet.SetStatValueFromString(PerBodyStatDef.highestInfiniteTowerWaveReachedNormal.FindStatDef(bodyName ?? ""), "50");
+                        }
+                        else if (difficulty == 2)
+                        {
+                            statSheet.SetStatValueFromString(PerBodyStatDef.highestInfiniteTowerWaveReachedHard.FindStatDef(bodyName ?? ""), "50");
+                        }
+                    }
+                }
+            }
+
+
         }
 
 
@@ -315,29 +564,7 @@ namespace SimulacrumAdditions
             orig(self, pickupIndex);
         }
 
-        private static void FixUnstableTransmitterBeingStupid(ILContext il)
-        {
-            ILCursor c = new ILCursor(il);
-
-            if (c.TryGotoNext(MoveType.Before,
-             x => x.MatchCall("RoR2.TeleportHelper", "TeleportBody")))
-            {
-                c.EmitDelegate<System.Func<Vector3, Vector3>>((teleportPosition) =>
-                {
-                    if (Run.instance && Run.instance.GetComponent<InfiniteTowerRun>())
-                    {
-                        return Run.instance.GetComponent<InfiniteTowerRun>().safeWardController.transform.position;
-                    }
-                    return teleportPosition;
-                });
-                Debug.Log("IL Found : Unstable Transmitter to Void Crab");
-            }
-            else
-            {
-                Debug.LogWarning("IL Failed : Unstable Transmitter to Void Crab");
-            }
-        }
-
+        
     }
 
 

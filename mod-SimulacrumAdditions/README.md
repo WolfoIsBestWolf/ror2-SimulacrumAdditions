@@ -37,10 +37,10 @@ Every stage now uses it's own interactable spawn pool. This makes each stage fee
 This also means Shrine of Chance, Woods, Order and Cleansing Pools now spawn in the game mode.
 
 Reintroduces the unused Void Coin. They can be used as an alternative to blood on void interactables in Simulacrum.\
-They drop like Lunar Coin and from Void Barrels. You start with 1.\
-Void Blood Payments can no longer be blocked in Simulacrum.
+They drop like Lunar Coin and from Void Barrels. You start with 1.
+This is mostly to make Simulacrum easier. Allowing purchases of Void interactables deep in the void without worry.
 
-The focus radius is slightly bigger per player during waves.\
+The focus radius is slightly bigger and increases in size per player.\
 The focus radius is 50% bigger during travelling.\
 The focus radius expands after sitting down. This is helps with awkward focus positions in Meadows/Depths.\
 The focus will not begin travelling on it's own, instead waiting for you to activate it.\
@@ -50,8 +50,7 @@ For each stage completed, -0.8 second between regular waves.
 The latest wave will be shown on the game end screen.
 
 Fireworks are now available in Simulacrum for VanillaVoids support.\
-Warbanners pop on Boss Waves similiar to teleporters.\
-Unstable Transmitter now teleports you to the Focus, just like falling off the map would.
+Warbanners drop on Boss Waves similiar to teleporters.
 #
 
 ### Artifacts
@@ -62,7 +61,7 @@ Artifact of Augments : Only augmented waves. For when the normal ~50% chance isn
 Artifact of Reality : Use normal stages in random order instead of the small set of Simulacrum stages.\
 -Void Fields and Void Locust can appear too.\
 -Stage order is still random.\
--Newt Shrines replaced with Eradicators.
+-Newt Shrines replaced with Void Eradicators.
 
 Nerfs Artifact of Sacrifice in Simulacrum. (Only 2 options per potential)
 #
@@ -115,7 +114,7 @@ Simu Titanic Plains now plays Void Fields music\
 Simu Abyssal Depths now plays Void Locusts music\
 Simu Abyssal Depths has new Geysers for better navigation\
 Simu Rallypoint Delta now plays Siphoned Forests music\
-Simu Commencement has ramps. 
+Simu Commencement has ramps, a rim and moon gravity. 
 
 
 Fixes vanilla bug where Clients don't teleport to the Crab. Instead teleporting in the fog and dying.\
@@ -126,18 +125,20 @@ Fixed vanilla bug where Clients often don't get enemy indicators.
 #
 ### Skins and Mod Support
 For technical reasons the skins are their own mod, for more information on the skins goal to it's [mod page](https://thunderstore.io/package/Wolfo/WolfoAlternateSkins/ ):\
-They aren't anything too special but I do hope they are still enjoyable.\
+They aren't anything too special but I do hope they are still enjoyable. You can disable the mod if you really don't want it.\
 [![wolfoAlternateSkins](https://gcdn.thunderstore.io/live/repository/icons/Wolfo-WolfoAlternateSkins-1.5.0.png.128x128_q95.jpg)](https://thunderstore.io/package/Wolfo/WolfoAlternateSkins/)
 
-This mod depends on [VanillaArtifactsPlus](https://thunderstore.io/package/Wolfo/VanillaArtifactsPlus) for balancing Vengance. It's a rather light mod but you can check out the details on it's page.
+This mod depends on [VanillaArtifactsPlus](https://thunderstore.io/package/Wolfo/VanillaArtifactsPlus) for Devotion, Vengence and Item tag fixes. It's a rather light mod but you can check out the details on it's page.
 
 This mod adds Augments for:\
 [Starstorm2](https://thunderstore.io/package/TeamMoonstorm/Starstorm2/), for it's Artifacts and some events it adds. (2 Augments)\
-[LittleGameplayTweaks](https://thunderstore.io/package/Wolfo/LittleGameplayTweaks/), for the new artifacts I add there. (4 Augments)\
-[WolfoArtifacts](https://thunderstore.io/package/Wolfo/WolfoArtifacts), for the new family events I add there. (5 Augments)
+[LittleGameplayTweaks](https://thunderstore.io/package/Wolfo/LittleGameplayTweaks/),for the new family events I add there. (5 Augments)\
+[WolfoArtifacts](https://thunderstore.io/package/Wolfo/WolfoArtifacts),  for the new artifacts I add there. (4 Augments)
 
 
 #
+
+A lot of things about this mod can be configured.
 
 This mod has a auto generated config to turn off each individual wave.
 
@@ -157,6 +158,6 @@ Translations are possible as of version 2.3.0. None are included as of now.
 
 
 ##
-I already added make wave 50 special so [SimulacrumBossStageMod](https://thunderstore.io/package/Def/SimulacrumBossStageMod/) is a bit redundant.\
+I already make wave 50 special so [SimulacrumBossStageMod](https://thunderstore.io/package/Def/SimulacrumBossStageMod/) is a bit redundant.\
 I already speed up the crab so [SpeedUpSafeWard](https://thunderstore.io/package/Felix/SpeedUpSafeWard/) is redundant.
 

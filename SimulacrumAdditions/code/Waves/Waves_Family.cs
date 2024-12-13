@@ -12,70 +12,17 @@ namespace SimulacrumAdditions
         public static Color FamilyEventIconColor = new Color(1f, 0.95f, 0.75f, 1);
         public static Color FamilyEventOutlineColor = new Color(0.8f, 0.78f, 0.5f, 1);
 
-        //No more static
         public static void MakeWaves()
         {
-            FamilyDirectorCardCategorySelection dccsBeetleFamily = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/dccsBeetleFamily.asset").WaitForCompletion();
-            FamilyDirectorCardCategorySelection dccsGolemFamily = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/dccsGolemFamily.asset").WaitForCompletion();
-            FamilyDirectorCardCategorySelection dccsJellyfishFamily = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/dccsJellyfishFamily.asset").WaitForCompletion();
-            FamilyDirectorCardCategorySelection dccsWispFamily = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/dccsWispFamily.asset").WaitForCompletion();
-            FamilyDirectorCardCategorySelection dccsParentFamily = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/dccsParentFamily.asset").WaitForCompletion();
-            //FamilyDirectorCardCategorySelection dccsGupFamily = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/dccsGupFamily.asset").WaitForCompletion();
-            FamilyDirectorCardCategorySelection dccsImpFamily = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/dccsImpFamily.asset").WaitForCompletion();
-            FamilyDirectorCardCategorySelection dccsLemurianFamily = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/dccsLemurianFamily.asset").WaitForCompletion();
-            FamilyDirectorCardCategorySelection dccsConstructFamily = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/DLC1/Common/dccsConstructFamily.asset").WaitForCompletion();
-            FamilyDirectorCardCategorySelection dccsLunarFamily = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/dccsLunarFamily.asset").WaitForCompletion();
-            FamilyDirectorCardCategorySelection dccsVoidFamily = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/DLC1/Common/dccsVoidFamily.asset").WaitForCompletion();
-            FamilyDirectorCardCategorySelection dccsLarvaFamily = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/DLC1/Common/dccsAcidLarvaFamily.asset").WaitForCompletion();
-            FamilyDirectorCardCategorySelection dccsMushroomFamily = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/dccsMushroomFamily.asset").WaitForCompletion();
+            LGTFamily();
+            float ITFamilyWaveWeight = 0.85f;
 
-
+            #region Base Game
+            #region Beetle : Family
             GameObject InfiniteTowerWaveFamilyBeetle = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveFamilyBeetle", true);
             GameObject InfiniteTowerCurrentWaveUIFamilyBeetle = PrefabAPI.InstantiateClone(Const.BasicWaveUI, "InfiniteTowerCurrentWaveUIFamilyBeetle", false);
-
-            GameObject InfiniteTowerWaveFamilyGolem = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveFamilyGolem", true);
-            GameObject InfiniteTowerCurrentWaveUIFamilyGolem = PrefabAPI.InstantiateClone(Const.BasicWaveUI, "InfiniteTowerCurrentWaveUIFamilyGolem", false);
-
-            GameObject InfiniteTowerCurrentWaveUIFamilyJellyfish = PrefabAPI.InstantiateClone(Const.BasicWaveUI, "InfiniteTowerCurrentWaveUIFamilyJellyfish", false);
-            GameObject InfiniteTowerWaveFamilyJellyfish = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveFamilyJellyfish", true);
-
-            GameObject InfiniteTowerWaveFamilyWisp = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveFamilyWisp", true);
-            GameObject InfiniteTowerCurrentWaveUIFamilyWisp = PrefabAPI.InstantiateClone(Const.BasicWaveUI, "InfiniteTowerCurrentWaveUIFamilyWisp", false);
-
-            GameObject InfiniteTowerWaveFamilyLemurian = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveFamilyLemurian", true);
-            GameObject InfiniteTowerCurrentWaveUIFamilyLemurian = PrefabAPI.InstantiateClone(Const.BasicWaveUI, "InfiniteTowerCurrentWaveUIFamilyLemurian", false);
-
-            GameObject InfiniteTowerWaveFamilyImp = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveFamilyImp", true);
-            GameObject InfiniteTowerCurrentWaveUIFamilyImp = PrefabAPI.InstantiateClone(Const.BasicWaveUI, "InfiniteTowerCurrentWaveUIFamilyImp", false);
-
-            GameObject InfiniteTowerWaveFamilyGup = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveFamilyGup", true);
-            GameObject InfiniteTowerCurrentWaveUIFamilyGup = PrefabAPI.InstantiateClone(Const.BasicWaveUI, "InfiniteTowerCurrentWaveUIFamilyGup", false);
-
-            GameObject InfiniteTowerWaveFamilyConstruct = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveFamilyConstruct", true);
-            GameObject InfiniteTowerCurrentWaveUIFamilyConstruct = PrefabAPI.InstantiateClone(Const.BasicWaveUI, "InfiniteTowerCurrentWaveUIFamilyConstruct", false);
-            //Vanilla Families End
-            GameObject InfiniteTowerWaveFamilyParent = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveFamilyParent", true);
-            GameObject InfiniteTowerCurrentWaveUIFamilyParent = PrefabAPI.InstantiateClone(Const.BasicWaveUI, "InfiniteTowerCurrentWaveUIFamilyParent", false);
-
-            GameObject InfiniteTowerWaveFamilyLarva = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveFamilyLarva", true);
-            GameObject InfiniteTowerCurrentWaveUIFamilyLarva = PrefabAPI.InstantiateClone(Const.BasicWaveUI, "InfiniteTowerCurrentWaveUIFamilyLarva", false);
-
-            GameObject InfiniteTowerWaveFamilyMushroom = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveFamilyMushroom", true);
-            GameObject InfiniteTowerCurrentWaveUIFamilyMushroom = PrefabAPI.InstantiateClone(Const.BasicWaveUI, "InfiniteTowerCurrentWaveUIFamilyMushroom", false);
-            //
-            GameObject InfiniteTowerWaveFamilyLunar = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveFamilyLunar", true);
-            GameObject InfiniteTowerCurrentWaveUIFamilyLunar = PrefabAPI.InstantiateClone(Const.LunarWaveUI, "InfiniteTowerCurrentWaveUIFamilyLunar", false);
-
-            GameObject InfiniteTowerWaveFamilyVoid = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveFamilyVoid", true);
-            GameObject InfiniteTowerCurrentWaveUIFamilyVoid = PrefabAPI.InstantiateClone(Const.VoidWaveUI, "InfiniteTowerCurrentWaveUIFamilyVoid", false);
-
-
-
-            //
-
-            float ITFamilyWaveWeight = 0.85f;
-            //Beetle
-            InfiniteTowerWaveFamilyBeetle.GetComponent<CombatDirector>().monsterCards = dccsBeetleFamily;
+            
+            InfiniteTowerWaveFamilyBeetle.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/dccsBeetleFamily.asset").WaitForCompletion(); ;
             InfiniteTowerWaveFamilyBeetle.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITFamilyWaveUtility;
 
             InfiniteTowerWaveFamilyBeetle.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerCurrentWaveUIFamilyBeetle;
@@ -84,63 +31,135 @@ namespace SimulacrumAdditions
 
             InfiniteTowerWaveCategory.WeightedWave ITBeetleFamily = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveFamilyBeetle, weight = ITFamilyWaveWeight };
             SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(ITBeetleFamily);
+            #endregion
 
-            //Golem
-            InfiniteTowerWaveFamilyGolem.GetComponent<CombatDirector>().monsterCards = dccsGolemFamily;
-            InfiniteTowerWaveFamilyGolem.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITFamilyWaveHealing;
+            #region Wisp : Family
+            GameObject InfiniteTowerWaveFamilyWisp = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveFamilyWisp", true);
+            GameObject InfiniteTowerCurrentWaveUIFamilyWisp = PrefabAPI.InstantiateClone(Const.BasicWaveUI, "InfiniteTowerCurrentWaveUIFamilyWisp", false);
 
-            InfiniteTowerWaveFamilyGolem.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerCurrentWaveUIFamilyGolem;
-            InfiniteTowerCurrentWaveUIFamilyGolem.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_FAMILY_GOLEM";
-            InfiniteTowerCurrentWaveUIFamilyGolem.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_FAMILY_GOLEM";
-
-            RoR2.InfiniteTowerWaveCategory.WeightedWave ITGolemFamily = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveFamilyGolem, weight = ITFamilyWaveWeight };
-            SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(ITGolemFamily);
-
-            //Jellyfish
-            InfiniteTowerWaveFamilyJellyfish.GetComponent<CombatDirector>().monsterCards = dccsJellyfishFamily;
-            InfiniteTowerWaveFamilyJellyfish.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITFamilyWaveDamage;
-
-            InfiniteTowerWaveFamilyJellyfish.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerCurrentWaveUIFamilyJellyfish;
-            InfiniteTowerCurrentWaveUIFamilyJellyfish.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_FAMILY_JELLYFISH";
-            InfiniteTowerCurrentWaveUIFamilyJellyfish.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_FAMILY_JELLYFISH";
-
-            RoR2.InfiniteTowerWaveCategory.WeightedWave ITJellyfishFamily = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveFamilyJellyfish, weight = ITFamilyWaveWeight };
-            SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(ITJellyfishFamily);
-
-            //Wisps
-            InfiniteTowerWaveFamilyWisp.GetComponent<CombatDirector>().monsterCards = dccsWispFamily;
+            InfiniteTowerWaveFamilyWisp.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/dccsWispFamily.asset").WaitForCompletion(); ;
             InfiniteTowerWaveFamilyWisp.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITFamilyWaveDamage;
 
             InfiniteTowerWaveFamilyWisp.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerCurrentWaveUIFamilyWisp;
             InfiniteTowerCurrentWaveUIFamilyWisp.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_FAMILY_WISP";
             InfiniteTowerCurrentWaveUIFamilyWisp.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_FAMILY_WISP";
 
-            RoR2.InfiniteTowerWaveCategory.WeightedWave ITWispFamily = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveFamilyWisp, weight = ITFamilyWaveWeight };
+            InfiniteTowerWaveCategory.WeightedWave ITWispFamily = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveFamilyWisp, weight = ITFamilyWaveWeight };
             SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(ITWispFamily);
+            #endregion
 
-            //Lemurian
-            InfiniteTowerWaveFamilyLemurian.GetComponent<CombatDirector>().monsterCards = dccsLemurianFamily;
+            #region Golem : Family
+            GameObject InfiniteTowerWaveFamilyGolem = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveFamilyGolem", true);
+            GameObject InfiniteTowerCurrentWaveUIFamilyGolem = PrefabAPI.InstantiateClone(Const.BasicWaveUI, "InfiniteTowerCurrentWaveUIFamilyGolem", false);
+
+            InfiniteTowerWaveFamilyGolem.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/dccsGolemFamily.asset").WaitForCompletion(); ;
+            InfiniteTowerWaveFamilyGolem.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITFamilyWaveHealing;
+
+            InfiniteTowerWaveFamilyGolem.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerCurrentWaveUIFamilyGolem;
+            InfiniteTowerCurrentWaveUIFamilyGolem.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_FAMILY_GOLEM";
+            InfiniteTowerCurrentWaveUIFamilyGolem.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_FAMILY_GOLEM";
+
+            InfiniteTowerWaveCategory.WeightedWave ITGolemFamily = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveFamilyGolem, weight = ITFamilyWaveWeight };
+            SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(ITGolemFamily);
+            #endregion
+
+            #region Jellyfish : Family
+            GameObject InfiniteTowerWaveFamilyJellyfish = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveFamilyJellyfish", true);
+            GameObject InfiniteTowerCurrentWaveUIFamilyJellyfish = PrefabAPI.InstantiateClone(Const.BasicWaveUI, "InfiniteTowerCurrentWaveUIFamilyJellyfish", false);
+
+            InfiniteTowerWaveFamilyJellyfish.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/dccsJellyfishFamily.asset").WaitForCompletion(); ;
+            InfiniteTowerWaveFamilyJellyfish.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITFamilyWaveDamage;
+
+            InfiniteTowerWaveFamilyJellyfish.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerCurrentWaveUIFamilyJellyfish;
+            InfiniteTowerCurrentWaveUIFamilyJellyfish.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_FAMILY_JELLYFISH";
+            InfiniteTowerCurrentWaveUIFamilyJellyfish.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_FAMILY_JELLYFISH";
+
+            InfiniteTowerWaveCategory.WeightedWave ITJellyfishFamily = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveFamilyJellyfish, weight = ITFamilyWaveWeight };
+            SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(ITJellyfishFamily);
+            #endregion
+
+            #region Lemurian : Family
+            GameObject InfiniteTowerWaveFamilyLemurian = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveFamilyLemurian", true);
+            GameObject InfiniteTowerCurrentWaveUIFamilyLemurian = PrefabAPI.InstantiateClone(Const.BasicWaveUI, "InfiniteTowerCurrentWaveUIFamilyLemurian", false);
+
+            InfiniteTowerWaveFamilyLemurian.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/dccsLemurianFamily.asset").WaitForCompletion(); ;
             InfiniteTowerWaveFamilyLemurian.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITFamilyWaveDamage;
 
             InfiniteTowerWaveFamilyLemurian.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerCurrentWaveUIFamilyLemurian;
             InfiniteTowerCurrentWaveUIFamilyLemurian.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_FAMILY_LEMURIAN";
             InfiniteTowerCurrentWaveUIFamilyLemurian.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_FAMILY_LEMURIAN";
 
-            RoR2.InfiniteTowerWaveCategory.WeightedWave ITLemurianFamily = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveFamilyLemurian, weight = ITFamilyWaveWeight };
+            InfiniteTowerWaveCategory.WeightedWave ITLemurianFamily = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveFamilyLemurian, weight = ITFamilyWaveWeight };
             SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(ITLemurianFamily);
+            #endregion
 
-            //Imps
-            InfiniteTowerWaveFamilyImp.GetComponent<CombatDirector>().monsterCards = dccsImpFamily;
+            #region Imp : Family
+            GameObject InfiniteTowerWaveFamilyImp = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveFamilyImp", true);
+            GameObject InfiniteTowerCurrentWaveUIFamilyImp = PrefabAPI.InstantiateClone(Const.BasicWaveUI, "InfiniteTowerCurrentWaveUIFamilyImp", false);
+
+            InfiniteTowerWaveFamilyImp.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/dccsImpFamily.asset").WaitForCompletion(); ;
             InfiniteTowerWaveFamilyImp.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITFamilyWaveDamage;
 
             InfiniteTowerWaveFamilyImp.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerCurrentWaveUIFamilyImp;
             InfiniteTowerCurrentWaveUIFamilyImp.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_FAMILY_IMP";
             InfiniteTowerCurrentWaveUIFamilyImp.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_FAMILY_IMP";
 
-            RoR2.InfiniteTowerWaveCategory.WeightedWave ITImpFamily = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveFamilyImp, weight = ITFamilyWaveWeight };
+            InfiniteTowerWaveCategory.WeightedWave ITImpFamily = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveFamilyImp, weight = ITFamilyWaveWeight };
             SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(ITImpFamily);
+            #endregion
 
-            //Gup
+            #region Parent : Family
+            GameObject InfiniteTowerWaveFamilyParent = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveFamilyParent", true);
+            GameObject InfiniteTowerCurrentWaveUIFamilyParent = PrefabAPI.InstantiateClone(Const.BasicWaveUI, "InfiniteTowerCurrentWaveUIFamilyParent", false);
+
+            InfiniteTowerWaveFamilyParent.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/dccsParentFamily.asset").WaitForCompletion(); ;
+            InfiniteTowerWaveFamilyParent.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITFamilyWaveHealing;
+
+            InfiniteTowerWaveFamilyParent.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerCurrentWaveUIFamilyParent;
+            InfiniteTowerCurrentWaveUIFamilyParent.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_FAMILY_PARENT";
+            InfiniteTowerCurrentWaveUIFamilyParent.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_FAMILY_PARENT";
+
+            InfiniteTowerWaveCategory.WeightedWave ITParentFamily = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveFamilyParent, weight = ITFamilyWaveWeight * 2 };
+            SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(ITParentFamily);
+            #endregion
+
+            #region Mushroom : Family
+            GameObject InfiniteTowerWaveFamilyMushroom = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveFamilyMushroom", true);
+            GameObject InfiniteTowerCurrentWaveUIFamilyMushroom = PrefabAPI.InstantiateClone(Const.BasicWaveUI, "InfiniteTowerCurrentWaveUIFamilyMushroom", false);
+
+            InfiniteTowerWaveFamilyMushroom.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/dccsMushroomFamily.asset").WaitForCompletion(); ;
+            InfiniteTowerWaveFamilyMushroom.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITFamilyWaveHealing;
+
+            InfiniteTowerWaveFamilyMushroom.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerCurrentWaveUIFamilyMushroom;
+            InfiniteTowerCurrentWaveUIFamilyMushroom.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_FAMILY_MUSHROOM";
+            InfiniteTowerCurrentWaveUIFamilyMushroom.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_FAMILY_MUSHROOM";
+
+            InfiniteTowerWaveCategory.WeightedWave ITMushroomFamily = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveFamilyMushroom, weight = ITFamilyWaveWeight / 2 };
+            SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(ITMushroomFamily);
+            #endregion
+
+            #region Lunar : Family
+            GameObject InfiniteTowerWaveFamilyLunar = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveFamilyLunar", true);
+            GameObject InfiniteTowerCurrentWaveUIFamilyLunar = PrefabAPI.InstantiateClone(Const.LunarWaveUI, "InfiniteTowerCurrentWaveUIFamilyLunar", false);
+
+            InfiniteTowerWaveFamilyLunar.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/dccsLunarFamily.asset").WaitForCompletion();
+            InfiniteTowerWaveFamilyLunar.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITBasicBonusLunar;
+
+            InfiniteTowerWaveFamilyLunar.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerCurrentWaveUIFamilyLunar;
+            InfiniteTowerCurrentWaveUIFamilyLunar.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_FAMILY_LUNAR";
+            InfiniteTowerCurrentWaveUIFamilyLunar.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_FAMILY_LUNAR";
+
+            InfiniteTowerWaveCategory.WeightedWave ITLunarFamily = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveFamilyLunar, weight = ITFamilyWaveWeight * 2f, prerequisites = SimuMain.StartWave20Prerequisite };
+            SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(ITLunarFamily);
+            #endregion
+
+            #endregion
+
+            #region DLC1 Families
+            #region Gup : Family
+            GameObject InfiniteTowerWaveFamilyGup = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveFamilyGup", true);
+            GameObject InfiniteTowerCurrentWaveUIFamilyGup = PrefabAPI.InstantiateClone(Const.BasicWaveUI, "InfiniteTowerCurrentWaveUIFamilyGup", false);
+
             InfiniteTowerWaveFamilyGup.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/dccsGupFamily.asset").WaitForCompletion();
             InfiniteTowerWaveFamilyGup.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITWaveTier1;
             InfiniteTowerWaveFamilyGup.GetComponent<InfiniteTowerWaveController>().rewardOptionCount = 6;
@@ -149,82 +168,55 @@ namespace SimulacrumAdditions
             InfiniteTowerCurrentWaveUIFamilyGup.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_FAMILY_GUP";
             InfiniteTowerCurrentWaveUIFamilyGup.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_FAMILY_GUP";
 
-            RoR2.InfiniteTowerWaveCategory.WeightedWave ITGupFamily = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveFamilyGup, weight = ITFamilyWaveWeight };
+            InfiniteTowerWaveCategory.WeightedWave ITGupFamily = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveFamilyGup, weight = ITFamilyWaveWeight };
             SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(ITGupFamily);
+            #endregion
 
-            //Constructs
-            InfiniteTowerWaveFamilyConstruct.GetComponent<CombatDirector>().monsterCards = dccsConstructFamily;
-            InfiniteTowerWaveFamilyConstruct.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITFamilyWaveUtility;
+            #region Acid Larva : Family
+            GameObject InfiniteTowerWaveFamilyLarva = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveFamilyLarva", true);
+            GameObject InfiniteTowerCurrentWaveUIFamilyLarva = PrefabAPI.InstantiateClone(Const.BasicWaveUI, "InfiniteTowerCurrentWaveUIFamilyLarva", false);
 
-            InfiniteTowerWaveFamilyConstruct.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerCurrentWaveUIFamilyConstruct;
-            InfiniteTowerCurrentWaveUIFamilyConstruct.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_FAMILY_CONSTRUCT";
-            InfiniteTowerCurrentWaveUIFamilyConstruct.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_FAMILY_CONSTRUCT";
-
-            RoR2.InfiniteTowerWaveCategory.WeightedWave ITConstructFamily = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveFamilyConstruct, weight = ITFamilyWaveWeight };
-            SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(ITConstructFamily);
-            //Vanilla Families End Here
-            //
-            //Parents (Pseudo Vanilla)
-            InfiniteTowerWaveFamilyParent.GetComponent<CombatDirector>().monsterCards = dccsParentFamily;
-            InfiniteTowerWaveFamilyParent.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITFamilyWaveHealing;
-
-            InfiniteTowerWaveFamilyParent.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerCurrentWaveUIFamilyParent;
-            InfiniteTowerCurrentWaveUIFamilyParent.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_FAMILY_PARENT";
-            InfiniteTowerCurrentWaveUIFamilyParent.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_FAMILY_PARENT";
-
-            RoR2.InfiniteTowerWaveCategory.WeightedWave ITParentFamily = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveFamilyParent, weight = ITFamilyWaveWeight*2 };
-            SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(ITParentFamily);
-            //
-            //Larva
-            InfiniteTowerWaveFamilyLarva.GetComponent<CombatDirector>().monsterCards = dccsLarvaFamily;
+            InfiniteTowerWaveFamilyLarva.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/DLC1/Common/dccsAcidLarvaFamily.asset").WaitForCompletion(); ;
             InfiniteTowerWaveFamilyLarva.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITBasicWaveOnKill;
 
             InfiniteTowerWaveFamilyLarva.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerCurrentWaveUIFamilyLarva;
             InfiniteTowerCurrentWaveUIFamilyLarva.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_FAMILY_LARVA";
             InfiniteTowerCurrentWaveUIFamilyLarva.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_FAMILY_LARVA";
 
-            RoR2.InfiniteTowerWaveCategory.WeightedWave ITLarvaFamily = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveFamilyLarva, weight = ITFamilyWaveWeight*2, prerequisites = SimuMain.AfterWave5Prerequisite };
+            InfiniteTowerWaveCategory.WeightedWave ITLarvaFamily = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveFamilyLarva, weight = ITFamilyWaveWeight * 2, prerequisites = SimuMain.AfterWave5Prerequisite };
             SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(ITLarvaFamily);
-            //
-            //Mushroom
-            InfiniteTowerWaveFamilyMushroom.GetComponent<CombatDirector>().monsterCards = dccsMushroomFamily;
-            InfiniteTowerWaveFamilyMushroom.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITFamilyWaveHealing;
+            #endregion
 
-            InfiniteTowerWaveFamilyMushroom.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerCurrentWaveUIFamilyMushroom;
-            InfiniteTowerCurrentWaveUIFamilyMushroom.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_FAMILY_MUSHROOM";
-            InfiniteTowerCurrentWaveUIFamilyMushroom.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_FAMILY_MUSHROOM";
+            #region Construct : Family
+            GameObject InfiniteTowerWaveFamilyConstruct = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveFamilyConstruct", true);
+            GameObject InfiniteTowerCurrentWaveUIFamilyConstruct = PrefabAPI.InstantiateClone(Const.BasicWaveUI, "InfiniteTowerCurrentWaveUIFamilyConstruct", false);
 
-            RoR2.InfiniteTowerWaveCategory.WeightedWave ITMushroomFamily = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveFamilyMushroom, weight = ITFamilyWaveWeight/2};
-            SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(ITMushroomFamily);
-            //
-            //Lunar
-            InfiniteTowerWaveFamilyLunar.GetComponent<CombatDirector>().monsterCards = dccsLunarFamily;
-            InfiniteTowerWaveFamilyLunar.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITBasicBonusLunar;
-           
-            InfiniteTowerWaveFamilyLunar.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerCurrentWaveUIFamilyLunar;
-            InfiniteTowerCurrentWaveUIFamilyLunar.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_FAMILY_LUNAR";
-            InfiniteTowerCurrentWaveUIFamilyLunar.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_FAMILY_LUNAR";
-            //InfiniteTowerCurrentWaveUIFamilyLunar.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0.6f,0.8f,1f);
-            //InfiniteTowerCurrentWaveUIFamilyLunar.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color(0.5f, 0.75f, 0.95f);
+            InfiniteTowerWaveFamilyConstruct.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/DLC1/Common/dccsConstructFamily.asset").WaitForCompletion(); ;
+            InfiniteTowerWaveFamilyConstruct.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITFamilyWaveUtility;
 
-            RoR2.InfiniteTowerWaveCategory.WeightedWave ITLunarFamily = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveFamilyLunar, weight = ITFamilyWaveWeight * 2f, prerequisites = SimuMain.StartWave20Prerequisite };
-            SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(ITLunarFamily);
-            //
-            //Void
-            InfiniteTowerWaveFamilyVoid.GetComponent<CombatDirector>().monsterCards = dccsVoidFamily;
+            InfiniteTowerWaveFamilyConstruct.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerCurrentWaveUIFamilyConstruct;
+            InfiniteTowerCurrentWaveUIFamilyConstruct.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_FAMILY_CONSTRUCT";
+            InfiniteTowerCurrentWaveUIFamilyConstruct.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_FAMILY_CONSTRUCT";
+
+            InfiniteTowerWaveCategory.WeightedWave ITConstructFamily = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveFamilyConstruct, weight = ITFamilyWaveWeight };
+            SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(ITConstructFamily);
+            #endregion
+
+            #region Void : Family
+            GameObject InfiniteTowerWaveFamilyVoid = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveFamilyVoid", true);
+            GameObject InfiniteTowerCurrentWaveUIFamilyVoid = PrefabAPI.InstantiateClone(Const.VoidWaveUI, "InfiniteTowerCurrentWaveUIFamilyVoid", false);
+
+            InfiniteTowerWaveFamilyVoid.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/DLC1/Common/dccsVoidFamily.asset").WaitForCompletion(); ;
             InfiniteTowerWaveFamilyVoid.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITBasicBonusVoid;
 
             InfiniteTowerWaveFamilyVoid.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerCurrentWaveUIFamilyVoid;
             InfiniteTowerCurrentWaveUIFamilyVoid.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_FAMILY_VOID";
             InfiniteTowerCurrentWaveUIFamilyVoid.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_FAMILY_VOID";
-            //InfiniteTowerCurrentWaveUIFamilyVoid.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 0.7f, 0.9f);
-            //InfiniteTowerCurrentWaveUIFamilyVoid.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color(0.8f, 0.6f, 0.9f);
 
-            RoR2.InfiniteTowerWaveCategory.WeightedWave ITVoidFamily = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveFamilyVoid, weight = ITFamilyWaveWeight*2f, prerequisites = SimuMain.StartWave20Prerequisite };
+            InfiniteTowerWaveCategory.WeightedWave ITVoidFamily = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveFamilyVoid, weight = ITFamilyWaveWeight * 2f, prerequisites = SimuMain.StartWave20Prerequisite };
             SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(ITVoidFamily);
-
-
-
+            #endregion
+            #endregion
 
             //Do to All families post creation
             GameObject[] ITFamilyWaves = {
@@ -268,7 +260,7 @@ namespace SimulacrumAdditions
             InfiniteTowerCurrentWaveUIFamilyGup.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = FamilyEventIconColor;
             InfiniteTowerCurrentWaveUIFamilyGup.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = FamilyEventOutlineColor;
 
-            LGTFamily();
+           
             BossFamilyWave();
             //DroneFamilyWave();
 
@@ -518,7 +510,7 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveBossFamilyBossUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color *= FamilyEventOutlineColor;
 
 
-            RoR2.InfiniteTowerWaveCategory.WeightedWave ITBossFamily = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveBossFamilyBoss, weight = 2f, prerequisites = SimuMain.StartWave20Prerequisite };
+            InfiniteTowerWaveCategory.WeightedWave ITBossFamily = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveBossFamilyBoss, weight = 2f, prerequisites = SimuMain.StartWave20Prerequisite };
             SimuMain.ITBossWaves.wavePrefabs = SimuMain.ITBossWaves.wavePrefabs.Add(ITBossFamily);
 
             dccsBossesOnly.AddCategory("Champions", 10);
@@ -597,41 +589,43 @@ namespace SimulacrumAdditions
         {
             //Are loaded by the time I add the mod
             //Modded Families
+            #region Clay : Family
             GameObject InfiniteTowerWaveFamilyClay = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveFamilyClay", true);
             GameObject InfiniteTowerCurrentWaveUIFamilyClay = PrefabAPI.InstantiateClone(Const.BasicWaveUI, "InfiniteTowerCurrentWaveUIFamilyClay", false);
-
-            GameObject InfiniteTowerWaveFamilyRoboBall = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveFamilyRoboBall", true);
-            GameObject InfiniteTowerCurrentWaveUIFamilyRoboBall = PrefabAPI.InstantiateClone(Const.BasicWaveUI, "InfiniteTowerCurrentWaveUIFamilyRoboBall", false);
-
-            GameObject InfiniteTowerWaveFamilyVermin = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveFamilyVermin", true);
-            GameObject InfiniteTowerCurrentWaveUIFamilyVermin = PrefabAPI.InstantiateClone(Const.BasicWaveUI, "InfiniteTowerCurrentWaveUIFamilyVermin", false);
-
-            GameObject BossInfiniteTowerWaveFamilyWorms = PrefabAPI.InstantiateClone(Const.ScavWave, "InfiniteTowerWaveBossFamilyWorms", true);
-            GameObject InfiniteTowerCurrentWaveUIFamilyWorms = PrefabAPI.InstantiateClone(Const.BossWaveUI, "InfiniteTowerCurrentWaveUIFamilyWorms", false);
-
-            //Modded
-            //Clay
+            
             InfiniteTowerWaveFamilyClay.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITFamilyWaveHealing;
 
             InfiniteTowerWaveFamilyClay.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerCurrentWaveUIFamilyClay;
             InfiniteTowerCurrentWaveUIFamilyClay.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_FAMILY_CLAY";
             InfiniteTowerCurrentWaveUIFamilyClay.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_FAMILY_CLAY";
 
-            //RoboBall
+            #endregion
+            #region Solus : Family
+            GameObject InfiniteTowerWaveFamilyRoboBall = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveFamilyRoboBall", true);
+            GameObject InfiniteTowerCurrentWaveUIFamilyRoboBall = PrefabAPI.InstantiateClone(Const.BasicWaveUI, "InfiniteTowerCurrentWaveUIFamilyRoboBall", false);
+            
             InfiniteTowerWaveFamilyRoboBall.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITFamilyWaveUtility;
 
             InfiniteTowerWaveFamilyRoboBall.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerCurrentWaveUIFamilyRoboBall;
             InfiniteTowerCurrentWaveUIFamilyRoboBall.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_FAMILY_SOLUS";
             InfiniteTowerCurrentWaveUIFamilyRoboBall.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_FAMILY_SOLUS";
-            //
-            //Vermin
+
+            #endregion
+            #region Vermin : Family
+            GameObject InfiniteTowerWaveFamilyVermin = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveFamilyVermin", true);
+            GameObject InfiniteTowerCurrentWaveUIFamilyVermin = PrefabAPI.InstantiateClone(Const.BasicWaveUI, "InfiniteTowerCurrentWaveUIFamilyVermin", false);
+
             InfiniteTowerWaveFamilyVermin.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITFamilyWaveUtility;
 
             InfiniteTowerWaveFamilyVermin.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerCurrentWaveUIFamilyVermin;
             InfiniteTowerCurrentWaveUIFamilyVermin.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_FAMILY_VERMIN";
             InfiniteTowerCurrentWaveUIFamilyVermin.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_FAMILY_VERMIN";
-            //
-            //Worms
+
+            #endregion
+            #region Worm Boss : Family
+            GameObject BossInfiniteTowerWaveFamilyWorms = PrefabAPI.InstantiateClone(Const.ScavWave, "InfiniteTowerWaveBossFamilyWorms", true);
+            GameObject InfiniteTowerCurrentWaveUIFamilyWorms = PrefabAPI.InstantiateClone(Const.BossWaveUI, "InfiniteTowerCurrentWaveUIFamilyWorms", false);
+
             BossInfiniteTowerWaveFamilyWorms.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITSpecialBossYellow;
             BossInfiniteTowerWaveFamilyWorms.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Boss;
 
@@ -643,21 +637,13 @@ namespace SimulacrumAdditions
             BossInfiniteTowerWaveFamilyWorms.GetComponent<InfiniteTowerWaveController>().wavePeriodSeconds = 20;
             BossInfiniteTowerWaveFamilyWorms.AddComponent<SimulacrumExtrasHelper>().newRadius = 140;
 
-            SimuExplicitStats simuExplicitStats = BossInfiniteTowerWaveFamilyWorms.AddComponent<SimuExplicitStats>();
-            simuExplicitStats.hpBonusMulti = -1;
-
-            EliteDef FireHonor = LegacyResourcesAPI.Load<EliteDef>("EliteDefs/FireHonor");
-            EliteDef Lightning = LegacyResourcesAPI.Load<EliteDef>("EliteDefs/Lightning");
-            BossInfiniteTowerWaveFamilyWorms.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList = new InfiniteTowerExplicitSpawnWaveController.SpawnInfo[]
-            {
-                new InfiniteTowerExplicitSpawnWaveController.SpawnInfo{eliteDef = FireHonor, count = 0, spawnDistance = DirectorCore.MonsterSpawnDistance.Far, spawnCard = LegacyResourcesAPI.Load<CharacterSpawnCard>("SpawnCards/CharacterSpawnCards/cscElectricWorm")},
-                new InfiniteTowerExplicitSpawnWaveController.SpawnInfo{eliteDef = Lightning, count = 0, spawnDistance = DirectorCore.MonsterSpawnDistance.Far, spawnCard = LegacyResourcesAPI.Load<CharacterSpawnCard>("SpawnCards/CharacterSpawnCards/cscMagmaWorm")},
-            };
-
+            BossInfiniteTowerWaveFamilyWorms.AddComponent<SimuExplicitStats>().hpBonusMulti = -1;
+            
             BossInfiniteTowerWaveFamilyWorms.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerCurrentWaveUIFamilyWorms;
             InfiniteTowerCurrentWaveUIFamilyWorms.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BOSS_FAMILY_WORM";
             InfiniteTowerCurrentWaveUIFamilyWorms.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BOSS_FAMILY_WORM";
-            //
+            #endregion
+
             //Do to All families post creation
             GameObject[] ITFamilyWaves = {InfiniteTowerWaveFamilyClay, InfiniteTowerWaveFamilyRoboBall, InfiniteTowerWaveFamilyVermin };
 
@@ -686,7 +672,7 @@ namespace SimulacrumAdditions
             InfiniteTowerCurrentWaveUIFamilyWorms.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color *= FamilyEventOutlineColor;
     
             float ITFamilyWaveWeight = 0.85f;
-            FamilyDirectorCardCategorySelection[] FamilyDCCSs = UnityEngine.Object.FindObjectsOfType(typeof(RoR2.FamilyDirectorCardCategorySelection)) as RoR2.FamilyDirectorCardCategorySelection[];
+            FamilyDirectorCardCategorySelection[] FamilyDCCSs = Object.FindObjectsOfType(typeof(RoR2.FamilyDirectorCardCategorySelection)) as RoR2.FamilyDirectorCardCategorySelection[];
             for (var i = 0; i < FamilyDCCSs.Length; i++)
             {
                 //Debug.Log(FamilyDCCSs[i].name);
@@ -694,22 +680,22 @@ namespace SimulacrumAdditions
                 {
                     case "dccsClayFamily":
                         InfiniteTowerWaveFamilyClay.GetComponent<CombatDirector>().monsterCards = FamilyDCCSs[i];
-                        RoR2.InfiniteTowerWaveCategory.WeightedWave ITClayFamily = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveFamilyClay, weight = ITFamilyWaveWeight };
+                        InfiniteTowerWaveCategory.WeightedWave ITClayFamily = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveFamilyClay, weight = ITFamilyWaveWeight };
                         SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(ITClayFamily);
                         break;
                     case "dccsRoboBallFamily":
                         InfiniteTowerWaveFamilyRoboBall.GetComponent<CombatDirector>().monsterCards = FamilyDCCSs[i];
-                        RoR2.InfiniteTowerWaveCategory.WeightedWave ITRoboBallFamily = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveFamilyRoboBall, weight = ITFamilyWaveWeight };
+                        InfiniteTowerWaveCategory.WeightedWave ITRoboBallFamily = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveFamilyRoboBall, weight = ITFamilyWaveWeight };
                         SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(ITRoboBallFamily);
                         break;
                     case "dccsVerminFamily":
                         InfiniteTowerWaveFamilyVermin.GetComponent<CombatDirector>().monsterCards = FamilyDCCSs[i];
-                        RoR2.InfiniteTowerWaveCategory.WeightedWave ITVerminFamily = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveFamilyVermin, weight = ITFamilyWaveWeight };
+                        InfiniteTowerWaveCategory.WeightedWave ITVerminFamily = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveFamilyVermin, weight = ITFamilyWaveWeight };
                         SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(ITVerminFamily);
                         break;
                     case "dccsWormsFamily":
                         BossInfiniteTowerWaveFamilyWorms.GetComponent<CombatDirector>().monsterCards = FamilyDCCSs[i];
-                        RoR2.InfiniteTowerWaveCategory.WeightedWave ITWormsFamily = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = BossInfiniteTowerWaveFamilyWorms, weight = 4f, prerequisites = SimuMain.StartWave40Prerequisite };
+                        InfiniteTowerWaveCategory.WeightedWave ITWormsFamily = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = BossInfiniteTowerWaveFamilyWorms, weight = 4f, prerequisites = SimuMain.StartWave40Prerequisite };
                         SimuMain.ITBossWaves.wavePrefabs = SimuMain.ITBossWaves.wavePrefabs.Add(ITWormsFamily);
                         break;
                 }

@@ -26,23 +26,7 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveCategory.WeightedWave ITBasicArtifacSS2Cognation = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveArtifactSS2Cognation, weight = 1.5f };
             SimuMain.ITModSupportWaves.wavePrefabs = SimuMain.ITModSupportWaves.wavePrefabs.Add(ITBasicArtifacSS2Cognation);
             #endregion
-            //
-            //
-            //ZET Tossing
-            GameObject InfiniteTowerWaveArtifactZetTossing = PrefabAPI.InstantiateClone(Const.ArtifactWave, "InfiniteTowerWaveArtifactZetTossing", true);
-            GameObject InfiniteTowerWaveArtifactZetTossingUI = PrefabAPI.InstantiateClone(Const.ArtifactWaveUI, "InfiniteTowerWaveArtifactZetTossingUI", false);
 
-            InfiniteTowerWaveArtifactZetTossing.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWaveArtifactZetTossingUI;
-            InfiniteTowerWaveArtifactZetTossing.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITWaveTier1;
-
-            //InfiniteTowerWaveArtifactZetTossingUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = ZetTossing.smallIconSelectedSprite;
-            InfiniteTowerWaveArtifactZetTossingUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "MOD_ITWAVE_NAME_BASIC_TOSSING";
-            InfiniteTowerWaveArtifactZetTossingUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "MOD_ITWAVE_DESC_BASIC_TOSSING";
-
-            InfiniteTowerWaveCategory.WeightedWave ITBasicArtifacZetTossing = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveArtifactZetTossing, weight = 1f };
-            SimuMain.ITModSupportWaves.wavePrefabs = SimuMain.ITModSupportWaves.wavePrefabs.Add(ITBasicArtifacZetTossing);
-            //
-            //
             //Risky Origin
             GameObject InfiniteTowerWaveArtifactRiskyOrigin = PrefabAPI.InstantiateClone(Const.ArtifactWave, "InfiniteTowerWaveArtifactRiskyOrigin", true);
             GameObject InfiniteTowerWaveArtifactRiskyOriginUI = PrefabAPI.InstantiateClone(Const.ArtifactWaveUI, "InfiniteTowerWaveArtifactRiskyOriginUI", false);

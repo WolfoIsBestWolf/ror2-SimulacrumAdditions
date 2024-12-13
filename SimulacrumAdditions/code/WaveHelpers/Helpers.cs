@@ -4,11 +4,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Networking;
+using System;
+using static UnityEngine.ParticleSystem.PlaybackState;
+using R2API.MiscHelpers;
+using UnityEngine.UIElements;
 
 namespace SimulacrumAdditions
 {
     public class SimulacrumExtrasHelper : MonoBehaviour
     {
+        public static bool shareSuitInstalled = false;
+
         //public bool hasDone = false;
         [SerializeField]
         public ItemTier rewardDisplayTier;
@@ -28,6 +34,12 @@ namespace SimulacrumAdditions
             }
             InfiniteTowerWaveController wave = base.gameObject.GetComponent<InfiniteTowerWaveController>();
             int participatingPlayerCount = Run.instance.participatingPlayerCount;
+
+            if (shareSuitInstalled)
+            {
+                participatingPlayerCount = 1;
+            }
+
             if (participatingPlayerCount > 0 && wave.spawnTarget && this.rewardDropTable)
             {
                 int num = participatingPlayerCount;
@@ -71,31 +83,45 @@ namespace SimulacrumAdditions
 
     public class SimuEquipmentWaveHelper : MonoBehaviour
     {
+        public enum Variant
+        {
+            None,
+            Jetpack,
+            FuelArray,
+            Malachite,
+            GooboJr,
+            Twisted
+        }
+
         protected CombatSquad combatSquad;
-        public int variant;
+        public Variant variant;
         private int bonusHP = 0;
+        public bool bonusBonus = true;
+        public int counter = 100;
 
         private void OnEnable()
         {
             InfiniteTowerWaveController controller = this.GetComponent<InfiniteTowerWaveController>();
+
+
+            if (variant == Variant.Malachite)
+            {
+                bonusHP += 10;
+            }
             if (controller && controller.combatSquad)
             {
-                //bonusHP = (Run.instance as InfiniteTowerRun).waveIndex * 2;
-                bonusHP = Run.instance.GetComponent<InfiniteTowerRun>().waveIndex / 10 * 2;
-                if (variant == 2)
-                {
-                    bonusHP += 10;
-                }
+                bonusHP += Run.instance.GetComponent<InfiniteTowerRun>().waveIndex / 10 * 2;
                 bonusHP *= Run.instance.participatingPlayerCount;
                 combatSquad = controller.combatSquad;
                 controller.combatSquad.onMemberDiscovered += this.OnCombatSquadMemberDiscovered;
             }
-            if (variant == 1)
+            
+            if (variant == Variant.FuelArray)
             {
                 RoR2Content.Equipment.QuestVolatileBattery.dropOnDeathChance = 0.015f;
                 EntityStates.QuestVolatileBattery.CountDown.explosionRadius /= 1.8f;
             }
-            else if (variant == 3)
+            else if (variant == Variant.GooboJr)
             {
                 foreach (PlayerCharacterMasterController player in PlayerCharacterMasterController.instances)
                 {
@@ -113,7 +139,7 @@ namespace SimulacrumAdditions
             {
                 this.combatSquad.onMemberDiscovered -= this.OnCombatSquadMemberDiscovered;
             }
-            if (variant == 1)
+            if (variant == Variant.FuelArray)
             {
                 RoR2Content.Equipment.QuestVolatileBattery.dropOnDeathChance = 0;
                 EntityStates.QuestVolatileBattery.CountDown.explosionRadius *= 1.8f;
@@ -122,20 +148,20 @@ namespace SimulacrumAdditions
 
         protected virtual void OnCombatSquadMemberDiscovered(CharacterMaster master)
         {
-            GameObject bodyObj = master.GetBodyObject();
+            CharacterBody body = master.GetBody();        
             if (NetworkServer.active)
             {
-                if (bodyObj)
+                if (body)
                 {
                     //Can't really add network component just like that would need a better solution ideally
-                    if (!bodyObj.GetComponent<EquipmentSlot>())
+                    if (!body.equipmentSlot)
                     {
-                        EquipmentSlot slot = bodyObj.AddComponent<EquipmentSlot>();
+                        EquipmentSlot slot = body.gameObject.AddComponent<EquipmentSlot>();
                         slot.hasEffectiveAuthority = true;
                         slot._rechargeTime = Run.FixedTimeStamp.zero;
                     }
                 }
-                if (variant == 0)
+                if (variant == Variant.Jetpack)
                 {
                     master.inventory.SetEquipmentIndex(RoR2Content.Equipment.Jetpack.equipmentIndex);
                     master.inventory.GiveItem(RoR2Content.Items.AutoCastEquipment, 1);
@@ -143,18 +169,18 @@ namespace SimulacrumAdditions
                     master.inventory.GiveItem(RoR2Content.Items.SprintOutOfCombat, 1);
                     master.inventory.GiveItem(RoR2Content.Items.BoostHp, 1 + (int)(bonusHP * 1.33f));
                 }
-                else if (variant == 1)
+                else if (variant == Variant.FuelArray)
                 {
                     master.inventory.SetEquipmentIndex(RoR2Content.Equipment.QuestVolatileBattery.equipmentIndex);
                     master.inventory.GiveItem(ItemHelpers.ITHealthScaling, 80); //Double health cuz they die at half
                     //master.inventory.GiveItem(RoR2Content.Items.BoostHp, (int)(bonusHP * 1.5f));
                 }
-                else if (variant == 2)
+                else if (variant == Variant.Malachite)
                 {
                     master.inventory.SetEquipmentIndex(RoR2Content.Equipment.AffixPoison.equipmentIndex);
                     master.inventory.GiveItem(RoR2Content.Items.BoostHp, bonusHP);
                 }
-                else if (variant == 3)
+                else if (variant == Variant.GooboJr)
                 {
                     if (master.inventory.GetItemCount(DLC1Content.Items.GummyCloneIdentifier) == 0)
                     {
@@ -165,9 +191,24 @@ namespace SimulacrumAdditions
                     }
                     else
                     {
-                        master.inventory.RemoveItem(RoR2Content.Items.BoostHp, 20);
-                        master.inventory.RemoveItem(RoR2Content.Items.BoostDamage, 20);
+                        master.inventory.RemoveItem(RoR2Content.Items.BoostHp, 15);
+                        master.inventory.RemoveItem(RoR2Content.Items.BoostDamage, 15);
                     }
+                }
+                else if (variant == Variant.Twisted)
+                {
+                    counter++;
+                    if (master.inventory.GetItemCount(RoR2Content.Items.BoostDamage) < 10)
+                    {
+                        if (counter > 10)
+                        {
+                            counter = 0;
+                            master.inventory.SetEquipmentIndex(DLC2Content.Equipment.EliteBeadEquipment.equipmentIndex);
+                            master.inventory.GiveItem(RoR2Content.Items.BoostDamage, 5);
+                            master.inventory.GiveItem(RoR2Content.Items.BoostHp, 30);
+                        }
+                    }
+                    
                 }
             }
         }
@@ -711,31 +752,86 @@ namespace SimulacrumAdditions
     {
         public GameObject LightningStorm;
         public GameObject LightningStrike;
+        public bool ShouldActivate = false;
+        public int timer = 0;
+
+        public void Awake()
+        {
+            if (NetworkServer.active)
+            {
+                LightningStorm = GameObject.Instantiate(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC2/meridian/DisableSkillsLightning/LightningStormController.prefab").WaitForCompletion());
+                NetworkServer.Spawn(LightningStorm);
+            }
+        }
 
         public void OnEnable()
         {
             LightningStrike = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC2/meridian/DisableSkillsLightning/LightningStrikeInstance.prefab").WaitForCompletion();
             LightningStrike.GetComponent<TeamComponent>().teamIndex = TeamIndex.Neutral;
             var Lightning = LightningStrike.GetComponent<LightningStrikeInstance>();
-            Lightning.blastDamageType = new DamageTypeCombo
+            Lightning.blastDamageType.damageTypeExtended = DamageTypeExtended.DamagePercentOfMaxHealth;
+            if (LightningStorm)
             {
-                damageType = DamageType.LunarRuin,
-                damageTypeExtended = DamageTypeExtended.DamagePercentOfMaxHealth
-            };
+                ShouldActivate = true;
+            }
+
+            //Spawn Geodes
+            InteractableSpawnCard spawnCard = Addressables.LoadAssetAsync<InteractableSpawnCard>(key: "RoR2/DLC2/iscGeode.asset").WaitForCompletion();
+            int spawnsOnStart = Run.instance.participatingPlayerCount+1;
+            GameObject Effect = LegacyResourcesAPI.Load<GameObject>("Prefabs/Effects/GeodeShatterVFX");
 
             if (NetworkServer.active)
             {
-                if (!LightningStorm)
+                InfiniteTowerRun run = Run.instance.GetComponent<InfiniteTowerRun>();
+                Xoroshiro128Plus rng = new Xoroshiro128Plus((ulong)((long)run.waveIndex ^ (long)Run.instance.seed));
+                base.gameObject.transform.position = run.safeWardController.transform.GetChild(2).GetChild(0).position;
+
+                for (int i = 0; i < spawnsOnStart; i++)
                 {
-                    LightningStorm = GameObject.Instantiate(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC2/meridian/DisableSkillsLightning/LightningStormController.prefab").WaitForCompletion());
-                    NetworkServer.Spawn(LightningStorm);
+                    DirectorPlacementRule placementRule = new DirectorPlacementRule
+                    {
+                        placementMode = DirectorPlacementRule.PlacementMode.Approximate,
+                        minDistance = 10,
+                        maxDistance = 50,
+                        position = base.gameObject.transform.position,
+                        spawnOnTarget = base.gameObject.transform
+                    };
+                    GameObject Result = DirectorCore.instance.TrySpawnObject(new DirectorSpawnRequest(spawnCard, placementRule, rng));
+                    if (Result)
+                    {
+                        EffectManager.SpawnEffect(Effect, new EffectData
+                        {
+                            origin = Result.transform.position
+                        }, false);
+                    }
                 }
-                LightningStorm.GetComponent<LightningStormController>().stormActive = false;
-                LightningStorm.GetComponent<LightningStormController>().ServerSetStormActive(true);
+            }
+            else
+            {
+                Destroy(this);
+            }
+        }
+
+        public void FixedUpdate()
+        {
+            if (ShouldActivate)
+            {
+                timer++;
+                if (timer > 90)
+                {
+                    LightningStorm.GetComponent<LightningStormController>().ServerSetStormActive(true);
+                    ShouldActivate = false;
+                }
             }
         }
 
         public void OnDisable()
+        {
+            var Lightning = LightningStrike.GetComponent<LightningStrikeInstance>();
+            Lightning.blastDamageType.damageTypeExtended = DamageTypeExtended.ApplyBuffPermanently | DamageTypeExtended.DamagePercentOfMaxHealth;
+        }
+
+        public void DisableStorm()
         {
             if (LightningStorm)
             {
@@ -743,18 +839,117 @@ namespace SimulacrumAdditions
                 GameObject.Destroy(LightningStorm, 3);
             }
 
-            LightningStrike.GetComponent<TeamComponent>().teamIndex = TeamIndex.Monster;
-            var Lightning = LightningStrike.GetComponent<LightningStrikeInstance>();
-            Lightning.blastDamageType = new DamageTypeCombo
+            if (NetworkServer.active)
             {
-                damageType = DamageType.LunarRuin,
-                damageTypeExtended = DamageTypeExtended.ApplyBuffPermanently | DamageTypeExtended.DamagePercentOfMaxHealth
-            };
+                GeodeController[] geodes = GameObject.FindObjectsOfType(typeof(GeodeController)) as GeodeController[];
+                if (geodes.Length > 0)
+                {
+                    GameObject Effect = LegacyResourcesAPI.Load<GameObject>("Prefabs/Effects/GeodeShatterVFX");
+                    for (int i = 0; i < geodes.Length; i++)
+                    {
+                        Debug.Log(geodes[i]);
+                        GameObject.Destroy(geodes[i].gameObject);
+                        EffectManager.SpawnEffect(Effect, new EffectData
+                        {
+                            origin = geodes[i].transform.position
+                        }, false);
+                    }
+                }
+            }
+            
         }
  
 
     }
 
+    public class Simulacrum_KnockbackWave : MonoBehaviour
+    {
+        public void OnDisable()
+        {
+            On.RoR2.HealthComponent.TakeDamageForce_DamageInfo_bool_bool -= HealthComponent_TakeDamageForce_DamageInfo_bool_bool;
+        }
+        public void OnEnable()
+        {
+            On.RoR2.HealthComponent.TakeDamageForce_DamageInfo_bool_bool += HealthComponent_TakeDamageForce_DamageInfo_bool_bool;
+        }
+
+        private void HealthComponent_TakeDamageForce_DamageInfo_bool_bool(On.RoR2.HealthComponent.orig_TakeDamageForce_DamageInfo_bool_bool orig, HealthComponent self, DamageInfo damageInfo, bool alwaysApply, bool disableAirControlUntilCollision)
+        {
+            orig(self, damageInfo, true, disableAirControlUntilCollision);
+            if (damageInfo.attacker && damageInfo.procCoefficient > 0)
+            {
+                CharacterMotor victimMotor = self.body.characterMotor;
+                RigidbodyMotor rigid = self.GetComponent<RigidbodyMotor>();
+
+                float scale = 1f;
+                switch (self.body.hullClassification)
+                {
+                    case HullClassification.Human:
+                        scale = 1f;
+                        break;
+                    case HullClassification.Golem:
+                        scale = 2.5f;
+                        break;
+                    case HullClassification.BeetleQueen:
+                        scale = 5f;
+                        break;
+                }
+                if (rigid)
+                {
+                    scale *= -1f;
+                }
+                EffectManager.SpawnEffect(CharacterBody.CommonAssets.knockbackFinEffect, new EffectData
+                {
+                    origin = self.body.gameObject.transform.position,
+                    scale = scale
+                }, true);
+
+                if (victimMotor )
+                {
+                    float mult = victimMotor.isGrounded ? 1.5f : 0.33f;
+                    mult *= damageInfo.procCoefficient;
+                    float num = KnockbackFinUtil.CalculateImpulseForce(victimMotor.mass, 4, self.body.isChampion) * mult;
+                    float num2 = num;
+                    float y = victimMotor.velocity.y;
+                    if (y < 0f)
+                    {
+                        num2 -= y * victimMotor.mass;
+                    }
+                    Vector3 a = num2 * Vector3.up;
+                    Vector3 direction = damageInfo.attacker.GetComponent<InputBankTest>().GetAimRay().direction;
+                    direction.y = 0f;
+                    Vector3 b = num * 0.2f * 1 * direction.normalized;
+                    victimMotor.ApplyForce(a + b, false, false);
+
+                   
+                }
+                else if (rigid)
+                {
+                    float mult = -0.5f;
+                    mult *= damageInfo.procCoefficient;
+                    float num = KnockbackFinUtil.CalculateImpulseForce(rigid.mass, 4, self.body.isChampion) * mult;
+                    float num2 = num;
+                    float y = rigid.moveVector.y;
+                    if (y < 0f)
+                    {
+                        num2 -= y * rigid.mass;
+                    }
+                    Vector3 a = num2 * Vector3.up;
+                    Vector3 direction = damageInfo.attacker.GetComponent<InputBankTest>().GetAimRay().direction;
+                    direction.y = 0f;
+                    Vector3 b = num * 0.2f * 1 * direction.normalized;
+                    rigid.ApplyForceImpulse(new PhysForceInfo { force = a+b});
+                }
+
+            }
+            
+            
+        }
+
+         
+
+        
+    }
 
     public class DisableRegeneratingScrap : MonoBehaviour
     {

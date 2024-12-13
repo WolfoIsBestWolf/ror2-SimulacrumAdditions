@@ -3,6 +3,7 @@ using RoR2.Navigation;
 //using System;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using static R2API.DirectorAPI;
 
 namespace SimulacrumAdditions
 {
@@ -30,8 +31,13 @@ namespace SimulacrumAdditions
         public static void CreditsRebalance(On.RoR2.InfiniteTowerRun.orig_OnPrePopulateSceneServer orig, InfiniteTowerRun self, SceneDirector sceneDirector)
         {
             orig(self, sceneDirector);
-            int players = Run.instance.participatingPlayerCount - 1;
-            sceneDirector.interactableCredit += players * 150;
+
+            if (!SimulacrumExtrasHelper.shareSuitInstalled)
+            {
+                int players = Run.instance.participatingPlayerCount - 1;
+                sceneDirector.interactableCredit += players * 150;
+            }
+
             if (self.waveIndex < 40) //First 4 stages
             {
                 sceneDirector.interactableCredit += 30; //630
@@ -49,6 +55,16 @@ namespace SimulacrumAdditions
                 sceneDirector.interactableCredit += 100;
             }
             Debug.Log("InfiniteTower " + sceneDirector.interactableCredit + " interactable credits. ");
+            
+            if (SceneInfo.instance)
+            {
+                var stageInfo = SceneInfo.instance.GetComponent<ClassicStageInfo>();
+                if (stageInfo)
+                {
+                    //Share Suit fix
+                    stageInfo.sceneDirectorInteractibleCredits = sceneDirector.interactableCredit;
+                }
+            }
         }
 
 
@@ -457,7 +473,7 @@ namespace SimulacrumAdditions
             }
         }
 
-        public static void ITMoonExtras(On.RoR2.SceneDirector.orig_Start orig, global::RoR2.SceneDirector self)
+        public static void Stage_ExtraObjects(On.RoR2.SceneDirector.orig_Start orig, global::RoR2.SceneDirector self)
         {
             orig(self);
             if (!SceneInfo.instance)
@@ -468,6 +484,7 @@ namespace SimulacrumAdditions
 
             if (SceneInfo.instance.sceneDef.baseSceneName.StartsWith("itmoon"))
             {
+                SceneInfo.instance.gameObject.AddComponent<SetGravity>().newGravity = -20f;
                 GameObject MoonArenaDynamicPillar = GameObject.Find("/HOLDER: Stage");
                 if (MoonArenaDynamicPillar)
                 {

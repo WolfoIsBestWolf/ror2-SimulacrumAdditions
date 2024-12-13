@@ -14,7 +14,7 @@ namespace SimulacrumAdditions
 {
     public class Wave_Hooks
     {
-
+        
         internal static void AddHooks()
         {
             //General + Manual Stuff that just needs to be done
@@ -36,6 +36,9 @@ namespace SimulacrumAdditions
             On.RoR2.InfiniteTowerRun.CleanUpCurrentWave += InfiniteTowerRun_CleanUpCurrentWave;
 
             //Double Reward
+
+            SimulacrumExtrasHelper.shareSuitInstalled = BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.funkfrog_sipondo.sharesuite");
+
             On.RoR2.InfiniteTowerWaveController.DropRewards += (orig, self) =>
             {
                 orig(self);
@@ -172,6 +175,10 @@ namespace SimulacrumAdditions
             else if (self.name.EndsWith("Enigma(Clone)"))
             {
                 self.GetComponent<ArtifactEnabler>().OnDisable();
+            }
+            else if (self.GetComponent<SimulacrumLightningStormWave>())
+            {
+                self.GetComponent<SimulacrumLightningStormWave>().DisableStorm();
             }
 
             if (Run.instance)

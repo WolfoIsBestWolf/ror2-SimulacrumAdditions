@@ -157,7 +157,7 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveBossGiantGupUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BOSS_GIANTGUP";
             InfiniteTowerWaveBossGiantGupUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BOSS_GIANTGUP"; //Gurp failed
             //
-            RoR2.InfiniteTowerWaveCategory.WeightedWave ITGiantGup = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveBossGiantGup, weight = 7, prerequisites = SimuMain.StartWave20Prerequisite };
+            InfiniteTowerWaveCategory.WeightedWave ITGiantGup = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveBossGiantGup, weight = 7, prerequisites = SimuMain.StartWave20Prerequisite };
             SimuMain.ITBossWaves.wavePrefabs = SimuMain.ITBossWaves.wavePrefabs.Add(ITGiantGup);
 
 

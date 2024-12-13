@@ -94,27 +94,7 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveCategory.WeightedWave ITCoffee = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveCoffee, weight = 3f, prerequisites = SimuMain.AfterWave5Prerequisite };
             SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(ITCoffee);
             #endregion
-            #region Many Knockback Fin
-            //KnockbackFin
-            GameObject InfiniteTowerWaveKnockbackFin = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveItemKnockbackFin", true);
-            GameObject InfiniteTowerWaveKnockbackFinUI = PrefabAPI.InstantiateClone(Const.BasicWaveUI, "InfiniteTowerWaveItemKnockbackFinUI", false);
-
-            InfiniteTowerWaveKnockbackFin.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWaveKnockbackFinUI;
-            InfiniteTowerWaveKnockbackFin.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITCategoryUtility;
-
-            InfiniteTowerWaveKnockbackFin.AddComponent<SimulacrumGiveItemsOnStart>().itemString = "KnockBackHitEnemies";
-            InfiniteTowerWaveKnockbackFin.GetComponent<SimulacrumGiveItemsOnStart>().count = 5;
-            InfiniteTowerWaveKnockbackFin.GetComponent<SimulacrumGiveItemsOnStart>().extraPer10Wave = 1;
-
-            InfiniteTowerWaveKnockbackFinUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_KNOCKBACKFIN";
-            InfiniteTowerWaveKnockbackFinUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_KNOCKBACKFIN";
-            InfiniteTowerWaveKnockbackFinUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color = new Color(0.77f, 0.77f, 1f);
-            InfiniteTowerWaveKnockbackFinUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0.77f, 0.77f, 1f);
-            InfiniteTowerWaveKnockbackFinUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color(0.55f, 0.55f, 1f);
-
-            InfiniteTowerWaveCategory.WeightedWave ITKnockbackFin = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveKnockbackFin, weight = 2f, prerequisites = SimuMain.DLC2_StartWave10Prerequisite };
-            SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(ITKnockbackFin);
-            #endregion
+            
             #region Lepton Daisy
             //Lepton
             GameObject InfiniteTowerWaveLepton = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveItemLepton", true);

@@ -169,7 +169,7 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveBossSuperCrabUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BOSS_SUPERCRAB";
             InfiniteTowerWaveBossSuperCrabUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BOSS_SUPERCRAB";
             //
-            RoR2.InfiniteTowerWaveCategory.WeightedWave ITSuperCrab = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveBossSuperCrab, weight = 4f, prerequisites = SimuMain.StartWave35Prerequisite };
+            InfiniteTowerWaveCategory.WeightedWave ITSuperCrab = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveBossSuperCrab, weight = 4f, prerequisites = SimuMain.StartWave35Prerequisite };
             SimuMain.ITBossWaves.wavePrefabs = SimuMain.ITBossWaves.wavePrefabs.Add(ITSuperCrab);
             SimuMain.ITSuperBossWaves.wavePrefabs = SimuMain.ITSuperBossWaves.wavePrefabs.Add(ITSuperCrab);
 

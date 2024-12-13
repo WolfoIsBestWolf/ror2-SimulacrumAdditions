@@ -1,7 +1,28 @@
 ## Changelog:
 ```
-v2.3.2
-Added Augment of Shuriken, Elixir and Meridian
+v2.3.5 - 
+Fixed for Patch for 1.3.6
+Added Twisted Wave.
+Replacement Knockback Fin Wave.
+Simu Commencement now has moon gravity.
+
+
+v2.3.4
+Fixed ShareSuit lowering Simu interactable amount by A lot.
+If ShareSuit is installed, no longer adds extra credits per player in Simu.
+Added more buttons for wave high score management config.
+
+v2.3.3
+"Void Coin or Blood" blood purchases can now be blocked.
+Fixed multiple potentials dropping if ShareSuit is installed. 
+Fixed waves with bonus rewards dropping one for every player if ShareSuit is installed.
+
+
+v2.3.2 - Quick Fix for 1.3.5
+Added Augment of Shuriken
+Added Augment of Elixir
+Added Augment of Meridian
+
 
 v2.3.1 - Fixed an issue with the file structure causing mod to not function.
 v2.3.0

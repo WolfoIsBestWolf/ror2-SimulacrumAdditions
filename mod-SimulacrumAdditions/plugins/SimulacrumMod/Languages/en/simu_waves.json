@@ -194,7 +194,7 @@
 		"ITWAVE_DESC_BASIC_COFFEE": "Enemies have increased movement and attack speed.",
 		
  		"ITWAVE_NAME_BASIC_KNOCKBACKFIN": "Wave {0} - Augment of Knockback",
-		"ITWAVE_DESC_BASIC_KNOCKBACKFIN": "Enemies knock you up into the air on hit.",
+		"ITWAVE_DESC_BASIC_KNOCKBACKFIN": "Hits knock things into the air.",
 
  		"ITWAVE_NAME_BASIC_LEPTON": "Wave {0} - Augment of Flowers",
 		"ITWAVE_DESC_BASIC_LEPTON": "Monsters spawning may unleash a healing aura.",
@@ -329,15 +329,23 @@
 		"MOD_ITWAVE_DESC_BASIC_ORIGIN": "Boss monsters invade the simulation.",
 
  
+		"ITWAVE_NAME_BASIC_ELIXIR": "Wave {0} - Augment of Elixir",
+		"ITWAVE_DESC_BASIC_ELIXIR": "Enemies heal upon reaching low health.",
+		
+		"ITWAVE_NAME_BASIC_SHURIKEN": "Wave {0} - Augment of Shuriken",
+		"ITWAVE_DESC_BASIC_SHURIKEN": "Enemies fire deadly shurikens when they attack.",
+		
+		"ITWAVE_NAME_BASIC_PMSTORM": "Wave {0} - Augment of Meridian",
+		"ITWAVE_DESC_BASIC_PMSTORM": "A lightning storm rages.",
+		
+		"ITWAVE_NAME_BASIC_TWISTED": "Wave {0} - Augment of Twisted",
+		"ITWAVE_DESC_BASIC_TWISTED": "Weakened Twisted elites may spawn.",
+			 
 	 
-	 
-		"ITWAVE_NAME_BASIC_FUCK": "Wave {0}",
-		"ITWAVE_DESC_BASIC_FUCK": "Defeat all enemies.",
+		"ITWAVE_NAME_BASIC_WIP": "Wave {0}",
+		"ITWAVE_DESC_BASIC_WIP": "Defeat all enemies.",
 		
-		"ITWAVE_NAME_BOSS_FUCK": "Wave {0}",
-		"ITWAVE_DESC_BOSS_FUCK": "Defeat all enemies.",
-		
-		
+		 
 
 		
 		

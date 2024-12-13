@@ -123,7 +123,7 @@ namespace SimulacrumAdditions
 
             }
 
-            //
+            GameObject defaultUI = SimuMain.ITBasicWaves.wavePrefabs[0].wavePrefab.GetComponent<InfiniteTowerWaveController>().uiPrefab;
             Color newArticfact = new Color(1f, 0.7647f, 1.2647f, 1);
             for (int i = 0; i < SimuMain.ITBasicWaves.wavePrefabs.Length; i++)
             {
@@ -142,7 +142,7 @@ namespace SimulacrumAdditions
                 if (controller is InfiniteTowerExplicitSpawnWaveController)
                 {
                     controller.isBossWave = false;
-                    controller.uiPrefab = SimuMain.ITBasicWaves.wavePrefabs[0].wavePrefab.GetComponent<InfiniteTowerWaveController>().uiPrefab;
+                    controller.uiPrefab = defaultUI;
                     controller.wavePeriodSeconds = 60;
                 }
                 //

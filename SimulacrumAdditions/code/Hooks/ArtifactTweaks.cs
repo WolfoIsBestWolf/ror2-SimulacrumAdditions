@@ -36,13 +36,14 @@ namespace SimulacrumAdditions
 
             SceneDirector.onGenerateInteractableCardSelection += SimulacrumDevotionAddEgg;
 
-            On.RoR2.InfiniteTowerWaveController.DropRewards += LessOptionsDuringSacrifice;
+            On.RoR2.InfiniteTowerWaveController.PlayBeginSound += LessOptionsDuringSacrifice;
             On.RoR2.Artifacts.SacrificeArtifactManager.OnArtifactEnabled += SacrificeArtifactManager_OnArtifactEnabled;
             On.RoR2.Artifacts.SacrificeArtifactManager.OnArtifactDisabled += SacrificeArtifactManager_OnArtifactDisabled;
         }
 
-        private static void LessOptionsDuringSacrifice(On.RoR2.InfiniteTowerWaveController.orig_DropRewards orig, InfiniteTowerWaveController self)
+        private static void LessOptionsDuringSacrifice(On.RoR2.InfiniteTowerWaveController.orig_PlayBeginSound orig, InfiniteTowerWaveController self)
         {
+            orig(self);
             if (WConfig.cfgSacrificeBalance.Value)
             {
                 bool sacrifice = RunArtifactManager.instance.IsArtifactEnabled(RoR2Content.Artifacts.sacrificeArtifactDef);
@@ -56,10 +57,8 @@ namespace SimulacrumAdditions
                     }
                 }
             }
-           
-            orig(self);
         }
-
+ 
         private static void DevotionInventoryController_Awake(On.RoR2.DevotionInventoryController.orig_Awake orig, DevotionInventoryController self)
         {
             orig(self);

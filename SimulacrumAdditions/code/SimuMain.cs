@@ -18,7 +18,7 @@ using UnityEngine.Networking;
 namespace SimulacrumAdditions
 {
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("Wolfo.SimulacrumAdditions", "SimulacrumAdditions", "2.3.0")]
+    [BepInPlugin("Wolfo.SimulacrumAdditions", "SimulacrumAdditions", "2.3.3")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
 
     public class SimuMain : BaseUnityPlugin
@@ -37,8 +37,8 @@ namespace SimulacrumAdditions
 
         //CommonWaveCategory
         //BossWaveCategory
-        public static InfiniteTowerWaveCategory ITBasicWaves = Addressables.LoadAssetAsync<RoR2.InfiniteTowerWaveCategory>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveCategories/CommonWaveCategory.asset").WaitForCompletion();
-        public static InfiniteTowerWaveCategory ITBossWaves = Addressables.LoadAssetAsync<RoR2.InfiniteTowerWaveCategory>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveCategories/BossWaveCategory.asset").WaitForCompletion();
+        public static InfiniteTowerWaveCategory ITBasicWaves = Addressables.LoadAssetAsync<InfiniteTowerWaveCategory>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveCategories/CommonWaveCategory.asset").WaitForCompletion();
+        public static InfiniteTowerWaveCategory ITBossWaves = Addressables.LoadAssetAsync<InfiniteTowerWaveCategory>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveCategories/BossWaveCategory.asset").WaitForCompletion();
         public static InfiniteTowerWaveCategory ITSuperBossWaves = ScriptableObject.CreateInstance<InfiniteTowerWaveCategory>();
         public static InfiniteTowerWaveCategory ITModSupportWaves = ScriptableObject.CreateInstance<InfiniteTowerWaveCategory>();
         //Would need to be the first in the Array to work normally
@@ -166,7 +166,7 @@ namespace SimulacrumAdditions
             Visual_Upgrades();
            
             //Use Custom Simu Interactable DCCSs
-            On.RoR2.SceneDirector.Start += SimulacrumDCCS.ITMoonExtras;
+            On.RoR2.SceneDirector.Start += SimulacrumDCCS.Stage_ExtraObjects;
             On.RoR2.InfiniteTowerRun.OnPrePopulateSceneServer += SimulacrumDCCS.SimuInteractableDCCSAdder;
             //More Interactables early on to get into it quicker
             if (WConfig.cfgSimuCreditsRebalance.Value)
@@ -461,12 +461,6 @@ namespace SimulacrumAdditions
             Simu_Run_Run.blacklistedItems = Simu_Run_Run.blacklistedItems.Remove(DLC1Content.Items.DroneWeapons); //But Squid Polyp wouldn't work they just die
             Simu_Run_Run.blacklistedTags = Simu_Run_Run.blacklistedTags.Remove(ItemTag.InteractableRelated); //There's only two and Fireworks works plenty
 
-            if (WConfig.cfgItemsEvery8.Value)
-            {
-                Simu_Run_Run.enemyItemPeriod = 8;
-            }
-
-            //Blacklist VanillaVoid Cornucopia, not realistically usable and essentially kills you
             ItemDef tempDef = ItemCatalog.GetItemDef(ItemCatalog.FindItemIndex("VV_ITEM_CORNUCOPIACELL_ITEM"));
             if (tempDef != null)
             {
@@ -478,101 +472,11 @@ namespace SimulacrumAdditions
             {
                 Simu_Run_Run.blacklistedItems = Simu_Run_Run.blacklistedItems.Add(tempDef);
             }
-            //SS2 Missing some tags
-            tempDef = ItemCatalog.GetItemDef(ItemCatalog.FindItemIndex("WatchMetronome"));
-            if (tempDef != null)
+
+            if (WConfig.cfgItemsEvery8.Value)
             {
-                tempDef.tags = tempDef.tags.Add(ItemTag.SprintRelated);
+                Simu_Run_Run.enemyItemPeriod = 8;
             }
-            tempDef = ItemCatalog.GetItemDef(ItemCatalog.FindItemIndex("PortableReactor"));
-            if (tempDef != null)
-            {
-                tempDef.tags = tempDef.tags.Add(ItemTag.AIBlacklist);
-            }
-            tempDef = ItemCatalog.GetItemDef(ItemCatalog.FindItemIndex("HuntersSigil"));
-            if (tempDef != null)
-            {
-                tempDef.tags = tempDef.tags.Add(ItemTag.AIBlacklist);
-            }
-            tempDef = ItemCatalog.GetItemDef(ItemCatalog.FindItemIndex("Fork"));
-            if (tempDef != null)
-            {
-                tempDef.tags = tempDef.tags.Add(ItemTag.AIBlacklist);
-            }
-            tempDef = ItemCatalog.GetItemDef(ItemCatalog.FindItemIndex("VV_ITEM_EHANCE_VIALS_ITEM"));
-            if (tempDef != null)
-            {
-                tempDef.tags = tempDef.tags.Add(ItemTag.AIBlacklist);
-            }
-
-            RoR2Content.Items.MonstersOnShrineUse.tags = RoR2Content.Items.MonstersOnShrineUse.tags.Add(ItemTag.InteractableRelated);
-            DLC1Content.Items.MoveSpeedOnKill.tags = DLC1Content.Items.MoveSpeedOnKill.tags.Add(ItemTag.OnKillEffect);
-
-            RoR2Content.Items.ParentEgg.tags[0] = ItemTag.Healing;
-            RoR2Content.Items.ShieldOnly.tags[0] = ItemTag.Healing;
-            RoR2Content.Items.LunarUtilityReplacement.tags[0] = ItemTag.Healing;
-            RoR2Content.Items.RandomDamageZone.tags[0] = ItemTag.Damage;
-            DLC1Content.Items.HalfSpeedDoubleHealth.tags[0] = ItemTag.Healing;
-            DLC1Content.Items.LunarSun.tags[0] = ItemTag.Damage;
-
-            DLC1Content.Items.MinorConstructOnKill.tags = DLC1Content.Items.MinorConstructOnKill.tags.Add(ItemTag.Utility);
-            RoR2Content.Items.Knurl.tags = RoR2Content.Items.Knurl.tags.Remove(ItemTag.Utility);
-            RoR2Content.Items.Pearl.tags = RoR2Content.Items.Pearl.tags.Remove(ItemTag.Utility);
-            RoR2Content.Items.Pearl.tags = RoR2Content.Items.Pearl.tags.Add(ItemTag.Healing);
-
-            RoR2Content.Items.Infusion.tags = RoR2Content.Items.Infusion.tags.Remove(ItemTag.Utility);
-            RoR2Content.Items.GhostOnKill.tags = RoR2Content.Items.GhostOnKill.tags.Remove(ItemTag.Damage);
-            RoR2Content.Items.HeadHunter.tags = RoR2Content.Items.HeadHunter.tags.Remove(ItemTag.Utility);
-            RoR2Content.Items.BarrierOnKill.tags = RoR2Content.Items.BarrierOnKill.tags.Remove(ItemTag.Utility);
-            RoR2Content.Items.BarrierOnOverHeal.tags = RoR2Content.Items.BarrierOnOverHeal.tags.Remove(ItemTag.Utility);
-            RoR2Content.Items.FallBoots.tags = RoR2Content.Items.FallBoots.tags.Remove(ItemTag.Damage);
-
-            RoR2Content.Items.NovaOnHeal.tags = RoR2Content.Items.NovaOnHeal.tags.Remove(ItemTag.Damage);
-            RoR2Content.Items.NovaOnHeal.tags = RoR2Content.Items.NovaOnHeal.tags.Add(ItemTag.Healing);
-
-            //RoR2Content.Items.PersonalShield.tags = RoR2Content.Items.PersonalShield.tags.Add(ItemTag.Healing);
-            DLC1Content.Items.ImmuneToDebuff.tags = DLC1Content.Items.ImmuneToDebuff.tags.Add(ItemTag.Healing);
-
-            RoR2Content.Items.BonusGoldPackOnKill.tags = RoR2Content.Items.BonusGoldPackOnKill.tags.Add(ItemTag.AIBlacklist);
-            RoR2Content.Items.Infusion.tags = RoR2Content.Items.Infusion.tags.Add(ItemTag.AIBlacklist);
-            RoR2Content.Items.GoldOnHit.tags = RoR2Content.Items.GoldOnHit.tags.Add(ItemTag.AIBlacklist);
-            DLC1Content.Items.RegeneratingScrap.tags = DLC1Content.Items.RegeneratingScrap.tags.Add(ItemTag.AIBlacklist);
-
-            RoR2Content.Items.NovaOnHeal.tags = RoR2Content.Items.NovaOnHeal.tags.Add(ItemTag.AIBlacklist);
-            RoR2Content.Items.ShockNearby.tags = RoR2Content.Items.ShockNearby.tags.Add(ItemTag.Count);
-            DLC1Content.Items.MoreMissile.tags = DLC1Content.Items.MoreMissile.tags.Add(ItemTag.Count);
-            DLC1Content.Items.CritDamage.tags = DLC1Content.Items.CritDamage.tags.Add(ItemTag.Count);
-            DLC1Content.Items.DroneWeapons.tags = DLC1Content.Items.DroneWeapons.tags.Add(ItemTag.AIBlacklist);
-            //RoR2Content.Items.GhostOnKill.tags = RoR2Content.Items.GhostOnKill.tags.Add(ItemTag.AIBlacklist);
-
-            DLC1Content.Items.MushroomVoid.tags = DLC1Content.Items.MushroomVoid.tags.Add(ItemTag.SprintRelated);
-            DLC1Content.Items.ElementalRingVoid.tags = DLC1Content.Items.ElementalRingVoid.tags.Remove(ItemTag.Utility);
-
-            DLC1Content.Items.TreasureCacheVoid.tags = DLC1Content.Items.TreasureCacheVoid.tags.Add(ItemTag.AIBlacklist);
-            DLC1Content.Items.CritGlassesVoid.tags = DLC1Content.Items.CritGlassesVoid.tags.Add(ItemTag.AIBlacklist);
-            DLC1Content.Items.MushroomVoid.tags = DLC1Content.Items.MushroomVoid.tags.Add(ItemTag.AIBlacklist);
-            DLC1Content.Items.EquipmentMagazineVoid.tags = DLC1Content.Items.EquipmentMagazineVoid.tags.Add(ItemTag.AIBlacklist);
-            DLC1Content.Items.ExplodeOnDeathVoid.tags = DLC1Content.Items.ExplodeOnDeathVoid.tags.Add(ItemTag.AIBlacklist);
-            
-            
-            DLC1Content.Items.PrimarySkillShuriken.tags = DLC1Content.Items.PrimarySkillShuriken.tags.Add(ItemTag.AIBlacklist);
-            DLC1Content.Items.ElementalRingVoid.tags = DLC1Content.Items.ElementalRingVoid.tags.Add(ItemTag.AIBlacklist);
-
-
-            DLC2Content.Items.TeleportOnLowHealth.tags = DLC2Content.Items.TeleportOnLowHealth.tags.Add(ItemTag.Count);
-            DLC2Content.Items.ExtraStatsOnLevelUp.tags = DLC2Content.Items.ExtraStatsOnLevelUp.tags.Add(ItemTag.AIBlacklist);
-            DLC2Content.Items.DelayedDamage.tags = DLC2Content.Items.DelayedDamage.tags.Add(ItemTag.AIBlacklist);
-            DLC2Content.Items.GoldOnStageStart.tags = DLC2Content.Items.GoldOnStageStart.tags.Add(ItemTag.AIBlacklist);
-            DLC2Content.Items.IncreaseDamageOnMultiKill.tags = DLC2Content.Items.IncreaseDamageOnMultiKill.tags.Add(ItemTag.AIBlacklist);
-            DLC2Content.Items.ResetChests.tags = DLC2Content.Items.ResetChests.tags.Add(ItemTag.AIBlacklist);
-            DLC2Content.Items.LowerPricedChests.tags = DLC2Content.Items.LowerPricedChests.tags.Add(ItemTag.AIBlacklist);
-            DLC2Content.Items.TriggerEnemyDebuffs.tags = DLC2Content.Items.TriggerEnemyDebuffs.tags.Add(ItemTag.AIBlacklist);
-            DLC2Content.Items.BoostAllStats.tags = DLC2Content.Items.BoostAllStats.tags.Add(ItemTag.AIBlacklist);
-            DLC2Content.Items.ExtraShrineItem.tags = DLC2Content.Items.ExtraShrineItem.tags.Add(ItemTag.AIBlacklist);
-            DLC2Content.Items.NegateAttack.tags = DLC2Content.Items.NegateAttack.tags.Add(ItemTag.AIBlacklist);
-            DLC2Content.Items.OnLevelUpFreeUnlock.tags = DLC2Content.Items.OnLevelUpFreeUnlock.tags.Add(ItemTag.AIBlacklist);
-
-
 
             AutoConfig.InitConfig();
             AutoConfig.ApplyConfig();

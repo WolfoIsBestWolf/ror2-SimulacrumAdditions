@@ -118,7 +118,7 @@ namespace SimulacrumAdditions
                                 damage = num,
                                 attacker = context.purchasedObject,
                                 position = context.purchasedObject.transform.position,
-                                damageType = (DamageType.NonLethal | DamageType.BypassArmor | DamageType.BypassBlock)
+                                damageType = (DamageType.NonLethal | DamageType.BypassArmor)
                             });
                         }
                     }
