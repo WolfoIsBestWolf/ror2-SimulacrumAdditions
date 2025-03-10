@@ -559,7 +559,7 @@ namespace SimulacrumAdditions
             DirectorCardCategorySelection dccsITGolemplainsMonstersDLC2 = Addressables.LoadAssetAsync<DirectorCardCategorySelection>(key: "RoR2/DLC1/itgolemplains/dccsITGolemplainsMonstersDLC2.asset").WaitForCompletion();
             //DirectorCardCategorySelection dccsITGooLakeMonsters = Addressables.LoadAssetAsync<DirectorCardCategorySelection>(key: "RoR2/DLC1/itgoolake/dccsITGooLakeMonsters.asset").WaitForCompletion();
             //DirectorCardCategorySelection dccsITAncientLoftMonsters = Addressables.LoadAssetAsync<DirectorCardCategorySelection>(key: "RoR2/DLC1/itancientloft/dccsITAncientLoftMonsters.asset").WaitForCompletion();
-            DirectorCardCategorySelection dccsITFrozenWallMonstersDLC2 = Addressables.LoadAssetAsync<DirectorCardCategorySelection>(key: "RoR2/DLC1/itfrozenwall/dccsITFrozenWallMonstersDLC2.asset").WaitForCompletion();
+            //DirectorCardCategorySelection dccsITFrozenWallMonstersDLC2 = Addressables.LoadAssetAsync<DirectorCardCategorySelection>(key: "RoR2/DLC1/itfrozenwall/dccsITFrozenWallMonstersDLC2.asset").WaitForCompletion();
             DirectorCardCategorySelection dccsITDampCaveMonstersDLC2 = Addressables.LoadAssetAsync<DirectorCardCategorySelection>(key: "RoR2/DLC1/itdampcave/dccsITDampCaveMonstersDLC2.asset").WaitForCompletion();
             DirectorCardCategorySelection dccsITSkyMeadowMonstersDLC2 = Addressables.LoadAssetAsync<DirectorCardCategorySelection>(key: "RoR2/DLC1/itskymeadow/dccsITSkyMeadowMonstersDLC2.asset").WaitForCompletion();
             //DirectorCardCategorySelection dccsITMoonMonsters = Addressables.LoadAssetAsync<DirectorCardCategorySelection>(key: "RoR2/DLC1/itmoon/dccsITMoonMonsters.asset").WaitForCompletion();
@@ -787,16 +787,13 @@ namespace SimulacrumAdditions
             dccsITGolemplainsMonsters.AddCard(2, SimuLoopMinorConstruct);
             dccsITGolemplainsMonsters.AddCard(2, SimuLoopHermitCrab);
 
-            dccsITGolemplainsMonstersDLC2.categories[1].cards[2].minimumStageCompletions = 2; //Halc
-            dccsITGolemplainsMonstersDLC2.AddCard(0, SimuLoopMegaConstruct);
-            dccsITGolemplainsMonstersDLC2.AddCard(2, SimuLoopMinorConstruct);
-            dccsITGolemplainsMonstersDLC2.AddCard(2, SimuLoopHermitCrab);
+            dccsITGolemplainsMonsters.AddCard(0, cscGrandparent);
+            dccsITGolemplainsMonsters.AddCard(1, cscParent);
+            dccsITGolemplainsMonsters.AddCard(1, cscBison);
 
-            dccsITGolemplainsMonstersDLC2.AddCard(0, cscGrandparent);
-            dccsITGolemplainsMonstersDLC2.AddCard(1, cscParent);
-
-            dccsITGolemplainsMonstersDLC2.AddCard(1, cscChild);//Pre-loop
-            dccsITGolemplainsMonstersDLC2.AddCard(1, cscBison);
+            dccsITGolemplainsMonstersDLC2.categories[0].cards[0].minimumStageCompletions = 2; //Halc
+            dccsITGolemplainsMonstersDLC2.AddCard(0, cscChild);//Pre-loop
+         
 #endregion
             #region Aquaduct
             //dccsITGooLakeMonsters.AddCard(0, SimuLoopVagrant);  //Simu thing where it imitates other stages
@@ -815,13 +812,6 @@ namespace SimulacrumAdditions
             dccsITFrozenWallMonsters.AddCard(2, SimuLoopVulture);  //Match my changes
             dccsITFrozenWallMonsters.categories[1].cards[2].selectionWeight = 2; //More Bison
             dccsITFrozenWallMonsters.AddCard(0, SimuElectricWorm); //Pre-loop
-
-            dccsITFrozenWallMonstersDLC2.AddCard(0, SimuLoopRoboBallBoss); //Match my changes
-            dccsITFrozenWallMonstersDLC2.AddCard(1, SimuLoopcscRoboBallMini);
-            dccsITFrozenWallMonstersDLC2.AddCard(2, SimuLoopVulture);  //Match my changes
-            dccsITFrozenWallMonstersDLC2.categories[1].cards[2].selectionWeight = 2; //More Bison
-            dccsITFrozenWallMonstersDLC2.AddCard(0, SimuElectricWorm); //Pre-loop
-
             #endregion
             #region Abyss
             dccsITDampCaveMonsters.AddCard(0, SimuLoopGrovetender); //Simu thing where it imitates other stages
@@ -831,14 +821,7 @@ namespace SimulacrumAdditions
             dccsITDampCaveMonsters.AddCard(2, SimuLoopHermitCrab);
             dccsITDampCaveMonsters.AddCard(0, SimuElectricWorm);
 
-            dccsITDampCaveMonstersDLC2.AddCard(0, SimuElectricWorm); //Pre loop
-
-            dccsITDampCaveMonstersDLC2.categories[1].cards[4].minimumStageCompletions = 2;
-            dccsITDampCaveMonstersDLC2.AddCard(0, SimuLoopGrovetender); //Simu thing where it imitates other stages
-            dccsITDampCaveMonstersDLC2.AddCard(1, SimuLoopMiniMushroom); //Simu thing where it imitates other stages
-            dccsITDampCaveMonstersDLC2.AddCard(1, SimuLoopAcidLarva); //Simu thing where it imitates other stages
-            dccsITDampCaveMonstersDLC2.categories[2].cards[3].spawnDistance = DirectorCore.MonsterSpawnDistance.Close; //Hermit Crab
-            dccsITDampCaveMonstersDLC2.AddCard(2, SimuLoopHermitCrab); //Simu thing where it imitates other stages       
+            dccsITDampCaveMonstersDLC2.categories[0].cards[0].minimumStageCompletions = 2; //Earlier Halcy      
 #endregion
             #region Sky Meadow
             dccsITSkyMeadowMonsters.AddCard(2, SimuBrass);  //Pre loop
@@ -846,11 +829,7 @@ namespace SimulacrumAdditions
             dccsITSkyMeadowMonsters.categories[0].cards[1].selectionWeight = 2; //More GrandParents
             dccsITSkyMeadowMonsters.categories[1].cards[0].selectionWeight = 2; //More Parents
 
-            dccsITSkyMeadowMonstersDLC2.AddCard(2, SimuBrass);  //Pre loop
-            dccsITSkyMeadowMonstersDLC2.AddCard(1, SimuLoopGreaterWisp); //Match vanilla
-            dccsITSkyMeadowMonstersDLC2.categories[0].cards[1].selectionWeight = 2; //More GrandParents
-            dccsITSkyMeadowMonstersDLC2.categories[1].cards[0].selectionWeight = 2; //More Parents
-            dccsITSkyMeadowMonstersDLC2.categories[2].cards[3].selectionWeight = 2; //More Children
+            dccsITSkyMeadowMonstersDLC2.categories[0].cards[0].selectionWeight = 2; //More Children
             #endregion
             #region Moon
             dccsITMoonMonsters.categories[0].selectionWeight = 3;

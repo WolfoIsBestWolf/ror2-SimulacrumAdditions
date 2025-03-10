@@ -1,5 +1,11 @@
 ## Changelog:
 ```
+v2.3.6 -
+Fixed for 1.3.7 (False Son Patch)
+Added some extra checks in hopes of waves softlocking less. 
+-(If this happens, include a log in the report, because I can't just predict what is wrong)
+
+
 v2.3.5 - 
 Fixed for Patch for 1.3.6
 Added Twisted Wave.

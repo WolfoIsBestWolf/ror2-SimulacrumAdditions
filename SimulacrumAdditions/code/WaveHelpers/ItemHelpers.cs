@@ -257,11 +257,10 @@ namespace SimulacrumAdditions
         private static void IL_CharacterBody_RecalculateStats(ILContext il)
         {
             ILCursor c = new ILCursor(il);
-            if (c.TryGotoNext(MoveType.After,
-             x => x.MatchCall("RoR2.CharacterBody", "set_barrierDecayRate")
+            if (c.TryGotoNext(MoveType.Before,
+             x => x.MatchCall("RoR2.CharacterBody", "get_maxBarrier")
             ))
             {
-                c.Index -= 4;
                 c.EmitDelegate<System.Func<CharacterBody, CharacterBody>>((body) =>
                 {
                     //Might not have inventory ig

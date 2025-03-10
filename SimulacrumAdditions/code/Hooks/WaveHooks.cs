@@ -54,7 +54,6 @@ namespace SimulacrumAdditions
         {
             orig(self);
 
-
             if (WConfig.cfgFasterWavesLater.Value)
             {
                 if (self.waveIndex % 5 != 0)
@@ -191,179 +190,183 @@ namespace SimulacrumAdditions
 
         private static void GiveStatBoosts_ExplicitSpawnWaveController_Initialize(On.RoR2.InfiniteTowerExplicitSpawnWaveController.orig_Initialize orig, InfiniteTowerExplicitSpawnWaveController self, int waveIndex, Inventory enemyInventory, GameObject spawnTargetObject)
         {
-            if (NetworkServer.active)
+            try
             {
-                if (self.linearCreditsPerWave * waveIndex > 400)
+                if (NetworkServer.active)
                 {
-                    self.linearCreditsPerWave = (self.linearCreditsPerWave * waveIndex / 400);
-                }
+                    if (self.linearCreditsPerWave * waveIndex > 400)
+                    {
+                        self.linearCreditsPerWave = (self.linearCreditsPerWave * waveIndex / 400);
+                    }
 
-                float bonusBonusHPMulti = 0.5f;
-                float bonusBonusDmgMulti = 0.5f;
-                bool forcedSuperboss = false;
-                if (waveIndex >= SimuMain.SimuForcedBossStartAtXWaves && waveIndex % SimuMain.SimuForcedBossEveryXWaves == SimuMain.SimuForcedBossWaveRest)
-                {
-                    forcedSuperboss = true;
-                    bonusBonusHPMulti = 1f;
-                }
+                    float bonusBonusHPMulti = 0.5f;
+                    float bonusBonusDmgMulti = 0.5f;
+                    bool forcedSuperboss = false;
+                    if (waveIndex >= SimuMain.SimuForcedBossStartAtXWaves && waveIndex % SimuMain.SimuForcedBossEveryXWaves == SimuMain.SimuForcedBossWaveRest)
+                    {
+                        forcedSuperboss = true;
+                        bonusBonusHPMulti = 1f;
+                    }
 
-                if (self.GetComponent<CardRandomizer>())
-                {
-                    self.GetComponent<CardRandomizer>().DoTheThing(self);
-                }
+                    if (self.GetComponent<CardRandomizer>())
+                    {
+                        self.GetComponent<CardRandomizer>().DoTheThing(self);
+                    }
 
 
-                int bonusSpawns = 0;
-                bool IsCharacterWave = false;
-                switch (self.name)
-                {
+                    int bonusSpawns = 0;
+                    bool IsCharacterWave = false;
+                    switch (self.name)
+                    {
+                        case "InfiniteTowerWaveBossVoidElites(Clone)":
+                            bonusBonusHPMulti = 3f;
+                            break;
+                        case "InfiniteTowerWaveBossCharacters(Clone)":
+                            bonusBonusHPMulti = 1.2f;
+                            IsCharacterWave = true;
+                            if (waveIndex > 29)
+                            {
+                                //self.spawnList[0].spawnCard.equipmentToGrant = new EquipmentDef[] { RoR2Content.Equipment.Blackhole };
+                                self.spawnList[0].spawnCard.itemsToGrant[0].count = 1;
+                            }
+                            else
+                            {
+                                //self.spawnList[0].spawnCard.equipmentToGrant = new EquipmentDef[] { };
+                                self.spawnList[0].spawnCard.itemsToGrant[0].count = 0;
+                            }
+                            break;
+                        case "InfiniteTowerWaveSS2RainbowElites(Clone)":
+                            bonusBonusHPMulti = -1f;
+                            //20f * Run.instance.loopClearCount)
+                            //4 * StageClear
+                            //This method kinda fucking blows??
+                            DirectorCard chosenMonsterCard = self.GetComponent<CombatDirector>().SelectMonsterCardForCombatShrine(waveIndex * 2 + 20);
+                            if (chosenMonsterCard == null)
+                            {
+                                Debug.LogWarning("Could not find Emyprean candidate normally"); //This would only happen if too cheap right?
+                                chosenMonsterCard = ClassicStageInfo.instance.monsterCategories.categories[2].cards[0];
+                            }
+                            self.spawnList[0].spawnCard.prefab = chosenMonsterCard.spawnCard.prefab;
+                            self.spawnList[0].spawnCard.nodeGraphType = chosenMonsterCard.spawnCard.nodeGraphType;
+                            break;
+                    }
+                    //Debug.Log(Run.instance.GetComponent<InfiniteTowerRun>().safeWardController.wardStateMachine.state);
 
-                    case "InfiniteTowerWaveBossVoidElites(Clone)":
-                        bonusBonusHPMulti = 3f;
-                        break;
 
-                    case "InfiniteTowerWaveBossCharacters(Clone)":
-                        bonusBonusHPMulti = 1.2f;
-                        IsCharacterWave = true;
-                        if (waveIndex > 29)
+                    SimuExplicitStats stats = self.GetComponent<SimuExplicitStats>();
+                    if (stats)
+                    {
+                        if (stats.halfOnNonFinal && !forcedSuperboss)
                         {
-                            //self.spawnList[0].spawnCard.equipmentToGrant = new EquipmentDef[] { RoR2Content.Equipment.Blackhole };
-                            self.spawnList[0].spawnCard.itemsToGrant[0].count = 1;
+                            bonusBonusHPMulti = stats.hpBonusMulti / 2;
+                            bonusBonusDmgMulti = stats.damageBonusMulti / 2;
                         }
                         else
                         {
-                            //self.spawnList[0].spawnCard.equipmentToGrant = new EquipmentDef[] { };
-                            self.spawnList[0].spawnCard.itemsToGrant[0].count = 0;
+                            bonusBonusDmgMulti = stats.damageBonusMulti;
+                            bonusBonusHPMulti = stats.hpBonusMulti;
                         }
-                        break;
-                    case "InfiniteTowerWaveSS2RainbowElites(Clone)":
-                        bonusBonusHPMulti = -1f;
-                        //20f * Run.instance.loopClearCount)
-                        //4 * StageClear
-                        //This method kinda fucking blows??
-                        DirectorCard chosenMonsterCard = self.GetComponent<CombatDirector>().SelectMonsterCardForCombatShrine(waveIndex * 2 + 20);
-                        if (chosenMonsterCard == null)
+                        if (stats.spawnAsVoidTeam)
                         {
-                            Debug.LogWarning("Could not find Emyprean candidate normally"); //This would only happen if too cheap right?
-                            chosenMonsterCard = ClassicStageInfo.instance.monsterCategories.categories[2].cards[0];
+                            self.combatDirector.teamIndex = TeamIndex.Void;
                         }
-                        self.spawnList[0].spawnCard.prefab = chosenMonsterCard.spawnCard.prefab;
-                        self.spawnList[0].spawnCard.nodeGraphType = chosenMonsterCard.spawnCard.nodeGraphType;
-                        break;
-                }
-                //Debug.Log(Run.instance.GetComponent<InfiniteTowerRun>().safeWardController.wardStateMachine.state);
-
-
-                SimuExplicitStats stats = self.GetComponent<SimuExplicitStats>();
-                if (stats)
-                {
-                    if (stats.halfOnNonFinal && !forcedSuperboss)
-                    {
-                        bonusBonusHPMulti = stats.hpBonusMulti / 2;
-                        bonusBonusDmgMulti = stats.damageBonusMulti / 2;
+                        if (stats.ExtraSpawnAfterWave > 0 && waveIndex > stats.ExtraSpawnAfterWave)
+                        {
+                            self.spawnList[0].count++;
+                        }
                     }
-                    else
-                    {
-                        bonusBonusDmgMulti = stats.damageBonusMulti;
-                        bonusBonusHPMulti = stats.hpBonusMulti;
-                    }
-                    if (stats.spawnAsVoidTeam)
-                    {
-                        self.combatDirector.teamIndex = TeamIndex.Void;
-                    }
-                    if (stats.ExtraSpawnAfterWave > 0 && waveIndex > stats.ExtraSpawnAfterWave)
-                    {
-                        self.spawnList[0].count++;
-                    }
-                }
 
-
-                if (bonusBonusHPMulti > 0)
-                {
-                    float num = 1f;
-                    float num2 = 1f;
-                    num += Run.instance.difficultyCoefficient / 2.5f * System.Math.Max(1, (waveIndex / 10) * 0.225f + 0.225f);
-                    num2 += Run.instance.difficultyCoefficient / 30f * System.Math.Max(1, (waveIndex / 10) * 0.04f);
-                    num *= bonusBonusHPMulti;
-                    num2 *= bonusBonusDmgMulti;
-
-                    if (forcedSuperboss)
+                    if (bonusBonusHPMulti > 0)
                     {
-                        num /= (1 + ((Run.instance.participatingPlayerCount - 1) * 0.2f));
-                        int num3 = Run.instance.participatingPlayerCount;
-                        num *= Mathf.Pow((float)num3, 0.4f);
-                    }
-                    //num /= (1 + ((Run.instance.participatingPlayerCount - 1) * 0.25f));
-                    //int num3 = Mathf.Max(1, Run.instance.livingPlayerCount);
-                    //num *= Mathf.Pow((float)num3, 0.5f);
-                    int grantHp = Mathf.RoundToInt((num - 1f) * 10f);
-                    int grantDamage = Mathf.RoundToInt((num2 - 1f) * 10f);
-                    if (grantHp > 100000) { grantHp = 100000; }
-                    Debug.LogFormat(self.name + " Special Scaling: currentBoostHpCoefficient={0}, currentBoostDamageCoefficient={1}", new object[]
-                    {
+                        float num = 1f;
+                        float num2 = 1f;
+                        num += Run.instance.difficultyCoefficient / 2.5f * System.Math.Max(1, (waveIndex / 10) * 0.225f + 0.225f);
+                        num2 += Run.instance.difficultyCoefficient / 30f * System.Math.Max(1, (waveIndex / 10) * 0.04f);
+                        num *= bonusBonusHPMulti;
+                        num2 *= bonusBonusDmgMulti;
+
+                        if (forcedSuperboss)
+                        {
+                            num /= (1 + ((Run.instance.participatingPlayerCount - 1) * 0.2f));
+                            int num3 = Run.instance.participatingPlayerCount;
+                            num *= Mathf.Pow((float)num3, 0.4f);
+                        }
+                        //num /= (1 + ((Run.instance.participatingPlayerCount - 1) * 0.25f));
+                        //int num3 = Mathf.Max(1, Run.instance.livingPlayerCount);
+                        //num *= Mathf.Pow((float)num3, 0.5f);
+                        int grantHp = Mathf.RoundToInt((num - 1f) * 10f);
+                        int grantDamage = Mathf.RoundToInt((num2 - 1f) * 10f);
+                        if (grantHp > 100000) { grantHp = 100000; }
+                        Debug.LogFormat(self.name + " Special Scaling: currentBoostHpCoefficient={0}, currentBoostDamageCoefficient={1}", new object[]
+                        {
                            grantHp,
                            grantDamage
-                    });
+                        });
 
 
-                    for (int list = 0; list < self.spawnList.Length; list++)
+                        for (int list = 0; list < self.spawnList.Length; list++)
+                        {
+                            bool hasNoHP = true;
+                            bool hasNoDmg = true;
+                            bool hasNoTP = true;
+                            for (int i = 0; i < self.spawnList[list].spawnCard.itemsToGrant.Length; i++)
+                            {
+                                if (self.spawnList[list].spawnCard.itemsToGrant[i].itemDef == RoR2Content.Items.BoostHp)
+                                {
+                                    hasNoHP = false;
+                                    self.spawnList[list].spawnCard.itemsToGrant[i].count = grantHp;
+                                }
+                                else if (self.spawnList[list].spawnCard.itemsToGrant[i].itemDef == RoR2Content.Items.BoostDamage)
+                                {
+                                    hasNoDmg = false;
+                                    self.spawnList[list].spawnCard.itemsToGrant[i].count = grantDamage;
+                                }
+                                else if (self.spawnList[list].spawnCard.itemsToGrant[i].itemDef == RoR2Content.Items.TeleportWhenOob)
+                                {
+                                    hasNoTP = false;
+                                }
+                            }
+                            if (hasNoHP)
+                            {
+                                self.spawnList[list].spawnCard.itemsToGrant = self.spawnList[list].spawnCard.itemsToGrant.Add(new ItemCountPair { itemDef = RoR2Content.Items.BoostHp, count = grantHp });
+                            }
+                            if (hasNoDmg)
+                            {
+                                self.spawnList[list].spawnCard.itemsToGrant = self.spawnList[list].spawnCard.itemsToGrant.Add(new ItemCountPair { itemDef = RoR2Content.Items.BoostDamage, count = grantDamage });
+                            }
+                            if (hasNoTP)
+                            {
+                                self.spawnList[list].spawnCard.itemsToGrant = self.spawnList[list].spawnCard.itemsToGrant.Add(new ItemCountPair { itemDef = RoR2Content.Items.TeleportWhenOob, count = 1 });
+                            }
+
+                            /*foreach (ItemCountPair itemPair in self.spawnList[0].spawnCard.itemsToGrant)
+                            {
+                                Debug.Log(itemPair.itemDef + "  " + itemPair.count);
+                            }*/
+                        }
+                    }
+
+                    if (IsCharacterWave)
                     {
-                        bool hasNoHP = true;
-                        bool hasNoDmg = true;
-                        bool hasNoTP = true;
-                        for (int i = 0; i < self.spawnList[list].spawnCard.itemsToGrant.Length; i++)
-                        {
-                            if (self.spawnList[list].spawnCard.itemsToGrant[i].itemDef == RoR2Content.Items.BoostHp)
-                            {
-                                hasNoHP = false;
-                                self.spawnList[list].spawnCard.itemsToGrant[i].count = grantHp;
-                            }
-                            else if (self.spawnList[list].spawnCard.itemsToGrant[i].itemDef == RoR2Content.Items.BoostDamage)
-                            {
-                                hasNoDmg = false;
-                                self.spawnList[list].spawnCard.itemsToGrant[i].count = grantDamage;
-                            }
-                            else if (self.spawnList[list].spawnCard.itemsToGrant[i].itemDef == RoR2Content.Items.TeleportWhenOob)
-                            {
-                                hasNoTP = false;
-                            }
-                        }
-                        if (hasNoHP)
-                        {
-                            self.spawnList[list].spawnCard.itemsToGrant = self.spawnList[list].spawnCard.itemsToGrant.Add(new ItemCountPair { itemDef = RoR2Content.Items.BoostHp, count = grantHp });
-                        }
-                        if (hasNoDmg)
-                        {
-                            self.spawnList[list].spawnCard.itemsToGrant = self.spawnList[list].spawnCard.itemsToGrant.Add(new ItemCountPair { itemDef = RoR2Content.Items.BoostDamage, count = grantDamage });
-                        }
-                        if (hasNoTP)
-                        {
-                            self.spawnList[list].spawnCard.itemsToGrant = self.spawnList[list].spawnCard.itemsToGrant.Add(new ItemCountPair { itemDef = RoR2Content.Items.TeleportWhenOob, count = 1 });
-                        }
+                        self.combatDirector.teamIndex = TeamIndex.Void;
 
-                        /*foreach (ItemCountPair itemPair in self.spawnList[0].spawnCard.itemsToGrant)
-                        {
-                            Debug.Log(itemPair.itemDef + "  " + itemPair.count);
-                        }*/
+                        self.enemyInventory = enemyInventory;
+                        CombatDirector combatDirector = self.combatDirector;
+                        SpawnCard spawnCard = self.spawnList[0].spawnCard;
+                        EliteDef eliteDef = self.spawnList[0].eliteDef;
+                        Transform transform = spawnTargetObject.transform;
+                        bool preventOverhead = self.spawnList[0].preventOverhead;
+                        combatDirector.Spawn(spawnCard, eliteDef, transform, self.spawnList[0].spawnDistance, preventOverhead, 1f, DirectorPlacementRule.PlacementMode.Approximate);
+
+                        self.combatDirector.teamIndex = TeamIndex.Monster;
                     }
                 }
-
-
-
-                if (IsCharacterWave)
-                {
-                    self.combatDirector.teamIndex = TeamIndex.Void;
-
-                    self.enemyInventory = enemyInventory;
-                    CombatDirector combatDirector = self.combatDirector;
-                    SpawnCard spawnCard = self.spawnList[0].spawnCard;
-                    EliteDef eliteDef = self.spawnList[0].eliteDef;
-                    Transform transform = spawnTargetObject.transform;
-                    bool preventOverhead = self.spawnList[0].preventOverhead;
-                    combatDirector.Spawn(spawnCard, eliteDef, transform, self.spawnList[0].spawnDistance, preventOverhead, 1f, DirectorPlacementRule.PlacementMode.Approximate);
-
-                    self.combatDirector.teamIndex = TeamIndex.Monster;
-                }
+            }
+            catch
+            {
+                Debug.LogWarning("ERROR IN GiveStatBoosts_ExplicitSpawnWaveController_Initialize");
+                orig(self, waveIndex, enemyInventory, spawnTargetObject);
+                return;
             }
             orig(self, waveIndex, enemyInventory, spawnTargetObject);
             self.combatDirector.teamIndex = TeamIndex.Monster;
@@ -376,7 +379,7 @@ namespace SimulacrumAdditions
 
             if (NetworkServer.active)
             {
-                GoldTitanManager.TryStartChannelingTitansServer(self.safeWardController.gameObject, self.safeWardController.gameObject.transform.position, null, null);
+                //GoldTitanManager.TryStartChannelingTitansServer(self.safeWardController.gameObject, self.safeWardController.gameObject.transform.position, null, null);
             }
 
             CombatDirector combatDirector = self.waveInstance.GetComponent<CombatDirector>();
@@ -626,6 +629,8 @@ namespace SimulacrumAdditions
 
         public static void InfiniteTowerRun_CleanUpCurrentWave(On.RoR2.InfiniteTowerRun.orig_CleanUpCurrentWave orig, InfiniteTowerRun self)
         {
+            try
+            { 
             if (NetworkServer.active)
             {
                 if (self.waveInstance)
@@ -667,6 +672,13 @@ namespace SimulacrumAdditions
                         Run.instance.GetComponent<RoR2.EnemyInfoPanelInventoryProvider>().MarkAsDirty();
                     }
                 }
+            }
+            }
+            catch
+            {
+                Debug.LogWarning("ERROR IN InfiniteTowerRun_CleanUpCurrentWave");
+                orig(self);
+                return;
             }
             orig(self);
             Debug.Log("WaveCleanUp  " + self.waveInstance);

@@ -908,7 +908,7 @@ namespace SimulacrumAdditions
                 {
                     float mult = victimMotor.isGrounded ? 1.5f : 0.33f;
                     mult *= damageInfo.procCoefficient;
-                    float num = KnockbackFinUtil.CalculateImpulseForce(victimMotor.mass, 4, self.body.isChampion) * mult;
+                    float num = KnockbackFinUtil.CalculateImpulseForce(victimMotor.mass, 4, self.body.isChampion, false) * mult;
                     float num2 = num;
                     float y = victimMotor.velocity.y;
                     if (y < 0f)
@@ -927,7 +927,7 @@ namespace SimulacrumAdditions
                 {
                     float mult = -0.5f;
                     mult *= damageInfo.procCoefficient;
-                    float num = KnockbackFinUtil.CalculateImpulseForce(rigid.mass, 4, self.body.isChampion) * mult;
+                    float num = KnockbackFinUtil.CalculateImpulseForce(rigid.mass, 4, self.body.isChampion, false) * mult;
                     float num2 = num;
                     float y = rigid.moveVector.y;
                     if (y < 0f)
