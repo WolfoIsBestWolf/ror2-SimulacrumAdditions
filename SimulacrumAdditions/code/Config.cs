@@ -21,8 +21,7 @@ namespace SimulacrumAdditions
         public static ConfigEntry<bool> cfgFasterWavesLater;
         public static ConfigEntry<bool> cfgCrabSpeedOnLaterWaves;
         public static ConfigEntry<bool> cfgVoidTripleAllTier;
-        public static ConfigEntry<bool> cfgVoidTripleContentsInPing;
-
+       
         public static ConfigEntry<bool> cfgSimuCreditsRebalance;
         public static ConfigEntry<bool> cfgSimuMoreGold;
         //public static ConfigEntry<bool> cfgOnlySpecialBossesLate;
@@ -117,12 +116,7 @@ namespace SimulacrumAdditions
                 true,
                 "With this they can give items from any tier, normally they use a normal chest pool."
             );
-           cfgVoidTripleContentsInPing = ConfigFileUNSORTED.Bind(
-                "Main",
-                "Void Potential contents in ping message",
-                true,
-                "When pinging a Void Potential the items inside will be in the ping message. Requested for more easily sharing items inside Void Potentials."
-            );
+ 
             cfgNewEnemiesVisible = ConfigFileUNSORTED.Bind(
                 "Main",
                 "Logbook Entries for Simu only bosses",

@@ -3,6 +3,7 @@ using MonoMod.Cil;
 using R2API;
 using R2API.Utils;
 using RoR2;
+using System.Collections.Generic;
 using System.Security;
 using System.Security.Permissions;
 using UnityEngine;
@@ -21,11 +22,9 @@ namespace SimulacrumAdditions
             //Make Devotion actually work
             //Probably just add the spawn card into some category like chests but also they probably need some sort of immunity to void fog or smth
             //Probably upgrade every 5 waves
-            IL.RoR2.FogDamageController.MyFixedUpdate += NoFogLemurianDamage;
             On.RoR2.DevotionInventoryController.Awake += DevotionInventoryController_Awake;
 
-            On.RoR2.InfiniteTowerWaveController.OnAllEnemiesDefeatedServer += ActivateNewArtifacts_OnAllEnemiesDefeatedServer;
-
+            InfiniteTowerRun.onAllEnemiesDefeatedServer += ActivateNewArtifacts_OnAllEnemiesDefeatedServer;
 
             SpawnCard iscLemEgg = Addressables.LoadAssetAsync<InteractableSpawnCard>(key: "RoR2/CU8/LemurianEgg/iscLemurianEgg.asset").WaitForCompletion();
             iscLemEggIT = Object.Instantiate(iscLemEgg);
@@ -39,6 +38,26 @@ namespace SimulacrumAdditions
             On.RoR2.InfiniteTowerWaveController.PlayBeginSound += LessOptionsDuringSacrifice;
             On.RoR2.Artifacts.SacrificeArtifactManager.OnArtifactEnabled += SacrificeArtifactManager_OnArtifactEnabled;
             On.RoR2.Artifacts.SacrificeArtifactManager.OnArtifactDisabled += SacrificeArtifactManager_OnArtifactDisabled;
+
+           
+        }
+
+        private static void ActivateNewArtifacts_OnAllEnemiesDefeatedServer(InfiniteTowerWaveController self)
+        {
+            if (NetworkServer.active)
+            {
+                if (self.isBossWave)
+                {
+                    try
+                    {
+                        DevotionInventoryController.ActivateAllDevotedEvolution();
+                    }
+                    catch (System.Exception e)
+                    {
+                        Debug.LogWarning(e);
+                    }
+                }
+            }
         }
 
         private static void LessOptionsDuringSacrifice(On.RoR2.InfiniteTowerWaveController.orig_PlayBeginSound orig, InfiniteTowerWaveController self)
@@ -68,42 +87,6 @@ namespace SimulacrumAdditions
             }
         }
 
-        private static void NoFogLemurianDamage(ILContext il)
-        {
-            ILCursor c = new ILCursor(il);
-            if (c.TryGotoNext(MoveType.Before,
-             x => x.MatchLdcR4(0.5f),
-             x => x.MatchMul()
-            ))
-            {
-                c.Next.Operand = 0.00f;
-                Debug.Log("IL Found : IL.RoR2.FogDamageController.FixedUpdate");
-            }
-            else
-            {
-                Debug.LogWarning("IL Failed : IL.RoR2.FogDamageController.FixedUpdate");
-            }
-            
-        }
-
-        private static void ActivateNewArtifacts_OnAllEnemiesDefeatedServer(On.RoR2.InfiniteTowerWaveController.orig_OnAllEnemiesDefeatedServer orig, InfiniteTowerWaveController self)
-        {
-            orig(self);
-            if(NetworkServer.active)
-            {
-                if(!RunArtifactManager.instance)
-                {
-                    return;
-                }
-                if (self.isBossWave)
-                {
-                    foreach (DevotionInventoryController devotionInventoryController in DevotionInventoryController.InstanceList)
-                    {
-                        devotionInventoryController.UpdateAllMinions(true);
-                    }
-                }
-            }
-        }
 
         private static void SimulacrumDevotionAddEgg(SceneDirector scene, DirectorCardCategorySelection dccs)
         {

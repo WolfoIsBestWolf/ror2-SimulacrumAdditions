@@ -1,10 +1,9 @@
 {
     "name": "SimulacrumAdditions",
-    "version_number": "2.3.6",
+    "version_number": "2.3.7",
     "website_url": "https://github.com/WolfoIsBestWolf/ror2-SimulacrumAdditions",
     "description": "Large content addition to Simulacrum. Adds 80+ Augments, makes Simulacrum beatable, 2 Simulacrum Artifacts and a lot of extras for the gamemode.",
     "dependencies": [
-		"Wolfo-WolfoAlternateSkins-1.2.0",
 		"Wolfo-VanillaArtifactsPlus-2.5.2",
 		"Rune580-Risk_Of_Options-2.8.2",
 		"tristanmcpherson-R2API-5.0.5"

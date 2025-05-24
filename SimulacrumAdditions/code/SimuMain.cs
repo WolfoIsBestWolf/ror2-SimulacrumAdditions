@@ -219,19 +219,10 @@ namespace SimulacrumAdditions
         public static void Visual_Upgrades()
         {
             //Add glows to Option Pickups
-            GameObject VoidPotential = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/OptionPickup/OptionPickup.prefab").WaitForCompletion();
             GameObject OptionPickerPanel = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/OptionPickup/OptionPickerPanel.prefab").WaitForCompletion();
-            VoidPotential.transform.GetChild(0).GetChild(0).GetComponent<SphereCollider>().radius = 1.5f;
-            VoidPotential.transform.GetChild(0).GetChild(1).localPosition = new Vector3(0, -0.5f, 0);
-            VoidPotential.transform.GetChild(0).GetChild(2).localPosition = new Vector3(0, -0.5f, 0);
-            VoidPotential.transform.GetChild(0).GetChild(3).localPosition = new Vector3(0, -0.5f, 0);
-            VoidPotential.transform.GetChild(0).GetChild(4).localPosition = new Vector3(0, -0.5f, 0);
-            VoidPotential.transform.GetChild(0).GetChild(5).localPosition = new Vector3(0, -0.5f, 0);
-            VoidPotential.transform.GetChild(0).GetChild(6).localPosition = new Vector3(0, -0.5f, 0);
-
             OptionPickerPanel.GetComponent<RoR2.UI.PickupPickerPanel>().maxColumnCount = 3;
 
-            On.RoR2.PickupPickerController.SetOptionsInternal += OptionChestColorsAndName;
+ 
             //
             VoidTeleportOutEffect.transform.GetChild(9).gameObject.SetActive(false);
             Destroy(VoidTeleportOutEffect.transform.GetChild(4).gameObject);
@@ -271,93 +262,7 @@ namespace SimulacrumAdditions
             On.RoR2.UI.MainMenu.MainMenuController.Start -= OneTimeLateRunner;
         }
 
-        private static void OptionChestColorsAndName(On.RoR2.PickupPickerController.orig_SetOptionsInternal orig, PickupPickerController self, PickupPickerController.Option[] newOptions)
-        {
-            orig(self, newOptions);
-            if (self.name.StartsWith("Option"))
-            {
-                PickupIndexNetworker index = self.GetComponent<PickupIndexNetworker>();
-                PickupDisplay pickupDisplay = self.transform.GetChild(0).GetComponent<PickupDisplay>();
-                pickupDisplay.pickupIndex = index.pickupIndex;
-                self.GetComponent<Highlight>().pickupIndex = index.pickupIndex;
-                self.GetComponent<Highlight>().isOn = true;
-
-                if (index.pickupIndex != PickupIndex.none)
-                {
-                    switch (index.pickupIndex.pickupDef.itemTier)
-                    {
-                        case ItemTier.Tier1:
-                            pickupDisplay.tier1ParticleEffect.SetActive(true);
-                            break;
-                        case ItemTier.Tier2:
-                            pickupDisplay.tier2ParticleEffect.SetActive(true);
-                            break;
-                        case ItemTier.Tier3:
-                            pickupDisplay.tier3ParticleEffect.SetActive(true);
-                            break;
-                        case ItemTier.Boss:
-                            pickupDisplay.bossParticleEffect.SetActive(true);
-                            break;
-                        case ItemTier.Lunar:
-                            pickupDisplay.lunarParticleEffect.SetActive(true);
-                            break;
-                        case ItemTier.VoidTier1:
-                        case ItemTier.VoidTier2:
-                        case ItemTier.VoidTier3:
-                        case ItemTier.VoidBoss:
-                            if (!pickupDisplay.voidParticleEffect)
-                            {
-                                pickupDisplay.voidParticleEffect = Object.Instantiate(LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/GenericPickup").GetComponent<GenericPickupController>().pickupDisplay.voidParticleEffect, pickupDisplay.transform);
-                            }
-                            pickupDisplay.voidParticleEffect.SetActive(true);
-                            break;
-                    }
-                    if (index.pickupIndex.pickupDef.itemTier == ItemOrangeTierDef.tier)
-                    {
-                        pickupDisplay.equipmentParticleEffect.SetActive(true);
-                    }
-                }
-
-
-                if (WConfig.cfgVoidTripleContentsInPing.Value)
-                {
-                    string NameWithOptions = Language.GetString("OPTION_PICKUP_UNKNOWN_NAME");
-                    NameWithOptions += "\n(";
-
-                    for (int i = 0; i < newOptions.Length; i++)
-                    {
-                        PickupDef defTemp = newOptions[i].pickupIndex.pickupDef;
-                        string ItemName = "";
-                        if (defTemp.itemIndex != ItemIndex.None)
-                        {
-                            ItemName = Language.GetString(ItemCatalog.GetItemDef(newOptions[i].pickupIndex.pickupDef.itemIndex).nameToken);
-                        }
-                        else if (defTemp.equipmentIndex != EquipmentIndex.None)
-                        {
-                            ItemName = Language.GetString(EquipmentCatalog.GetEquipmentDef(newOptions[i].pickupIndex.pickupDef.equipmentIndex).nameToken);
-                        }
-
-
-                        string Hex = ColorUtility.ToHtmlStringRGB(newOptions[i].pickupIndex.pickupDef.baseColor);
-                        if (i != 0)
-                        {
-                            NameWithOptions += " | <color=#" + Hex + ">" + ItemName + "</color>";
-                        }
-                        else
-                        {
-                            NameWithOptions += "<color=#" + Hex + ">" + ItemName + "</color>";
-                        }
-                    }
-                    NameWithOptions += ")";
-                    self.GetComponent<GenericDisplayNameProvider>().SetDisplayToken(NameWithOptions);
-                }
-                else
-                {
-                    self.GetComponent<GenericDisplayNameProvider>().SetDisplayToken("OPTION_PICKUP_UNKNOWN_NAME");
-                }
-            }
-        }
-
+   
         private void FixRequestIndicatorsClient(ILContext il)
         {
             ILCursor c = new ILCursor(il);
@@ -1005,9 +910,6 @@ namespace SimulacrumAdditions
                 {
                     token4 += category.wavePrefabs[i].prerequisites.name;
                 }
-
-
-
 
                 string text = "\n" +
                     " [" + i + "] " + category.wavePrefabs[i].wavePrefab.name + "\n" +

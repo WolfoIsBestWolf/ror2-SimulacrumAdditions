@@ -1,4 +1,5 @@
-### Augments
+#
+## Augments
 A super boss wave (such as Mithrix) will be guaranteed on wave 50, and every 30 waves after that. (they can still rarely occur randomly).  
 
 Starting on wave 50, every stage a ending portal will spawn to end a run peacefully.\
@@ -10,13 +11,13 @@ In total raises Basic Augment count from 9 to 65 (+9 with supported mods).\
 In total raises Boss Augment count from 5 to 30 (+1 with supported mods).\
 
 Basic Augments
-- 6 Artifact Augments. (+5 with mods)\
-- 13 Family Event Augments. (+3 with mods)\
-- 5 Item Augments.\
-- 3 Equipment Augments.\
-- 6 Buff Augments.\
+- 6 Artifact Augments. (+5 with mods)
+- 13 Family Event Augments. (+3 with mods)
+- 5 Item Augments.
+- 3 Equipment Augments.
+- 6 Buff Augments.
 - 4 Pulse Augments.
-- 3 Elite Augments.\
+- 3 Elite Augments.
 - 16 Other Augments. (+1 with mods)
 
 Boss Augments
@@ -31,7 +32,7 @@ Boss Augments
 ![Image of new Waves](https://raw.githubusercontent.com/WolfoIsBestWolf/ror2-SimulacrumAdditions/main/modPageImages/simuWavesNew.png)
 #
 
-### Quality of Life
+## Simulacrum Quality of Life
 
 Every stage now uses it's own interactable spawn pool. This makes each stage feel more unique.\
 This also means Shrine of Chance, Woods, Order and Cleansing Pools now spawn in the game mode.
@@ -52,8 +53,7 @@ The latest wave will be shown on the game end screen.
 Fireworks are now available in Simulacrum for VanillaVoids support.\
 Warbanners drop on Boss Waves similiar to teleporters.
 #
-
-### Artifacts
+## Artifacts
 Adds 2 Simulacrum only Artifacts:
 
 Artifact of Augments : Only augmented waves. For when the normal ~50% chance isn't enough for you.
@@ -66,7 +66,7 @@ Artifact of Reality : Use normal stages in random order instead of the small set
 Nerfs Artifact of Sacrifice in Simulacrum. (Only 2 options per potential)
 #
 
-### Balance
+## Balance
 Special Boss Augments now have special scaling like how final bosses on normal runs do.\
 Special Boss Augments now spawn with enemies too.\
 Mithrix will be in phase 3 during his augment.
@@ -90,7 +90,7 @@ Really early waves even less because of how often flying enemies overwhelm the p
 ![Image of new waves 2](https://raw.githubusercontent.com/WolfoIsBestWolf/ror2-SimulacrumAdditions/main/modPageImages/simuHorror.png)
 #
 
-### Miscellaneous
+## Miscellaneous
 
 Makes Artifact of Devotion functional in the game mode. (Eggs spawn despite no drones, evolves every boss wave)
 
@@ -104,9 +104,7 @@ Simulacrum has a small chance to add a void item to enemies.
 
 There's a void themed teleport effect for the gamemode.  
 
-Void Potential Chests now can present choices from any tier.\
-Void Potentials use their respective tiers particle effects.\
-Void Potentials display their content in ping messages
+Void Potential Chests now can present choices from any tier.
 
 You wont encounter your previous stage as your next stage (ie: Meadows -> Sanctuary -> Meadows, no longer happens)
 
@@ -123,16 +121,13 @@ Fixed vanilla bug where Clients often don't get enemy indicators.
 ![Image of Void Coin](https://raw.githubusercontent.com/WolfoIsBestWolf/ror2-SimulacrumAdditions/main/modPageImages/simuVoidCoin.png)
 
 #
-### Skins and Mod Support
-For technical reasons the skins are their own mod, for more information on the skins goal to it's [mod page](https://thunderstore.io/package/Wolfo/WolfoAlternateSkins/ ):\
-They aren't anything too special but I do hope they are still enjoyable. You can disable the mod if you really don't want it.\
-[![wolfoAlternateSkins](https://gcdn.thunderstore.io/live/repository/icons/Wolfo-WolfoAlternateSkins-1.5.0.png.128x128_q95.jpg)](https://thunderstore.io/package/Wolfo/WolfoAlternateSkins/)
-
-This mod depends on [VanillaArtifactsPlus](https://thunderstore.io/package/Wolfo/VanillaArtifactsPlus) for Devotion, Vengence and Item tag fixes. It's a rather light mod but you can check out the details on it's page.
+### Mod Support
+This mod depends on [VanillaArtifactsPlus](https://thunderstore.io/package/Wolfo/VanillaArtifactsPlus) for Devotion, Vengence and Item tag fixes.\
+It's a rather light mod but you can check out the details on it's page.
 
 This mod adds Augments for:\
 [Starstorm2](https://thunderstore.io/package/TeamMoonstorm/Starstorm2/), for it's Artifacts and some events it adds. (2 Augments)\
-[LittleGameplayTweaks](https://thunderstore.io/package/Wolfo/LittleGameplayTweaks/),for the new family events I add there. (5 Augments)\
+[LittleGameplayFeatures](https://thunderstore.io/package/Wolfo/LittleGameplayFeatures/) ,for the new family events I add there. (4 Augments)\
 [WolfoArtifacts](https://thunderstore.io/package/Wolfo/WolfoArtifacts),  for the new artifacts I add there. (4 Augments)
 
 

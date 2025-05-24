@@ -1,17 +1,21 @@
 ## Changelog:
 ```
+v2.3.7
+Saftey checks around Devotion; Sometimes broke Waves ending causing softlocks.
+Nerfed Equipment Drone wave
+Removed Skin mod as dependency. (Originally designed together but not needed together)
+
+
 v2.3.6 -
 Fixed for 1.3.7 (False Son Patch)
 Added some extra checks in hopes of waves softlocking less. 
 -(If this happens, include a log in the report, because I can't just predict what is wrong)
-
 
 v2.3.5 - 
 Fixed for Patch for 1.3.6
 Added Twisted Wave.
 Replacement Knockback Fin Wave.
 Simu Commencement now has moon gravity.
-
 
 v2.3.4
 Fixed ShareSuit lowering Simu interactable amount by A lot.

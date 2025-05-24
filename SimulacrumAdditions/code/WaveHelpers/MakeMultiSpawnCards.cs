@@ -216,16 +216,16 @@ namespace SimulacrumAdditions
                 new ItemCountPair { itemDef = DLC1Content.Items.HalfSpeedDoubleHealth, count = 0 }, //5
             };
 
-            CharacterSpawnCard cscEquipmentDroneITLightning = Object.Instantiate(cscEquipmentDroneIT);
+            /*CharacterSpawnCard cscEquipmentDroneITLightning = Object.Instantiate(cscEquipmentDroneIT);
             cscEquipmentDroneITLightning.name = "cscEquipmentDroneITLightning";
             cscEquipmentDroneITLightning.equipmentToGrant = new EquipmentDef[] { RoR2Content.Equipment.Lightning };
             cscEquipmentDroneITLightning.itemsToGrant[0].count = 3;
-            cscEquipmentDroneITLightning.itemsToGrant[1].count = 80;
+            cscEquipmentDroneITLightning.itemsToGrant[1].count = 99;*/
 
             CharacterSpawnCard cscEquipmentDroneITMolotov = Object.Instantiate(cscEquipmentDroneIT);
             cscEquipmentDroneITMolotov.name = "cscEquipmentDroneITMolotov";
             cscEquipmentDroneITMolotov.equipmentToGrant = new EquipmentDef[] { DLC1Content.Equipment.Molotov };
-            cscEquipmentDroneITMolotov.itemsToGrant[1].count = 20;
+            cscEquipmentDroneITMolotov.itemsToGrant[1].count = 60;
 
             CharacterSpawnCard cscEquipmentDroneITFireBallDash = Object.Instantiate(cscEquipmentDroneIT);
             cscEquipmentDroneITFireBallDash.name = "cscEquipmentDroneITFireBallDash";
@@ -237,26 +237,26 @@ namespace SimulacrumAdditions
             CharacterSpawnCard cscEquipmentDroneITTeamWarCry = Object.Instantiate(cscEquipmentDroneIT);
             cscEquipmentDroneITTeamWarCry.name = "cscEquipmentDroneITTeamWarCry";
             cscEquipmentDroneITTeamWarCry.equipmentToGrant = new EquipmentDef[] { RoR2Content.Equipment.TeamWarCry };
-            cscEquipmentDroneITTeamWarCry.itemsToGrant[0].count = 25;
+            cscEquipmentDroneITTeamWarCry.itemsToGrant[0].count = 15;
 
             CharacterSpawnCard cscEquipmentDroneITVendingMachine = Object.Instantiate(cscEquipmentDroneIT);
             cscEquipmentDroneITVendingMachine.name = "cscEquipmentDroneITVendingMachine";
             cscEquipmentDroneITVendingMachine.equipmentToGrant = new EquipmentDef[] { DLC1Content.Equipment.VendingMachine };
             cscEquipmentDroneITVendingMachine.itemsToGrant[0].count = 24;
-            cscEquipmentDroneITVendingMachine.itemsToGrant[1].count = 25;
+            cscEquipmentDroneITVendingMachine.itemsToGrant[1].count = 35;
 
             CharacterSpawnCard cscEquipmentDroneITMeteor = Object.Instantiate(cscEquipmentDroneIT);
             cscEquipmentDroneITMeteor.name = "cscEquipmentDroneITMeteor";
             cscEquipmentDroneITMeteor.equipmentToGrant = new EquipmentDef[] { RoR2Content.Equipment.Meteor };
-            cscEquipmentDroneITMeteor.itemsToGrant[0].count = 14;
-            cscEquipmentDroneITMeteor.itemsToGrant[1].count = 20;
+            cscEquipmentDroneITMeteor.itemsToGrant[0].count = 15;
+            cscEquipmentDroneITMeteor.itemsToGrant[1].count = 35;
             cscEquipmentDroneITMeteor.itemsToGrant[4].count = 1;
             cscEquipmentDroneITMeteor.itemsToGrant[4].itemDef = RoR2Content.Items.ShieldOnly;
 
             CharacterSpawnCard cscEquipmentDroneITCrippleWard = Object.Instantiate(cscEquipmentDroneIT);
             cscEquipmentDroneITCrippleWard.name = "cscEquipmentDroneITCrippleWard";
             cscEquipmentDroneITCrippleWard.equipmentToGrant = new EquipmentDef[] { RoR2Content.Equipment.CrippleWard };
-            cscEquipmentDroneITCrippleWard.itemsToGrant[0].count = 10;
+            cscEquipmentDroneITCrippleWard.itemsToGrant[0].count = 15;
             cscEquipmentDroneITCrippleWard.itemsToGrant[4].count = 1;
             cscEquipmentDroneITCrippleWard.itemsToGrant[4].itemDef = RoR2Content.Items.ShieldOnly;
 
