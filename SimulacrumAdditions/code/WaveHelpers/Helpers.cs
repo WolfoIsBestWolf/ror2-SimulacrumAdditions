@@ -5,9 +5,6 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Networking;
 using System;
-using static UnityEngine.ParticleSystem.PlaybackState;
-using R2API.MiscHelpers;
-using UnityEngine.UIElements;
 
 namespace SimulacrumAdditions
 {
@@ -451,7 +448,7 @@ namespace SimulacrumAdditions
             if (hadCannotyCopy == true)
             {
                 hadCannotyCopy = false;
-                def.tags = def.tags.Add(ItemTag.CannotCopy);
+                HG.ArrayUtils.ArrayAppend(ref def.tags, ItemTag.AIBlacklist);
             }
             if (hideItem)
             {
@@ -703,11 +700,11 @@ namespace SimulacrumAdditions
                 artifactList.Add(Brigade);
             }
 
-            int random = WRect.random.Next(0, artifactList.Count);
+            int random = H.random.Next(0, artifactList.Count);
             artifactDef = artifactList[random];
             artifactList.Remove(artifactDef);
 
-            int random2 = WRect.random.Next(0, artifactList.Count);
+            int random2 = H.random.Next(0, artifactList.Count);
             artifactDef2 = artifactList[random2];
 
 

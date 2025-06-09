@@ -1,5 +1,18 @@
 ## Changelog:
 ```
+v2.4.0
+Fixed for Dlc2.4
+Void Suppressors can rarely spawn any time in Simu.
+-Cost 1 Void Coin
+-Artifact ones remain free as they are harder to get to and more of an easter egg.
+Fixed Void Suppressors spawned by artifact emitting constant nullref.
+Fixed Void Suppressors disappearing when too close to the camera.
+Fixed Void Suppressors items sometimes being really small.
+Fixed Supressed Scrap counting for progression.
+(Moved all Void Supp fixes to WolfFixes)
+Giant Gup and Super Crab should stay in log even if mod gets disabled.
+
+
 v2.3.7
 Saftey checks around Devotion; Sometimes broke Waves ending causing softlocks.
 Nerfed Equipment Drone wave

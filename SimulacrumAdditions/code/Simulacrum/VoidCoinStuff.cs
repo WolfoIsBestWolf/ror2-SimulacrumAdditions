@@ -25,6 +25,11 @@ namespace SimulacrumAdditions
             VoidBarrelChestBehavior.dropTransform = VoidCoinBarrel.transform.GetChild(0).GetComponent<ChildLocator>().FindChild("Bulb");
             VoidBarrelChestBehavior.dropUpVelocityStrength = 20;
             VoidBarrelChestBehavior.enabled = false;
+
+            PurchaseInteraction purch = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/VoidSuppressor/VoidSuppressor.prefab").WaitForCompletion().GetComponent<PurchaseInteraction>();
+            purch.costType = CostTypeIndex.None;
+            purch.cost = 1;
+
         }
 
 
@@ -52,6 +57,9 @@ namespace SimulacrumAdditions
             }     
             LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/Chest/VoidTriple").GetComponent<PurchaseInteraction>().costType = (CostTypeIndex)CostIndexVoidCoinBlood;
             LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/Chest/VoidCoinBarrel").GetComponent<ChestBehavior>().enabled = true;
+            GameObject voidSupp = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/VoidSuppressor/VoidSuppressor.prefab").WaitForCompletion();
+            voidSupp.GetComponent<PurchaseInteraction>().costType = CostTypeIndex.VoidCoin;
+            voidSupp.GetComponent<VoidSuppressorBehavior>().costMultiplierPerPurchase = 0;
             GlobalEventManager.onCharacterDeathGlobal += DropVoidCoin;
         }
 
@@ -60,6 +68,7 @@ namespace SimulacrumAdditions
             LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/Chest/VoidChest").GetComponent<PurchaseInteraction>().costType = CostTypeIndex.PercentHealth;
             LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/Chest/VoidTriple").GetComponent<PurchaseInteraction>().costType = CostTypeIndex.PercentHealth;
             LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/Chest/VoidCoinBarrel").GetComponent<ChestBehavior>().enabled = false;
+            Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/VoidSuppressor/VoidSuppressor.prefab").WaitForCompletion().GetComponent<PurchaseInteraction>().costType = CostTypeIndex.None;
             GlobalEventManager.onCharacterDeathGlobal -= DropVoidCoin;
         }
 

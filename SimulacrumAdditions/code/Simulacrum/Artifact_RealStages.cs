@@ -6,36 +6,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.AddressableAssets;
+using RoR2.Hologram;
 
 namespace SimulacrumAdditions
 {
-    public class ArtifactReal
+    public class Artifact_RealStages
     {
         public static ArtifactDef ArtifactUseNormalStages = ScriptableObject.CreateInstance<ArtifactDef>();
         public static SceneCollection realityDestinations = ScriptableObject.CreateInstance<SceneCollection>();
-        public static List<SceneDef> visitedScenes = new List<SceneDef>();
-        public static SceneDef arena = Addressables.LoadAssetAsync<SceneDef>(key: "RoR2/Base/arena/arena.asset").WaitForCompletion();
-        public static SceneDef voidStage = Addressables.LoadAssetAsync<SceneDef>(key: "RoR2/DLC1/voidstage/voidstage.asset").WaitForCompletion();
+        public static List<SceneDef> visitedScenes;
+        //public static SceneDef arena = Addressables.LoadAssetAsync<SceneDef>(key: "RoR2/Base/arena/arena.asset").WaitForCompletion();
+        //public static SceneDef voidStage = Addressables.LoadAssetAsync<SceneDef>(key: "RoR2/DLC1/voidstage/voidstage.asset").WaitForCompletion();
 
         public static void MakeArtifact()
         {
             realityDestinations.name = "sgITArtifactReal";
-
-            Rect rec = new Rect(0, 0, 64, 64);
-            Texture2D ArtifactOn = Assets.Bundle.LoadAsset<Texture2D>("Assets/Simulacrum/Main/Artifact2_On.png");
-            ArtifactOn.filterMode = FilterMode.Trilinear;
-            Sprite ArtifactOnS = Sprite.Create(ArtifactOn, rec, new Vector2(0, 0));
-
-            Texture2D ArtifactOff = Assets.Bundle.LoadAsset<Texture2D>("Assets/Simulacrum/Main/Artifact2_Off.png");
-            ArtifactOff.filterMode = FilterMode.Trilinear;
-            Sprite ArtifactOffS = Sprite.Create(ArtifactOff, rec, new Vector2(0, 0));
-
-
+ 
             ArtifactUseNormalStages.cachedName = "AAAUseNormalStages";
             ArtifactUseNormalStages.nameToken = "ARTIFACT_NORMALSTAGES_NAME";
             ArtifactUseNormalStages.descriptionToken = "ARTIFACT_NORMALSTAGES_DESCRIPTION";
-            ArtifactUseNormalStages.smallIconSelectedSprite = ArtifactOnS;
-            ArtifactUseNormalStages.smallIconDeselectedSprite = ArtifactOffS;
+            ArtifactUseNormalStages.smallIconSelectedSprite = Assets.Bundle.LoadAsset<Sprite>("Assets/Simulacrum/Artifacts/Artifact2_On.png");
+            ArtifactUseNormalStages.smallIconDeselectedSprite = Assets.Bundle.LoadAsset<Sprite>("Assets/Simulacrum/Artifacts/Artifact2_Off.png");
             ContentAddition.AddArtifactDef(ArtifactUseNormalStages);
 
             On.RoR2.Run.OverrideRuleChoices += ArtifactInITOnly;
@@ -44,42 +35,7 @@ namespace SimulacrumAdditions
             RunArtifactManager.onArtifactDisabledGlobal += OnArtifactDisabled;
             On.RoR2.Run.OnDisable += Run_OnDisable;
 
-            Addressables.LoadAssetAsync<SpawnCard>(key: "RoR2/DLC1/VoidSuppressor/iscVoidSuppressor.asset").WaitForCompletion().directorCreditCost = 5;
-            //Since we got Void Soupper in Dissim we gotta fix the vanilla up
-            GameObject VoidSuppressorPrefab = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/VoidSuppressor/VoidSuppressor.prefab").WaitForCompletion();
-
-            VoidSuppressorPrefab.GetComponent<PurchaseInteraction>().isShrine = true;
-            VoidSuppressorPrefab.GetComponent<VoidSuppressorBehavior>().effectColor.a = 0.85f;
-            VoidSuppressorPrefab.transform.GetChild(0).GetChild(7).GetChild(1).GetChild(1).gameObject.SetActive(true);
-            VoidSuppressorPrefab.transform.GetChild(0).GetChild(7).GetChild(1).GetChild(0).localScale = new Vector3(1.5f, 1.5f, 1.5f);
-            VoidSuppressorPrefab.transform.GetChild(0).GetChild(7);
-
-            ItemDef ScrapWhiteSuppressed = Addressables.LoadAssetAsync<ItemDef>(key: "RoR2/DLC1/ScrapVoid/ScrapWhiteSuppressed.asset").WaitForCompletion();
-            ItemDef ScrapGreenSuppressed = Addressables.LoadAssetAsync<ItemDef>(key: "RoR2/DLC1/ScrapVoid/ScrapGreenSuppressed.asset").WaitForCompletion();
-            ItemDef ScrapRedSuppressed = Addressables.LoadAssetAsync<ItemDef>(key: "RoR2/DLC1/ScrapVoid/ScrapRedSuppressed.asset").WaitForCompletion();
-
-            ScrapWhiteSuppressed.pickupToken = "ITEM_SCRAPWHITE_PICKUP";
-            ScrapGreenSuppressed.pickupToken = "ITEM_SCRAPGREEN_PICKUP";
-            ScrapRedSuppressed.pickupToken = "ITEM_SCRAPRED_PICKUP";
-
-            ScrapWhiteSuppressed.descriptionToken = "ITEM_SCRAPWHITE_DESC";
-            ScrapGreenSuppressed.descriptionToken = "ITEM_SCRAPGREEN_DESC";
-            ScrapRedSuppressed.descriptionToken = "ITEM_SCRAPRED_DESC";
-
-            ScrapWhiteSuppressed.deprecatedTier = ItemTier.Tier1;
-            ScrapGreenSuppressed.deprecatedTier = ItemTier.Tier2;
-            ScrapRedSuppressed.deprecatedTier = ItemTier.Tier3;
-            On.RoR2.UI.LogBook.LogBookController.BuildPickupEntries += (orig, expand) =>
-            {
-                ScrapWhiteSuppressed.deprecatedTier = ItemTier.NoTier;
-                ScrapGreenSuppressed.deprecatedTier = ItemTier.NoTier;
-                ScrapRedSuppressed.deprecatedTier = ItemTier.NoTier;
-                var A = orig(expand);
-                ScrapWhiteSuppressed.deprecatedTier = ItemTier.Tier1;
-                ScrapGreenSuppressed.deprecatedTier = ItemTier.Tier2;
-                ScrapRedSuppressed.deprecatedTier = ItemTier.Tier3;
-                return A;
-            };
+          
 
             SceneDef scene = Addressables.LoadAssetAsync<SceneDef>(key: "RoR2/DLC2/habitat/habitat.asset").WaitForCompletion();
             scene.validForRandomSelection = true;
@@ -126,7 +82,7 @@ namespace SimulacrumAdditions
                         case "ancientloft":
                         case "frozenwall":
                         case "skymeadow":
-                            weight = 0.4f;
+                            weight = 0.5f;
                             break;
                         case "dampcavesimple":
                             weight = 0.7f;
@@ -135,13 +91,13 @@ namespace SimulacrumAdditions
                             weight = 2;
                             break;
                     }
-
-
+ 
                     SceneCollection.SceneEntry newEntry = new SceneCollection.SceneEntry() { sceneDef = def, weight = weight } ;
                     newSceneEntry.Add(newEntry);
                 }
         
             }
+            SceneDef arena = Addressables.LoadAssetAsync<SceneDef>(key: "RoR2/Base/arena/arena.asset").WaitForCompletion();
             SceneCollection.SceneEntry newEntry2 = new SceneCollection.SceneEntry() { sceneDef = arena, weight = 2f };
             newSceneEntry.Add(newEntry2);
             realityDestinations._sceneEntries = newSceneEntry.ToArray();
@@ -157,20 +113,38 @@ namespace SimulacrumAdditions
             }
             RuleDef StageOrderRule = RuleCatalog.FindRuleDef("Misc.StageOrder");
             Run.instance.ruleBook.GetRuleChoice(StageOrderRule).extraData = StageOrder.Random;
-            On.RoR2.InfiniteTowerRun.OnPrePopulateSceneServer += Server_IT_PrePopulateScene;
-            SceneDirector.onGenerateInteractableCardSelection += RemoveUnneededInteractables;
-            //PrePopuate does not get called on Client
-            On.RoR2.SceneDirector.Start += SceneDirector_Start;
 
-
+            On.RoR2.InfiniteTowerRun.OnPrePopulateSceneServer += RemoveSpawnPointsAndMonsters;
+            SceneDirector.onGenerateInteractableCardSelection += AddAndRemoveInteractables;
             On.RoR2.DirectorCard.IsAvailable += Allow_Earlier_Spawns;
-            visitedScenes.Clear();
+            On.RoR2.SceneDirector.Start += DoReality;
+            On.RoR2.Run.PickNextStageScene += ChooseRealityStages;
+
             VoidSafeWard_Hooks.baseRadius += WConfig.ArtifactOfRealityBonusRadius.Value;
-            On.RoR2.Run.PickNextStageScene += RandomStages;
+            visitedScenes = new List<SceneDef>();
             DoDestinations();
         }
+        private static void OnArtifactDisabled(RunArtifactManager runArtifactManager, ArtifactDef artifactDef)
+        {
+            if (artifactDef != ArtifactUseNormalStages)
+            {
+                return;
+            }
+            if (Run.instance)
+            {
+                RuleDef StageOrderRule = RuleCatalog.FindRuleDef("Misc.StageOrder");
+                Run.instance.ruleBook.GetRuleChoice(StageOrderRule).extraData = StageOrder.Normal;
+            }
+            On.RoR2.InfiniteTowerRun.OnPrePopulateSceneServer -= RemoveSpawnPointsAndMonsters;
+            SceneDirector.onGenerateInteractableCardSelection -= AddAndRemoveInteractables;
+            On.RoR2.DirectorCard.IsAvailable -= Allow_Earlier_Spawns;
+            On.RoR2.SceneDirector.Start -= DoReality;
+            On.RoR2.Run.PickNextStageScene -= ChooseRealityStages;
 
-        private static void SceneDirector_Start(On.RoR2.SceneDirector.orig_Start orig, SceneDirector self)
+            VoidSafeWard_Hooks.baseRadius -= WConfig.ArtifactOfRealityBonusRadius.Value;
+        }
+
+        private static void DoReality(On.RoR2.SceneDirector.orig_Start orig, SceneDirector self)
         {
             orig(self);
             DoREALITY(self);
@@ -203,6 +177,9 @@ namespace SimulacrumAdditions
                         {
                             GameObject VoidSuppressor = GameObject.Instantiate(SupressorObject, NewtAltar);
                             VoidSuppressor.transform.localPosition = new Vector3(0, -1.38f, 0);
+                            PurchaseInteraction purch = VoidSuppressor.GetComponent<PurchaseInteraction>();
+                            purch.costType = CostTypeIndex.None;
+                            purch.cost = 0;
                             NetworkServer.Spawn(VoidSuppressor);
                         }
                         NewtAltar.GetChild(0).gameObject.SetActive(false);
@@ -211,6 +188,8 @@ namespace SimulacrumAdditions
                         NewtAltar.GetChild(3).GetComponent<MeshRenderer>().material = newMat;
                         NewtAltar.GetChild(4).GetComponent<MeshRenderer>().material = newMat;
                         GameObject.Destroy(NewtAltar.GetComponent<PurchaseInteraction>());
+                        GameObject.Destroy(NewtAltar.GetComponent<HologramProjector>());
+                        GameObject.Destroy(NewtAltar.GetComponent<PortalStatueBehavior>());
                     }
                 }
             }
@@ -275,26 +254,7 @@ namespace SimulacrumAdditions
             newLighting.ApplyLighting();
         }
 
-        private static void OnArtifactDisabled(RunArtifactManager runArtifactManager, ArtifactDef artifactDef)
-        {
-            if (artifactDef != ArtifactUseNormalStages)
-            {
-                return;
-            }
-            On.RoR2.InfiniteTowerRun.OnPrePopulateSceneServer -= Server_IT_PrePopulateScene;
-            SceneDirector.onGenerateInteractableCardSelection -= RemoveUnneededInteractables;
-            On.RoR2.SceneDirector.Start -= SceneDirector_Start;
-            if (Run.instance)
-            {
-                RuleDef StageOrderRule = RuleCatalog.FindRuleDef("Misc.StageOrder");
-                Run.instance.ruleBook.GetRuleChoice(StageOrderRule).extraData = StageOrder.Normal;
-            }
-            On.RoR2.DirectorCard.IsAvailable -= Allow_Earlier_Spawns;
-            VoidSafeWard_Hooks.baseRadius -= WConfig.ArtifactOfRealityBonusRadius.Value;
-            On.RoR2.Run.PickNextStageScene -= RandomStages;
-          
-        }
-
+       
         private static void VoidStageMissionController_Start(On.RoR2.VoidStageMissionController.orig_Start orig, VoidStageMissionController self)
         {
             if (RunArtifactManager.instance && RunArtifactManager.instance.IsArtifactEnabled(ArtifactUseNormalStages))
@@ -316,7 +276,7 @@ namespace SimulacrumAdditions
 
  
 
-        private static void RandomStages(On.RoR2.Run.orig_PickNextStageScene orig, Run self, WeightedSelection<SceneDef> choices)
+        private static void ChooseRealityStages(On.RoR2.Run.orig_PickNextStageScene orig, Run self, WeightedSelection<SceneDef> choices)
         {
             if (self.ruleBook.stageOrder == StageOrder.Random)
             {
@@ -340,11 +300,10 @@ namespace SimulacrumAdditions
                     
                     if (self.stageClearCount > 2)
                     {
-                        weightedSelection.AddChoice(voidStage, 3f);
+                        SceneDef voidStage = Addressables.LoadAssetAsync<SceneDef>(key: "RoR2/DLC1/voidstage/voidstage.asset").WaitForCompletion();
+                        weightedSelection.AddChoice(voidStage, 3.3f);
                     }
-
-                    /*
-                    */
+ 
                     self.nextStageScene = weightedSelection.Evaluate(self.nextStageRng.nextNormalizedFloat);
                     visitedScenes.Add(self.nextStageScene);
 
@@ -384,11 +343,7 @@ namespace SimulacrumAdditions
             }
             return orig(self);
         }
-
-       
  
-
-
         private static void ArtifactInITOnly(On.RoR2.Run.orig_OverrideRuleChoices orig, Run self, RuleChoiceMask mustInclude, RuleChoiceMask mustExclude, ulong runSeed)
         {
             orig(self, mustInclude, mustExclude, runSeed);
@@ -397,47 +352,61 @@ namespace SimulacrumAdditions
                 self.ForceChoice(mustInclude, mustExclude, RuleCatalog.FindRuleDef("Artifacts.AAAUseNormalStages").FindChoice("Off"));
             }
         }
-
-
-        private static void Server_IT_PrePopulateScene(On.RoR2.InfiniteTowerRun.orig_OnPrePopulateSceneServer orig, InfiniteTowerRun self, SceneDirector sceneDirector)
+ 
+        private static void RemoveSpawnPointsAndMonsters(On.RoR2.InfiniteTowerRun.orig_OnPrePopulateSceneServer orig, InfiniteTowerRun self, SceneDirector sceneDirector)
         {
+            sceneDirector.teleporterSpawnCard = null;
+            sceneDirector.monsterCredit = 0;
             sceneDirector.RemoveAllExistingSpawnPoints();
             orig(self, sceneDirector);
-            sceneDirector.monsterCredit = 0;
-            sceneDirector.teleporterSpawnCard = null;
+ 
         }
 
-        private static void RemoveUnneededInteractables(SceneDirector arg1, DirectorCardCategorySelection dccs)
+        private static void AddAndRemoveInteractables(SceneDirector arg1, DirectorCardCategorySelection dccs)
         {
             int voidIndex = dccs.FindCategoryIndexByName("Void Stuff");
             if (voidIndex != -1)
             {
-                dccs.categories[voidIndex].selectionWeight *= 2 + 0.5f;
+                dccs.categories[voidIndex].selectionWeight *= 2 + 1f;
 
-                DirectorCard ADVoidTriple = new DirectorCard
+                DirectorCard iscVoidChestSacrificeOn = new DirectorCard
+                {
+                    spawnCard = Addressables.LoadAssetAsync<SpawnCard>(key: "5448ccdc4b91bd244a1631d60d24298d").WaitForCompletion(),
+                    selectionWeight = 1,
+                };
+                DirectorCard iscVoidTriple = new DirectorCard
                 {
                     spawnCard = Addressables.LoadAssetAsync<SpawnCard>(key: "RoR2/DLC1/VoidTriple/iscVoidTriple.asset").WaitForCompletion(),
                     selectionWeight = 15,
                 };
-                DirectorCard Barrel = new DirectorCard
+                DirectorCard iscVoidSuppressorIT = new DirectorCard
                 {
-                    spawnCard = SimulacrumDCCS.SafteyBarrel,
+                    spawnCard = SimulacrumDCCS.iscVoidSuppressorIT,
+                    selectionWeight = 15,
+                };
+                DirectorCard iscVoidCoinBarrelITSacrifice = new DirectorCard
+                {
+                    spawnCard = SimulacrumDCCS.iscVoidCoinBarrelITSacrifice,
                     selectionWeight = 6,
                 };
-                dccs.AddCard(voidIndex, Barrel);
-                dccs.AddCard(voidIndex, ADVoidTriple);
+                dccs.AddCard(voidIndex, iscVoidCoinBarrelITSacrifice);
+                dccs.AddCard(voidIndex, iscVoidChestSacrificeOn);
+                dccs.AddCard(voidIndex, iscVoidSuppressorIT);
+                dccs.AddCard(voidIndex, iscVoidTriple);
             }
-            dccs.RemoveCardsThatFailFilter(new System.Predicate<DirectorCard>(SimulacrumTrimmer));
+            dccs.RemoveCardsThatFailFilter(trimmer);
         }
 
+        public static System.Predicate<DirectorCard> trimmer = new System.Predicate<DirectorCard>(SimulacrumTrimmer);
         public static bool SimulacrumTrimmer(DirectorCard card)
         {
             GameObject prefab = card.spawnCard.prefab;
-            if (card.spawnCard.name.StartsWith("iscBroken") || card.spawnCard.name.EndsWith("Drone"))
+            if ((card.spawnCard as InteractableSpawnCard).skipSpawnWhenDevotionArtifactEnabled && !RunArtifactManager.instance.IsArtifactEnabled(CU8Content.Artifacts.Devotion))
             {
+                //Skip Drones only if Devo not active
                 return false;
             }
-            return !(prefab.GetComponent<RoR2.ShrineCombatBehavior>() | prefab.GetComponent<RoR2.HalcyoniteShrineInteractable>() | prefab.GetComponent<RoR2.OutsideInteractableLocker>() | prefab.GetComponent<RoR2.ShrineBossBehavior>() | prefab.GetComponent<RoR2.SeerStationController>() | prefab.GetComponent<RoR2.PortalStatueBehavior>());
+            return !(prefab.GetComponent<ShrineCombatBehavior>() | prefab.GetComponent<HalcyoniteShrineInteractable>() | prefab.GetComponent<OutsideInteractableLocker>() | prefab.GetComponent<ShrineBossBehavior>() | prefab.GetComponent<SeerStationController>() | prefab.GetComponent<PortalStatueBehavior>());
         }
     }
 

@@ -27,7 +27,7 @@ namespace SimulacrumAdditions
             {
                 if (!(self.waveIndex % 5 == 0))
                 {
-                    Debug.Log("Preventing early moving of crab"); ;
+                    Debug.Log("Preventing early moving of crab");
                 }
                 else
                 {
@@ -44,7 +44,7 @@ namespace SimulacrumAdditions
                         return;
                     }
                     self.MarkAsFinished();
-                    Debug.Log("Preventing early moving of crab"); ;
+                    Debug.Log("Preventing early moving of crab");
                 }
                 else
                 {
@@ -61,7 +61,7 @@ namespace SimulacrumAdditions
                         return;
                     }
                     self.MarkAsFinished();
-                    Debug.Log("Preventing early moving of crab"); ;
+                    Debug.Log("Preventing early moving of crab");
                 }
                 else
                 {
@@ -141,17 +141,6 @@ namespace SimulacrumAdditions
                 //Expand radius after travelling
                 float newRadius = baseRadius + Run.instance.participatingPlayerCount * radiusPerPlayer;
                 self.radius = newRadius;
-
-                /*if (self.zone && self.zone.radius > newRadius)
-               {
-                   RadiusShrinker shrink = self.gameObject.AddComponent<RadiusShrinker>();
-                   shrink.originalRadius = self.zone.radius;
-                   shrink.newRadius = newRadius;
-               }
-               else
-               {
-                   self.radius = newRadius;
-               }*/
             }
             else
             {
@@ -159,6 +148,7 @@ namespace SimulacrumAdditions
             }
             orig(self);
 
+            //Client fix??
             if (!run.safeWardController)
             {
                 run.safeWardController = self.gameObject.GetComponent<InfiniteTowerSafeWardController>();
@@ -195,7 +185,7 @@ namespace SimulacrumAdditions
 
             }
 
-            if (RunArtifactManager.instance && RunArtifactManager.instance.IsArtifactEnabled(ArtifactReal.ArtifactUseNormalStages))
+            if (RunArtifactManager.instance && RunArtifactManager.instance.IsArtifactEnabled(Artifact_RealStages.ArtifactUseNormalStages))
             {
                 newRadius = baseRadius;
             }

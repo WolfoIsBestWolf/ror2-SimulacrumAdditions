@@ -10,9 +10,12 @@ namespace SimulacrumAdditions
 {
     public class WavesMain
     {
+        public static List<GameObject> orangeWaves = new List<GameObject>();
 
         public static void Start()
         {
+            Waves_Vanilla.MakeChanges();
+
             Waves_Artifacts.MakeWaves();
             Waves_BuffRelated.MakeWaves();
             Waves_ConstantlySpawning.MakeWaves();
@@ -39,7 +42,7 @@ namespace SimulacrumAdditions
             MakeMultiCSCs.CreateBossGhostSpawnCards();
             MakeMultiCSCs.CreateDroneSpawnCards();
             //Mod Support
-            CharacterSpawnCard cscDireseeker = null;
+            /*CharacterSpawnCard cscDireseeker = null;
             CharacterSpawnCard[] CSCList = Object.FindObjectsOfType(typeof(CharacterSpawnCard)) as CharacterSpawnCard[];
             for (var i = 0; i < CSCList.Length; i++)
             {
@@ -50,11 +53,11 @@ namespace SimulacrumAdditions
                         cscDireseeker = CSCList[i];
                         break;
                 }
-            }
+            }*/
 
-            for (int i = 0; i < SimuMain.ITModSupportWaves.wavePrefabs.Length; i++)
+            for (int i = 0; i < Const.ITModSupportWaves.wavePrefabs.Length; i++)
             {
-                GameObject wave = SimuMain.ITModSupportWaves.wavePrefabs[i].wavePrefab;
+                GameObject wave = Const.ITModSupportWaves.wavePrefabs[i].wavePrefab;
                 InfiniteTowerWaveController controller = wave.GetComponent<InfiniteTowerWaveController>();
 
                 switch (wave.name)
@@ -65,7 +68,7 @@ namespace SimulacrumAdditions
                         {
                             wave.AddComponent<ArtifactEnabler>().artifactDef = SingleEliteType;
                             wave.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = SingleEliteType.smallIconSelectedSprite;
-                            SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(SimuMain.ITModSupportWaves.wavePrefabs[i]);
+                            Const.ITBasicWaves.wavePrefabs = Const.ITBasicWaves.wavePrefabs.Add(Const.ITModSupportWaves.wavePrefabs[i]);
                         }
                         break;
                     case "InfiniteTowerWaveSS2RainbowElites":
@@ -95,7 +98,7 @@ namespace SimulacrumAdditions
                             wave.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList[0].spawnDistance = DirectorCore.MonsterSpawnDistance.Far;
                             controller.overlayEntries[1].prefab.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = rainbowEliteEquip.passiveBuffDef.iconSprite;
 
-                            SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(SimuMain.ITModSupportWaves.wavePrefabs[i]);
+                            Const.ITBasicWaves.wavePrefabs = Const.ITBasicWaves.wavePrefabs.Add(Const.ITModSupportWaves.wavePrefabs[i]);
                         }                       
                         break;
                     case "InfiniteTowerWaveArtifactSS2Cognation":
@@ -105,10 +108,10 @@ namespace SimulacrumAdditions
                             wave.GetComponent<ArtifactEnabler>().artifactDef = SS2Cognation;
                             wave.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = SS2Cognation.smallIconSelectedSprite;
  
-                            SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(SimuMain.ITModSupportWaves.wavePrefabs[i]);
+                            Const.ITBasicWaves.wavePrefabs = Const.ITBasicWaves.wavePrefabs.Add(Const.ITModSupportWaves.wavePrefabs[i]);
                         }
                         break;
-                    case "InfiniteTowerWaveBossDireseeker":
+                    /*case "WaveBoss_Direseeker":
                         if (cscDireseeker)
                         {
                             CharacterSpawnCard cscDireseekerIT = Object.Instantiate(cscDireseeker);
@@ -116,18 +119,20 @@ namespace SimulacrumAdditions
                             cscDireseekerIT.itemsToGrant = new ItemCountPair[] { new ItemCountPair { itemDef = RoR2Content.Items.AdaptiveArmor, count = 1 } };
                             wave.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList[0].spawnCard = cscDireseekerIT;
                             wave.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList[0].spawnDistance = DirectorCore.MonsterSpawnDistance.Far;
-                            SimuMain.ITBossWaves.wavePrefabs = SimuMain.ITBossWaves.wavePrefabs.Add(SimuMain.ITModSupportWaves.wavePrefabs[i]);
+                             Const.ITBossWaves.wavePrefabs = Const.ITBossWaves.wavePrefabs.AddTW(Const.ITModSupportWaves.wavePrefabs[i]);
                         }                
-                        break;
+                        break;*/
                 }
 
             }
 
-            GameObject defaultUI = SimuMain.ITBasicWaves.wavePrefabs[0].wavePrefab.GetComponent<InfiniteTowerWaveController>().uiPrefab;
+
+            
+            GameObject defaultUI = Const.ITBasicWaves.wavePrefabs[0].wavePrefab.GetComponent<InfiniteTowerWaveController>().uiPrefab;
             Color newArticfact = new Color(1f, 0.7647f, 1.2647f, 1);
-            for (int i = 0; i < SimuMain.ITBasicWaves.wavePrefabs.Length; i++)
+            for (int i = 0; i < Const.ITBasicWaves.wavePrefabs.Length; i++)
             {
-                GameObject wave = SimuMain.ITBasicWaves.wavePrefabs[i].wavePrefab;
+                GameObject wave = Const.ITBasicWaves.wavePrefabs[i].wavePrefab;
                 InfiniteTowerWaveController controller = wave.GetComponent<InfiniteTowerWaveController>();
                 if (controller.maxSquadSize > 20)
                 {
@@ -151,25 +156,22 @@ namespace SimulacrumAdditions
                 {
                     controller.overlayEntries[1].prefab.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = newArticfact;
                 }
-                switch (wave.name)
-                {
-                    case "InfiniteTowerWaveBasicEquipmentDrone":
-                    case "InfiniteTowerWaveFlight":
-                    case "InfiniteTowerWaveBattery":
-                    case "InfiniteTowerWaveGoobo":
-                        wave.GetComponent<SimulacrumExtrasHelper>().rewardDisplayTier = SimuMain.ItemOrangeTierDef.tier;
-                        break;
-                }
             }
-            for (int i = 0; i < SimuMain.ITBossWaves.wavePrefabs.Length; i++)
+            for (int i = 0; i< orangeWaves.Count; i++)
             {
-                GameObject wave = SimuMain.ITBossWaves.wavePrefabs[i].wavePrefab;
+                orangeWaves[i].GetComponent<SimulacrumExtrasHelper>().rewardDisplayTier = Const.ItemOrangeTierDef.tier;
+            }
+            orangeWaves.Clear();
+
+            for (int i = 0; i < Const.ITBossWaves.wavePrefabs.Length; i++)
+            {
+                GameObject wave = Const.ITBossWaves.wavePrefabs[i].wavePrefab;
                 InfiniteTowerWaveController controller = wave.GetComponent<InfiniteTowerWaveController>();
                 switch (wave.name)
                 {
-                    case "InfiniteTowerWaveBossEquipmentDrone":
+                    case "WaveBoss_EquipmentDrone":
                         wave.AddComponent<CardRandomizer>().cscList = Waves_SpecialGuy.CardRandomizerEquipmentDrones.cscList;
-                        wave.GetComponent<SimulacrumExtrasHelper>().rewardDisplayTier = SimuMain.ItemOrangeTierDef.tier;
+                        wave.GetComponent<SimulacrumExtrasHelper>().rewardDisplayTier = Const.ItemOrangeTierDef.tier;
                         break;
                 }
 
@@ -183,19 +185,19 @@ namespace SimulacrumAdditions
                 }
             }
 
-            for (int i = 0; i < SimuMain.ITSuperBossWaves.wavePrefabs.Length; i++)
+            for (int i = 0; i < Const.ITSuperBossWaves.wavePrefabs.Length; i++)
             {
-                if (SimuMain.ITSuperBossWaves.wavePrefabs[i].weight > 1)
+                if (Const.ITSuperBossWaves.wavePrefabs[i].weight > 1)
                 {
-                    SimuMain.ITSuperBossWaves.wavePrefabs[i].weight = 1;
+                    Const.ITSuperBossWaves.wavePrefabs[i].weight = 1;
                 }
-                GameObject wave = SimuMain.ITSuperBossWaves.wavePrefabs[i].wavePrefab;
+                GameObject wave = Const.ITSuperBossWaves.wavePrefabs[i].wavePrefab;
                 InfiniteTowerExplicitSpawnWaveController temp;
 
                 switch (wave.name)
                 {
-                    case "InfiniteTowerWaveBossBrother":
-                        wave.AddComponent<SimulacrumExtrasHelper>().rewardDropTable = SimuMain.dtITLunar;
+                    case "InfiniteTowerWaveBrother":
+                        wave.AddComponent<SimulacrumExtrasHelper>().rewardDropTable = Const.dtITLunar;
                         wave.GetComponent<SimulacrumExtrasHelper>().rewardDisplayTier = ItemTier.Lunar;
                         wave.GetComponent<SimulacrumExtrasHelper>().newRadius = 110;
                         wave.AddComponent<SimuExplicitStats>().hpBonusMulti = 2.5f;
@@ -205,14 +207,14 @@ namespace SimulacrumAdditions
                         temp.baseCredits = 50;
                         temp.immediateCreditsFraction = 0.5f;
                         temp.linearCreditsPerWave = 4;
-                        temp.combatDirector.monsterCards = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/dccsLunarFamily.asset").WaitForCompletion(); ;
+                        temp.combatDirector.monsterCards = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/dccsLunarFamily.asset").WaitForCompletion();
                         temp.secondsBeforeSuddenDeath *= 2;
                         break;
-                    case "InfiniteTowerWaveBossScav":
-                        SimuMain.ITSuperBossWaves.wavePrefabs[i].weight = 0f;
+                    case "InfiniteTowerWaveWaveBossScav":
+                        Const.ITSuperBossWaves.wavePrefabs[i].weight = 0f;
                         temp = wave.GetComponent<RoR2.InfiniteTowerExplicitSpawnWaveController>();
                         temp.rewardDisplayTier = ItemTier.Boss;
-                        temp.rewardDropTable = SimuMain.dtITSpecialBossYellow;
+                        temp.rewardDropTable = Const.dtITSpecialBossYellow;
                         temp.baseCredits = 100;
                         temp.linearCreditsPerWave = 3;
                         temp.secondsBeforeSuddenDeath *= 2f;
@@ -232,7 +234,7 @@ namespace SimulacrumAdditions
                         };
                         temp.spawnList[0].spawnCard = cscScav;
                         break;
-                   /*case "InfiniteTowerWaveBossScavLunar":
+                   /*case "WaveBoss_ScavLunar":
                         temp = wave.GetComponent<RoR2.InfiniteTowerExplicitSpawnWaveController>();
                         CharacterSpawnCard cscScavLunarIT = Object.Instantiate(Addressables.LoadAssetAsync<CharacterSpawnCard>(key: "RoR2/Base/ScavLunar/cscScavLunar.asset").WaitForCompletion());
                         cscScavLunarIT.name = "cscScavLunarIT";
@@ -270,36 +272,36 @@ namespace SimulacrumAdditions
             AK.Wwise.State StatePhase1 = new AK.Wwise.State();
             StatePhase1.WwiseObjectReference = Phase1WW;
 
-            for (int i = 0; i < SimuMain.ITSuperBossWaves.wavePrefabs.Length; i++)
+            for (int i = 0; i < Const.ITSuperBossWaves.wavePrefabs.Length; i++)
             {
-                GameObject wave = SimuMain.ITSuperBossWaves.wavePrefabs[i].wavePrefab;
+                GameObject wave = Const.ITSuperBossWaves.wavePrefabs[i].wavePrefab;
                 switch (wave.name)
                 {
-                    case "InfiniteTowerWaveBossBrother":
+                    case "InfiniteTowerWaveWaveBossBrother":
                         wave.AddComponent<MusicTrackOverride>().track = moon2.bossTrack;
                         wave.AddComponent<AkState>().data = StatePhase1;
                         break;
-                    case "InfiniteTowerWaveBossVoidRaidCrab":
+                    case "WaveBoss_VoidRaidCrab":
                         wave.AddComponent<MusicTrackOverride>().track = voidraid.bossTrack;
                         wave.AddComponent<AkState>().data = StatePhase1;
                         break;
-                    case "InfiniteTowerWaveBossFalseSon":
+                    case "WaveBoss_FalseSon":
                         wave.AddComponent<MusicTrackOverride>().track = muSong_MeridianFSB;
                         wave.AddComponent<AkState>().data = StatePhase1;
                         break;
-                    case "InfiniteTowerWaveBossScavLunar":
+                    case "WaveBoss_ScavLunar":
                         wave.AddComponent<MusicTrackOverride>().track = muSong_LakesBoss;
                         break;
-                    case "InfiniteTowerWaveBossSuperVoidMegaCrab":
+                    case "WaveBoss_SuperVoidMegaCrab":
                         wave.AddComponent<MusicTrackOverride>().track = muSong_HelminthBoss;
                         break;
-                    case "InfiniteTowerWaveBossScav":
+                    case "InfiniteTowerWaveWaveBossScav":
                         wave.AddComponent<MusicTrackOverride>().track = MTDSulfurBoss;
                         break;
-                    case "InfiniteTowerWaveBossTitanGold":
+                    case "WaveBoss_TitanGold":
                         wave.AddComponent<MusicTrackOverride>().track = dampcavesimple.bossTrack;
                         break;
-                    case "InfiniteTowerWaveBossSuperRoboBallBoss":
+                    case "WaveBoss_SuperRoboBallBoss":
                         wave.AddComponent<MusicTrackOverride>().track = skymeadow.bossTrack;
                         break;
                 }

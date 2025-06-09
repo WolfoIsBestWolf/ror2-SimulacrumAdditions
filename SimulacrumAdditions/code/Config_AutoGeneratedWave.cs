@@ -14,7 +14,7 @@ namespace SimulacrumAdditions
 
         public static void InitConfig()
         {
-            InfiniteTowerWaveCategory category = SimuMain.ITBasicWaves;
+            InfiniteTowerWaveCategory category = Const.ITBasicWaves;
             string categoryName = "Basic Waves";
 
             for (int i = 1; i < category.wavePrefabs.Length; i++)
@@ -29,7 +29,7 @@ namespace SimulacrumAdditions
                );
             }
             //
-            category = SimuMain.ITBossWaves;
+            category = Const.ITBossWaves;
             categoryName = "Boss Waves";
             for (int i = 1; i < category.wavePrefabs.Length; i++)
             {
@@ -43,7 +43,7 @@ namespace SimulacrumAdditions
                );
             }
             //
-            category = SimuMain.ITSuperBossWaves;
+            category = Const.ITSuperBossWaves;
             categoryName = "Super Boss Waves";
             for (int i = 0; i < category.wavePrefabs.Length; i++)
             {
@@ -61,7 +61,7 @@ namespace SimulacrumAdditions
 
         public static void ApplyConfig()
         {
-            InfiniteTowerWaveCategory category = SimuMain.ITBasicWaves;
+            InfiniteTowerWaveCategory category = Const.ITBasicWaves;
             string categoryName = "Basic Waves";
 
             for (int i = 1; i < category.wavePrefabs.Length; i++)
@@ -74,7 +74,7 @@ namespace SimulacrumAdditions
                 }
             }
             //
-            category = SimuMain.ITBossWaves;
+            category = Const.ITBossWaves;
             categoryName = "Boss Waves";
             for (int i = 1; i < category.wavePrefabs.Length; i++)
             {
@@ -86,7 +86,7 @@ namespace SimulacrumAdditions
                 }
             }
             //
-            category = SimuMain.ITSuperBossWaves;
+            category = Const.ITSuperBossWaves;
             categoryName = "Super Boss Waves";
             for (int i = 0; i < category.wavePrefabs.Length; i++)
             {

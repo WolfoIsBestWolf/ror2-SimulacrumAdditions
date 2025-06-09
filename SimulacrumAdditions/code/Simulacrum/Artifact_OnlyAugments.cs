@@ -6,27 +6,18 @@ using UnityEngine.Networking;
 
 namespace SimulacrumAdditions
 {
-    public class ArtifactAugments
+    public class Artifact_OnlyAugments
     {
         public static ArtifactDef ArtifactSimulacrum = ScriptableObject.CreateInstance<ArtifactDef>();
 
         public static void MakeArtifact()
         {
-            Rect rec = new Rect(0, 0, 64, 64);
-            Texture2D ArtifactOn = Assets.Bundle.LoadAsset<Texture2D>("Assets/Simulacrum/Main/ArtifactOn.png");
-            ArtifactOn.filterMode = FilterMode.Trilinear;
-            Sprite ArtifactOnS = Sprite.Create(ArtifactOn, rec, new Vector2(0, 0));
-
-            Texture2D ArtifactOff = Assets.Bundle.LoadAsset<Texture2D>("Assets/Simulacrum/Main/ArtifactOff.png");
-            ArtifactOff.filterMode = FilterMode.Trilinear;
-            Sprite ArtifactOffS = Sprite.Create(ArtifactOff, rec, new Vector2(0, 0));
-
 
             ArtifactSimulacrum.cachedName = "AAAAugmentsOnly";
             ArtifactSimulacrum.nameToken = "ARTIFACT_AUGMENTS_NAME";
             ArtifactSimulacrum.descriptionToken = "ARTIFACT_AUGMENTS_DESCRIPTION";
-            ArtifactSimulacrum.smallIconSelectedSprite = ArtifactOnS;
-            ArtifactSimulacrum.smallIconDeselectedSprite = ArtifactOffS;
+            ArtifactSimulacrum.smallIconSelectedSprite = Assets.Bundle.LoadAsset<Sprite>("Assets/Simulacrum/Artifacts/ArtifactOn.png");
+            ArtifactSimulacrum.smallIconDeselectedSprite = Assets.Bundle.LoadAsset<Sprite>("Assets/Simulacrum/Artifacts/ArtifactOff.png");
             ContentAddition.AddArtifactDef(ArtifactSimulacrum);
 
             On.RoR2.Run.OverrideRuleChoices += ArtifactInITOnly;
@@ -50,8 +41,8 @@ namespace SimulacrumAdditions
                 return;
             }
             On.RoR2.InfiniteTowerWaveCategory.GenerateWeightedSelection += OnlySpecialWaves;
-            SimuMain.ITBasicWaves.GenerateWeightedSelection();
-            SimuMain.ITBossWaves.GenerateWeightedSelection();
+            Const.ITBasicWaves.GenerateWeightedSelection();
+            Const.ITBossWaves.GenerateWeightedSelection();
         }
 
         private static void OnArtifactDisabled(RunArtifactManager runArtifactManager, ArtifactDef artifactDef)
@@ -61,8 +52,8 @@ namespace SimulacrumAdditions
                 return;
             }
             On.RoR2.InfiniteTowerWaveCategory.GenerateWeightedSelection -= OnlySpecialWaves;
-            SimuMain.ITBasicWaves.GenerateWeightedSelection();
-            SimuMain.ITBossWaves.GenerateWeightedSelection();
+            Const.ITBasicWaves.GenerateWeightedSelection();
+            Const.ITBossWaves.GenerateWeightedSelection();
         }
 
         public static void OnlySpecialWaves(On.RoR2.InfiniteTowerWaveCategory.orig_GenerateWeightedSelection orig, InfiniteTowerWaveCategory self)

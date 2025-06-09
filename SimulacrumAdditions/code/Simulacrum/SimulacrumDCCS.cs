@@ -1,4 +1,5 @@
-﻿using RoR2;
+﻿using R2API;
+using RoR2;
 using RoR2.Navigation;
 //using System;
 using UnityEngine;
@@ -20,11 +21,12 @@ namespace SimulacrumAdditions
         public static DirectorCardCategorySelection dccsITSkyMeadowInteractablesW = null;
         public static DirectorCardCategorySelection dccsITMoonInteractablesW = null;
 
-        public static InteractableSpawnCard SafteyBarrel;
+        public static InteractableSpawnCard iscVoidCoinBarrelITSacrifice;
+public static InteractableSpawnCard iscVoidSuppressorIT;
 
         public static void Start()
         {
-            SimusDCCS();
+            SimuDCCS();
             Enemies();
         }
 
@@ -50,7 +52,7 @@ namespace SimulacrumAdditions
             {
                 sceneDirector.interactableCredit = (int)(sceneDirector.interactableCredit * 0.75f); //450
             }
-            if (RunArtifactManager.instance.IsArtifactEnabled(ArtifactReal.ArtifactUseNormalStages))
+            if (RunArtifactManager.instance.IsArtifactEnabled(Artifact_RealStages.ArtifactUseNormalStages))
             {
                 sceneDirector.interactableCredit += 100;
             }
@@ -88,7 +90,7 @@ namespace SimulacrumAdditions
             }
             else
             {
-                Texture2D Sand = Addressables.LoadAssetAsync<Texture2D>(key: "RoR2/Base/goolake/texSand1Simple.png").WaitForCompletion();
+                Texture2D Sand = Addressables.LoadAssetAsync<Texture2D>(key: "b33b64ab57a530f4592b379c3224ba4d").WaitForCompletion();
                 matShrineChanceSandy.SetTexture("_GreenChannelTex", Sand);
                 matShrineBloodSandy.SetTexture("_GreenChannelTex", Sand);
                 matShrineCleanseSandy.SetTexture("_GreenChannelTex", Sand);
@@ -99,11 +101,8 @@ namespace SimulacrumAdditions
         }
 
 
-        public static void SimusDCCS()
+        public static void SimuDCCS()
         {
-            Addressables.LoadAssetAsync<Texture2D>(key: "RoR2/DLC1/itgoolake/texSand1SimpleInfiniteTower.png").WaitForCompletion();
-            Addressables.LoadAssetAsync<Texture2D>(key: "RoR2/Base/goolake/texSand1Simple.png").WaitForCompletion();
-            //
             //Make Soup
             InteractableSpawnCard SoupWhiteGreenISC = ScriptableObject.CreateInstance<InteractableSpawnCard>();
             SoupWhiteGreenISC.name = "iscSoupWhiteGreen";
@@ -157,15 +156,20 @@ namespace SimulacrumAdditions
             VoidCoinBarrel.name = "iscVoidCoinBarrelIT";
             VoidCoinBarrel.skipSpawnWhenSacrificeArtifactEnabled = true;
 
-            SafteyBarrel = Object.Instantiate(VoidCoinBarrel);
-            SafteyBarrel.directorCreditCost = 1;
-            SafteyBarrel.name = "iscVoidCoinBarrelITSacrifice";
-            SafteyBarrel.skipSpawnWhenSacrificeArtifactEnabled = false;
-            SafteyBarrel.weightScalarWhenSacrificeArtifactEnabled = 0.5f;
+            iscVoidCoinBarrelITSacrifice = Object.Instantiate(VoidCoinBarrel);
+            iscVoidCoinBarrelITSacrifice.directorCreditCost = 1;
+            iscVoidCoinBarrelITSacrifice.name = "iscVoidCoinBarrelITSacrifice";
+            iscVoidCoinBarrelITSacrifice.skipSpawnWhenSacrificeArtifactEnabled = false;
+            iscVoidCoinBarrelITSacrifice.weightScalarWhenSacrificeArtifactEnabled = 0.5f;
 
-            InteractableSpawnCard GoldChestLimited = Object.Instantiate(Addressables.LoadAssetAsync<InteractableSpawnCard>(key: "RoR2/Base/GoldChest/iscGoldChest.asset").WaitForCompletion());
-            GoldChestLimited.maxSpawnsPerStage = 1;
-            GoldChestLimited.name = "iscGoldChestIT";
+            InteractableSpawnCard iscGoldChestIT = Object.Instantiate(Addressables.LoadAssetAsync<InteractableSpawnCard>(key: "RoR2/Base/GoldChest/iscGoldChest.asset").WaitForCompletion());
+            iscGoldChestIT.maxSpawnsPerStage = 1;
+            iscGoldChestIT.name = "iscGoldChestIT";
+
+            iscVoidSuppressorIT = Object.Instantiate(Addressables.LoadAssetAsync<InteractableSpawnCard>(key: "RoR2/DLC1/VoidSuppressor/iscVoidSuppressor.asset").WaitForCompletion());
+            iscVoidSuppressorIT.directorCreditCost = 20;
+            iscVoidSuppressorIT.name = "iscVoidSuppressorIT";
+ 
 
             /*
             --[0]--Chests--  wt:45
@@ -216,7 +220,7 @@ namespace SimulacrumAdditions
             };
             DirectorCard ADSafteyBarrel = new DirectorCard
             {
-                spawnCard = SafteyBarrel,
+                spawnCard = iscVoidCoinBarrelITSacrifice,
                 selectionWeight = 1,
             };
 
@@ -230,11 +234,16 @@ namespace SimulacrumAdditions
 
             dccsInfiniteTowerInteractables.categories[1].selectionWeight = 2f;
 
-            dccsInfiniteTowerInteractables.categories[2].selectionWeight = 0.5f;
+            dccsInfiniteTowerInteractables.categories[2].selectionWeight = 0.8f;
             dccsInfiniteTowerInteractables.categories[2].cards[0].minimumStageCompletions = 1;
             dccsInfiniteTowerInteractables.categories[2].cards[1].minimumStageCompletions = 1; //No red chest stage 1 ig
             dccsInfiniteTowerInteractables.AddCard(2, ADSafteyBarrel);
             dccsInfiniteTowerInteractables.AddCard(2, ADVoidChestSacrifice);
+            dccsInfiniteTowerInteractables.AddCard(2, new DirectorCard
+            {
+                spawnCard = iscVoidSuppressorIT,
+                selectionWeight = 6
+            });
 
             dccsInfiniteTowerInteractables.categories[3].cards[1].selectionWeight = 8;
             dccsInfiniteTowerInteractables.categories[3].cards[2].selectionWeight = 2;
@@ -424,7 +433,7 @@ namespace SimulacrumAdditions
             dccsITMoonInteractablesW.categories[1].cards[0] = ADShrineOrder;
             dccsITMoonInteractablesW.categories[2].selectionWeight *= 4;
             dccsITMoonInteractablesW.categories[2].cards = dccsITMoonInteractablesW.categories[2].cards.Remove(dccsITMoonInteractablesW.categories[2].cards[0]); //No Cloaked
-            dccsITMoonInteractablesW.categories[2].cards[0].spawnCard = GoldChestLimited;
+            dccsITMoonInteractablesW.categories[2].cards[0].spawnCard = iscGoldChestIT;
             dccsITMoonInteractablesW.categories[3].selectionWeight += 4; //Soups
             dccsITMoonInteractablesW.categories[3].cards = dccsITMoonInteractablesW.categories[3].cards.Remove(dccsITMoonInteractablesW.categories[3].cards[3], dccsITMoonInteractablesW.categories[3].cards[2], dccsITMoonInteractablesW.categories[3].cards[1], dccsITMoonInteractablesW.categories[3].cards[0]);
             dccsITMoonInteractablesW.AddCard(3, ADSoupRedWhite);

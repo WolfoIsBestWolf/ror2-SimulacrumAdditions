@@ -401,9 +401,6 @@ namespace SimulacrumAdditions
         private static void GameEndReportPanelController_SetDisplayData(On.RoR2.UI.GameEndReportPanelController.orig_SetDisplayData orig, GameEndReportPanelController self, GameEndReportPanelController.DisplayData newDisplayData)
         {
             orig(self, newDisplayData);
-
-
-
             if (Run.instance && Run.instance.GetComponent<InfiniteTowerRun>())
             {
                 LastWaveHolder lastWave = Run.instance.GetComponent<LastWaveHolder>();
@@ -491,7 +488,7 @@ namespace SimulacrumAdditions
         {
             if (gameEndingDef == DLC1Content.GameEndings.VoidEnding && Run.instance.GetComponent<InfiniteTowerRun>())
             {
-                orig(self, SimuMain.InfiniteTowerEnding);
+                orig(self, Const.InfiniteTowerEnding);
                 foreach (CharacterBody characterBody in CharacterBody.readOnlyInstancesList)
                 {
                     if (characterBody.hasEffectiveAuthority)
@@ -520,7 +517,7 @@ namespace SimulacrumAdditions
             {
                 Inventory tempinv = self.GetComponent<Inventory>();
 
-                PickupIndex pickupIndex = SimuMain.dtAISafeRandomVoid.GenerateDrop(Run.instance.treasureRng);
+                PickupIndex pickupIndex = Const.dtAISafeRandomVoid.GenerateDrop(Run.instance.treasureRng);
                 ItemDef itemdef = ItemCatalog.GetItemDef(pickupIndex.pickupDef.itemIndex);
 
                 if (itemdef.tier == ItemTier.VoidTier1)
@@ -544,7 +541,7 @@ namespace SimulacrumAdditions
 
         private static PickupIndex PickupCatalog_FindPickupIndex_ItemTier(On.RoR2.PickupCatalog.orig_FindPickupIndex_ItemTier orig, ItemTier tier)
         {
-            if (tier == SimuMain.ItemOrangeTierDef.tier)
+            if (tier == Const.ItemOrangeTierDef.tier)
             {
                 if (RunArtifactManager.instance)
                 {

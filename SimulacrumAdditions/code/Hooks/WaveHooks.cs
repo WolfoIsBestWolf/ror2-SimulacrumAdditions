@@ -129,9 +129,9 @@ namespace SimulacrumAdditions
             }
 
             InfiniteTowerRun run = Run.instance.GetComponent<InfiniteTowerRun>();
-            if (run.waveIndex >= SimuMain.SimuEndingStartAtXWaves && run.waveIndex % SimuMain.SimuEndingEveryXWaves == SimuMain.SimuEndingWaveRest)
+            if (run.waveIndex >= Const.SimuEndingStartAtXWaves && run.waveIndex % Const.SimuEndingEveryXWaves == Const.SimuEndingWaveRest)
             {
-                GameObject EndingPortal = DirectorCore.instance.TrySpawnObject(new DirectorSpawnRequest(SimuMain.iscSimuExitPortal, new DirectorPlacementRule
+                GameObject EndingPortal = DirectorCore.instance.TrySpawnObject(new DirectorSpawnRequest(Const.iscSimuExitPortal, new DirectorPlacementRule
                 {
                     minDistance = 30f,
                     maxDistance = 35f,
@@ -202,7 +202,7 @@ namespace SimulacrumAdditions
                     float bonusBonusHPMulti = 0.5f;
                     float bonusBonusDmgMulti = 0.5f;
                     bool forcedSuperboss = false;
-                    if (waveIndex >= SimuMain.SimuForcedBossStartAtXWaves && waveIndex % SimuMain.SimuForcedBossEveryXWaves == SimuMain.SimuForcedBossWaveRest)
+                    if (waveIndex >= Const.SimuForcedBossStartAtXWaves && waveIndex % Const.SimuForcedBossEveryXWaves == Const.SimuForcedBossWaveRest)
                     {
                         forcedSuperboss = true;
                         bonusBonusHPMulti = 1f;
@@ -218,10 +218,10 @@ namespace SimulacrumAdditions
                     bool IsCharacterWave = false;
                     switch (self.name)
                     {
-                        case "InfiniteTowerWaveBossVoidElites(Clone)":
+                        case "WaveBoss_VoidElites(Clone)":
                             bonusBonusHPMulti = 3f;
                             break;
-                        case "InfiniteTowerWaveBossCharacters(Clone)":
+                        case "WaveBoss_Characters(Clone)":
                             bonusBonusHPMulti = 1.2f;
                             IsCharacterWave = true;
                             if (waveIndex > 29)
@@ -309,34 +309,35 @@ namespace SimulacrumAdditions
                             bool hasNoHP = true;
                             bool hasNoDmg = true;
                             bool hasNoTP = true;
-                            for (int i = 0; i < self.spawnList[list].spawnCard.itemsToGrant.Length; i++)
+                            var grant = self.spawnList[list].spawnCard.itemsToGrant;
+                            for (int i = 0; i < grant.Length; i++)
                             {
-                                if (self.spawnList[list].spawnCard.itemsToGrant[i].itemDef == RoR2Content.Items.BoostHp)
+                                if (grant[i].itemDef == RoR2Content.Items.BoostHp)
                                 {
                                     hasNoHP = false;
-                                    self.spawnList[list].spawnCard.itemsToGrant[i].count = grantHp;
+                                    grant[i].count = grantHp;
                                 }
-                                else if (self.spawnList[list].spawnCard.itemsToGrant[i].itemDef == RoR2Content.Items.BoostDamage)
+                                else if (grant[i].itemDef == RoR2Content.Items.BoostDamage)
                                 {
                                     hasNoDmg = false;
-                                    self.spawnList[list].spawnCard.itemsToGrant[i].count = grantDamage;
+                                    grant[i].count = grantDamage;
                                 }
-                                else if (self.spawnList[list].spawnCard.itemsToGrant[i].itemDef == RoR2Content.Items.TeleportWhenOob)
+                                else if (grant[i].itemDef == RoR2Content.Items.TeleportWhenOob)
                                 {
                                     hasNoTP = false;
                                 }
                             }
                             if (hasNoHP)
                             {
-                                self.spawnList[list].spawnCard.itemsToGrant = self.spawnList[list].spawnCard.itemsToGrant.Add(new ItemCountPair { itemDef = RoR2Content.Items.BoostHp, count = grantHp });
+                                grant = grant.Add(new ItemCountPair { itemDef = RoR2Content.Items.BoostHp, count = grantHp });
                             }
                             if (hasNoDmg)
                             {
-                                self.spawnList[list].spawnCard.itemsToGrant = self.spawnList[list].spawnCard.itemsToGrant.Add(new ItemCountPair { itemDef = RoR2Content.Items.BoostDamage, count = grantDamage });
+                                grant = grant.Add(new ItemCountPair { itemDef = RoR2Content.Items.BoostDamage, count = grantDamage });
                             }
                             if (hasNoTP)
                             {
-                                self.spawnList[list].spawnCard.itemsToGrant = self.spawnList[list].spawnCard.itemsToGrant.Add(new ItemCountPair { itemDef = RoR2Content.Items.TeleportWhenOob, count = 1 });
+                                grant = grant.Add(new ItemCountPair { itemDef = RoR2Content.Items.TeleportWhenOob, count = 1 });
                             }
 
                             /*foreach (ItemCountPair itemPair in self.spawnList[0].spawnCard.itemsToGrant)
@@ -417,15 +418,12 @@ namespace SimulacrumAdditions
 
             combatDirector.minSpawnRange = 15;
             combatDirector.maxSpawnDistance = newRadius-5;
-
-
-            //
-
+ 
             if (self._waveController)
             {
                 switch (self.waveInstance.name)
                 {
-                    case "InfiniteTowerWaveBossArtifactDoppelganger(Clone)":
+                    case "WaveBoss_ArtifactDoppelganger(Clone)":
                         if (NetworkServer.active)
                         {
                             RoR2.Artifacts.DoppelgangerInvasionManager.PerformInvasion(self.bossRewardRng);
@@ -446,17 +444,16 @@ namespace SimulacrumAdditions
                             }
                         }
                         break;
-                    case "InfiniteTowerWaveBossBrother(Clone)":
+                    case "InfiniteTowerWaveWaveBossBrother(Clone)":
                         self.waveInstance.AddComponent<PhaseCounter>().phase = 3;
                         break;
-                    case "InfiniteTowerWaveBossVoidElites(Clone)":
+                    case "WaveBoss_VoidElites(Clone)":
                         self.waveInstance.GetComponents<CombatDirector>()[1].monsterCredit *= System.Math.Max(0.9f, ((self.waveIndex / 10) + 1f) * 0.24f);
                         break;
                     case "InfiniteTowerWaveHeresy(Clone)":
                         if (NetworkServer.active)
                         {
-                            int decide = WRect.random.Next(0, 2);
-                            if (decide == 0)
+                            if (self.runRNG.nextBool)
                             {
                                 self.enemyInventory.GiveItem(RoR2Content.Items.LunarPrimaryReplacement);
                                 self.enemyInventory.GiveItem(ItemHelpers.ITDamageDown, 50); //Later waves will have too much damage anyways
@@ -752,7 +749,7 @@ namespace SimulacrumAdditions
 
                     }
                 }
-                else if (self.hasEnabledEnemyIndicators && master.masterIndex == SimuMain.IndexAffixHealingCore)
+                else if (self.hasEnabledEnemyIndicators && master.masterIndex == Const.IndexAffixHealingCore)
                 {
                     self.combatSquad.RemoveMember(master);
                 }

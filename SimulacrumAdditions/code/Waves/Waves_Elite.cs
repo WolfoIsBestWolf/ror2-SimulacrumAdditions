@@ -18,21 +18,18 @@ namespace SimulacrumAdditions
             GameObject InfiniteTowerWaveLunarElitesUI = PrefabAPI.InstantiateClone(Const.LunarWaveUI, "InfiniteTowerCurrentLunarEliteWaveUI", false);
 
             InfiniteTowerWaveLunarElites.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
-            InfiniteTowerWaveLunarElites.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITBasicBonusLunar;
+            InfiniteTowerWaveLunarElites.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Const.dtITBasicBonusLunar;
 
             InfiniteTowerWaveLunarElites.GetComponent<CombatDirector>().eliteBias = 1f;
             InfiniteTowerWaveLunarElites.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWaveLunarElitesUI;
             InfiniteTowerWaveLunarElites.AddComponent<SimulacrumEliteWaves>().lunarOnly = true;
-
-            Texture2D texITWaveLunarEliteIcon = Assets.Bundle.LoadAsset<Texture2D>("Assets/Simulacrum/Wave/waveLunarWhite.png");
-            Sprite texITWaveLunarEliteIconS = Sprite.Create(texITWaveLunarEliteIcon, WRect.rec64, WRect.half);
-
-            InfiniteTowerWaveLunarElitesUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = texITWaveLunarEliteIconS;
+  
+            InfiniteTowerWaveLunarElitesUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = Assets.Bundle.LoadAsset<Sprite>("Assets/Simulacrum/Wave/waveLunarWhite.png");
             InfiniteTowerWaveLunarElitesUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_LUNARELITE";
             InfiniteTowerWaveLunarElitesUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_LUNARELITE";
             //InfiniteTowerCurrentLunarEliteWaveUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0.3f,0.6f,1f);
 
-            InfiniteTowerWaveCategory.WeightedWave ITLunarElites = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveLunarElites, weight = 6.5f, prerequisites = SimuMain.AfterWave5Prerequisite };
+            InfiniteTowerWaveCategory.WeightedWave ITLunarElites = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveLunarElites, weight = 6.5f, prerequisites = Const.AfterWave5Prerequisite };
             #endregion
             #region Voidtouched Elites
             //
@@ -42,7 +39,7 @@ namespace SimulacrumAdditions
 
             InfiniteTowerWaveVoidElites.GetComponent<CombatDirector>().eliteBias = 1f;
             InfiniteTowerWaveVoidElites.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
-            InfiniteTowerWaveVoidElites.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITBasicBonusVoid;
+            InfiniteTowerWaveVoidElites.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Const.dtITBasicBonusVoid;
             InfiniteTowerWaveVoidElites.AddComponent<SimulacrumEliteWaves>().voidOnly = true;
 
             BuffDef bdEliteVoid = Addressables.LoadAssetAsync<BuffDef>(key: "RoR2/DLC1/EliteVoid/bdEliteVoid.asset").WaitForCompletion();
@@ -52,41 +49,41 @@ namespace SimulacrumAdditions
             InfiniteTowerCurrentVoidEliteWaveUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color = new Color(1f, 0.8f, 1f, 1);
             InfiniteTowerCurrentVoidEliteWaveUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = bdEliteVoid.buffColor;
 
-            InfiniteTowerWaveCategory.WeightedWave ITVoidElites = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveVoidElites, weight = 6.5f, prerequisites = SimuMain.AfterWave5Prerequisite };
+            InfiniteTowerWaveCategory.WeightedWave ITVoidElites = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveVoidElites, weight = 6.5f, prerequisites = Const.AfterWave5Prerequisite };
             #endregion
             #region (Boss) Lunar + Void
             //LunarVoidBoss
-            GameObject InfiniteTowerWaveBossLunarAndVoidElites = PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveBoss.prefab").WaitForCompletion(), "InfiniteTowerWaveBossLunarAndVoidElites", true);
-            GameObject InfiniteTowerWaveBossLunarAndVoidElitesUI = PrefabAPI.InstantiateClone(Const.VoidWaveUI, "InfiniteTowerWaveBossLunarAndVoidElites", false);
+            GameObject WaveBoss_LunarAndVoidElites = PrefabAPI.InstantiateClone(Const.BossWave, "WaveBoss_LunarAndVoidElites", true);
+            GameObject WaveBoss_LunarAndVoidElitesUI = PrefabAPI.InstantiateClone(Const.VoidWaveUI, "WaveBoss_LunarAndVoidElites", false);
 
-            InfiniteTowerWaveBossLunarAndVoidElites.GetComponent<InfiniteTowerWaveController>().immediateCreditsFraction = 0.15f;
-            InfiniteTowerWaveBossLunarAndVoidElites.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier2;
-            InfiniteTowerWaveBossLunarAndVoidElites.GetComponent<InfiniteTowerWaveController>().rewardDropTable = SimuMain.dtITBossGreenVoid;
-            InfiniteTowerWaveBossLunarAndVoidElites.AddComponent<SimulacrumExtrasHelper>().rewardDisplayTier = ItemTier.Lunar;
-            InfiniteTowerWaveBossLunarAndVoidElites.GetComponent<SimulacrumExtrasHelper>().rewardDropTable = SimuMain.dtITHeresy;
-            InfiniteTowerWaveBossLunarAndVoidElites.GetComponent<SimulacrumExtrasHelper>().newRadius = 80;
-            InfiniteTowerWaveBossLunarAndVoidElites.AddComponent<SimulacrumEliteWaves>().lunarPlusVoid = true;
+            WaveBoss_LunarAndVoidElites.GetComponent<InfiniteTowerWaveController>().immediateCreditsFraction = 0.15f;
+            WaveBoss_LunarAndVoidElites.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier2;
+            WaveBoss_LunarAndVoidElites.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Const.dtITBossGreenVoid;
+            WaveBoss_LunarAndVoidElites.AddComponent<SimulacrumExtrasHelper>().rewardDisplayTier = ItemTier.Lunar;
+            WaveBoss_LunarAndVoidElites.GetComponent<SimulacrumExtrasHelper>().rewardDropTable = Const.dtITHeresy;
+            WaveBoss_LunarAndVoidElites.GetComponent<SimulacrumExtrasHelper>().newRadius = 80;
+            WaveBoss_LunarAndVoidElites.AddComponent<SimulacrumEliteWaves>().lunarPlusVoid = true;
 
-            InfiniteTowerWaveBossLunarAndVoidElites.GetComponent<CombatDirector>().eliteBias = 0.75f;
-            InfiniteTowerWaveBossLunarAndVoidElites.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWaveBossLunarAndVoidElitesUI;
+            WaveBoss_LunarAndVoidElites.GetComponent<CombatDirector>().eliteBias = 0.75f;
+            WaveBoss_LunarAndVoidElites.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = WaveBoss_LunarAndVoidElitesUI;
 
-            //InfiniteTowerWaveBossLunarAndVoidElitesUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "Wave {0} - Boss Augment of Duality";
-            InfiniteTowerWaveBossLunarAndVoidElitesUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BOSS_LUNARVOIDELITE";
-            InfiniteTowerWaveBossLunarAndVoidElitesUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BOSS_LUNARVOIDELITE";
-            InfiniteTowerWaveBossLunarAndVoidElitesUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 1f, 1f, 1);
-            //InfiniteTowerWaveBossLunarAndVoidElitesUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 1f, 1f, 1);
-            //InfiniteTowerWaveBossLunarAndVoidElitesUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color(1f, 0.8f, 0.9f, 1);
+            //WaveBoss_LunarAndVoidElitesUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "Wave {0} - Boss Augment of Duality";
+            WaveBoss_LunarAndVoidElitesUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BOSS_LUNARVOIDELITE";
+            WaveBoss_LunarAndVoidElitesUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BOSS_LUNARVOIDELITE";
+            WaveBoss_LunarAndVoidElitesUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 1f, 1f, 1);
+            //WaveBoss_LunarAndVoidElitesUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 1f, 1f, 1);
+            //WaveBoss_LunarAndVoidElitesUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color(1f, 0.8f, 0.9f, 1);
 
-            InfiniteTowerWaveBossLunarAndVoidElitesUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color = new Color(1f, 0.8f, 1f, 1);
-            GameObject.Instantiate(InfiniteTowerWaveBossLunarAndVoidElitesUI.transform.GetChild(0).GetChild(0).gameObject, InfiniteTowerWaveBossLunarAndVoidElitesUI.transform.GetChild(0));
-            InfiniteTowerWaveBossLunarAndVoidElitesUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color = new Color(0.6f, 0.8f, 1f, 1);
-            InfiniteTowerWaveBossLunarAndVoidElitesUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = texITWaveLunarEliteIconS;
+            WaveBoss_LunarAndVoidElitesUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color = new Color(1f, 0.8f, 1f, 1);
+            GameObject.Instantiate(WaveBoss_LunarAndVoidElitesUI.transform.GetChild(0).GetChild(0).gameObject, WaveBoss_LunarAndVoidElitesUI.transform.GetChild(0));
+            WaveBoss_LunarAndVoidElitesUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color = new Color(0.6f, 0.8f, 1f, 1);
+            WaveBoss_LunarAndVoidElitesUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = Assets.Bundle.LoadAsset<Sprite>("Assets/Simulacrum/Wave/waveLunarWhite.png");
 
-            InfiniteTowerWaveCategory.WeightedWave BossLunarVoids = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveBossLunarAndVoidElites, weight = 6f, prerequisites = SimuMain.AfterWave5Prerequisite };
-            SimuMain.ITBossWaves.wavePrefabs = SimuMain.ITBossWaves.wavePrefabs.Add(BossLunarVoids);
+            InfiniteTowerWaveCategory.WeightedWave BossLunarVoids = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = WaveBoss_LunarAndVoidElites, weight = 6f, prerequisites = Const.AfterWave5Prerequisite };
+             Const.ITBossWaves.wavePrefabs = Const.ITBossWaves.wavePrefabs.Add(BossLunarVoids);
 #endregion
 
-            SimuMain.ITBasicWaves.wavePrefabs = SimuMain.ITBasicWaves.wavePrefabs.Add(ITLunarElites, ITVoidElites);
+            Const.ITBasicWaves.wavePrefabs = Const.ITBasicWaves.wavePrefabs.Add(ITLunarElites, ITVoidElites);
         }
 
 

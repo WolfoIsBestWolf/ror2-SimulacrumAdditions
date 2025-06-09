@@ -31,8 +31,8 @@ namespace SimulacrumAdditions
         public static ConfigEntry<bool> cfgNewEnemiesVisible;
         public static ConfigEntry<bool> cfgDumpInfo;
         public static ConfigEntry<bool> cfgVoidCoins;
-        public static ConfigEntry<bool> cfgEnableArtifactAugments;
-        public static ConfigEntry<bool> cfgEnableArtifactStages;
+        //public static ConfigEntry<bool> cfgEnableArtifactAugments;
+        //public static ConfigEntry<bool> cfgEnableArtifactStages;
         public static ConfigEntry<bool> cfgMusicSuperBoss;
         public static ConfigEntry<bool> cfgSacrificeBalance;
 
@@ -47,9 +47,8 @@ namespace SimulacrumAdditions
         public static ConfigEntry<float> ArtifactOfRealityBonusRadius;
         public static ConfigEntry<float> cfgCrabRadius;
         public static ConfigEntry<float> cfgCrabRadiusPerPlayer;
-        public static ConfigEntry<bool> cfgWarbannerOnBoss;
-        //public static ConfigEntry<bool> cfgBorderForCompleted;
-
+        //public static ConfigEntry<bool> cfgWarbannerOnBoss;
+       
         public static ConfigEntry<int> cfgSimuEndingStartAtXWaves;
         public static ConfigEntry<int> cfgSimuEndingEveryXWaves;
         public static ConfigEntry<int> cfgSuperBossStartAtXWaves;
@@ -60,10 +59,8 @@ namespace SimulacrumAdditions
         public static void RiskConfig()
         {
             ModSettingsManager.SetModDescription("Simulacrum Gaming");
-            Sprite texITWaveGupIconBasicS = Sprite.Create(Assets.Bundle.LoadAsset<Texture2D>("Assets/Simulacrum/Wave/waveGupYellow.png"), WRect.rec64, WRect.half);
-            RiskOfOptions.ModSettingsManager.SetModIcon(texITWaveGupIconBasicS);
+            ModSettingsManager.SetModIcon(Assets.Bundle.LoadAsset<Sprite>("Assets/Simulacrum/Wave/waveGupYellow.png"));
 
-            ModSettingsManager.AddOption(new CheckBoxOption(ResetStatsButton));
             ModSettingsManager.AddOption(new CheckBoxOption(cfgNewEnemiesVisible, true));
             ModSettingsManager.AddOption(new CheckBoxOption(cfgVoidCoins));
             ModSettingsManager.AddOption(new CheckBoxOption(cfgVoidTripleAllTier, true));
@@ -79,10 +76,19 @@ namespace SimulacrumAdditions
 
 
             ModSettingsManager.AddOption(new CheckBoxOption(cfgCrabSpeedOnLaterWaves));
+            ModSettingsManager.AddOption(new CheckBoxOption(cfgMusicSuperBoss));
+//ModSettingsManager.AddOption(new CheckBoxOption(cfgMakeSpecialWavesMoreCommon));
+ModSettingsManager.AddOption(new CheckBoxOption(cfgAwaitTravel));
 
-           
-           
-         
+ModSettingsManager.AddOption(new CheckBoxOption(cfgWaveOnEndScreen));
+ModSettingsManager.AddOption(new FloatFieldOption(ArtifactOfRealityBonusRadius));
+ModSettingsManager.AddOption(new FloatFieldOption(cfgCrabRadius));
+ModSettingsManager.AddOption(new FloatFieldOption(cfgCrabRadiusPerPlayer));
+ 
+
+
+
+            ModSettingsManager.AddOption(new CheckBoxOption(ResetStatsButton));
 
 
         }
@@ -94,7 +100,7 @@ namespace SimulacrumAdditions
                 "Main", 
                 "Reset Wave Count Button", 
                 false, 
-                "Add a button on the Simulacrum select screen to reset a specific characters wave count."
+                "Add buttons to reset wave count or set it to 50."
             );
 
             cfgMusicSuperBoss = ConfigFileUNSORTED.Bind(
@@ -119,8 +125,8 @@ namespace SimulacrumAdditions
  
             cfgNewEnemiesVisible = ConfigFileUNSORTED.Bind(
                 "Main",
-                "Logbook Entries for Simu only bosses",
-                false,
+                "Logbook Entries for Simu Bosses",
+                true,
                 "Add reskins of enemies added by mod to Logbook."
             );
             cfgDifferentTeleportEffect = ConfigFileUNSORTED.Bind(
@@ -170,7 +176,7 @@ namespace SimulacrumAdditions
             );
             //
             //Artifacts
-            cfgEnableArtifactAugments = ConfigFileUNSORTED.Bind(
+           /* cfgEnableArtifactAugments = ConfigFileUNSORTED.Bind(
                 "Main : Artifacts",
                 "Enable Artifact of Augments",
                 true,
@@ -181,7 +187,7 @@ namespace SimulacrumAdditions
                 "Enable Artifact of Reality",
                 true,
                 "An Artifact that makes the game mode use normal stages instead of simu variants"
-            );
+            );*/
             ArtifactOfRealityBonusRadius = ConfigFileUNSORTED.Bind(
                 "Main : Artifacts",
                 "Artifact of Reality : Larger Radius",
@@ -267,8 +273,7 @@ namespace SimulacrumAdditions
                 false,
                 "Dump wave info on startup in log"
             );
-
-            RiskConfig();
+ 
 
         }
 
