@@ -1,5 +1,8 @@
 ## Changelog:
 ```
+v2.4.1
+Last minute changed left in startup error.
+Left in debug spam on startup.
 v2.4.0
 Fixed for Dlc2.4
 Void Suppressors can rarely spawn any time in Simu.

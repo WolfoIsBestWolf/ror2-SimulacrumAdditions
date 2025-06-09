@@ -8,8 +8,7 @@ namespace SimulacrumAdditions
     {
         public static T[] Add<T>(this T[] array, T item)
         {
-            Debug.Log(array.Length);
-            HG.ArrayUtils.ArrayAppend(ref array, item); Debug.Log(array.Length);
+            HG.ArrayUtils.ArrayAppend(ref array, item);
             return array;
         }
         public static T[] Add<T>(this T[] array, params T[] items)

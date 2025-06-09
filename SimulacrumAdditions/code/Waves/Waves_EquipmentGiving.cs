@@ -26,7 +26,7 @@ namespace SimulacrumAdditions
             //InfiniteTowerWaveJetpack.GetComponent<CombatDirector>().skipSpawnIfTooCheap = false;
             InfiniteTowerWaveJetpack.AddComponent<SimuEquipmentWaveHelper>().variant = SimuEquipmentWaveHelper.Variant.Jetpack;
             InfiniteTowerWaveJetpack.AddComponent<SetGravity>().newGravity = -20;
-            WavesMain.orangeWaves.Add(InfiniteTowerWaveJetpackUI);
+            WavesMain.orangeWaves.Add(InfiniteTowerWaveJetpack);
 
             InfiniteTowerWaveJetpack.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWaveJetpackUI;
             InfiniteTowerWaveJetpackUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_FLYING";
