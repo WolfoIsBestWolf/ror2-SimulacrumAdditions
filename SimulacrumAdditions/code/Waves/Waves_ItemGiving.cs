@@ -233,7 +233,7 @@ namespace SimulacrumAdditions
 
         private static void FixHeresyForEnemies(On.RoR2.GenericSkill.orig_SetSkillOverride orig, GenericSkill self, object source, RoR2.Skills.SkillDef skillDef, GenericSkill.SkillOverridePriority priority)
         {
-            if (priority == GenericSkill.SkillOverridePriority.Replacement && !self.characterBody.isPlayerControlled && self.stateMachine)
+            if (priority == GenericSkill.SkillOverridePriority.Replacement && self.characterBody != null && !self.characterBody.isPlayerControlled && self.stateMachine)
             {
                 //Debug.Log(source);
                 EntityStateMachine stateMachine = self.stateMachine;
