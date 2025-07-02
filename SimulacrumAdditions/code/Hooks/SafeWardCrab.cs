@@ -1,13 +1,6 @@
-using BepInEx;
-using MonoMod.Cil;
-using R2API;
 using R2API.Utils;
 using RoR2;
-using RoR2.ExpansionManagement;
-using System.Security;
-using System.Security.Permissions;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.Networking;
 
 namespace SimulacrumAdditions
@@ -128,7 +121,7 @@ namespace SimulacrumAdditions
             else
             {
                 self.radius = newRadius;
-            }      
+            }
             orig(self);
         }
 
@@ -144,7 +137,7 @@ namespace SimulacrumAdditions
             }
             else
             {
-                self.radius = baseRadius/2;
+                self.radius = baseRadius / 2;
             }
             orig(self);
 
@@ -189,7 +182,7 @@ namespace SimulacrumAdditions
             {
                 newRadius = baseRadius;
             }
-            else if(self.zone && self.zone.radius > newRadius)
+            else if (self.zone && self.zone.radius > newRadius)
             {
                 VoidSafeWard_Hooks.RadiusShrinker shrink = self.gameObject.AddComponent<VoidSafeWard_Hooks.RadiusShrinker>();
                 shrink.originalRadius = self.zone.radius;

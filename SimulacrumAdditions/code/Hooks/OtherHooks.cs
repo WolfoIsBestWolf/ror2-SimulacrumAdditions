@@ -1,18 +1,9 @@
-using BepInEx;
-using MonoMod.Cil;
-using R2API;
-using R2API.Utils;
 using RoR2;
-using RoR2.ExpansionManagement;
+using RoR2.Stats;
+using RoR2.UI;
 using System.Collections.Generic;
-using System.Security.Permissions;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.AddressableAssets;
-using UnityEngine.Networking;
-using RoR2.UI;
-using RoR2.Stats;
-using RoR2.UI.LogBook;
 
 namespace SimulacrumAdditions
 {
@@ -23,19 +14,13 @@ namespace SimulacrumAdditions
         {
             //Fix ORANGE tier
             On.RoR2.PickupCatalog.FindPickupIndex_ItemTier += PickupCatalog_FindPickupIndex_ItemTier;
-            
+
             //Give Simu Scavs Void Items
             On.RoR2.ScavengerItemGranter.Start += SimuGiveScavVoidItems;
 
             //Fake Ass Ending Overwrite
             On.RoR2.EventFunctions.BeginEnding += SimulacrumEndingBeginEnding;
-
-            //Wave on End screen
-            if (WConfig.cfgWaveOnEndScreen.Value)
-            {
-                On.RoR2.UI.GameEndReportPanelController.SetDisplayData += GameEndReportPanelController_SetDisplayData;
-            }
-
+ 
             //Reset button
             On.RoR2.UI.InfiniteTowerMenuController.OnEventSystemDiscovered += InfiniteTowerMenuController_OnEventSystemDiscovered;
 
@@ -288,7 +273,7 @@ namespace SimulacrumAdditions
                         statSheet.SetStatValueFromString(PerBodyStatDef.highestInfiniteTowerWaveReachedNormal.FindStatDef(bodyName ?? ""), "0");
                         statSheet.SetStatValueFromString(PerBodyStatDef.highestInfiniteTowerWaveReachedHard.FindStatDef(bodyName ?? ""), "0");
 
-                    } 
+                    }
                 }
             }
 
@@ -396,99 +381,12 @@ namespace SimulacrumAdditions
 
 
         }
-
-
-        private static void GameEndReportPanelController_SetDisplayData(On.RoR2.UI.GameEndReportPanelController.orig_SetDisplayData orig, GameEndReportPanelController self, GameEndReportPanelController.DisplayData newDisplayData)
-        {
-            orig(self, newDisplayData);
-            if (Run.instance && Run.instance.GetComponent<InfiniteTowerRun>())
-            {
-                LastWaveHolder lastWave = Run.instance.GetComponent<LastWaveHolder>();
-                if (!lastWave)
-                {
-                    return;
-                }
-                GameObject UI = lastWave.LatestWave;
-                if (UI)
-                {
-                    if (Run.instance.GetComponent<InfiniteTowerRun>().waveInstance)
-                    {
-                        UI = Run.instance.GetComponent<InfiniteTowerRun>().waveInstance.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab;
-                    }
-                  
-                }
-                if (UI)
-                {
-                    if (self.selectedDifficultyLabel)
-                    {
-                        if (!lastWave.UIThing)
-                        {
-
-                            GameObject newWaveSlot = Object.Instantiate(self.selectedDifficultyLabel.transform.parent.gameObject, self.selectedDifficultyLabel.transform.parent.parent);
-                            newWaveSlot.transform.SetSiblingIndex(1);
-                            lastWave.UIThing = newWaveSlot;
-
-
-                            newWaveSlot.transform.GetChild(0).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "Last Wave:";
-
-                            string waveToken = UI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token;
-                            waveToken = Language.GetString(waveToken);
-                            waveToken = string.Format(waveToken, (Run.instance as InfiniteTowerRun).waveIndex);
-                            //waveToken = "<color=#FFFFFF>" + waveToken + "</color>";
-                            newWaveSlot.transform.GetChild(2).GetComponent<RoR2.UI.LanguageTextMeshController>().token = waveToken;
-
-                            UnityEngine.UI.Image newSprite = newWaveSlot.transform.GetChild(3).GetComponent<UnityEngine.UI.Image>();
-                            UnityEngine.UI.Image waveSprite = UI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>();
-
-                            newSprite.sprite = waveSprite.sprite;
-                            newSprite.color = waveSprite.color;
-                           
-                            //Color underlin e colro
-                            newWaveSlot.transform.GetChild(2).GetComponent<RoR2.UI.HGTextMeshProUGUI>().color = UI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color;
-                            //newWaveSlot.transform.GetChild(2).GetComponent<RoR2.UI.HGTextMeshProUGUI>().m_underlineColor = UI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color;
-                            //newWaveSlot.transform.GetChild(2).GetComponent<RoR2.UI.HGTextMeshProUGUI>().fontStyle |= TMPro.FontStyles.Underline;
-                            newWaveSlot.transform.GetChild(2).SetAsLastSibling();
-
-                            try
-                            {
-                                if (UI.transform.GetChild(0).childCount == 4)
-                                {
-                                    GameObject Sprite2 = GameObject.Instantiate(newSprite.gameObject, newWaveSlot.transform);
-                                    waveSprite = UI.transform.GetChild(0).GetChild(3).GetChild(0).GetComponent<UnityEngine.UI.Image>();
-                                    newSprite = Sprite2.GetComponent<Image>();
-                                    newSprite.sprite = waveSprite.sprite;
-                                    newSprite.color = waveSprite.color;
-                                }
-                            }
-                            catch (System.Exception e)
-                            {
-
-                            }
-
-
-                            TooltipProvider toolTip = newWaveSlot.AddComponent<TooltipProvider>();
-                            toolTip.titleToken = waveToken;
-                            toolTip.titleColor = UI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color;
-                            toolTip.bodyToken = UI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token;
-                        }
-                    }
-                }
-            }
-
-        }
-
-
-        public class LastWaveHolder : MonoBehaviour
-        {
-            public GameObject UIThing;
-            public GameObject LatestWave;
-        }
-
+ 
         public static void SimulacrumEndingBeginEnding(On.RoR2.EventFunctions.orig_BeginEnding orig, EventFunctions self, GameEndingDef gameEndingDef)
         {
             if (gameEndingDef == DLC1Content.GameEndings.VoidEnding && Run.instance.GetComponent<InfiniteTowerRun>())
             {
-                orig(self, Const.InfiniteTowerEnding);
+                orig(self, Constant.InfiniteTowerEnding);
                 foreach (CharacterBody characterBody in CharacterBody.readOnlyInstancesList)
                 {
                     if (characterBody.hasEffectiveAuthority)
@@ -517,7 +415,7 @@ namespace SimulacrumAdditions
             {
                 Inventory tempinv = self.GetComponent<Inventory>();
 
-                PickupIndex pickupIndex = Const.dtAISafeRandomVoid.GenerateDrop(Run.instance.treasureRng);
+                PickupIndex pickupIndex = Constant.dtAISafeRandomVoid.GenerateDrop(Run.instance.treasureRng);
                 ItemDef itemdef = ItemCatalog.GetItemDef(pickupIndex.pickupDef.itemIndex);
 
                 if (itemdef.tier == ItemTier.VoidTier1)
@@ -541,7 +439,7 @@ namespace SimulacrumAdditions
 
         private static PickupIndex PickupCatalog_FindPickupIndex_ItemTier(On.RoR2.PickupCatalog.orig_FindPickupIndex_ItemTier orig, ItemTier tier)
         {
-            if (tier == Const.ItemOrangeTierDef.tier)
+            if (tier == Constant.ItemOrangeTierDef.tier)
             {
                 if (RunArtifactManager.instance)
                 {
@@ -561,7 +459,7 @@ namespace SimulacrumAdditions
             orig(self, pickupIndex);
         }
 
-        
+
     }
 
 

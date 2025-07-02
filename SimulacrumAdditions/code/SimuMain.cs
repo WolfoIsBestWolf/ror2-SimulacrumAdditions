@@ -1,14 +1,11 @@
 ﻿using BepInEx;
-using MonoMod.Cil;
-using R2API;
 using R2API.Utils;
 using RoR2;
-using RoR2.ExpansionManagement;
+using SimulacrumAdditions.Waves;
 using System.Security;
 using System.Security.Permissions;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.Networking;
 
 #pragma warning disable CS0618 // Type or member is obsolete
 [assembly: SecurityPermission(SecurityAction.RequestMinimum, SkipVerification = true)]
@@ -18,31 +15,31 @@ using UnityEngine.Networking;
 namespace SimulacrumAdditions
 {
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("Wolfo.SimulacrumAdditions", "SimulacrumAdditions", "2.3.8")]
+    [BepInPlugin("Wolfo.SimulacrumAdditions", "SimulacrumAdditions", "2.4.2")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
 
     public class SimuMain : BaseUnityPlugin
     {
-      
+
         public void Awake()
         {
             Assets.Init(Info);
-            WConfig.InitConfig();          
+            WConfig.InitConfig();
             if (WConfig.cfgDumpInfo.Value)
             {
-                DumpAllWaveInfo(Const.ITBasicWaves);
-                DumpAllWaveInfo(Const.ITBossWaves);
+                DumpAllWaveInfo(Constant.ITBasicWaves);
+                DumpAllWaveInfo(Constant.ITBossWaves);
             }
-            Const.MakeValues();
-            
+            ItemHelpers.MakeItems();
+            Constant.MakeValues();
+
             SimuChanges();
 
             WavesMain.Start();
             GiantGup.Start();
             SuperMegaCrab.Start();
-  
-            ItemHelpers.MakeItems();
 
+           
             ITRun_Hooks.AddHooks();
             Wave_Hooks.AddHooks();
             VoidSafeWard_Hooks.AddHooks();
@@ -54,9 +51,9 @@ namespace SimulacrumAdditions
 
             Artifact_OnlyAugments.MakeArtifact();
             Artifact_RealStages.MakeArtifact();
-        
+
             VoidCoin.MakeVoidCoin();
-            
+
             //Use Custom Simu Interactable DCCSs
             On.RoR2.SceneDirector.Start += SimulacrumDCCS.Stage_ExtraObjects;
             On.RoR2.InfiniteTowerRun.OnPrePopulateSceneServer += SimulacrumDCCS.SimuInteractableDCCSAdder;
@@ -89,7 +86,7 @@ namespace SimulacrumAdditions
                 return orig(self);
             };
 
-      
+
             On.RoR2.UI.MainMenu.MainMenuController.Start += OneTimeLateRunner;
 
             Material matAncientLoft_Water = Addressables.LoadAssetAsync<Material>(key: "RoR2/DLC1/ancientloft/matAncientLoft_Water.mat").WaitForCompletion();
@@ -103,7 +100,7 @@ namespace SimulacrumAdditions
             WConfig.RiskConfig();
         }
 
-       
+
 
         private void OneTimeLateRunner(On.RoR2.UI.MainMenu.MainMenuController.orig_Start orig, RoR2.UI.MainMenu.MainMenuController self)
         {
@@ -126,25 +123,25 @@ namespace SimulacrumAdditions
                 {
                     user.userProfile.AddUnlockToken("Logs.VoidSuperMegaCrabBody.0");
                 }
-                 
+
             }
         }
 
-   
-      
+
+
         public static void LateRunningMethod()
         {
             WavesMain.LateChanges();
-            Const.Late_MakeValues();
+            Constant.Late_MakeValues();
             AutoConfig.InitConfig();
             AutoConfig.ApplyConfig();
             RoR2Content.Items.BoostHp.hidden = true;
             if (WConfig.cfgDumpInfo.Value)
             {
-                SimuMain.DumpAllWaveInfo(Const.ITBasicWaves);
-                SimuMain.DumpAllWaveInfo(Const.ITBossWaves);
-                SimuMain.DumpAllWaveInfo(Const.ITSuperBossWaves);
-                SimuMain.DumpAllWaveInfo(Const.ITModSupportWaves);
+                SimuMain.DumpAllWaveInfo(Constant.ITBasicWaves);
+                SimuMain.DumpAllWaveInfo(Constant.ITBossWaves);
+                SimuMain.DumpAllWaveInfo(Constant.ITSuperBossWaves);
+                SimuMain.DumpAllWaveInfo(Constant.ITModSupportWaves);
             }
         }
 
@@ -176,9 +173,7 @@ namespace SimulacrumAdditions
             //Sky //Antarctic Oscillation
             itmoon.bossTrack = MTDPrelude;
 
-
-    
-
+ 
             //Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentArtifactEnigmaWaveUI.prefab").WaitForCompletion()
         }
 
@@ -189,7 +184,7 @@ namespace SimulacrumAdditions
             Debug.Log("All Simulacrum Waves : " + category.name);
             for (int i = 0; i < category.wavePrefabs.Length; i++)
             {
-                string text = "\n"+
+                string text = "\n" +
                 Language.GetString(category.wavePrefabs[i].wavePrefab.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token) + "\n" +
                 Language.GetString(category.wavePrefabs[i].wavePrefab.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token);
                 Debug.Log(text);
@@ -269,15 +264,15 @@ namespace SimulacrumAdditions
              "  Extra Weight: " + (totalWeightPre30 - defaultWeight) +
              "  Percent for Default: " + defaultWeight / totalWeightPre30);
 
-            defaultWeight = defaultWeightOG * Const.DefaultWeightMultiplier1;
+            defaultWeight = defaultWeightOG * Constant.DefaultWeightMultiplier1;
             totalWeight -= defaultWeight;
 
             Debug.Log("Total " + category.name + " Weight post 30: " + totalWeight +
              "  Extra Weight: " + (totalWeight - defaultWeight) +
              "  Percent for Default: " + defaultWeight / totalWeight);
 
-            defaultWeight = defaultWeightOG * Const.DefaultWeightMultiplier2;
-            totalWeight -= defaultWeightOG * (Const.DefaultWeightMultiplier2 - Const.DefaultWeightMultiplier1);
+            defaultWeight = defaultWeightOG * Constant.DefaultWeightMultiplier2;
+            totalWeight -= defaultWeightOG * (Constant.DefaultWeightMultiplier2 - Constant.DefaultWeightMultiplier1);
 
 
 
@@ -286,7 +281,7 @@ namespace SimulacrumAdditions
              "  Percent for Default: " + defaultWeight / totalWeight);
         }
 
-      
+
 
     }
 

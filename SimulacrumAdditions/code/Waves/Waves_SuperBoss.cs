@@ -1,11 +1,10 @@
-﻿using RoR2;
+﻿using R2API;
+using RoR2;
 //using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using R2API;
 
-namespace SimulacrumAdditions
+namespace SimulacrumAdditions.Waves
 {
     public class Waves_SuperBoss
     {
@@ -20,21 +19,21 @@ namespace SimulacrumAdditions
 
             #region Twisted Scavengers
             //Scav Lunar
-            WaveBoss_ScavLunar = PrefabAPI.InstantiateClone(Const.ScavWave, "WaveBoss_ScavLunar", true);
-            GameObject InfiniteTowerCurrentBossScavLunarWaveUI = PrefabAPI.InstantiateClone(Const.ScavWaveUI, "InfiniteTowerCurrentBossScavLunarWaveUI", false);
+            WaveBoss_ScavLunar = PrefabAPI.InstantiateClone(Constant.ScavWave, "WaveBoss_ScavLunar", true);
+            GameObject InfiniteTowerCurrentBossScavLunarWaveUI = PrefabAPI.InstantiateClone(Constant.ScavWaveUI, "InfiniteTowerCurrentBossScavLunarWaveUI", false);
             wave = WaveBoss_ScavLunar.GetComponent<InfiniteTowerExplicitSpawnWaveController>();
             wave.baseCredits = 50;
             wave.linearCreditsPerWave = 4;
             wave.secondsBeforeSuddenDeath = 120;
             wave.rewardDisplayTier = ItemTier.Tier3;
             wave.rewardDisplayTier = ItemTier.Tier3;
-            wave.rewardDropTable = Const.dtITWaveTier3;
+            wave.rewardDropTable = Constant.dtITWaveTier3;
             wave.secondsAfterWave += 7;
             WaveBoss_ScavLunar.AddComponent<SimulacrumExtrasHelper>().rewardDisplayTier = ItemTier.Lunar;
-            WaveBoss_ScavLunar.GetComponent<SimulacrumExtrasHelper>().rewardDropTable = Const.dtITLunar;
+            WaveBoss_ScavLunar.GetComponent<SimulacrumExtrasHelper>().rewardDropTable = Constant.dtITLunar;
             WaveBoss_ScavLunar.GetComponent<SimulacrumExtrasHelper>().newRadius = 110;
             WaveBoss_ScavLunar.AddComponent<SimulacrumEliteWaves>().lunarOnly = true;
- 
+
             SimuExplicitStats simuExplicitStats = WaveBoss_ScavLunar.AddComponent<SimuExplicitStats>();
             simuExplicitStats.damageBonusMulti = 0.4f;
             simuExplicitStats.hpBonusMulti = 0.4f;
@@ -46,13 +45,13 @@ namespace SimulacrumAdditions
             InfiniteTowerCurrentBossScavLunarWaveUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = Assets.Bundle.LoadAsset<Sprite>("Assets/Simulacrum/Wave/waveScavLunar.png");
             InfiniteTowerCurrentBossScavLunarWaveUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0.6f, 0.8f, 1f, 1);
 
-            InfiniteTowerWaveCategory.WeightedWave ITBossScavLunar = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = WaveBoss_ScavLunar, weight = ITSpecialBossWaveWeight * 3f, prerequisites = Const.StartWave35Prerequisite };
+            InfiniteTowerWaveCategory.WeightedWave ITBossScavLunar = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = WaveBoss_ScavLunar, weight = ITSpecialBossWaveWeight * 3f, prerequisites = Constant.StartWave35Prerequisite };
             //
-#endregion
+            #endregion
             #region Voidling
             //Voidling
-            GameObject WaveBoss_VoidRaidCrab = PrefabAPI.InstantiateClone(Const.ScavWave, "WaveBoss_VoidRaidCrab", true);
-            GameObject InfiniteTowerCurrentBossVoidRaidWaveUI = PrefabAPI.InstantiateClone(Const.VoidWaveUI, "InfiniteTowerCurrentBossVoidRaidWaveUI", false);
+            GameObject WaveBoss_VoidRaidCrab = PrefabAPI.InstantiateClone(Constant.ScavWave, "WaveBoss_VoidRaidCrab", true);
+            GameObject InfiniteTowerCurrentBossVoidRaidWaveUI = PrefabAPI.InstantiateClone(Constant.VoidWaveUI, "InfiniteTowerCurrentBossVoidRaidWaveUI", false);
             wave = WaveBoss_VoidRaidCrab.GetComponent<InfiniteTowerExplicitSpawnWaveController>();
 
             CharacterSpawnCard cscMiniVoidRaidCrabPhase3IT = Object.Instantiate(Addressables.LoadAssetAsync<CharacterSpawnCard>(key: "RoR2/DLC1/VoidRaidCrab/cscMiniVoidRaidCrabPhase3.asset").WaitForCompletion());
@@ -67,10 +66,10 @@ namespace SimulacrumAdditions
             WaveBoss_VoidRaidCrab.GetComponent<CombatDirector>().monsterCards = SuperMegaCrab.dccsVoidFamilyNoBarnacle;
 
             wave.rewardDisplayTier = ItemTier.Tier3;
-            wave.rewardDropTable = Const.dtITWaveTier3;
+            wave.rewardDropTable = Constant.dtITWaveTier3;
             wave.secondsAfterWave += 2;
             WaveBoss_VoidRaidCrab.AddComponent<SimulacrumExtrasHelper>().rewardDisplayTier = ItemTier.VoidTier2;
-            WaveBoss_VoidRaidCrab.GetComponent<SimulacrumExtrasHelper>().rewardDropTable = Const.dtITVoid;
+            WaveBoss_VoidRaidCrab.GetComponent<SimulacrumExtrasHelper>().rewardDropTable = Constant.dtITVoid;
             WaveBoss_VoidRaidCrab.GetComponent<SimulacrumExtrasHelper>().newRadius = 160;
 
             simuExplicitStats = WaveBoss_VoidRaidCrab.AddComponent<SimuExplicitStats>();
@@ -82,12 +81,12 @@ namespace SimulacrumAdditions
             InfiniteTowerCurrentBossVoidRaidWaveUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BOSS_VOIDLING";
             InfiniteTowerCurrentBossVoidRaidWaveUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BOSS_VOIDLING";
 
-            InfiniteTowerWaveCategory.WeightedWave ITBossVoidRaidCrab = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = WaveBoss_VoidRaidCrab, weight = ITSpecialBossWaveWeight + 0.5f, prerequisites = Const.StartWave50Prerequisite };
+            InfiniteTowerWaveCategory.WeightedWave ITBossVoidRaidCrab = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = WaveBoss_VoidRaidCrab, weight = ITSpecialBossWaveWeight + 0.5f, prerequisites = Constant.StartWave50Prerequisite };
             //
-#endregion
+            #endregion
             #region Aurelionite
             //Gold Titan
-            GameObject WaveBoss_TitanGold = PrefabAPI.InstantiateClone(Const.ScavWave, "WaveBoss_TitanGold", true);
+            GameObject WaveBoss_TitanGold = PrefabAPI.InstantiateClone(Constant.ScavWave, "WaveBoss_TitanGold", true);
             GameObject InfiniteTowerCurrentBossTitanGoldWaveUI = PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentBossBrotherUI.prefab").WaitForCompletion(), "InfiniteTowerCurrentBossTitanGoldWaveUI", false);
             wave = WaveBoss_TitanGold.GetComponent<InfiniteTowerExplicitSpawnWaveController>();
 
@@ -97,7 +96,7 @@ namespace SimulacrumAdditions
             wave.spawnList[0].spawnCard = cscTitanGoldIT;
 
             wave.rewardDisplayTier = ItemTier.Tier3;
-            wave.rewardDropTable = Const.dtITWaveTier3;
+            wave.rewardDropTable = Constant.dtITWaveTier3;
             WaveBoss_TitanGold.AddComponent<SimulacrumExtrasHelper>().newRadius = 110;
             WaveBoss_TitanGold.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<DirectorCardCategorySelection>(key: "RoR2/Base/goldshores/dccsGoldshoresMonsters.asset").WaitForCompletion();
 
@@ -114,17 +113,17 @@ namespace SimulacrumAdditions
             wave.overlayEntries[1].prefab = InfiniteTowerCurrentBossTitanGoldWaveUI;
             InfiniteTowerCurrentBossTitanGoldWaveUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BOSS_TITANGOLD";
             InfiniteTowerCurrentBossTitanGoldWaveUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BOSS_TITANGOLD";
- 
+
             InfiniteTowerCurrentBossTitanGoldWaveUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = Assets.Bundle.LoadAsset<Sprite>("Assets/Simulacrum/Wave/waveGoldTitan.png");
             //InfiniteTowerCurrentBossTitanGoldWaveUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color = new Color(1f, 1f, 0.6f, 1);
             InfiniteTowerCurrentBossTitanGoldWaveUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color(1f, 0.95f, 0.55f, 1);
             InfiniteTowerCurrentBossTitanGoldWaveUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 1f, 0.4f, 1);
 
-            InfiniteTowerWaveCategory.WeightedWave ITBossTitanGold = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = WaveBoss_TitanGold, weight = ITSpecialBossWaveWeight + 0.5f, prerequisites = Const.StartWave25Prerequisite };
+            InfiniteTowerWaveCategory.WeightedWave ITBossTitanGold = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = WaveBoss_TitanGold, weight = ITSpecialBossWaveWeight + 0.5f, prerequisites = Constant.StartWave25Prerequisite };
             #endregion
             #region Sots_FalseSon
             //SEEKERS FALSE SON
-            GameObject WaveBoss_FalseSon = PrefabAPI.InstantiateClone(Const.ScavWave, "WaveBoss_FalseSon", true);
+            GameObject WaveBoss_FalseSon = PrefabAPI.InstantiateClone(Constant.ScavWave, "WaveBoss_FalseSon", true);
             GameObject InfiniteTowerCurrentBossFalseSonWaveUI = PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentBossBrotherUI.prefab").WaitForCompletion(), "InfiniteTowerCurrentBossFalseSonWaveUI", false);
             wave = WaveBoss_FalseSon.GetComponent<InfiniteTowerExplicitSpawnWaveController>();
             CharacterSpawnCard cscFalseSonIT = Object.Instantiate(Addressables.LoadAssetAsync<CharacterSpawnCard>(key: "RoR2/Base/Titan/cscTitanGold.asset").WaitForCompletion());
@@ -135,7 +134,7 @@ namespace SimulacrumAdditions
 
             //Could make it a gold fragment but idk
             wave.rewardDisplayTier = ItemTier.Tier3;
-            wave.rewardDropTable = Const.dtITBossBonusRed;
+            wave.rewardDropTable = Constant.dtITBossBonusRed;
             wave.rewardOptionCount = 5;
             WaveBoss_FalseSon.AddComponent<SimulacrumExtrasHelper>().newRadius = 110;
 
@@ -156,18 +155,18 @@ namespace SimulacrumAdditions
             InfiniteTowerCurrentBossFalseSonWaveUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BOSS_FALSESON";
             InfiniteTowerCurrentBossFalseSonWaveUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BOSS_FALSESON";
 
-           
+
             InfiniteTowerCurrentBossFalseSonWaveUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = Assets.Bundle.LoadAsset<Sprite>("Assets/Simulacrum/Wave/waveFalseSon.png");
             //InfiniteTowerCurrentBossFalseSonWaveUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color = new Color(1f, 1f, 0.6f, 1);
             InfiniteTowerCurrentBossFalseSonWaveUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color(1f, 0.95f, 0.55f, 1);
             InfiniteTowerCurrentBossFalseSonWaveUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 1f, 0.4f, 1);
 
-            InfiniteTowerWaveCategory.WeightedWave ITBossFalseSon = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = WaveBoss_FalseSon, weight = ITSpecialBossWaveWeight, prerequisites = Const.DLC2_StartWave30Prerequisite };
-#endregion
+            InfiniteTowerWaveCategory.WeightedWave ITBossFalseSon = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = WaveBoss_FalseSon, weight = ITSpecialBossWaveWeight, prerequisites = Constant.DLC2_StartWave30Prerequisite };
+            #endregion
 
             #region SuperRoboBall
-            GameObject WaveBoss_SuperRoboBallBoss = PrefabAPI.InstantiateClone(Const.ScavWave, "WaveBoss_SuperRoboBallBoss", true);
-            GameObject InfiniteTowerCurrentBossSuperRoboBallBossWaveUI = PrefabAPI.InstantiateClone(Const.BossWaveUI, "InfiniteTowerCurrentBossSuperRoboBallBossWaveUI", false);
+            GameObject WaveBoss_SuperRoboBallBoss = PrefabAPI.InstantiateClone(Constant.ScavWave, "WaveBoss_SuperRoboBallBoss", true);
+            GameObject InfiniteTowerCurrentBossSuperRoboBallBossWaveUI = PrefabAPI.InstantiateClone(Constant.BossWaveUI, "InfiniteTowerCurrentBossSuperRoboBallBossWaveUI", false);
             wave = WaveBoss_SuperRoboBallBoss.GetComponent<InfiniteTowerExplicitSpawnWaveController>();
 
             CharacterSpawnCard cscSuperRoboBallBossIT = Object.Instantiate(Addressables.LoadAssetAsync<CharacterSpawnCard>(key: "RoR2/Base/RoboBallBoss/cscSuperRoboBallBoss.asset").WaitForCompletion());
@@ -181,7 +180,7 @@ namespace SimulacrumAdditions
             wave.secondsBeforeSuddenDeath = 120f;
 
             wave.rewardDisplayTier = ItemTier.Tier3;
-            wave.rewardDropTable = Const.dtITWaveTier3;
+            wave.rewardDropTable = Constant.dtITWaveTier3;
 
             WaveBoss_SuperRoboBallBoss.AddComponent<SimulacrumExtrasHelper>().newRadius = 110;
             WaveBoss_SuperRoboBallBoss.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<DirectorCardCategorySelection>(key: "RoR2/Base/shipgraveyard/dccsShipgraveyardMonstersDLC1.asset").WaitForCompletion();
@@ -195,18 +194,18 @@ namespace SimulacrumAdditions
 
             InfiniteTowerCurrentBossSuperRoboBallBossWaveUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BOSS_SUPERBALL";
             InfiniteTowerCurrentBossSuperRoboBallBossWaveUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BOSS_SUPERBALL";
- 
+
             InfiniteTowerCurrentBossSuperRoboBallBossWaveUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = Assets.Bundle.LoadAsset<Sprite>("Assets/Simulacrum/Wave/waveLunarWhite.png");
             InfiniteTowerCurrentBossSuperRoboBallBossWaveUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color = new Color(0f, 1f, 0.76f, 1);
             InfiniteTowerCurrentBossSuperRoboBallBossWaveUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0f, 0.9f, 0.6f, 1);
             InfiniteTowerCurrentBossSuperRoboBallBossWaveUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color(0f, 0.6f, 0.6f, 1);
 
-            InfiniteTowerWaveCategory.WeightedWave ITBossSuperRoboBallBoss = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = WaveBoss_SuperRoboBallBoss, weight = ITSpecialBossWaveWeight + 0.5f, prerequisites = Const.StartWave25Prerequisite };
+            InfiniteTowerWaveCategory.WeightedWave ITBossSuperRoboBallBoss = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = WaveBoss_SuperRoboBallBoss, weight = ITSpecialBossWaveWeight + 0.5f, prerequisites = Constant.StartWave25Prerequisite };
             #endregion
 
-             Const.ITBossWaves.wavePrefabs = Const.ITBossWaves.wavePrefabs.Add(ITBossScavLunar, ITBossVoidRaidCrab, ITBossSuperRoboBallBoss, ITBossTitanGold, ITBossFalseSon);
+            Constant.ITBossWaves.wavePrefabs = Constant.ITBossWaves.wavePrefabs.Add(ITBossScavLunar, ITBossVoidRaidCrab, ITBossSuperRoboBallBoss, ITBossTitanGold, ITBossFalseSon);
             ITBossTitanGold.weight = 0.3f;
-            Const.ITSuperBossWaves.wavePrefabs = Const.ITSuperBossWaves.wavePrefabs.Add(ITBossScavLunar, ITBossVoidRaidCrab, ITBossTitanGold, ITBossFalseSon); //ITBossSuperRoboBallBoss
+            Constant.ITSuperBossWaves.wavePrefabs = Constant.ITSuperBossWaves.wavePrefabs.Add(ITBossScavLunar, ITBossVoidRaidCrab, ITBossTitanGold, ITBossFalseSon); //ITBossSuperRoboBallBoss
 
         }
 

@@ -1,20 +1,17 @@
-﻿using R2API;
-using RoR2;
-using RoR2.Navigation;
+﻿using RoR2;
+using System.Collections.Generic;
 //using System;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using System.Collections.Generic;
 using UnityEngine.Networking;
 
 namespace SimulacrumAdditions
 {
 
-	public class EquipmentDroneInSimulacrum : MonoBehaviour
-	{
-		private void Start()
-		{
-			CharacterMaster master = this.GetComponent<CharacterMaster>();
+    public class EquipmentDroneInSimulacrum : MonoBehaviour
+    {
+        private void Start()
+        {
+            CharacterMaster master = this.GetComponent<CharacterMaster>();
             this.gameObject.AddComponent<DevotedLemurianController>();
 
             if (master && master.teamIndex == TeamIndex.Player)
@@ -23,9 +20,9 @@ namespace SimulacrumAdditions
                 master.inventory.GiveItem(RoR2Content.Items.BoostEquipmentRecharge, 15);
                 master.inventory.GiveItem(RoR2Content.Items.BoostHp, 5);
                 UnityEngine.Object.DontDestroyOnLoad(base.gameObject);
-			}
-		}
-	}
+            }
+        }
+    }
 
     public class MultiCSC : CharacterSpawnCard
     {
@@ -82,7 +79,7 @@ namespace SimulacrumAdditions
             {
                 AnnounceEquipmentDrone(controller);
             }
-            
+
         }
 
         public static void AnnounceEquipmentDrone(InfiniteTowerExplicitSpawnWaveController self)

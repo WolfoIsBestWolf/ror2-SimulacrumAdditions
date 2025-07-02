@@ -1,11 +1,9 @@
-﻿using R2API;
-using RoR2;
-using RoR2.Navigation;
+﻿using RoR2;
+using System.Collections.Generic;
 //using System;
 using UnityEngine;
-using UnityEngine.Networking;
 using UnityEngine.AddressableAssets;
-using System.Collections.Generic;
+using UnityEngine.Networking;
 
 namespace SimulacrumAdditions
 {
@@ -54,7 +52,7 @@ namespace SimulacrumAdditions
             if (VoidChest.cost > 0)
             {
                 VoidChest.costType = (CostTypeIndex)CostIndexVoidCoinBlood;
-            }     
+            }
             LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/Chest/VoidTriple").GetComponent<PurchaseInteraction>().costType = (CostTypeIndex)CostIndexVoidCoinBlood;
             LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/Chest/VoidCoinBarrel").GetComponent<ChestBehavior>().enabled = true;
             GameObject voidSupp = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/VoidSuppressor/VoidSuppressor.prefab").WaitForCompletion();
@@ -93,7 +91,7 @@ namespace SimulacrumAdditions
             //Void Coin <color=#F4ADFA>
             //<color=#FF70FF><sprite name=\"VoidCoin\" tint=1>1 or </color><color=#CE2929>{0}% HP</color>"
             //<color=#FF24FF><sprite name=\"VoidCoin\" tint=1>1</color> or <color=#671414>{0}% HP</color>"
-           
+
             //Cost Tier Thing
             CostTypeVoidCoinBlood = new CostTypeDef();
             //CostTypeVoidCoinBlood.name = "VoidCoinOrBlood";
@@ -144,7 +142,7 @@ namespace SimulacrumAdditions
     {
         public float chance = 1f;
         public float mult = 0.6f;
-        public int coinsRemaining = 5;   
+        public int coinsRemaining = 5;
     }
 
 }

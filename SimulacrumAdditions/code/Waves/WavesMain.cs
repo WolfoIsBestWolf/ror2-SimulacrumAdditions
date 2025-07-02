@@ -2,11 +2,9 @@
 //using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
 using UnityEngine.AddressableAssets;
-using R2API;
 
-namespace SimulacrumAdditions
+namespace SimulacrumAdditions.Waves
 {
     public class WavesMain
     {
@@ -55,20 +53,20 @@ namespace SimulacrumAdditions
                 }
             }*/
 
-            for (int i = 0; i < Const.ITModSupportWaves.wavePrefabs.Length; i++)
+            for (int i = 0; i < Constant.ITModSupportWaves.wavePrefabs.Length; i++)
             {
-                GameObject wave = Const.ITModSupportWaves.wavePrefabs[i].wavePrefab;
+                GameObject wave = Constant.ITModSupportWaves.wavePrefabs[i].wavePrefab;
                 InfiniteTowerWaveController controller = wave.GetComponent<InfiniteTowerWaveController>();
 
                 switch (wave.name)
                 {
-                     case "InfiniteTowerWaveArtifactHonorAndBrigade":
+                    case "InfiniteTowerWaveArtifactHonorAndBrigade":
                         ArtifactDef SingleEliteType = ArtifactCatalog.FindArtifactDef("SingleEliteType");
                         if (SingleEliteType)
                         {
                             wave.AddComponent<ArtifactEnabler>().artifactDef = SingleEliteType;
                             wave.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = SingleEliteType.smallIconSelectedSprite;
-                            Const.ITBasicWaves.wavePrefabs = Const.ITBasicWaves.wavePrefabs.Add(Const.ITModSupportWaves.wavePrefabs[i]);
+                            Constant.ITBasicWaves.wavePrefabs = Constant.ITBasicWaves.wavePrefabs.Add(Constant.ITModSupportWaves.wavePrefabs[i]);
                         }
                         break;
                     case "InfiniteTowerWaveSS2RainbowElites":
@@ -82,7 +80,7 @@ namespace SimulacrumAdditions
                             cscEmpyreanIT.name = "cscEmpyreanIT";
                             cscEmpyreanIT.noElites = true;
                             cscEmpyreanIT.itemsToGrant = new ItemCountPair[] {
-                            new ItemCountPair { itemDef = ItemHelpers.ITHealthScaling, count = 3950}, //1000
+                            new ItemCountPair { itemDef = ItemHelpers.ITHealthUpMult, count = 3950}, //1000
                             new ItemCountPair { itemDef = RoR2Content.Items.BoostHp, count = 10}, //
                             new ItemCountPair { itemDef = RoR2Content.Items.BoostDamage, count = 40}, //80
                             new ItemCountPair { itemDef = RoR2Content.Items.AdaptiveArmor, count = 1},
@@ -98,8 +96,8 @@ namespace SimulacrumAdditions
                             wave.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList[0].spawnDistance = DirectorCore.MonsterSpawnDistance.Far;
                             controller.overlayEntries[1].prefab.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = rainbowEliteEquip.passiveBuffDef.iconSprite;
 
-                            Const.ITBasicWaves.wavePrefabs = Const.ITBasicWaves.wavePrefabs.Add(Const.ITModSupportWaves.wavePrefabs[i]);
-                        }                       
+                            Constant.ITBasicWaves.wavePrefabs = Constant.ITBasicWaves.wavePrefabs.Add(Constant.ITModSupportWaves.wavePrefabs[i]);
+                        }
                         break;
                     case "InfiniteTowerWaveArtifactSS2Cognation":
                         ArtifactDef SS2Cognation = ArtifactCatalog.FindArtifactDef("Cognation");
@@ -107,32 +105,32 @@ namespace SimulacrumAdditions
                         {
                             wave.GetComponent<ArtifactEnabler>().artifactDef = SS2Cognation;
                             wave.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = SS2Cognation.smallIconSelectedSprite;
- 
-                            Const.ITBasicWaves.wavePrefabs = Const.ITBasicWaves.wavePrefabs.Add(Const.ITModSupportWaves.wavePrefabs[i]);
+
+                            Constant.ITBasicWaves.wavePrefabs = Constant.ITBasicWaves.wavePrefabs.Add(Constant.ITModSupportWaves.wavePrefabs[i]);
                         }
                         break;
-                    /*case "WaveBoss_Direseeker":
-                        if (cscDireseeker)
-                        {
-                            CharacterSpawnCard cscDireseekerIT = Object.Instantiate(cscDireseeker);
-                            cscDireseekerIT.name = "cscDireseekerIT";
-                            cscDireseekerIT.itemsToGrant = new ItemCountPair[] { new ItemCountPair { itemDef = RoR2Content.Items.AdaptiveArmor, count = 1 } };
-                            wave.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList[0].spawnCard = cscDireseekerIT;
-                            wave.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList[0].spawnDistance = DirectorCore.MonsterSpawnDistance.Far;
-                             Const.ITBossWaves.wavePrefabs = Const.ITBossWaves.wavePrefabs.AddTW(Const.ITModSupportWaves.wavePrefabs[i]);
-                        }                
-                        break;*/
+                        /*case "WaveBoss_Direseeker":
+                            if (cscDireseeker)
+                            {
+                                CharacterSpawnCard cscDireseekerIT = Object.Instantiate(cscDireseeker);
+                                cscDireseekerIT.name = "cscDireseekerIT";
+                                cscDireseekerIT.itemsToGrant = new ItemCountPair[] { new ItemCountPair { itemDef = RoR2Content.Items.AdaptiveArmor, count = 1 } };
+                                wave.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList[0].spawnCard = cscDireseekerIT;
+                                wave.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList[0].spawnDistance = DirectorCore.MonsterSpawnDistance.Far;
+                                 Const.ITBossWaves.wavePrefabs = Const.ITBossWaves.wavePrefabs.AddTW(Const.ITModSupportWaves.wavePrefabs[i]);
+                            }                
+                            break;*/
                 }
 
             }
 
 
-            
-            GameObject defaultUI = Const.ITBasicWaves.wavePrefabs[0].wavePrefab.GetComponent<InfiniteTowerWaveController>().uiPrefab;
+
+            GameObject defaultUI = Constant.ITBasicWaves.wavePrefabs[0].wavePrefab.GetComponent<InfiniteTowerWaveController>().uiPrefab;
             Color newArticfact = new Color(1f, 0.7647f, 1.2647f, 1);
-            for (int i = 0; i < Const.ITBasicWaves.wavePrefabs.Length; i++)
+            for (int i = 0; i < Constant.ITBasicWaves.wavePrefabs.Length; i++)
             {
-                GameObject wave = Const.ITBasicWaves.wavePrefabs[i].wavePrefab;
+                GameObject wave = Constant.ITBasicWaves.wavePrefabs[i].wavePrefab;
                 InfiniteTowerWaveController controller = wave.GetComponent<InfiniteTowerWaveController>();
                 if (controller.maxSquadSize > 20)
                 {
@@ -157,21 +155,21 @@ namespace SimulacrumAdditions
                     controller.overlayEntries[1].prefab.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = newArticfact;
                 }
             }
-            for (int i = 0; i< orangeWaves.Count; i++)
+            for (int i = 0; i < orangeWaves.Count; i++)
             {
-                orangeWaves[i].GetComponent<SimulacrumExtrasHelper>().rewardDisplayTier = Const.ItemOrangeTierDef.tier;
+                orangeWaves[i].GetComponent<SimulacrumExtrasHelper>().rewardDisplayTier = Constant.ItemOrangeTierDef.tier;
             }
             orangeWaves.Clear();
 
-            for (int i = 0; i < Const.ITBossWaves.wavePrefabs.Length; i++)
+            for (int i = 0; i < Constant.ITBossWaves.wavePrefabs.Length; i++)
             {
-                GameObject wave = Const.ITBossWaves.wavePrefabs[i].wavePrefab;
+                GameObject wave = Constant.ITBossWaves.wavePrefabs[i].wavePrefab;
                 InfiniteTowerWaveController controller = wave.GetComponent<InfiniteTowerWaveController>();
                 switch (wave.name)
                 {
                     case "WaveBoss_EquipmentDrone":
                         wave.AddComponent<CardRandomizer>().cscList = Waves_SpecialGuy.CardRandomizerEquipmentDrones.cscList;
-                        wave.GetComponent<SimulacrumExtrasHelper>().rewardDisplayTier = Const.ItemOrangeTierDef.tier;
+                        wave.GetComponent<SimulacrumExtrasHelper>().rewardDisplayTier = Constant.ItemOrangeTierDef.tier;
                         break;
                 }
 
@@ -185,19 +183,19 @@ namespace SimulacrumAdditions
                 }
             }
 
-            for (int i = 0; i < Const.ITSuperBossWaves.wavePrefabs.Length; i++)
+            for (int i = 0; i < Constant.ITSuperBossWaves.wavePrefabs.Length; i++)
             {
-                if (Const.ITSuperBossWaves.wavePrefabs[i].weight > 1)
+                if (Constant.ITSuperBossWaves.wavePrefabs[i].weight > 1)
                 {
-                    Const.ITSuperBossWaves.wavePrefabs[i].weight = 1;
+                    Constant.ITSuperBossWaves.wavePrefabs[i].weight = 1;
                 }
-                GameObject wave = Const.ITSuperBossWaves.wavePrefabs[i].wavePrefab;
+                GameObject wave = Constant.ITSuperBossWaves.wavePrefabs[i].wavePrefab;
                 InfiniteTowerExplicitSpawnWaveController temp;
 
                 switch (wave.name)
                 {
                     case "InfiniteTowerWaveBrother":
-                        wave.AddComponent<SimulacrumExtrasHelper>().rewardDropTable = Const.dtITLunar;
+                        wave.AddComponent<SimulacrumExtrasHelper>().rewardDropTable = Constant.dtITLunar;
                         wave.GetComponent<SimulacrumExtrasHelper>().rewardDisplayTier = ItemTier.Lunar;
                         wave.GetComponent<SimulacrumExtrasHelper>().newRadius = 110;
                         wave.AddComponent<SimuExplicitStats>().hpBonusMulti = 2.5f;
@@ -211,10 +209,10 @@ namespace SimulacrumAdditions
                         temp.secondsBeforeSuddenDeath *= 2;
                         break;
                     case "InfiniteTowerWaveWaveBossScav":
-                        Const.ITSuperBossWaves.wavePrefabs[i].weight = 0f;
+                        Constant.ITSuperBossWaves.wavePrefabs[i].weight = 0f;
                         temp = wave.GetComponent<RoR2.InfiniteTowerExplicitSpawnWaveController>();
                         temp.rewardDisplayTier = ItemTier.Boss;
-                        temp.rewardDropTable = Const.dtITSpecialBossYellow;
+                        temp.rewardDropTable = Constant.dtITSpecialBossYellow;
                         temp.baseCredits = 100;
                         temp.linearCreditsPerWave = 3;
                         temp.secondsBeforeSuddenDeath *= 2f;
@@ -234,13 +232,13 @@ namespace SimulacrumAdditions
                         };
                         temp.spawnList[0].spawnCard = cscScav;
                         break;
-                   /*case "WaveBoss_ScavLunar":
-                        temp = wave.GetComponent<RoR2.InfiniteTowerExplicitSpawnWaveController>();
-                        CharacterSpawnCard cscScavLunarIT = Object.Instantiate(Addressables.LoadAssetAsync<CharacterSpawnCard>(key: "RoR2/Base/ScavLunar/cscScavLunar.asset").WaitForCompletion());
-                        cscScavLunarIT.name = "cscScavLunarIT";
-                        cscScavLunarIT.itemsToGrant = new ItemCountPair[] { new ItemCountPair { itemDef = RoR2Content.Items.AdaptiveArmor, count = 1 } };
-                        temp.spawnList[0].spawnCard = cscScavLunarIT;
-                        break;*/
+                        /*case "WaveBoss_ScavLunar":
+                             temp = wave.GetComponent<RoR2.InfiniteTowerExplicitSpawnWaveController>();
+                             CharacterSpawnCard cscScavLunarIT = Object.Instantiate(Addressables.LoadAssetAsync<CharacterSpawnCard>(key: "RoR2/Base/ScavLunar/cscScavLunar.asset").WaitForCompletion());
+                             cscScavLunarIT.name = "cscScavLunarIT";
+                             cscScavLunarIT.itemsToGrant = new ItemCountPair[] { new ItemCountPair { itemDef = RoR2Content.Items.AdaptiveArmor, count = 1 } };
+                             temp.spawnList[0].spawnCard = cscScavLunarIT;
+                             break;*/
                 }
             }
 
@@ -272,9 +270,9 @@ namespace SimulacrumAdditions
             AK.Wwise.State StatePhase1 = new AK.Wwise.State();
             StatePhase1.WwiseObjectReference = Phase1WW;
 
-            for (int i = 0; i < Const.ITSuperBossWaves.wavePrefabs.Length; i++)
+            for (int i = 0; i < Constant.ITSuperBossWaves.wavePrefabs.Length; i++)
             {
-                GameObject wave = Const.ITSuperBossWaves.wavePrefabs[i].wavePrefab;
+                GameObject wave = Constant.ITSuperBossWaves.wavePrefabs[i].wavePrefab;
                 switch (wave.name)
                 {
                     case "InfiniteTowerWaveWaveBossBrother":
@@ -309,8 +307,8 @@ namespace SimulacrumAdditions
         }
 
 
-        
-       }
+
+    }
 
 
 

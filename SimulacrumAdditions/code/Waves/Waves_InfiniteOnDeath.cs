@@ -1,31 +1,32 @@
-﻿using RoR2;
-//using System;
-using System.Collections.Generic;
+﻿using R2API;
+using RoR2;
 using UnityEngine;
-using UnityEngine.Networking;
 using UnityEngine.AddressableAssets;
-using R2API;
+using UnityEngine.Networking;
+using static SimulacrumAdditions.ItemHelpers;
 
-namespace SimulacrumAdditions
+namespace SimulacrumAdditions.Waves
 {
     public class Waves_InfiniteOnDeath
     {
- 
+
         internal static void MakeWaves()
         {
 
-            ItemDef Ghost = LegacyResourcesAPI.Load<ItemDef>("ItemDefs/Ghost");
-            ItemDef HealthDecay = LegacyResourcesAPI.Load<ItemDef>("ItemDefs/HealthDecay");
             BuffDef BanditSkull = LegacyResourcesAPI.Load<BuffDef>("BuffDefs/DeathMark");
             //
             #region Void Implosion Death
-            GameObject InfiniteTowerWaveDeathVoid = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveDeathVoid", true);
-            GameObject InfiniteTowerWaveDeathVoidUI = PrefabAPI.InstantiateClone(Const.VoidWaveUI, "InfiniteTowerWaveDeathVoidUI", false);
 
-            InfiniteTowerWaveDeathVoid.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Const.dtITBasicBonusVoid;
+
+            //GameObject voidDeathWave = MakeWave(BasicWave, VoidWaveUI, )
+
+            GameObject InfiniteTowerWaveDeathVoid = PrefabAPI.InstantiateClone(Constant.BasicWave, "InfiniteTowerWaveDeathVoid", true);
+            GameObject InfiniteTowerWaveDeathVoidUI = PrefabAPI.InstantiateClone(Constant.VoidWaveUI, "InfiniteTowerWaveDeathVoidUI", false);
+
+            InfiniteTowerWaveDeathVoid.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITBasicBonusVoid;
             InfiniteTowerWaveDeathVoid.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
-            InfiniteTowerWaveDeathVoid.GetComponent<InfiniteTowerWaveController>().baseCredits = 160;
-            //InfiniteTowerWaveDeathVoid.GetComponent<InfiniteTowerWaveController>().wavePeriodSeconds += 5;
+
+
             InfiniteTowerWaveDeathVoid.GetComponent<InfiniteTowerWaveController>().secondsAfterWave++;
             InfiniteTowerWaveDeathVoid.AddComponent<SimulacrumExtrasHelper>().newRadius = 90;
 
@@ -36,11 +37,11 @@ namespace SimulacrumAdditions
             cscITSuicideVoid.forbiddenFlags = RoR2.Navigation.NodeFlags.None;
             cscITSuicideVoid.hullSize = HullClassification.BeetleQueen;
             cscITSuicideVoid.itemsToGrant = new ItemCountPair[] {
-                new ItemCountPair { itemDef = ItemHelpers.ITAttackSpeedDown, count = 99 },
-                new ItemCountPair { itemDef = ItemHelpers.ITKillOnCompletion, count = 79 },
+                new ItemCountPair { itemDef = ITAttackSpeedDownMult, count = 99 },
+                new ItemCountPair { itemDef = ITKillOnCompletion, count = 79 },
                 new ItemCountPair { itemDef = Ghost, count = 1 },
                 new ItemCountPair { itemDef = HealthDecay, count = 1 },
-                new ItemCountPair { itemDef = ItemHelpers.ITDisableAllSkills, count = 1},
+                new ItemCountPair { itemDef = ITDisableAllSkills, count = 1},
             };
             DirectorCardCategorySelection dccsITSuicideWaveVoid = ScriptableObject.CreateInstance<DirectorCardCategorySelection>();
             dccsITSuicideWaveVoid.name = "dccsITSuicideWaveVoid";
@@ -74,15 +75,15 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveDeathVoidUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0.8f, 0.4f, 0.8f);
             //InfiniteTowerWaveDeathVoidUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color(0.7f, 0.3f, 0.6f, 1);
 
-            InfiniteTowerWaveCategory.WeightedWave ITDeathVoid = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveDeathVoid, weight = 5f, prerequisites = Const.StartWave11Prerequisite };
-            Const.ITBasicWaves.wavePrefabs = Const.ITBasicWaves.wavePrefabs.Add(ITDeathVoid);
+            InfiniteTowerWaveCategory.WeightedWave ITDeathVoid = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveDeathVoid, weight = 5f, prerequisites = Constant.StartWave11Prerequisite };
+            Constant.ITBasicWaves.wavePrefabs = Constant.ITBasicWaves.wavePrefabs.Add(ITDeathVoid);
             #endregion
             #region Lunar Exploder Deaths
             //
-            GameObject InfiniteTowerWaveDeathLunar = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveDeathLunar", true);
-            GameObject InfiniteTowerWaveDeathLunarUI = PrefabAPI.InstantiateClone(Const.LunarWaveUI, "InfiniteTowerWaveDeathLunarUI", false);
+            GameObject InfiniteTowerWaveDeathLunar = PrefabAPI.InstantiateClone(Constant.BasicWave, "InfiniteTowerWaveDeathLunar", true);
+            GameObject InfiniteTowerWaveDeathLunarUI = PrefabAPI.InstantiateClone(Constant.LunarWaveUI, "InfiniteTowerWaveDeathLunarUI", false);
 
-            InfiniteTowerWaveDeathLunar.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Const.dtITBasicBonusLunar;
+            InfiniteTowerWaveDeathLunar.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITBasicBonusLunar;
             InfiniteTowerWaveDeathLunar.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
             InfiniteTowerWaveDeathLunar.GetComponent<InfiniteTowerWaveController>().baseCredits = 160;
             //InfiniteTowerWaveDeathLunar.GetComponent<InfiniteTowerWaveController>().wavePeriodSeconds += 5;
@@ -96,8 +97,8 @@ namespace SimulacrumAdditions
             cscITSuicideLunar.hullSize = HullClassification.BeetleQueen;
             cscITSuicideLunar.nodeGraphType = RoR2.Navigation.MapNodeGroup.GraphType.Ground;
             cscITSuicideLunar.itemsToGrant = new ItemCountPair[] {
-                new ItemCountPair { itemDef = ItemHelpers.ITAttackSpeedDown, count = 99 },
-                new ItemCountPair { itemDef = ItemHelpers.ITKillOnCompletion, count = 78 },
+                new ItemCountPair { itemDef = ItemHelpers.ITAttackSpeedDownMult, count = 99 },
+                new ItemCountPair { itemDef = ItemHelpers.ITKillOnCompletion, count = 1 },
                 new ItemCountPair { itemDef = HealthDecay, count = 2 },
                 new ItemCountPair { itemDef = Ghost, count = 1 },
                 new ItemCountPair { itemDef = ItemHelpers.ITDisableAllSkills, count = 1},
@@ -134,15 +135,15 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveDeathLunarUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0.4f, 0.8f, 0.8f);
             //InfiniteTowerWaveDeathLunarUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color(0.7f, 0.3f, 0.6f, 1);
 
-            InfiniteTowerWaveCategory.WeightedWave ITDeathLunar = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveDeathLunar, weight = 5f, prerequisites = Const.StartWave11Prerequisite };
-            Const.ITBasicWaves.wavePrefabs = Const.ITBasicWaves.wavePrefabs.Add(ITDeathLunar);
+            InfiniteTowerWaveCategory.WeightedWave ITDeathLunar = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveDeathLunar, weight = 5f, prerequisites = Constant.StartWave11Prerequisite };
+            Constant.ITBasicWaves.wavePrefabs = Constant.ITBasicWaves.wavePrefabs.Add(ITDeathLunar);
             #endregion
             #region Mending Core Spam
             //
-            GameObject InfiniteTowerWaveDeathMendingCore = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveDeathMendingCore", true);
-            GameObject InfiniteTowerWaveDeathMendingCoreUI = PrefabAPI.InstantiateClone(Const.BasicWaveUI, "InfiniteTowerWaveDeathMendingCoreUI", false);
+            GameObject InfiniteTowerWaveDeathMendingCore = PrefabAPI.InstantiateClone(Constant.BasicWave, "InfiniteTowerWaveDeathMendingCore", true);
+            GameObject InfiniteTowerWaveDeathMendingCoreUI = PrefabAPI.InstantiateClone(Constant.BasicWaveUI, "InfiniteTowerWaveDeathMendingCoreUI", false);
 
-            InfiniteTowerWaveDeathMendingCore.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Const.dtITCategoryHealing;
+            InfiniteTowerWaveDeathMendingCore.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITCategoryHealing;
             InfiniteTowerWaveDeathMendingCore.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
             InfiniteTowerWaveDeathMendingCore.GetComponent<InfiniteTowerWaveController>().baseCredits = 160;
             //InfiniteTowerWaveDeathMendingCore.GetComponent<InfiniteTowerWaveController>().wavePeriodSeconds += 5;
@@ -156,7 +157,7 @@ namespace SimulacrumAdditions
             cscITSuicideHealing.hullSize = HullClassification.Golem;
             cscITSuicideHealing.itemsToGrant = new ItemCountPair[] {
                 new ItemCountPair { itemDef = LegacyResourcesAPI.Load<ItemDef>("ItemDefs/UseAmbientLevel"), count = 1 },
-                new ItemCountPair { itemDef = ItemHelpers.ITHealthScaling, count = 10 },
+                new ItemCountPair { itemDef = ItemHelpers.ITHealthUpMult, count = 10 },
             };
             CharacterSpawnCard cscITSuicideHealingAir = Object.Instantiate(cscITSuicideHealing);
             cscITSuicideHealingAir.name = "cscITAffixEarthHealerMasterAIR";
@@ -192,15 +193,15 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveDeathMendingCoreUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color32(161, 231, 79, 255);
             InfiniteTowerWaveDeathMendingCoreUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color32(161, 231, 79, 255);
 
-            InfiniteTowerWaveCategory.WeightedWave ITDeathMendingCore = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveDeathMendingCore, weight = 3f, prerequisites = Const.StartWave11Prerequisite };
-            Const.ITBasicWaves.wavePrefabs = Const.ITBasicWaves.wavePrefabs.Add(ITDeathMendingCore);
+            InfiniteTowerWaveCategory.WeightedWave ITDeathMendingCore = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveDeathMendingCore, weight = 3f, prerequisites = Constant.StartWave11Prerequisite };
+            Constant.ITBasicWaves.wavePrefabs = Constant.ITBasicWaves.wavePrefabs.Add(ITDeathMendingCore);
             #endregion
             #region Freeze Spam
             //
-            GameObject InfiniteTowerWaveDeathIceElite = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveDeathIceElite", true);
-            GameObject InfiniteTowerWaveDeathIceEliteUI = PrefabAPI.InstantiateClone(Const.LunarWaveUI, "InfiniteTowerWaveDeathIceEliteUI", false);
+            GameObject InfiniteTowerWaveDeathIceElite = PrefabAPI.InstantiateClone(Constant.BasicWave, "InfiniteTowerWaveDeathIceElite", true);
+            GameObject InfiniteTowerWaveDeathIceEliteUI = PrefabAPI.InstantiateClone(Constant.LunarWaveUI, "InfiniteTowerWaveDeathIceEliteUI", false);
 
-            InfiniteTowerWaveDeathIceElite.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Const.dtITBasicWaveOnKill;
+            InfiniteTowerWaveDeathIceElite.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITBasicWaveOnKill;
             InfiniteTowerWaveDeathIceElite.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
             InfiniteTowerWaveDeathIceElite.GetComponent<InfiniteTowerWaveController>().baseCredits = 160;
             //InfiniteTowerWaveDeathIceElite.GetComponent<InfiniteTowerWaveController>().wavePeriodSeconds += 5;
@@ -214,10 +215,11 @@ namespace SimulacrumAdditions
             cscITSuicideIce.forbiddenFlags = RoR2.Navigation.NodeFlags.None;
             cscITSuicideIce.hullSize = HullClassification.Golem;
             cscITSuicideIce.itemsToGrant = new ItemCountPair[] {
-                new ItemCountPair { itemDef = ItemHelpers.ITAttackSpeedDown, count = 99 },
+                new ItemCountPair { itemDef = ItemHelpers.ITAttackSpeedDownMult, count = 99 },
                 new ItemCountPair { itemDef = ItemHelpers.ITKillOnCompletion, count = 81 },
-                new ItemCountPair { itemDef = Ghost, count = 1 },
-                new ItemCountPair { itemDef = HealthDecay, count = 1},
+                new ItemCountPair { itemDef = ItemHelpers.ITMakeImmune, count = 1 },
+                new ItemCountPair { itemDef = ItemHelpers.Ghost, count = 1 },
+                new ItemCountPair { itemDef = ItemHelpers.HealthDecay, count = 1},
                 new ItemCountPair { itemDef = ItemHelpers.ITDisableAllSkills, count = 1},
             };
             cscITSuicideIce.equipmentToGrant = new EquipmentDef[]
@@ -270,50 +272,13 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveDeathIceEliteUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color32(214, 247, 247, 255);
             InfiniteTowerWaveDeathIceEliteUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color32(214, 247, 247, 255);
 
-            InfiniteTowerWaveCategory.WeightedWave ITDeathIce = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveDeathIceElite, weight = 3f, prerequisites = Const.StartWave11Prerequisite };
-            Const.ITBasicWaves.wavePrefabs = Const.ITBasicWaves.wavePrefabs.Add(ITDeathIce);
+            InfiniteTowerWaveCategory.WeightedWave ITDeathIce = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveDeathIceElite, weight = 3f, prerequisites = Constant.StartWave11Prerequisite };
+            Constant.ITBasicWaves.wavePrefabs = Constant.ITBasicWaves.wavePrefabs.Add(ITDeathIce);
 
-            On.RoR2.HealthComponent.Suicide += FixIceOnGhosts;
+            
             #endregion
         }
-
-        private static void FixIceOnGhosts(On.RoR2.HealthComponent.orig_Suicide orig, HealthComponent self, GameObject killerOverride, GameObject inflictorOverride, DamageTypeCombo damageType)
-        {
-            orig(self, killerOverride, inflictorOverride, damageType);
-            if (NetworkServer.active)
-            {
-                if (self.body.HasBuff(RoR2Content.Buffs.AffixWhite))
-                {
-                    Vector3 position = self.body.corePosition;
-                    GameObject gameObject2 = UnityEngine.Object.Instantiate<GameObject>(LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/GenericDelayBlast"), position, Quaternion.identity);
-                    float num = 12f + self.body.radius;
-                    gameObject2.transform.localScale = new Vector3(num, num, num);
-                    DelayBlast component = gameObject2.GetComponent<DelayBlast>();
-                    if (component)
-                    {
-                        component.position = position;
-                        component.baseDamage = self.body.damage * 1.5f;
-                        component.baseForce = 2300f;
-                        component.attacker = self.gameObject;
-                        component.radius = num;
-                        component.crit = Util.CheckRoll(self.body.crit, 0);
-                        component.procCoefficient = 0.75f;
-                        component.maxTimer = 2f;
-                        component.falloffModel = BlastAttack.FalloffModel.None;
-                        component.explosionEffect = LegacyResourcesAPI.Load<GameObject>("Prefabs/Effects/ImpactEffects/AffixWhiteExplosion");
-                        component.delayEffect = LegacyResourcesAPI.Load<GameObject>("Prefabs/Effects/AffixWhiteDelayEffect");
-                        component.damageType = DamageType.Freeze2s;
-                        TeamFilter component2 = gameObject2.GetComponent<TeamFilter>();
-                        if (component2)
-                        {
-                            component2.teamIndex = TeamComponent.GetObjectTeam(component.attacker);
-                        }
-                    }
-                }
-            }
-
-        }
-
+ 
     }
 
 }

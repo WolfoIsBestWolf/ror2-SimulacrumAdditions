@@ -1,12 +1,7 @@
-﻿using R2API;
-using RoR2;
-using RoR2.Navigation;
+﻿using RoR2;
 //using System;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using System.Collections.Generic;
 using UnityEngine.Networking;
-using EntityStates;
 
 namespace SimulacrumAdditions
 {
@@ -20,14 +15,14 @@ namespace SimulacrumAdditions
         public GameObject pulsePrefab;
         public BuffDef buffDef;
         public float buffDuration = 1.5f;
-        public float baseForce = 7000;  
+        public float baseForce = 7000;
         public float pulseInterval = 1;
 
         private void OnEnable()
         {
             if (teamFilter == null)
             {
-                teamFilter = base.gameObject.AddComponent<TeamFilter>();   
+                teamFilter = base.gameObject.AddComponent<TeamFilter>();
             }
             teamFilter.teamIndex = affectedTeam;
             EntityStates.Missions.Moon.MoonBatteryDesignActive.buffDef = buffDef;
@@ -35,7 +30,7 @@ namespace SimulacrumAdditions
             EntityStates.Missions.Moon.MoonBatteryDesignActive.baseForce = baseForce;
             EntityStates.Missions.Moon.MoonBatteryDesignActive.pulseInterval = pulseInterval;
             EntityStates.Missions.Moon.MoonBatteryDesignActive.pulsePrefab = pulsePrefab;
-           
+
             GameObject crab = (Run.instance as InfiniteTowerRun).safeWardController.gameObject;
             base.gameObject.transform.position = crab.transform.GetChild(2).GetChild(0).position;
             if (!stateMachine)
@@ -93,7 +88,7 @@ namespace SimulacrumAdditions
 
         public override void OnExit()
         {
- 
+
         }
     }
 }

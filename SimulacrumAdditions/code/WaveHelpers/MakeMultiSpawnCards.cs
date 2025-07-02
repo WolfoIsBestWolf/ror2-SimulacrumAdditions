@@ -1,9 +1,8 @@
 ﻿using RoR2;
+using SimulacrumAdditions.Waves;
 //using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using R2API;
 
 namespace SimulacrumAdditions
 {
@@ -20,9 +19,9 @@ namespace SimulacrumAdditions
                 new ItemCountPair { itemDef = ItemHelpers.ITKillOnCompletion, count = 2 },
                 new ItemCountPair { itemDef = ItemHelpers.ITHorrorName, count = 1 },
 
-                new ItemCountPair { itemDef = ItemHelpers.ITAttackSpeedDown, count = 40 },
+                new ItemCountPair { itemDef = ItemHelpers.ITAttackSpeedDownMult, count = 40 },
                 new ItemCountPair { itemDef = DLC1Content.Items.CritGlassesVoid, count = 20 },
-                new ItemCountPair { itemDef = ItemHelpers.ITDamageDown, count = 30 },
+                new ItemCountPair { itemDef = ItemHelpers.ITDamageDownMult, count = 30 },
             };
 
             MultiCharacterSpawnCard cscITGhostBasicSlow = ScriptableObject.CreateInstance<MultiCharacterSpawnCard>();
@@ -93,7 +92,7 @@ namespace SimulacrumAdditions
                 //new ItemCountPair { itemDef = RoR2Content.Items.Hoof, count = 0 },
                 new ItemCountPair { itemDef = RoR2Content.Items.SecondarySkillMagazine, count = 3 },
                 //new ItemCountPair { itemDef = RoR2Content.Items.AlienHead, count = 0 },
-                new ItemCountPair { itemDef = ItemHelpers.ITDamageDown, count = 20 },
+                new ItemCountPair { itemDef = ItemHelpers.ITDamageDownMult, count = 20 },
             };
 
             MultiCharacterSpawnCard cscITBossGhostLimitedSpecial = ScriptableObject.CreateInstance<MultiCharacterSpawnCard>();
@@ -115,7 +114,7 @@ namespace SimulacrumAdditions
                 new ItemCountPair { itemDef = RoR2Content.Items.Hoof, count = 1 },
                 new ItemCountPair { itemDef = RoR2Content.Items.SecondarySkillMagazine, count = 6 },
                 new ItemCountPair { itemDef = RoR2Content.Items.AlienHead, count = 0 },
-                new ItemCountPair { itemDef = ItemHelpers.ITDamageDown, count = 20 },
+                new ItemCountPair { itemDef = ItemHelpers.ITDamageDownMult, count = 20 },
             };
 
 
@@ -132,8 +131,8 @@ namespace SimulacrumAdditions
 
                 //new ItemCountPair { itemDef = RoR2Content.Items.AlienHead, count = 0 },
                 //new ItemCountPair { itemDef = RoR2Content.Items.Hoof, count = 0 },
-                new ItemCountPair { itemDef = ItemHelpers.ITAttackSpeedDown, count = 30 },
-                new ItemCountPair { itemDef = ItemHelpers.ITDamageDown, count = 50 },
+                new ItemCountPair { itemDef = ItemHelpers.ITAttackSpeedDownMult, count = 30 },
+                new ItemCountPair { itemDef = ItemHelpers.ITDamageDownMult, count = 50 },
             };
 
             CharacterSpawnCard cscITBossGhostGrandparent = ScriptableObject.CreateInstance<CharacterSpawnCard>();
@@ -146,9 +145,9 @@ namespace SimulacrumAdditions
                 new ItemCountPair { itemDef = ItemHelpers.ITHorrorName, count = 1 },
                 new ItemCountPair { itemDef = DLC1Content.Items.CritGlassesVoid, count = 20 },
 
-                new ItemCountPair { itemDef = ItemHelpers.ITAttackSpeedDown, count = 10 },
+                new ItemCountPair { itemDef = ItemHelpers.ITAttackSpeedDownMult, count = 10 },
                 new ItemCountPair { itemDef = RoR2Content.Items.LunarBadLuck, count = 1 },
-                new ItemCountPair { itemDef = ItemHelpers.ITDamageDown, count = 40 },
+                new ItemCountPair { itemDef = ItemHelpers.ITDamageDownMult, count = 40 },
                 new ItemCountPair { itemDef = RoR2Content.Items.SecondarySkillMagazine, count = 5 },
             };
 
@@ -175,8 +174,8 @@ namespace SimulacrumAdditions
 
                 new ItemCountPair { itemDef = RoR2Content.Items.Hoof, count = 2 },
                 //new ItemCountPair { itemDef = RoR2Content.Items.LunarBadLuck, count = 1 },
-                new ItemCountPair { itemDef = ItemHelpers.ITAttackSpeedDown, count = 30 },
-                new ItemCountPair { itemDef = ItemHelpers.ITDamageDown, count = 40 },
+                new ItemCountPair { itemDef = ItemHelpers.ITAttackSpeedDownMult, count = 30 },
+                new ItemCountPair { itemDef = ItemHelpers.ITDamageDownMult, count = 40 },
                 new ItemCountPair { itemDef = RoR2Content.Items.SecondarySkillMagazine, count = 3 },
             };
 
@@ -186,7 +185,7 @@ namespace SimulacrumAdditions
                 if (self.characterBody && self.characterBody.inventory && self.characterBody.inventory.GetItemCount(ItemHelpers.ITHorrorName) > 0)
                 {
                     self.duration *= 1.25f;
-                    self.PlayCrossfade("Gesture, Override", "ChargeMegaNova", "ChargeMegaNova.playbackRate", self.duration, 0.3f);             
+                    self.PlayCrossfade("Gesture, Override", "ChargeMegaNova", "ChargeMegaNova.playbackRate", self.duration, 0.3f);
                 }
             };
 
@@ -209,7 +208,7 @@ namespace SimulacrumAdditions
             cscEquipmentDroneIT.prefab = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/Base/Drones/EquipmentDroneMaster.prefab").WaitForCompletion();
             cscEquipmentDroneIT.itemsToGrant = new ItemCountPair[] {
                 new ItemCountPair { itemDef = RoR2Content.Items.BoostEquipmentRecharge, count = 15 },//0
-                new ItemCountPair { itemDef = ItemHelpers.ITDamageDown, count = 0 },//1
+                new ItemCountPair { itemDef = ItemHelpers.ITDamageDownMult, count = 0 },//1
                 new ItemCountPair { itemDef = RoR2Content.Items.AdaptiveArmor, count = 1 },//2
                 new ItemCountPair { itemDef = ItemHelpers.ITKillOnCompletion, count = 2 },//3
                 new ItemCountPair { itemDef = RoR2Content.Items.CutHp, count = 0 }, //4
@@ -290,10 +289,10 @@ namespace SimulacrumAdditions
             cscITDroneFlame.prefab = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/Base/Drones/FlameDroneMaster.prefab").WaitForCompletion();
             cscITDroneFlame.directorCreditCost = 3;
             cscITDroneFlame.itemsToGrant = new ItemCountPair[] {
-                new ItemCountPair { itemDef = ItemHelpers.ITHealthScaling, count = 10},//
+                new ItemCountPair { itemDef = ItemHelpers.ITHealthUpMult, count = 10},//
                 new ItemCountPair { itemDef = RoR2Content.Items.ExtraLife, count = 10 },//   
                 new ItemCountPair { itemDef = ItemHelpers.ITKillOnCompletion, count = 15 },
-                new ItemCountPair { itemDef = ItemHelpers.ITDamageDown, count = 80 },
+                new ItemCountPair { itemDef = ItemHelpers.ITDamageDownMult, count = 80 },
                 new ItemCountPair { itemDef = DLC1Content.Items.HalfSpeedDoubleHealth, count = 1 },
             };
 
@@ -302,7 +301,7 @@ namespace SimulacrumAdditions
             cscITDroneEmergency.prefab = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/Base/Drones/EmergencyDroneMaster.prefab").WaitForCompletion();
             cscITDroneEmergency.directorCreditCost = 2;
             cscITDroneEmergency.itemsToGrant = new ItemCountPair[] {
-                new ItemCountPair { itemDef = ItemHelpers.ITHealthScaling, count = 10 },//   
+                new ItemCountPair { itemDef = ItemHelpers.ITHealthUpMult, count = 10 },//   
                 new ItemCountPair { itemDef = RoR2Content.Items.ExtraLife, count = 10 },//   
                 new ItemCountPair { itemDef = ItemHelpers.ITKillOnCompletion, count = 15 },
                 new ItemCountPair { itemDef = RoR2Content.Items.CaptainDefenseMatrix, count = 1},
@@ -315,11 +314,11 @@ namespace SimulacrumAdditions
             cscITDroneTurret.directorCreditCost = 3;
             cscITDroneTurret.nodeGraphType = RoR2.Navigation.MapNodeGroup.GraphType.Ground;
             cscITDroneTurret.itemsToGrant = new ItemCountPair[] {
-                new ItemCountPair { itemDef = ItemHelpers.ITHealthScaling, count = 15 },//
+                new ItemCountPair { itemDef = ItemHelpers.ITHealthUpMult, count = 15 },//
                 new ItemCountPair { itemDef = RoR2Content.Items.ExtraLife, count = 10 },//              
                 new ItemCountPair { itemDef = ItemHelpers.ITKillOnCompletion, count = 15 },
-                new ItemCountPair { itemDef = ItemHelpers.ITAttackSpeedDown, count = 60 },
-                new ItemCountPair { itemDef = ItemHelpers.ITDamageDown, count = 98 },
+                new ItemCountPair { itemDef = ItemHelpers.ITAttackSpeedDownMult, count = 60 },
+                new ItemCountPair { itemDef = ItemHelpers.ITDamageDownMult, count = 98 },
             };
 
 
@@ -328,11 +327,11 @@ namespace SimulacrumAdditions
             cscITDroneMissile.prefab = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/Base/Drones/DroneMissileMaster.prefab").WaitForCompletion();
             cscITDroneMissile.directorCreditCost = 2;
             cscITDroneMissile.itemsToGrant = new ItemCountPair[] {
-                new ItemCountPair { itemDef = ItemHelpers.ITHealthScaling, count = 10 },//   
+                new ItemCountPair { itemDef = ItemHelpers.ITHealthUpMult, count = 10 },//   
                 new ItemCountPair { itemDef = RoR2Content.Items.ExtraLife, count = 10 },//   
                 new ItemCountPair { itemDef = ItemHelpers.ITKillOnCompletion, count = 15 },
                 new ItemCountPair { itemDef = RoR2Content.Items.CaptainDefenseMatrix, count = 1},
-                new ItemCountPair { itemDef = ItemHelpers.ITDamageDown, count = 85 },
+                new ItemCountPair { itemDef = ItemHelpers.ITDamageDownMult, count = 85 },
             };
 
 

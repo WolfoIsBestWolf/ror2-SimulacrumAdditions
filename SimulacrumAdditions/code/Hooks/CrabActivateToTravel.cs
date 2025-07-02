@@ -1,10 +1,8 @@
-﻿using R2API;
+﻿using EntityStates.InfiniteTowerSafeWard;
 using RoR2;
 //using System;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Networking;
-using EntityStates.InfiniteTowerSafeWard;
 
 namespace SimulacrumAdditions
 {
@@ -30,7 +28,7 @@ namespace SimulacrumAdditions
         private static void Unburrow_OnEnter(On.EntityStates.InfiniteTowerSafeWard.Unburrow.orig_OnEnter orig, Unburrow self)
         {
             self.zone = self.GetComponent<VerticalTubeZone>();
-            float newRadius = VoidSafeWard_Hooks.baseRadius + Run.instance.participatingPlayerCount * VoidSafeWard_Hooks.radiusPerPlayer;     
+            float newRadius = VoidSafeWard_Hooks.baseRadius + Run.instance.participatingPlayerCount * VoidSafeWard_Hooks.radiusPerPlayer;
             if (self.zone && self.zone.radius > newRadius)
             {
                 VoidSafeWard_Hooks.RadiusShrinker shrink = self.gameObject.AddComponent<VoidSafeWard_Hooks.RadiusShrinker>();
@@ -42,7 +40,7 @@ namespace SimulacrumAdditions
             {
                 self.radius = newRadius;
             }
-            
+
 
             self.objectiveToken = "INFINITETOWER_OBJECTIVE_AWAITING_TRAVEL";
             orig(self);

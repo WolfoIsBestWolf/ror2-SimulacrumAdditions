@@ -1,10 +1,8 @@
-﻿using R2API;
-using RoR2;
+﻿using RoR2;
 using RoR2.Navigation;
 //using System;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using static R2API.DirectorAPI;
 
 namespace SimulacrumAdditions
 {
@@ -22,7 +20,7 @@ namespace SimulacrumAdditions
         public static DirectorCardCategorySelection dccsITMoonInteractablesW = null;
 
         public static InteractableSpawnCard iscVoidCoinBarrelITSacrifice;
-public static InteractableSpawnCard iscVoidSuppressorIT;
+        public static InteractableSpawnCard iscVoidSuppressorIT;
 
         public static void Start()
         {
@@ -57,7 +55,7 @@ public static InteractableSpawnCard iscVoidSuppressorIT;
                 sceneDirector.interactableCredit += 100;
             }
             Debug.Log("InfiniteTower " + sceneDirector.interactableCredit + " interactable credits. ");
-            
+
             if (SceneInfo.instance)
             {
                 var stageInfo = SceneInfo.instance.GetComponent<ClassicStageInfo>();
@@ -169,7 +167,7 @@ public static InteractableSpawnCard iscVoidSuppressorIT;
             iscVoidSuppressorIT = Object.Instantiate(Addressables.LoadAssetAsync<InteractableSpawnCard>(key: "RoR2/DLC1/VoidSuppressor/iscVoidSuppressor.asset").WaitForCompletion());
             iscVoidSuppressorIT.directorCreditCost = 20;
             iscVoidSuppressorIT.name = "iscVoidSuppressorIT";
- 
+
 
             /*
             --[0]--Chests--  wt:45
@@ -423,7 +421,7 @@ public static InteractableSpawnCard iscVoidSuppressorIT;
             dccsITSkyMeadowInteractablesW.AddCard(0, ADCategoryChest2Healing);
             dccsITSkyMeadowInteractablesW.AddCard(0, ADGreenMultiShop);
             dccsITSkyMeadowInteractablesW.categories[1].selectionWeight = 5f; //Blood Chance
-            dccsITSkyMeadowInteractablesW.AddCard(1, ADShrineChance);      
+            dccsITSkyMeadowInteractablesW.AddCard(1, ADShrineChance);
             //
             //More Rares Lunars and Voids
             dccsITMoonInteractablesW.AddCard(0, ADGreenMultiShop);
@@ -438,12 +436,12 @@ public static InteractableSpawnCard iscVoidSuppressorIT;
             dccsITMoonInteractablesW.categories[3].cards = dccsITMoonInteractablesW.categories[3].cards.Remove(dccsITMoonInteractablesW.categories[3].cards[3], dccsITMoonInteractablesW.categories[3].cards[2], dccsITMoonInteractablesW.categories[3].cards[1], dccsITMoonInteractablesW.categories[3].cards[0]);
             dccsITMoonInteractablesW.AddCard(3, ADSoupRedWhite);
             dccsITMoonInteractablesW.AddCard(3, ADSoupGreenRed);
-            dccsITMoonInteractablesW.AddCard(3, ADSoupWhiteGreen);       
+            dccsITMoonInteractablesW.AddCard(3, ADSoupWhiteGreen);
             dccsITMoonInteractablesW.categories[4].selectionWeight += 4; //More Void StuffS
-           if (dccsITMoonInteractablesW.categories[2].cards.Length >= 3)
-           {
+            if (dccsITMoonInteractablesW.categories[2].cards.Length >= 3)
+            {
                 dccsITMoonInteractablesW.categories[2].cards[1].selectionWeight = 4;
-           }
+            }
         }
 
         public static void SimuInteractableDCCSAdder(On.RoR2.InfiniteTowerRun.orig_OnPrePopulateSceneServer orig, InfiniteTowerRun self, SceneDirector sceneDirector)
@@ -476,7 +474,7 @@ public static InteractableSpawnCard iscVoidSuppressorIT;
                         break;
                     case "itmoon":
                         ClassicStageInfo.instance.interactableCategories = dccsITMoonInteractablesW;
-                        sceneDirector.interactableCredit += 50;              
+                        sceneDirector.interactableCredit += 50;
                         break;
                 }
             }
@@ -784,7 +782,7 @@ public static InteractableSpawnCard iscVoidSuppressorIT;
                 spawnDistance = DirectorCore.MonsterSpawnDistance.Standard
             };
             //Minimum Stage completion 3 is wave 31
- 
+
             //0  0 - 10
             //1 10 - 20
             //2 20 - 30
@@ -802,19 +800,19 @@ public static InteractableSpawnCard iscVoidSuppressorIT;
 
             dccsITGolemplainsMonstersDLC2.categories[0].cards[0].minimumStageCompletions = 2; //Halc
             dccsITGolemplainsMonstersDLC2.AddCard(0, cscChild);//Pre-loop
-         
-#endregion
+
+            #endregion
             #region Aquaduct
             //dccsITGooLakeMonsters.AddCard(0, SimuLoopVagrant);  //Simu thing where it imitates other stages
             //dccsITGooLakeMonsters.AddCard(1, SimuLoopGup);  //Simu thing where it imitates other stages
             dccsITGooLakeMonsters.AddCard(1, SimuLoopGolemSandy);
             dccsITGooLakeMonsters.AddCard(1, SimuLoopAcidLarva);
             //Has Loop Templar by default
-#endregion
+            #endregion
             #region Ancient Loft
             dccsITAncientLoftMonsters.AddCard(1, SimuLoopElderLemurian); //Match my changes
             dccsITAncientLoftMonsters.AddCard(2, SimuLoopJellyfish); //More Jellyfish Ig?
-#endregion
+            #endregion
             #region Rallypoint 
             dccsITFrozenWallMonsters.AddCard(0, SimuLoopRoboBallBoss); //Match my changes
             dccsITFrozenWallMonsters.AddCard(1, SimuLoopcscRoboBallMini);
@@ -831,7 +829,7 @@ public static InteractableSpawnCard iscVoidSuppressorIT;
             dccsITDampCaveMonsters.AddCard(0, SimuElectricWorm);
 
             dccsITDampCaveMonstersDLC2.categories[0].cards[0].minimumStageCompletions = 2; //Earlier Halcy      
-#endregion
+            #endregion
             #region Sky Meadow
             dccsITSkyMeadowMonsters.AddCard(2, SimuBrass);  //Pre loop
             dccsITSkyMeadowMonsters.AddCard(1, SimuLoopGreaterWisp);

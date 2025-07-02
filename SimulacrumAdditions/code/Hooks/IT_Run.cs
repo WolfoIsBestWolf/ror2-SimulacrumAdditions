@@ -1,13 +1,5 @@
-using BepInEx;
-using MonoMod.Cil;
-using R2API;
-using R2API.Utils;
 using RoR2;
-using RoR2.ExpansionManagement;
-using System.Security;
-using System.Security.Permissions;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.Networking;
 
 namespace SimulacrumAdditions
@@ -43,23 +35,23 @@ namespace SimulacrumAdditions
         {
             orig(self);
             if (self.waveIndex == 50 || self.waveIndex == 31)
-            {         
-                if (Const.ITBossWaves.wavePrefabs[0].weight > 1)
+            {
+                if (Constant.ITBossWaves.wavePrefabs[0].weight > 1)
                 {
                     float mult = 1;
                     if (self.waveIndex == 31)
                     {
-                        mult = Const.DefaultWeightMultiplier1;
+                        mult = Constant.DefaultWeightMultiplier1;
                     }
                     else
                     {
-                        mult = Const.DefaultWeightMultiplier2;
+                        mult = Constant.DefaultWeightMultiplier2;
                     }
 
-                    Const.ITBasicWaves.wavePrefabs[0].weight = Const.BasicWaveWeight * mult; //More Wackies past this
-                    Const.ITBasicWaves.GenerateWeightedSelection();
-                    Const.ITBossWaves.wavePrefabs[0].weight = Const.BasicBossWaveWight * mult; //More Wackies past this
-                    Const.ITBossWaves.GenerateWeightedSelection();
+                    Constant.ITBasicWaves.wavePrefabs[0].weight = Constant.BasicWaveWeight * mult; //More Wackies past this
+                    Constant.ITBasicWaves.GenerateWeightedSelection();
+                    Constant.ITBossWaves.wavePrefabs[0].weight = Constant.BasicBossWaveWight * mult; //More Wackies past this
+                    Constant.ITBossWaves.GenerateWeightedSelection();
                 }
             }
         }
@@ -136,12 +128,12 @@ namespace SimulacrumAdditions
 
         public static GameObject ForceSuperBossWave(On.RoR2.InfiniteTowerWaveCategory.orig_SelectWavePrefab orig, InfiniteTowerWaveCategory self, InfiniteTowerRun run, Xoroshiro128Plus rng)
         {
-            if (run.waveIndex >= Const.SimuForcedBossStartAtXWaves && run.waveIndex % Const.SimuForcedBossEveryXWaves == Const.SimuForcedBossWaveRest)
+            if (run.waveIndex >= Constant.SimuForcedBossStartAtXWaves && run.waveIndex % Constant.SimuForcedBossEveryXWaves == Constant.SimuForcedBossWaveRest)
             {
                 //SimuMain.ITSuperBossWaves.GenerateWeightedSelection();
                 //temp = SimuMain.ITSuperBossWaves.weightedSelection.Evaluate(rng.nextNormalizedFloat);
                 //temp = SimuMain.ITSuperBossWaves.SelectWavePrefab(run, rng);
-                GameObject temp = orig(Const.ITSuperBossWaves, run, rng);
+                GameObject temp = orig(Constant.ITSuperBossWaves, run, rng);
                 Debug.Log("Forcing SuperBoss");
                 Debug.Log(run.waveIndex + " Forced SuperBoss  " + temp);
                 return temp;
@@ -179,14 +171,14 @@ namespace SimulacrumAdditions
         private static void ITRun_SetThingsOn_Start(On.RoR2.InfiniteTowerRun.orig_PreStartClient orig, InfiniteTowerRun self)
         {
             orig(self);
-            Const.ITBossWaves.availabilityPeriod = 5;
-            Const.ITBossWaves.minWaveIndex = 0;
-            if (Const.ITBossWaves.wavePrefabs[0].weight < 1)
+            Constant.ITBossWaves.availabilityPeriod = 5;
+            Constant.ITBossWaves.minWaveIndex = 0;
+            if (Constant.ITBossWaves.wavePrefabs[0].weight < 1)
             {
-                Const.ITBasicWaves.wavePrefabs[0].weight = Const.BasicWaveWeight;
-                Const.ITBasicWaves.GenerateWeightedSelection();
-                Const.ITBossWaves.wavePrefabs[0].weight = Const.BasicBossWaveWight;
-                Const.ITBasicWaves.GenerateWeightedSelection();
+                Constant.ITBasicWaves.wavePrefabs[0].weight = Constant.BasicWaveWeight;
+                Constant.ITBasicWaves.GenerateWeightedSelection();
+                Constant.ITBossWaves.wavePrefabs[0].weight = Constant.BasicBossWaveWight;
+                Constant.ITBasicWaves.GenerateWeightedSelection();
             }
             SimulacrumDCCS.MakeITSand(true);
             if (WConfig.cfgVoidCoins.Value)
@@ -197,7 +189,7 @@ namespace SimulacrumAdditions
             eqDrone.GetComponent<RoR2.StartEvent>().enabled = false;
             eqDrone.AddComponent<EquipmentDroneInSimulacrum>();
             Object.Destroy(eqDrone.GetComponent<RoR2.SetDontDestroyOnLoad>());
-            self.gameObject.AddComponent<Hooks_Other.LastWaveHolder>();
+ 
         }
 
         private static void ITRun_SetThingsOn_End(On.RoR2.InfiniteTowerRun.orig_OnDestroy orig, InfiniteTowerRun self)

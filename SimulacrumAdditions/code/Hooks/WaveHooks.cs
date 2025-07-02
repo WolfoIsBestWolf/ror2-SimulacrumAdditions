@@ -1,20 +1,13 @@
-using BepInEx;
-using MonoMod.Cil;
-using R2API;
 using R2API.Utils;
 using RoR2;
-using RoR2.ExpansionManagement;
-using System.Security;
-using System.Security.Permissions;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.Networking;
 
 namespace SimulacrumAdditions
 {
     public class Wave_Hooks
     {
-        
+
         internal static void AddHooks()
         {
             //General + Manual Stuff that just needs to be done
@@ -84,28 +77,8 @@ namespace SimulacrumAdditions
                         }
                         if (itemCount > 6)
                         {
-                            try
-                            {
-                                characterMaster.TrueKill();                   
-                            }
-                            catch (System.Exception e)
-                            {
-                                Debug.Log(e);
-                                if (characterMaster.inventory.GetItemCount(RoR2Content.Items.ExtraLife) > 0)
-                                {
-                                    characterMaster.inventory.ResetItem(RoR2Content.Items.ExtraLife);
-                                }
-                                if (characterMaster.inventory.GetItemCount(DLC1Content.Items.ExtraLifeVoid) > 0)
-                                {
-                                    characterMaster.inventory.ResetItem(DLC1Content.Items.ExtraLifeVoid);
-                                }
-                                characterMaster.CancelInvoke("RespawnExtraLife");
-                                characterMaster.CancelInvoke("PlayExtraLifeSFX");
-                                characterMaster.CancelInvoke("RespawnExtraLifeVoid");
-                                characterMaster.CancelInvoke("PlayExtraLifeVoidSFX");
-                                characterMaster.CancelInvoke("RespawnExtraLifeShrine");
-                            }                        
-                            UnityEngine.Object.Destroy(characterMaster.gameObject, 2f);
+                            characterMaster.TrueKill();
+                            Object.Destroy(characterMaster.gameObject, 2f);
                         }
                     }
                 }
@@ -129,9 +102,9 @@ namespace SimulacrumAdditions
             }
 
             InfiniteTowerRun run = Run.instance.GetComponent<InfiniteTowerRun>();
-            if (run.waveIndex >= Const.SimuEndingStartAtXWaves && run.waveIndex % Const.SimuEndingEveryXWaves == Const.SimuEndingWaveRest)
+            if (run.waveIndex >= Constant.SimuEndingStartAtXWaves && run.waveIndex % Constant.SimuEndingEveryXWaves == Constant.SimuEndingWaveRest)
             {
-                GameObject EndingPortal = DirectorCore.instance.TrySpawnObject(new DirectorSpawnRequest(Const.iscSimuExitPortal, new DirectorPlacementRule
+                GameObject EndingPortal = DirectorCore.instance.TrySpawnObject(new DirectorSpawnRequest(Constant.iscSimuExitPortal, new DirectorPlacementRule
                 {
                     minDistance = 30f,
                     maxDistance = 35f,
@@ -140,42 +113,11 @@ namespace SimulacrumAdditions
                     spawnOnTarget = run.safeWardController.transform
                 }, run.safeWardRng));
             }
-
-            if (self.name.EndsWith("EquipmentDrone(Clone)"))
+            if (self.TryGetComponent<SimuWaveUnsortedExtras>(out var helper))
             {
-                MeteorStormController[] meteorList = Object.FindObjectsOfType(typeof(MeteorStormController)) as MeteorStormController[];
-                if (meteorList.Length > 0)
-                {
-                    for (int i = 0; i < meteorList.Length; i++)
-                    {
-                        Object.Destroy(meteorList[i].gameObject);
-                    }
-                }
-                BuffWard[] buffWard = Object.FindObjectsOfType(typeof(BuffWard)) as BuffWard[];
-                if (buffWard.Length > 0)
-                {
-                    GameObject onDestroyEffect = LegacyResourcesAPI.Load<GameObject>("Prefabs/Effects/BrittleDeath");
-                    //onDestroyEffect.GetComponent<EffectComponent>().soundName = "";
-                    //onDestroyEffect.GetComponent<EffectComponent>().soundName = "Play_char_glass_death";
-                    for (int i = 0; i < buffWard.Length; i++)
-                    {
-                        if (buffWard[i].buffDef = RoR2Content.Buffs.Cripple)
-                        {
-                            Object.Destroy(buffWard[i].gameObject);
-                            EffectManager.SpawnEffect(onDestroyEffect, new EffectData
-                            {
-                                origin = buffWard[i].transform.position,
-                                rotation = buffWard[i].transform.rotation
-                            }, true);
-                        }
-                    }
-                }
+                helper.OnAllEnemiesDefeatedServer();
             }
-            else if (self.name.EndsWith("Enigma(Clone)"))
-            {
-                self.GetComponent<ArtifactEnabler>().OnDisable();
-            }
-            else if (self.GetComponent<SimulacrumLightningStormWave>())
+            if (self.GetComponent<SimulacrumLightningStormWave>())
             {
                 self.GetComponent<SimulacrumLightningStormWave>().DisableStorm();
             }
@@ -202,57 +144,23 @@ namespace SimulacrumAdditions
                     float bonusBonusHPMulti = 0.5f;
                     float bonusBonusDmgMulti = 0.5f;
                     bool forcedSuperboss = false;
-                    if (waveIndex >= Const.SimuForcedBossStartAtXWaves && waveIndex % Const.SimuForcedBossEveryXWaves == Const.SimuForcedBossWaveRest)
+                    if (waveIndex >= Constant.SimuForcedBossStartAtXWaves && waveIndex % Constant.SimuForcedBossEveryXWaves == Constant.SimuForcedBossWaveRest)
                     {
                         forcedSuperboss = true;
                         bonusBonusHPMulti = 1f;
                     }
 
-                    if (self.GetComponent<CardRandomizer>())
+                    if (self.TryGetComponent<CardRandomizer>(out var eee))
                     {
-                        self.GetComponent<CardRandomizer>().DoTheThing(self);
+                        eee.DoTheThing(self);
                     }
-
-
-                    int bonusSpawns = 0;
                     bool IsCharacterWave = false;
-                    switch (self.name)
+                    if (self.TryGetComponent<SimuWaveUnsortedExtras>(out var help))
                     {
-                        case "WaveBoss_VoidElites(Clone)":
-                            bonusBonusHPMulti = 3f;
-                            break;
-                        case "WaveBoss_Characters(Clone)":
-                            bonusBonusHPMulti = 1.2f;
-                            IsCharacterWave = true;
-                            if (waveIndex > 29)
-                            {
-                                //self.spawnList[0].spawnCard.equipmentToGrant = new EquipmentDef[] { RoR2Content.Equipment.Blackhole };
-                                self.spawnList[0].spawnCard.itemsToGrant[0].count = 1;
-                            }
-                            else
-                            {
-                                //self.spawnList[0].spawnCard.equipmentToGrant = new EquipmentDef[] { };
-                                self.spawnList[0].spawnCard.itemsToGrant[0].count = 0;
-                            }
-                            break;
-                        case "InfiniteTowerWaveSS2RainbowElites(Clone)":
-                            bonusBonusHPMulti = -1f;
-                            //20f * Run.instance.loopClearCount)
-                            //4 * StageClear
-                            //This method kinda fucking blows??
-                            DirectorCard chosenMonsterCard = self.GetComponent<CombatDirector>().SelectMonsterCardForCombatShrine(waveIndex * 2 + 20);
-                            if (chosenMonsterCard == null)
-                            {
-                                Debug.LogWarning("Could not find Emyprean candidate normally"); //This would only happen if too cheap right?
-                                chosenMonsterCard = ClassicStageInfo.instance.monsterCategories.categories[2].cards[0];
-                            }
-                            self.spawnList[0].spawnCard.prefab = chosenMonsterCard.spawnCard.prefab;
-                            self.spawnList[0].spawnCard.nodeGraphType = chosenMonsterCard.spawnCard.nodeGraphType;
-                            break;
+                        bonusBonusHPMulti = help.ExplicitInitialize(self, waveIndex);
+                        IsCharacterWave = help.code == SimuWaveUnsortedExtras.Case.AcridWave;
                     }
-                    //Debug.Log(Run.instance.GetComponent<InfiniteTowerRun>().safeWardController.wardStateMachine.state);
-
-
+ 
                     SimuExplicitStats stats = self.GetComponent<SimuExplicitStats>();
                     if (stats)
                     {
@@ -417,87 +325,15 @@ namespace SimulacrumAdditions
 
 
             combatDirector.minSpawnRange = 15;
-            combatDirector.maxSpawnDistance = newRadius-5;
- 
+            combatDirector.maxSpawnDistance = newRadius - 5;
+
             if (self._waveController)
             {
-                switch (self.waveInstance.name)
+                if (self.waveInstance.TryGetComponent<SimuWaveUnsortedExtras>(out var a))
                 {
-                    case "WaveBoss_ArtifactDoppelganger(Clone)":
-                        if (NetworkServer.active)
-                        {
-                            RoR2.Artifacts.DoppelgangerInvasionManager.PerformInvasion(self.bossRewardRng);
-
-                            CombatSquad WaveSquad = self.waveInstance.GetComponent<CombatSquad>();
-                            CombatSquad[] bossgrouplist2 = UnityEngine.Object.FindObjectsOfType(typeof(CombatSquad)) as CombatSquad[];
-                            for (var i = 0; i < bossgrouplist2.Length; i++)
-                            {
-                                //Debug.LogWarning(bossgrouplist2[i]);
-                                if (bossgrouplist2[i].name.Equals("ShadowCloneEncounter(Clone)") || bossgrouplist2[i].name.Equals("ShadowCloneEncounterAltered"))
-                                {
-                                    foreach (CharacterMaster charactermaster in bossgrouplist2[i].membersList)
-                                    {
-                                        WaveSquad.AddMember(charactermaster);
-                                        //Seems to cause an error about adding items tho idk what
-                                    }
-                                }
-                            }
-                        }
-                        break;
-                    case "InfiniteTowerWaveWaveBossBrother(Clone)":
-                        self.waveInstance.AddComponent<PhaseCounter>().phase = 3;
-                        break;
-                    case "WaveBoss_VoidElites(Clone)":
-                        self.waveInstance.GetComponents<CombatDirector>()[1].monsterCredit *= System.Math.Max(0.9f, ((self.waveIndex / 10) + 1f) * 0.24f);
-                        break;
-                    case "InfiniteTowerWaveHeresy(Clone)":
-                        if (NetworkServer.active)
-                        {
-                            if (self.runRNG.nextBool)
-                            {
-                                self.enemyInventory.GiveItem(RoR2Content.Items.LunarPrimaryReplacement);
-                                self.enemyInventory.GiveItem(ItemHelpers.ITDamageDown, 50); //Later waves will have too much damage anyways
-                                self.enemyInventory.GiveItem(ItemHelpers.ITAttackSpeedDown, 70);
-                                self.enemyInventory.GiveItem(ItemHelpers.ITCooldownUp, 10);
-                                //self.enemyInventory.GiveItem(RoR2Content.Items.BoostHp, Run.instance.stageClearCount * 2);
-                                self.enemyInventory.GiveItem(RoR2Content.Items.BoostHp, self.waveIndex / 10 * 2);
-                                Chat.SendBroadcastChat(new Chat.SimpleChatMessage
-                                {
-                                     baseToken = "ITWAVE_HERESY_ANNOUNCE_EYE",
-                                });
-                            }
-                            else
-                            {
-                                self.enemyInventory.GiveItem(RoR2Content.Items.LunarSecondaryReplacement);
-                                self.enemyInventory.GiveItem(RoR2Content.Items.LunarUtilityReplacement);
-                                self.enemyInventory.GiveItem(RoR2Content.Items.BoostHp, self.waveIndex / 10 * 2);
-                                self.enemyInventory.GiveItem(ItemHelpers.ITDamageDown, 5);
-                                Chat.SendBroadcastChat(new Chat.SimpleChatMessage
-                                {
-                                     baseToken = "ITWAVE_HERESY_ANNOUNCE_ARM",
-                                });
-                            }
-                        }
-                        break;
-                    case "InfiniteTowerWaveManyItems(Clone)":
-                        if (NetworkServer.active)
-                        {
-                            for (int i = 0; i < self.enemyInventory.itemAcquisitionOrder.Count; i++)
-                            {
-                                ItemDef tempDef = ItemCatalog.GetItemDef(self.enemyInventory.itemAcquisitionOrder[i]);
-                                if (tempDef == ItemHelpers.ITHealthScaling || tempDef == RoR2Content.Items.Bear || tempDef == RoR2Content.Items.ExtraLife || tempDef == DLC1Content.Items.ExtraLifeVoid)
-                                {
-                                    self.enemyInventory.GiveItem(tempDef, 1);
-                                }
-                                else
-                                {
-                                    self.enemyInventory.GiveItem(tempDef, self.enemyInventory.GetItemCount(self.enemyInventory.itemAcquisitionOrder[i]) * 4);
-                                }
-                            }
-                        }
-                        break;
+                    a.InitializeWaveController(self, self.waveInstance);
                 }
-
+ 
                 if (NetworkServer.active)
                 {
                     if (WConfig.cfgSimuMoreGold.Value)
@@ -531,7 +367,7 @@ namespace SimulacrumAdditions
                     }
                 }
             }
-            //
+     
             self.GetComponent<RoR2.EnemyInfoPanelInventoryProvider>().MarkAsDirty();
             if (self.waveIndex < 11)
             {
@@ -617,9 +453,6 @@ namespace SimulacrumAdditions
             }
 
             Debug.Log(self.waveIndex + " immediateCreditsFraction: " + waveController.immediateCreditsFraction + " eliteBias: " + combatDirector.eliteBias + " wavePeriodSeconds: " + waveController.wavePeriodSeconds);
-            
-            Hooks_Other.LastWaveHolder lastWaveInfo = self.gameObject.GetComponent<Hooks_Other.LastWaveHolder>();
-            lastWaveInfo.LatestWave = waveController.overlayEntries[1].prefab;
  
         }
 
@@ -627,49 +460,21 @@ namespace SimulacrumAdditions
         public static void InfiniteTowerRun_CleanUpCurrentWave(On.RoR2.InfiniteTowerRun.orig_CleanUpCurrentWave orig, InfiniteTowerRun self)
         {
             try
-            { 
-            if (NetworkServer.active)
             {
-                if (self.waveInstance)
+                if (NetworkServer.active)
                 {
-                    switch (self.waveInstance.name)
+                    if (self.waveInstance)
                     {
-                        case "InfiniteTowerWaveHeresy(Clone)":
-                            if (self.enemyInventory.GetItemCount(ItemHelpers.ITDamageDown) > 10)
-                            {
-                                self.enemyInventory.RemoveItem(RoR2Content.Items.LunarPrimaryReplacement);
-                            }
-                            else
-                            {
-                                self.enemyInventory.RemoveItem(RoR2Content.Items.LunarSecondaryReplacement);
-                                self.enemyInventory.RemoveItem(RoR2Content.Items.LunarUtilityReplacement);
-                            }
-                            self.enemyInventory.RemoveItem(ItemHelpers.ITDamageDown, self.enemyInventory.GetItemCount(ItemHelpers.ITDamageDown));
-                            self.enemyInventory.RemoveItem(ItemHelpers.ITAttackSpeedDown, self.enemyInventory.GetItemCount(ItemHelpers.ITAttackSpeedDown));
-                            self.enemyInventory.RemoveItem(ItemHelpers.ITCooldownUp, self.enemyInventory.GetItemCount(ItemHelpers.ITCooldownUp));
-                            self.enemyInventory.RemoveItem(RoR2Content.Items.BoostHp, self.enemyInventory.GetItemCount(RoR2Content.Items.BoostHp));
-                            break;
-                        case "InfiniteTowerWaveManyItems(Clone)":
-                            for (int i = 0; i < self.enemyInventory.itemAcquisitionOrder.Count; i++)
-                            {
-                                ItemDef tempDef = ItemCatalog.GetItemDef(self.enemyInventory.itemAcquisitionOrder[i]);
-                                if (tempDef == ItemHelpers.ITHealthScaling || tempDef == RoR2Content.Items.Bear || tempDef == RoR2Content.Items.ExtraLife || tempDef == DLC1Content.Items.ExtraLifeVoid)
-                                {
-                                    self.enemyInventory.RemoveItem(tempDef, 1);
-                                }
-                                else
-                                {
-                                    self.enemyInventory.RemoveItem(tempDef, (int)(self.enemyInventory.GetItemCount(self.enemyInventory.itemAcquisitionOrder[i]) / 5f * 4f));
-                                }
-                            }
-                            break;
-                    }
-                    if (Run.instance)
-                    {
-                        Run.instance.GetComponent<RoR2.EnemyInfoPanelInventoryProvider>().MarkAsDirty();
+                        if (self.waveInstance.TryGetComponent<SimuWaveUnsortedExtras>(out var a))
+                        {
+                            a.CleanUpCurrentWave(self, self.waveInstance);
+                        }
+                        if (Run.instance)
+                        {
+                            Run.instance.GetComponent<RoR2.EnemyInfoPanelInventoryProvider>().MarkAsDirty();
+                        }
                     }
                 }
-            }
             }
             catch
             {
@@ -739,7 +544,7 @@ namespace SimulacrumAdditions
                         {
                             body.AddBuff(DLC2Content.Buffs.DisableAllSkills);
                         }
-                        if (kill == 78 || kill == 15)
+                        if (kill == 15)
                         {
                         }
                         else
@@ -749,14 +554,14 @@ namespace SimulacrumAdditions
 
                     }
                 }
-                else if (self.hasEnabledEnemyIndicators && master.masterIndex == Const.IndexAffixHealingCore)
+                else if (self.hasEnabledEnemyIndicators && master.masterIndex == Constant.IndexAffixHealingCore)
                 {
                     self.combatSquad.RemoveMember(master);
                 }
 
             }
         }
-            
+
     }
 
 

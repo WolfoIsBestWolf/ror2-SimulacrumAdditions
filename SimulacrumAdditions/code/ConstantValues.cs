@@ -1,18 +1,14 @@
-using BepInEx;
-using BepInEx.Configuration;
 using R2API;
-using RiskOfOptions;
-using RiskOfOptions.Options;
-using System;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.AddressableAssets;
 using RoR2;
 using RoR2.ExpansionManagement;
- 
+using System;
+using UnityEngine;
+using UnityEngine.AddressableAssets;
+using WolfoFixes;
+
 namespace SimulacrumAdditions
 {
-    public static class Const
+    public static class Constant
     {
         public static GameObject BasicWave = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveDefault.prefab").WaitForCompletion();
         public static GameObject BasicWaveUI = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentWaveUI.prefab").WaitForCompletion();
@@ -21,7 +17,7 @@ namespace SimulacrumAdditions
         public static GameObject BossWaveUI = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentBossWaveUI.prefab").WaitForCompletion();
 
         public static GameObject ScavWave = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveBossScav.prefab").WaitForCompletion();
-         public static GameObject ScavWaveUI = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentBossScavWaveUI.prefab").WaitForCompletion();
+        public static GameObject ScavWaveUI = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentBossScavWaveUI.prefab").WaitForCompletion();
 
         public static GameObject ArtifactWave = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveArtifactBomb.prefab").WaitForCompletion();
         public static GameObject ArtifactWaveUI = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentArtifactBombWaveUI.prefab").WaitForCompletion();
@@ -31,7 +27,7 @@ namespace SimulacrumAdditions
 
         public static Sprite texITWaveDefaultWhiteS;
 
-        
+
         public static int SimuEndingStartAtXWaves;
         public static int SimuEndingEveryXWaves;
         public static int SimuEndingWaveRest;
@@ -59,8 +55,8 @@ namespace SimulacrumAdditions
         public static ItemTierDef ItemOrangeTierDef;
         //
         //Does this need to be in the Simu File 
-        public static BasicPickupDropTable dtAISafeRandomVoid = ScriptableObject.CreateInstance<BasicPickupDropTable>();
-    
+        public static AdvancedPickupDropTable dtAISafeRandomVoid = ScriptableObject.CreateInstance<AdvancedPickupDropTable>();
+
         //Wave Prerequesites
         public static InfiniteTowerWaveCountPrerequisites AfterWave5Prerequisite = ScriptableObject.CreateInstance<InfiniteTowerWaveCountPrerequisites>();
         public static InfiniteTowerWaveCountPrerequisites StartWave11Prerequisite = Addressables.LoadAssetAsync<InfiniteTowerWaveCountPrerequisites>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/Wave11OrGreaterPrerequisite.asset").WaitForCompletion();
@@ -82,8 +78,6 @@ namespace SimulacrumAdditions
         public static ITWave_DLC_Prerequisites DLC2_StartWave15Prerequisite = ScriptableObject.CreateInstance<ITWave_DLC_Prerequisites>();
         public static ITWave_DLC_Prerequisites DLC2_StartWave30Prerequisite = ScriptableObject.CreateInstance<ITWave_DLC_Prerequisites>();
 
-        //
-        //
         //Simu Wave Reward Drop Tables
         public static BasicPickupDropTable dtITWaveTier1 = Addressables.LoadAssetAsync<BasicPickupDropTable>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/dtITDefaultWave.asset").WaitForCompletion();
         public static BasicPickupDropTable dtITWaveTier2 = Addressables.LoadAssetAsync<BasicPickupDropTable>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/dtITBossWave.asset").WaitForCompletion();
@@ -91,32 +85,31 @@ namespace SimulacrumAdditions
         public static BasicPickupDropTable dtITVoid = Addressables.LoadAssetAsync<BasicPickupDropTable>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/dtITVoid.asset").WaitForCompletion();
         public static BasicPickupDropTable dtITLunar = Addressables.LoadAssetAsync<BasicPickupDropTable>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/dtITLunar.asset").WaitForCompletion();
 
-        public static BasicPickupDropTable dtAllTier = ScriptableObject.CreateInstance<BasicPickupDropTable>();
 
-        public static BasicPickupDropTable dtITFamilyWaveDamage = ScriptableObject.CreateInstance<BasicPickupDropTable>();
-        public static BasicPickupDropTable dtITFamilyWaveHealing = ScriptableObject.CreateInstance<BasicPickupDropTable>();
-        public static BasicPickupDropTable dtITFamilyWaveUtility = ScriptableObject.CreateInstance<BasicPickupDropTable>();
+        public static AdvancedPickupDropTable dtITFamilyWaveDamage = ScriptableObject.CreateInstance<AdvancedPickupDropTable>();
+        public static AdvancedPickupDropTable dtITFamilyWaveHealing = ScriptableObject.CreateInstance<AdvancedPickupDropTable>();
+        public static AdvancedPickupDropTable dtITFamilyWaveUtility = ScriptableObject.CreateInstance<AdvancedPickupDropTable>();
 
-        public static BasicPickupDropTable dtITCategoryDamage = ScriptableObject.CreateInstance<BasicPickupDropTable>();
-        public static BasicPickupDropTable dtITCategoryHealing = ScriptableObject.CreateInstance<BasicPickupDropTable>();
-        public static BasicPickupDropTable dtITCategoryUtility = ScriptableObject.CreateInstance<BasicPickupDropTable>();
+        public static AdvancedPickupDropTable dtITCategoryDamage = ScriptableObject.CreateInstance<AdvancedPickupDropTable>();
+        public static AdvancedPickupDropTable dtITCategoryHealing = ScriptableObject.CreateInstance<AdvancedPickupDropTable>();
+        public static AdvancedPickupDropTable dtITCategoryUtility = ScriptableObject.CreateInstance<AdvancedPickupDropTable>();
 
-        public static BasicPickupDropTable dtITBossCategoryDamage = ScriptableObject.CreateInstance<BasicPickupDropTable>();
-        public static BasicPickupDropTable dtITBossCategoryHealing = ScriptableObject.CreateInstance<BasicPickupDropTable>();
-        public static BasicPickupDropTable dtITBossCategoryUtility = ScriptableObject.CreateInstance<BasicPickupDropTable>();
+        public static AdvancedPickupDropTable dtITBossCategoryDamage = ScriptableObject.CreateInstance<AdvancedPickupDropTable>();
+        public static AdvancedPickupDropTable dtITBossCategoryHealing = ScriptableObject.CreateInstance<AdvancedPickupDropTable>();
+        public static AdvancedPickupDropTable dtITBossCategoryUtility = ScriptableObject.CreateInstance<AdvancedPickupDropTable>();
 
 
-        public static BasicPickupDropTable dtITBasicWaveOnKill = ScriptableObject.CreateInstance<BasicPickupDropTable>();
-        public static BasicPickupDropTable dtITBasicBonusLunar = ScriptableObject.CreateInstance<BasicPickupDropTable>();
-        public static BasicPickupDropTable dtITBasicBonusVoid = ScriptableObject.CreateInstance<BasicPickupDropTable>();
+        public static AdvancedPickupDropTable dtITBasicWaveOnKill = ScriptableObject.CreateInstance<AdvancedPickupDropTable>();
+        public static AdvancedPickupDropTable dtITBasicBonusLunar = ScriptableObject.CreateInstance<AdvancedPickupDropTable>();
+        public static AdvancedPickupDropTable dtITBasicBonusVoid = ScriptableObject.CreateInstance<AdvancedPickupDropTable>();
 
-        public static BasicPickupDropTable dtITBasicBonusGreen = ScriptableObject.CreateInstance<BasicPickupDropTable>();
-        public static BasicPickupDropTable dtITBossBonusRed = ScriptableObject.CreateInstance<BasicPickupDropTable>();
-        public static BasicPickupDropTable dtITBossGreenVoid = ScriptableObject.CreateInstance<BasicPickupDropTable>();
+        public static AdvancedPickupDropTable dtITBasicBonusGreen = ScriptableObject.CreateInstance<AdvancedPickupDropTable>();
+        public static AdvancedPickupDropTable dtITBossBonusRed = ScriptableObject.CreateInstance<AdvancedPickupDropTable>();
+        public static AdvancedPickupDropTable dtITBossGreenVoid = ScriptableObject.CreateInstance<AdvancedPickupDropTable>();
 
-        public static BasicPickupDropTable dtITSpecialEquipment = ScriptableObject.CreateInstance<BasicPickupDropTable>();
-        public static BasicPickupDropTable dtITVoidInfestorWave = ScriptableObject.CreateInstance<BasicPickupDropTable>();
-        public static BasicPickupDropTable dtITSpecialBossYellow = ScriptableObject.CreateInstance<BasicPickupDropTable>();
+        public static AdvancedPickupDropTable dtITSpecialEquipment = ScriptableObject.CreateInstance<AdvancedPickupDropTable>();
+        public static AdvancedPickupDropTable dtITVoidInfestorWave = ScriptableObject.CreateInstance<AdvancedPickupDropTable>();
+        public static AdvancedPickupDropTable dtITSpecialBossYellow = ScriptableObject.CreateInstance<AdvancedPickupDropTable>();
         public static ExplicitPickupDropTable dtITHeresy = ScriptableObject.CreateInstance<ExplicitPickupDropTable>();
         public static ExplicitPickupDropTable dtITWurms = ScriptableObject.CreateInstance<ExplicitPickupDropTable>();
 
@@ -134,6 +127,7 @@ namespace SimulacrumAdditions
 
         public static void MakeValues()
         {
+            WolfoFixes.Shared.SetupShared();
             SimuTPEffect();
             MakePortal();
             SetupConstants();
@@ -152,10 +146,10 @@ namespace SimulacrumAdditions
 
             InfiniteTowerRun InfiniteTowerRunBase = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerRun.prefab").WaitForCompletion().GetComponent<InfiniteTowerRun>();
 
-            BasicPickupDropTable dtITEnemyTier1 = ScriptableObject.CreateInstance<BasicPickupDropTable>();
-            BasicPickupDropTable dtITEnemyTier2 = ScriptableObject.CreateInstance<BasicPickupDropTable>();
-            BasicPickupDropTable dtITEnemyTier3 = ScriptableObject.CreateInstance<BasicPickupDropTable>();
-            dtAISafeRandomVoid = ScriptableObject.CreateInstance<BasicPickupDropTable>();
+            AdvancedPickupDropTable dtITEnemyTier1 = ScriptableObject.CreateInstance<AdvancedPickupDropTable>();
+            AdvancedPickupDropTable dtITEnemyTier2 = ScriptableObject.CreateInstance<AdvancedPickupDropTable>();
+            AdvancedPickupDropTable dtITEnemyTier3 = ScriptableObject.CreateInstance<AdvancedPickupDropTable>();
+            dtAISafeRandomVoid = ScriptableObject.CreateInstance<AdvancedPickupDropTable>();
 
             dtITEnemyTier1.name = "dtITEnemyTier1";
             dtITEnemyTier2.name = "dtITEnemyTier2";
@@ -212,19 +206,7 @@ namespace SimulacrumAdditions
             dtITVoid.voidTier3Weight = 15;
             dtITVoid.voidBossWeight = 10;
 
-            //Wacky Tier for Wacky Artifacts
-            dtAllTier.name = "dtAllTier";
-            dtAllTier.tier1Weight = 120;
-            dtAllTier.tier2Weight = 20;
-            dtAllTier.tier3Weight = 2;
-            dtAllTier.bossWeight = 2;
-            dtAllTier.equipmentWeight = 15;
-            dtAllTier.lunarItemWeight = 8;
-            dtAllTier.voidTier1Weight = 50;
-            dtAllTier.voidTier2Weight = 20;
-            dtAllTier.voidTier3Weight = 2;
-            dtAllTier.voidBossWeight = 1;
-            dtAllTier.lunarEquipmentWeight = 1;
+
 
 
             //OnKill for On Kill Artifacts
@@ -450,7 +432,7 @@ namespace SimulacrumAdditions
             SimuForcedBossStartAtXWaves = WConfig.cfgSuperBossStartAtXWaves.Value;
             SimuForcedBossWaveRest = WConfig.cfgSuperBossStartAtXWaves.Value % WConfig.cfgSuperBossEveryXWaves.Value;
 
-          
+
             //Simu Game Ending
             //GameEndingDef VoidEnding = Addressables.LoadAssetAsync<GameEndingDef>(key: "RoR2/DLC1/GameModes/VoidEnding.asset").WaitForCompletion();
             GameEndingDef MainEnding = Addressables.LoadAssetAsync<GameEndingDef>(key: "RoR2/Base/ClassicRun/MainEnding.asset").WaitForCompletion();
@@ -474,13 +456,9 @@ namespace SimulacrumAdditions
             //InfiniteTowerEnding.foregroundColor = new Color(0.75f, 0.4f, 0.55f, 1);
             InfiniteTowerEnding.foregroundColor = new Color(0.85f, 0.5f, 0.65f, 1);
             InfiniteTowerEnding.cachedName = "InfiniteTowerEnding";
-            
 
-            if (WConfig.cfgVoidTripleAllTier.Value == true)
-            {
-                Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/VoidTriple/VoidTriple.prefab").WaitForCompletion().GetComponent<RoR2.OptionChestBehavior>().dropTable = dtAllTier;
-            }
- 
+
+           
             DirectorCardCategorySelection dccsITVoidMonsters = Addressables.LoadAssetAsync<DirectorCardCategorySelection>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/dccsITVoidMonsters.asset").WaitForCompletion();
             dccsITVoidMonsters.categories[1].selectionWeight = 2;
             dccsITVoidMonsters.categories[2].cards[0].selectionWeight = 2;
@@ -599,7 +577,7 @@ namespace SimulacrumAdditions
             }
 
 
-           
+
         }
     }
 

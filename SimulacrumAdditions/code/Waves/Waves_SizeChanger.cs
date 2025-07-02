@@ -1,21 +1,19 @@
-﻿using RoR2;
+﻿using R2API;
+using RoR2;
 //using System;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using R2API;
 
-namespace SimulacrumAdditions
+namespace SimulacrumAdditions.Waves
 {
     public class Waves_SizeChanging
     {
- 
+
         internal static void MakeWaves()
         {
-           
+
             //SizeBigEnemies Buff
-            GameObject InfiniteTowerWaveSizeBigEnemies = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveSizeBigEnemies", true);
-            GameObject InfiniteTowerWaveSizeBigEnemiesUI = PrefabAPI.InstantiateClone(Const.BasicWaveUI, "InfiniteTowerWaveSizeBigEnemiesUI", false);
+            GameObject InfiniteTowerWaveSizeBigEnemies = PrefabAPI.InstantiateClone(Constant.BasicWave, "InfiniteTowerWaveSizeBigEnemies", true);
+            GameObject InfiniteTowerWaveSizeBigEnemiesUI = PrefabAPI.InstantiateClone(Constant.BasicWaveUI, "InfiniteTowerWaveSizeBigEnemiesUI", false);
 
             InfiniteTowerWaveSizeBigEnemies.AddComponent<SimuWaveSizeModifier>().sizeModifier = 1.65f;
 
@@ -31,12 +29,12 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveSizeBigEnemiesUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0.75f, 0.9f, 0.95f);
             InfiniteTowerWaveSizeBigEnemiesUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color(0.75f, 0.9f, 0.95f);
 
-            InfiniteTowerWaveCategory.WeightedWave SizeBigEnemiesWave = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveSizeBigEnemies, weight = 2f, prerequisites = Const.AfterWave5Prerequisite };
+            InfiniteTowerWaveCategory.WeightedWave SizeBigEnemiesWave = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveSizeBigEnemies, weight = 2f, prerequisites = Constant.AfterWave5Prerequisite };
 
 
             //SizeSmallEnemies
-            GameObject InfiniteTowerWaveSizeSmallEnemies = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveSizeSmallEnemies", true);
-            GameObject InfiniteTowerWaveSizeSmallEnemiesUI = PrefabAPI.InstantiateClone(Const.BasicWaveUI, "InfiniteTowerWaveSizeSmallEnemiesUI", false);
+            GameObject InfiniteTowerWaveSizeSmallEnemies = PrefabAPI.InstantiateClone(Constant.BasicWave, "InfiniteTowerWaveSizeSmallEnemies", true);
+            GameObject InfiniteTowerWaveSizeSmallEnemiesUI = PrefabAPI.InstantiateClone(Constant.BasicWaveUI, "InfiniteTowerWaveSizeSmallEnemiesUI", false);
 
             InfiniteTowerWaveSizeSmallEnemies.AddComponent<SimuWaveSizeModifier>().sizeModifier = 0.65f;
 
@@ -58,9 +56,9 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveSizeSmallEnemiesUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0.75f, 0.9f, 0.95f);
             InfiniteTowerWaveSizeSmallEnemiesUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color(0.75f, 0.9f, 0.95f);
 
-            InfiniteTowerWaveCategory.WeightedWave SizeSmallEnemiesWave = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveSizeSmallEnemies, weight = 1f, prerequisites = Const.AfterWave5Prerequisite };
+            InfiniteTowerWaveCategory.WeightedWave SizeSmallEnemiesWave = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveSizeSmallEnemies, weight = 1f, prerequisites = Constant.AfterWave5Prerequisite };
 
-            Const.ITBasicWaves.wavePrefabs = Const.ITBasicWaves.wavePrefabs.Add(SizeBigEnemiesWave, SizeSmallEnemiesWave);
+            Constant.ITBasicWaves.wavePrefabs = Constant.ITBasicWaves.wavePrefabs.Add(SizeBigEnemiesWave, SizeSmallEnemiesWave);
         }
 
 

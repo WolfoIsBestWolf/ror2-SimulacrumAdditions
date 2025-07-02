@@ -1,12 +1,12 @@
 ﻿using R2API;
 using RoR2;
+using RoR2.Hologram;
+using System.Collections.Generic;
 //using System;
 using System.Linq;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
 using UnityEngine.AddressableAssets;
-using RoR2.Hologram;
+using UnityEngine.Networking;
 
 namespace SimulacrumAdditions
 {
@@ -21,7 +21,7 @@ namespace SimulacrumAdditions
         public static void MakeArtifact()
         {
             realityDestinations.name = "sgITArtifactReal";
- 
+
             ArtifactUseNormalStages.cachedName = "AAAUseNormalStages";
             ArtifactUseNormalStages.nameToken = "ARTIFACT_NORMALSTAGES_NAME";
             ArtifactUseNormalStages.descriptionToken = "ARTIFACT_NORMALSTAGES_DESCRIPTION";
@@ -35,7 +35,7 @@ namespace SimulacrumAdditions
             RunArtifactManager.onArtifactDisabledGlobal += OnArtifactDisabled;
             On.RoR2.Run.OnDisable += Run_OnDisable;
 
-          
+
 
             SceneDef scene = Addressables.LoadAssetAsync<SceneDef>(key: "RoR2/DLC2/habitat/habitat.asset").WaitForCompletion();
             scene.validForRandomSelection = true;
@@ -70,7 +70,7 @@ namespace SimulacrumAdditions
             List<SceneCollection.SceneEntry> newSceneEntry = new List<SceneCollection.SceneEntry>();
             for (int i = 0; i < SceneCatalog.allStageSceneDefs.Length; i++)
             {
-                
+
                 SceneDef def = SceneCatalog.allStageSceneDefs[i];
                 if (def.validForRandomSelection && def.hasAnyDestinations)
                 {
@@ -91,11 +91,11 @@ namespace SimulacrumAdditions
                             weight = 2;
                             break;
                     }
- 
-                    SceneCollection.SceneEntry newEntry = new SceneCollection.SceneEntry() { sceneDef = def, weight = weight } ;
+
+                    SceneCollection.SceneEntry newEntry = new SceneCollection.SceneEntry() { sceneDef = def, weight = weight };
                     newSceneEntry.Add(newEntry);
                 }
-        
+
             }
             SceneDef arena = Addressables.LoadAssetAsync<SceneDef>(key: "RoR2/Base/arena/arena.asset").WaitForCompletion();
             SceneCollection.SceneEntry newEntry2 = new SceneCollection.SceneEntry() { sceneDef = arena, weight = 2f };
@@ -254,13 +254,13 @@ namespace SimulacrumAdditions
             newLighting.ApplyLighting();
         }
 
-       
+
         private static void VoidStageMissionController_Start(On.RoR2.VoidStageMissionController.orig_Start orig, VoidStageMissionController self)
         {
             if (RunArtifactManager.instance && RunArtifactManager.instance.IsArtifactEnabled(ArtifactUseNormalStages))
             {
                 self.batteryCount = 0;
-            }          
+            }
             orig(self);
         }
 
@@ -274,13 +274,13 @@ namespace SimulacrumAdditions
             orig(self);
         }
 
- 
+
 
         private static void ChooseRealityStages(On.RoR2.Run.orig_PickNextStageScene orig, Run self, WeightedSelection<SceneDef> choices)
         {
             if (self.ruleBook.stageOrder == StageOrder.Random)
             {
-             
+
                 if (visitedScenes.Count > 10)
                 {
                     visitedScenes.Clear();
@@ -295,15 +295,15 @@ namespace SimulacrumAdditions
                     //
                     WeightedSelection<SceneDef> weightedSelection = new WeightedSelection<SceneDef>(24);
                     realityDestinations.AddToWeightedSelection(weightedSelection, new System.Func<SceneDef, bool>(self.CanPickStage));
-                    
+
                     //0 00-10, 1 10-20, 2 20-30
-                    
+
                     if (self.stageClearCount > 2)
                     {
                         SceneDef voidStage = Addressables.LoadAssetAsync<SceneDef>(key: "RoR2/DLC1/voidstage/voidstage.asset").WaitForCompletion();
                         weightedSelection.AddChoice(voidStage, 3.3f);
                     }
- 
+
                     self.nextStageScene = weightedSelection.Evaluate(self.nextStageRng.nextNormalizedFloat);
                     visitedScenes.Add(self.nextStageScene);
 
@@ -343,7 +343,7 @@ namespace SimulacrumAdditions
             }
             return orig(self);
         }
- 
+
         private static void ArtifactInITOnly(On.RoR2.Run.orig_OverrideRuleChoices orig, Run self, RuleChoiceMask mustInclude, RuleChoiceMask mustExclude, ulong runSeed)
         {
             orig(self, mustInclude, mustExclude, runSeed);
@@ -352,14 +352,14 @@ namespace SimulacrumAdditions
                 self.ForceChoice(mustInclude, mustExclude, RuleCatalog.FindRuleDef("Artifacts.AAAUseNormalStages").FindChoice("Off"));
             }
         }
- 
+
         private static void RemoveSpawnPointsAndMonsters(On.RoR2.InfiniteTowerRun.orig_OnPrePopulateSceneServer orig, InfiniteTowerRun self, SceneDirector sceneDirector)
         {
             sceneDirector.teleporterSpawnCard = null;
             sceneDirector.monsterCredit = 0;
             sceneDirector.RemoveAllExistingSpawnPoints();
             orig(self, sceneDirector);
- 
+
         }
 
         private static void AddAndRemoveInteractables(SceneDirector arg1, DirectorCardCategorySelection dccs)

@@ -3,8 +3,8 @@ using RoR2;
 using RoR2.Navigation;
 //using System;
 using UnityEngine;
-using UnityEngine.Networking;
 using UnityEngine.AddressableAssets;
+using UnityEngine.Networking;
 
 namespace SimulacrumAdditions
 {
@@ -17,8 +17,8 @@ namespace SimulacrumAdditions
 
         public static void MakeWave()
         {
-            GameObject WaveBoss_SuperCrab = PrefabAPI.InstantiateClone(Const.ScavWave, "WaveBoss_SuperVoidMegaCrab", true);
-            GameObject WaveBoss_SuperCrabUI = PrefabAPI.InstantiateClone(Const.ScavWaveUI, "WaveBoss_SuperVoidMegaCrabUI", false);
+            GameObject WaveBoss_SuperCrab = PrefabAPI.InstantiateClone(Constant.ScavWave, "WaveBoss_SuperVoidMegaCrab", true);
+            GameObject WaveBoss_SuperCrabUI = PrefabAPI.InstantiateClone(Constant.ScavWaveUI, "WaveBoss_SuperVoidMegaCrabUI", false);
             CharacterSpawnCard cscSuperCrab;
 
 
@@ -48,9 +48,9 @@ namespace SimulacrumAdditions
             wave.spawnList[0].spawnCard = cscSuperCrab;
             wave.spawnList[0].spawnDistance = DirectorCore.MonsterSpawnDistance.Far;
             wave.secondsBeforeSuddenDeath *= 2f;
-            wave.rewardDropTable = Const.dtITWaveTier3;
+            wave.rewardDropTable = Constant.dtITWaveTier3;
             wave.rewardDisplayTier = ItemTier.Tier3;
-            WaveBoss_SuperCrab.AddComponent<SimulacrumExtrasHelper>().rewardDropTable = Const.dtITVoid;
+            WaveBoss_SuperCrab.AddComponent<SimulacrumExtrasHelper>().rewardDropTable = Constant.dtITVoid;
             WaveBoss_SuperCrab.GetComponent<SimulacrumExtrasHelper>().rewardDisplayTier = ItemTier.VoidTier2;
             WaveBoss_SuperCrab.GetComponent<SimulacrumExtrasHelper>().newRadius = 110;
 
@@ -59,12 +59,12 @@ namespace SimulacrumAdditions
             simuExplicitStats.hpBonusMulti = 0.4f;
             simuExplicitStats.halfOnNonFinal = true;
 
-  
+
             wave.overlayEntries[1].prefab = WaveBoss_SuperCrabUI;
             WaveBoss_SuperCrabUI.SetWaveInfo("ITWAVE_NAME_BOSS_SUPERCRAB", "ITWAVE_DESC_BOSS_SUPERCRAB", Assets.Bundle.LoadAsset<Sprite>("Assets/Simulacrum/Wave/waveVoid.png"), new Color(1f, 0.6278f, 0.83f, 1));
-            InfiniteTowerWaveCategory.WeightedWave ITSuperCrab = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = WaveBoss_SuperCrab, weight = 4f, prerequisites = Const.StartWave35Prerequisite };
-            Const.ITBossWaves.wavePrefabs = Const.ITBossWaves.wavePrefabs.Add(ITSuperCrab);
-            Const.ITSuperBossWaves.wavePrefabs = Const.ITSuperBossWaves.wavePrefabs.Add(ITSuperCrab);
+            InfiniteTowerWaveCategory.WeightedWave ITSuperCrab = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = WaveBoss_SuperCrab, weight = 4f, prerequisites = Constant.StartWave35Prerequisite };
+            Constant.ITBossWaves.wavePrefabs = Constant.ITBossWaves.wavePrefabs.Add(ITSuperCrab);
+            Constant.ITSuperBossWaves.wavePrefabs = Constant.ITSuperBossWaves.wavePrefabs.Add(ITSuperCrab);
 
         }
 
@@ -82,8 +82,8 @@ namespace SimulacrumAdditions
 
             CrabCharacterBody.baseNameToken = "SUPERMEGACRAB_BODY_NAME";
             CrabCharacterBody.portraitIcon = Addressables.LoadAssetAsync<Texture>(key: "RoR2/DLC1/VoidSuperMegaCrabBody.png").WaitForCompletion();
- 
-            CrabCharacterBody.baseMaxHealth = 1875*2; //Base Health is 2800*1.6 cuz Trans Shrimp
+
+            CrabCharacterBody.baseMaxHealth = 1875 * 2; //Base Health is 2800*1.6 cuz Trans Shrimp
             CrabCharacterBody.baseDamage *= 0.2f; //Bro gets so many damage items
             CrabCharacterBody.baseMoveSpeed *= 0.75f;
             CrabCharacterBody.baseAttackSpeed *= 0.75f;
@@ -94,7 +94,7 @@ namespace SimulacrumAdditions
             On.EntityStates.VoidMegaCrab.Weapon.FireCrabCannonBase.OnEnter += FireCrabCannonBase_OnEnter;
             On.EntityStates.VoidMegaCrab.DeathState.OnExit += DeathState_OnExit;
             #endregion
- 
+
             #region Master
             SuperCrabMaster.AddComponent<GivePickupsOnStart>().itemInfos = new GivePickupsOnStart.ItemInfo[] {
                 new GivePickupsOnStart.ItemInfo { itemString = ("AdaptiveArmor"), count = 1, },
@@ -141,7 +141,7 @@ namespace SimulacrumAdditions
             mdlCrab.GetComponent<ModelPanelParameters>().minDistance = 20;
             mdlCrab.GetComponent<ModelPanelParameters>().maxDistance = 50;
 
-           //mdlCrab.transform.GetChild(2).GetComponent<SkinnedMeshRenderer>().sharedMesh = mdlVoidSuperMegaCrab.transform.GetChild(1).GetComponent<SkinnedMeshRenderer>().sharedMesh;
+            //mdlCrab.transform.GetChild(2).GetComponent<SkinnedMeshRenderer>().sharedMesh = mdlVoidSuperMegaCrab.transform.GetChild(1).GetComponent<SkinnedMeshRenderer>().sharedMesh;
 
             SkinDef skinSuperVoidCrab = Object.Instantiate(Addressables.LoadAssetAsync<SkinDef>(key: "00bdccf5542881c42ab3eb4de8adbaf0").WaitForCompletion());
             SkinDefParams paramsSuperVoidCrab = Object.Instantiate(Addressables.LoadAssetAsync<SkinDefParams>(key: "872a5d01600f3d04fbe96095db442636").WaitForCompletion());
@@ -207,7 +207,7 @@ namespace SimulacrumAdditions
                 {
                     user.userProfile.AddAchievement("VOIDSUPERMEGACRAB_ACHIEVEMENT", false);
                 }
-            }      
+            }
         }
     }
 

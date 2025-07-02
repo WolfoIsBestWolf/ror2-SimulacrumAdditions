@@ -1,11 +1,10 @@
-﻿using RoR2;
+﻿using R2API;
+using RoR2;
 //using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using R2API;
 
-namespace SimulacrumAdditions
+namespace SimulacrumAdditions.Waves
 {
     public class Waves_BuffRelated
     {
@@ -16,10 +15,10 @@ namespace SimulacrumAdditions
         {
             #region Void Bear Spam
             //VoidBear
-            GameObject InfiniteTowerWaveVoidBear = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveVoidBear", true);
-            GameObject InfiniteTowerWaveVoidBearUI = PrefabAPI.InstantiateClone(Const.VoidWaveUI, "InfiniteTowerWaveVoidBearUI", false);
+            GameObject InfiniteTowerWaveVoidBear = PrefabAPI.InstantiateClone(Constant.BasicWave, "InfiniteTowerWaveVoidBear", true);
+            GameObject InfiniteTowerWaveVoidBearUI = PrefabAPI.InstantiateClone(Constant.VoidWaveUI, "InfiniteTowerWaveVoidBearUI", false);
 
-            InfiniteTowerWaveVoidBear.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Const.dtITBasicBonusVoid;
+            InfiniteTowerWaveVoidBear.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITBasicBonusVoid;
             InfiniteTowerWaveVoidBear.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
             InfiniteTowerWaveVoidBear.GetComponent<InfiniteTowerWaveController>().maxSquadSize = 15;
             InfiniteTowerWaveVoidBear.AddComponent<SimuBuffWaveHelper>().variant = 0;
@@ -37,17 +36,17 @@ namespace SimulacrumAdditions
             //InfiniteTowerWaveVoidBearUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0.85f, 0.55f, 1f, 1);
             InfiniteTowerWaveVoidBearUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color(0.675f, 0.425f, 0.825f, 1);
 
-            InfiniteTowerWaveCategory.WeightedWave ITBasicVoidBear = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveVoidBear, weight = 5f, prerequisites = Const.AfterWave5Prerequisite };
-            Const.ITBasicWaves.wavePrefabs = Const.ITBasicWaves.wavePrefabs.Add(ITBasicVoidBear);
+            InfiniteTowerWaveCategory.WeightedWave ITBasicVoidBear = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveVoidBear, weight = 5f, prerequisites = Constant.AfterWave5Prerequisite };
+            Constant.ITBasicWaves.wavePrefabs = Constant.ITBasicWaves.wavePrefabs.Add(ITBasicVoidBear);
             #endregion
             //
             #region Unused Blindness
             //Blindness Buff
-            GameObject InfiniteTowerWaveBlindness = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveBlindness", true);
-            GameObject InfiniteTowerWaveBlindnessUI = PrefabAPI.InstantiateClone(Const.BasicWaveUI, "InfiniteTowerWaveBlindnessUI", false);
+            GameObject InfiniteTowerWaveBlindness = PrefabAPI.InstantiateClone(Constant.BasicWave, "InfiniteTowerWaveBlindness", true);
+            GameObject InfiniteTowerWaveBlindnessUI = PrefabAPI.InstantiateClone(Constant.BasicWaveUI, "InfiniteTowerWaveBlindnessUI", false);
 
             InfiniteTowerWaveBlindness.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWaveBlindnessUI;
-            InfiniteTowerWaveBlindness.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Const.dtITWaveTier1;
+            InfiniteTowerWaveBlindness.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITWaveTier1;
             InfiniteTowerWaveBlindness.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
             InfiniteTowerWaveBlindness.GetComponent<InfiniteTowerWaveController>().baseCredits = 160;
             InfiniteTowerWaveBlindness.AddComponent<SimuBuffWaveHelper>().variant = -1;
@@ -62,14 +61,14 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveBlindnessUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0.2f, 0.2f, 0.2f);
             InfiniteTowerWaveBlindnessUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color(0, 0, 0);
 
-            InfiniteTowerWaveCategory.WeightedWave Blindness = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveBlindness, weight = 4f, prerequisites = Const.AfterWave5Prerequisite };
-            Const.ITBasicWaves.wavePrefabs = Const.ITBasicWaves.wavePrefabs.Add(Blindness);
+            InfiniteTowerWaveCategory.WeightedWave Blindness = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveBlindness, weight = 4f, prerequisites = Constant.AfterWave5Prerequisite };
+            Constant.ITBasicWaves.wavePrefabs = Constant.ITBasicWaves.wavePrefabs.Add(Blindness);
             #endregion
             //
             #region Slippery Ground
             //Slippery Buff
-            GameObject InfiniteTowerWaveSlippery = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveSlippery", true);
-            GameObject InfiniteTowerWaveSlipperyUI = PrefabAPI.InstantiateClone(Const.BasicWaveUI, "InfiniteTowerWaveSlipperyUI", false);
+            GameObject InfiniteTowerWaveSlippery = PrefabAPI.InstantiateClone(Constant.BasicWave, "InfiniteTowerWaveSlippery", true);
+            GameObject InfiniteTowerWaveSlipperyUI = PrefabAPI.InstantiateClone(Constant.BasicWaveUI, "InfiniteTowerWaveSlipperyUI", false);
 
             BuffDef Weak = RoR2.LegacyResourcesAPI.Load<BuffDef>("buffdefs/Weak");
             BuffDef bdOutOfCombatArmorBuff = Addressables.LoadAssetAsync<BuffDef>(key: "RoR2/DLC1/OutOfCombatArmor/bdOutOfCombatArmorBuff.asset").WaitForCompletion();
@@ -83,7 +82,7 @@ namespace SimulacrumAdditions
             ContentAddition.AddBuffDef(bdSlippery);
 
             InfiniteTowerWaveSlippery.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWaveSlipperyUI;
-            InfiniteTowerWaveSlippery.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Const.dtITCategoryUtility;
+            InfiniteTowerWaveSlippery.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITCategoryUtility;
             InfiniteTowerWaveSlippery.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
             InfiniteTowerWaveSlippery.GetComponent<InfiniteTowerWaveController>().baseCredits = 160;
             InfiniteTowerWaveSlippery.AddComponent<SimuBuffWaveHelper>().variant = -1;
@@ -96,14 +95,14 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveSlipperyUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0.9f, 0.8f, 1f);
             InfiniteTowerWaveSlipperyUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color(0.8f, 0.7f, 0.9f);
 
-            InfiniteTowerWaveCategory.WeightedWave Slippery = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveSlippery, weight = 4f, prerequisites = Const.AfterWave5Prerequisite };
-            Const.ITBasicWaves.wavePrefabs = Const.ITBasicWaves.wavePrefabs.Add(Slippery);
+            InfiniteTowerWaveCategory.WeightedWave Slippery = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveSlippery, weight = 4f, prerequisites = Constant.AfterWave5Prerequisite };
+            Constant.ITBasicWaves.wavePrefabs = Constant.ITBasicWaves.wavePrefabs.Add(Slippery);
             #endregion
             //
             #region No Procs
             //BadLuck Buff
-            GameObject InfiniteTowerWaveBadLuck = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveBadLuck", true);
-            GameObject InfiniteTowerWaveBadLuckUI = PrefabAPI.InstantiateClone(Const.BasicWaveUI, "InfiniteTowerWaveBadLuckUI", false);
+            GameObject InfiniteTowerWaveBadLuck = PrefabAPI.InstantiateClone(Constant.BasicWave, "InfiniteTowerWaveBadLuck", true);
+            GameObject InfiniteTowerWaveBadLuckUI = PrefabAPI.InstantiateClone(Constant.BasicWaveUI, "InfiniteTowerWaveBadLuckUI", false);
             Color BadLuckColor = new Color(0.7f, 0.8f, 0.3f);
 
             bdBadLuck = ScriptableObject.CreateInstance<BuffDef>();
@@ -116,7 +115,7 @@ namespace SimulacrumAdditions
             ContentAddition.AddBuffDef(bdBadLuck);
 
             InfiniteTowerWaveBadLuck.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWaveBadLuckUI;
-            InfiniteTowerWaveBadLuck.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Const.dtITWaveTier1;
+            InfiniteTowerWaveBadLuck.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITWaveTier1;
             InfiniteTowerWaveBadLuck.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
             InfiniteTowerWaveBadLuck.GetComponent<InfiniteTowerWaveController>().rewardOptionCount = 6;
             InfiniteTowerWaveBadLuck.GetComponent<InfiniteTowerWaveController>().baseCredits = 160;
@@ -127,18 +126,18 @@ namespace SimulacrumAdditions
 
             InfiniteTowerWaveBadLuckUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_BADLUCK";
             InfiniteTowerWaveBadLuckUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_BADLUCK";
-            InfiniteTowerWaveBadLuckUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = Const.texITWaveDefaultWhiteS;
+            InfiniteTowerWaveBadLuckUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = Constant.texITWaveDefaultWhiteS;
             InfiniteTowerWaveBadLuckUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color = BadLuckColor;
             InfiniteTowerWaveBadLuckUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = BadLuckColor;
             InfiniteTowerWaveBadLuckUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = BadLuckColor;
 
-            InfiniteTowerWaveCategory.WeightedWave BadLuck = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveBadLuck, weight = 4f, prerequisites = Const.StartWave11Prerequisite };
-            Const.ITBasicWaves.wavePrefabs = Const.ITBasicWaves.wavePrefabs.Add(BadLuck);
+            InfiniteTowerWaveCategory.WeightedWave BadLuck = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveBadLuck, weight = 4f, prerequisites = Constant.StartWave11Prerequisite };
+            Constant.ITBasicWaves.wavePrefabs = Constant.ITBasicWaves.wavePrefabs.Add(BadLuck);
             #endregion
             #region No Cooldowns for everyone
             //NoCooldowns Buff
-            GameObject InfiniteTowerWaveNoCooldowns = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveNoCooldowns", true);
-            GameObject InfiniteTowerWaveNoCooldownsUI = PrefabAPI.InstantiateClone(Const.BasicWaveUI, "InfiniteTowerWaveNoCooldownsUI", false);
+            GameObject InfiniteTowerWaveNoCooldowns = PrefabAPI.InstantiateClone(Constant.BasicWave, "InfiniteTowerWaveNoCooldowns", true);
+            GameObject InfiniteTowerWaveNoCooldownsUI = PrefabAPI.InstantiateClone(Constant.BasicWaveUI, "InfiniteTowerWaveNoCooldownsUI", false);
 
             BuffDef NoCooldowns = LegacyResourcesAPI.Load<BuffDef>("BuffDefs/NoCooldowns");
 
@@ -159,14 +158,14 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveNoCooldownsUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = NoCooldowns.buffColor * 1.2f;
             InfiniteTowerWaveNoCooldownsUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = NoCooldowns.buffColor * 0.9f;
 
-            InfiniteTowerWaveCategory.WeightedWave NoCooldownsWave = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveNoCooldowns, weight = 3f, prerequisites = Const.StartWave11Prerequisite };
-            Const.ITBasicWaves.wavePrefabs = Const.ITBasicWaves.wavePrefabs.Add(NoCooldownsWave);
+            InfiniteTowerWaveCategory.WeightedWave NoCooldownsWave = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveNoCooldowns, weight = 3f, prerequisites = Constant.StartWave11Prerequisite };
+            Constant.ITBasicWaves.wavePrefabs = Constant.ITBasicWaves.wavePrefabs.Add(NoCooldownsWave);
             #endregion
             //
             #region Free Drugs for everyone
             //LunarTonic Buff
-            GameObject InfiniteTowerWaveLunarTonic = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveLunarTonic", true);
-            GameObject InfiniteTowerWaveLunarTonicUI = PrefabAPI.InstantiateClone(Const.BasicWaveUI, "InfiniteTowerWaveLunarTonicUI", false);
+            GameObject InfiniteTowerWaveLunarTonic = PrefabAPI.InstantiateClone(Constant.BasicWave, "InfiniteTowerWaveLunarTonic", true);
+            GameObject InfiniteTowerWaveLunarTonicUI = PrefabAPI.InstantiateClone(Constant.BasicWaveUI, "InfiniteTowerWaveLunarTonicUI", false);
 
             BuffDef LunarTonic = LegacyResourcesAPI.Load<BuffDef>("BuffDefs/TonicBuff");
 
@@ -181,7 +180,7 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveLunarTonic.AddComponent<SimulacrumGiveItemsOnStart>().itemString = "TonicAffliction";
             InfiniteTowerWaveLunarTonic.GetComponent<SimulacrumGiveItemsOnStart>().count = 10;
 
-            Color TonicColor = new Color(0.7f,0.8f,1f);
+            Color TonicColor = new Color(0.7f, 0.8f, 1f);
 
             InfiniteTowerWaveLunarTonicUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_TONIC";
             InfiniteTowerWaveLunarTonicUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_TONIC";
@@ -189,18 +188,18 @@ namespace SimulacrumAdditions
             InfiniteTowerWaveLunarTonicUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = TonicColor;
             InfiniteTowerWaveLunarTonicUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = TonicColor;
 
-            InfiniteTowerWaveCategory.WeightedWave LunarTonicWave = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveLunarTonic, weight = 3f, prerequisites = Const.StartWave11Prerequisite };
-            Const.ITBasicWaves.wavePrefabs = Const.ITBasicWaves.wavePrefabs.Add(LunarTonicWave);
+            InfiniteTowerWaveCategory.WeightedWave LunarTonicWave = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveLunarTonic, weight = 3f, prerequisites = Constant.StartWave11Prerequisite };
+            Constant.ITBasicWaves.wavePrefabs = Constant.ITBasicWaves.wavePrefabs.Add(LunarTonicWave);
             #endregion
             //
             #region (Boss) Leeching
             //BossLeeching Buff
-            GameObject WaveBoss_Leeching = PrefabAPI.InstantiateClone(Const.BossWave, "WaveBoss_Leeching", true);
-            GameObject WaveBoss_LeechingUI = PrefabAPI.InstantiateClone(Const.BossWaveUI, "WaveBoss_LeechingUI", false);
+            GameObject WaveBoss_Leeching = PrefabAPI.InstantiateClone(Constant.BossWave, "WaveBoss_Leeching", true);
+            GameObject WaveBoss_LeechingUI = PrefabAPI.InstantiateClone(Constant.BossWaveUI, "WaveBoss_LeechingUI", false);
 
             BuffDef LifeSteal = LegacyResourcesAPI.Load<BuffDef>("BuffDefs/LifeSteal");
 
-            WaveBoss_Leeching.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Const.dtITBossCategoryHealing;
+            WaveBoss_Leeching.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITBossCategoryHealing;
             WaveBoss_Leeching.AddComponent<SimulacrumExtrasHelper>().newRadius = 80;
 
             WaveBoss_Leeching.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = WaveBoss_LeechingUI;
@@ -209,7 +208,7 @@ namespace SimulacrumAdditions
             simuBuffWaveHelper.addToEnemies = true;
             simuBuffWaveHelper.buffDef = LifeSteal;
 
-            Color LeechColor = new Color(0.9f,0.8f,0.3f);
+            Color LeechColor = new Color(0.9f, 0.8f, 0.3f);
 
             SimulacrumGiveItemsOnStart simulacrumGiveItemsOnStart = WaveBoss_Leeching.AddComponent<SimulacrumGiveItemsOnStart>();
             simulacrumGiveItemsOnStart.count = 1;
@@ -229,9 +228,9 @@ namespace SimulacrumAdditions
             WaveBoss_LeechingUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color = LeechColor;
             WaveBoss_LeechingUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = LeechColor;
             WaveBoss_LeechingUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = LeechColor;
-            
-            InfiniteTowerWaveCategory.WeightedWave BossLeechingWave = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = WaveBoss_Leeching, weight = 5f, prerequisites = Const.StartWave20Prerequisite };
-             Const.ITBossWaves.wavePrefabs = Const.ITBossWaves.wavePrefabs.Add(BossLeechingWave);
+
+            InfiniteTowerWaveCategory.WeightedWave BossLeechingWave = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = WaveBoss_Leeching, weight = 5f, prerequisites = Constant.StartWave20Prerequisite };
+            Constant.ITBossWaves.wavePrefabs = Constant.ITBossWaves.wavePrefabs.Add(BossLeechingWave);
             #endregion
         }
 

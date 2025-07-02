@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using UnityEngine;
 
 namespace SimulacrumAdditions
 {
@@ -17,7 +16,7 @@ namespace SimulacrumAdditions
             Array.Resize<T>(ref array, array.Length + items.Length);
             for (int i = 0; i < items.Length; i++)
             {
-                array[originalLength+i] = items[i];
+                array[originalLength + i] = items[i];
             }
             return array;
         }

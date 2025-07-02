@@ -1,11 +1,4 @@
-﻿using BepInEx;
-using MonoMod.Cil;
-using R2API;
-using R2API.Utils;
-using RoR2;
-using System.Collections.Generic;
-using System.Security;
-using System.Security.Permissions;
+﻿using RoR2;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Networking;
@@ -39,7 +32,7 @@ namespace SimulacrumAdditions
             On.RoR2.Artifacts.SacrificeArtifactManager.OnArtifactEnabled += SacrificeArtifactManager_OnArtifactEnabled;
             On.RoR2.Artifacts.SacrificeArtifactManager.OnArtifactDisabled += SacrificeArtifactManager_OnArtifactDisabled;
 
-           
+
         }
 
         private static void ActivateNewArtifacts_OnAllEnemiesDefeatedServer(InfiniteTowerWaveController self)
@@ -77,7 +70,7 @@ namespace SimulacrumAdditions
                 }
             }
         }
- 
+
         private static void DevotionInventoryController_Awake(On.RoR2.DevotionInventoryController.orig_Awake orig, DevotionInventoryController self)
         {
             orig(self);
@@ -124,7 +117,7 @@ namespace SimulacrumAdditions
                     On.RoR2.Util.GetExpAdjustedDropChancePercent += SimulacrumNerfSacrifice;
                 }
             }
-            
+
         }
 
         private static float SimulacrumNerfSacrifice(On.RoR2.Util.orig_GetExpAdjustedDropChancePercent orig, float baseChancePercent, GameObject characterBodyObject)

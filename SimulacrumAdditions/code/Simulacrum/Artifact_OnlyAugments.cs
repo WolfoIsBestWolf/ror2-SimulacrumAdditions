@@ -2,7 +2,6 @@
 using RoR2;
 //using System;
 using UnityEngine;
-using UnityEngine.Networking;
 
 namespace SimulacrumAdditions
 {
@@ -41,8 +40,8 @@ namespace SimulacrumAdditions
                 return;
             }
             On.RoR2.InfiniteTowerWaveCategory.GenerateWeightedSelection += OnlySpecialWaves;
-            Const.ITBasicWaves.GenerateWeightedSelection();
-            Const.ITBossWaves.GenerateWeightedSelection();
+            Constant.ITBasicWaves.GenerateWeightedSelection();
+            Constant.ITBossWaves.GenerateWeightedSelection();
         }
 
         private static void OnArtifactDisabled(RunArtifactManager runArtifactManager, ArtifactDef artifactDef)
@@ -52,8 +51,8 @@ namespace SimulacrumAdditions
                 return;
             }
             On.RoR2.InfiniteTowerWaveCategory.GenerateWeightedSelection -= OnlySpecialWaves;
-            Const.ITBasicWaves.GenerateWeightedSelection();
-            Const.ITBossWaves.GenerateWeightedSelection();
+            Constant.ITBasicWaves.GenerateWeightedSelection();
+            Constant.ITBossWaves.GenerateWeightedSelection();
         }
 
         public static void OnlySpecialWaves(On.RoR2.InfiniteTowerWaveCategory.orig_GenerateWeightedSelection orig, InfiniteTowerWaveCategory self)

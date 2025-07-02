@@ -2,12 +2,7 @@ using BepInEx;
 using BepInEx.Configuration;
 using RiskOfOptions;
 using RiskOfOptions.Options;
-using System;
-using System.Collections.Generic;
 using UnityEngine;
-using RoR2.Stats;
-using RoR2;
-using RoR2.UI;
 
 namespace SimulacrumAdditions
 {
@@ -20,7 +15,6 @@ namespace SimulacrumAdditions
         //public static ConfigEntry<bool> SimulacrumEnemyItemChanges;
         public static ConfigEntry<bool> cfgFasterWavesLater;
         public static ConfigEntry<bool> cfgCrabSpeedOnLaterWaves;
-        public static ConfigEntry<bool> cfgVoidTripleAllTier;
        
         public static ConfigEntry<bool> cfgSimuCreditsRebalance;
         public static ConfigEntry<bool> cfgSimuMoreGold;
@@ -42,13 +36,12 @@ namespace SimulacrumAdditions
         public static ConfigEntry<bool> cfgMakeSpecialWavesMoreCommon;
 
         public static ConfigEntry<bool> cfgAwaitTravel;
-        public static ConfigEntry<bool> cfgWaveOnEndScreen;
-
+        
         public static ConfigEntry<float> ArtifactOfRealityBonusRadius;
         public static ConfigEntry<float> cfgCrabRadius;
         public static ConfigEntry<float> cfgCrabRadiusPerPlayer;
         //public static ConfigEntry<bool> cfgWarbannerOnBoss;
-       
+
         public static ConfigEntry<int> cfgSimuEndingStartAtXWaves;
         public static ConfigEntry<int> cfgSimuEndingEveryXWaves;
         public static ConfigEntry<int> cfgSuperBossStartAtXWaves;
@@ -63,8 +56,7 @@ namespace SimulacrumAdditions
 
             ModSettingsManager.AddOption(new CheckBoxOption(cfgNewEnemiesVisible, true));
             ModSettingsManager.AddOption(new CheckBoxOption(cfgVoidCoins));
-            ModSettingsManager.AddOption(new CheckBoxOption(cfgVoidTripleAllTier, true));
-
+             
             ModSettingsManager.AddOption(new CheckBoxOption(cfgSacrificeBalance));
 
             ModSettingsManager.AddOption(new CheckBoxOption(cfgFasterWavesLater));
@@ -77,14 +69,13 @@ namespace SimulacrumAdditions
 
             ModSettingsManager.AddOption(new CheckBoxOption(cfgCrabSpeedOnLaterWaves));
             ModSettingsManager.AddOption(new CheckBoxOption(cfgMusicSuperBoss));
-//ModSettingsManager.AddOption(new CheckBoxOption(cfgMakeSpecialWavesMoreCommon));
-ModSettingsManager.AddOption(new CheckBoxOption(cfgAwaitTravel));
+            //ModSettingsManager.AddOption(new CheckBoxOption(cfgMakeSpecialWavesMoreCommon));
+            ModSettingsManager.AddOption(new CheckBoxOption(cfgAwaitTravel));
 
-ModSettingsManager.AddOption(new CheckBoxOption(cfgWaveOnEndScreen));
-ModSettingsManager.AddOption(new FloatFieldOption(ArtifactOfRealityBonusRadius));
-ModSettingsManager.AddOption(new FloatFieldOption(cfgCrabRadius));
-ModSettingsManager.AddOption(new FloatFieldOption(cfgCrabRadiusPerPlayer));
- 
+            ModSettingsManager.AddOption(new FloatFieldOption(ArtifactOfRealityBonusRadius));
+            ModSettingsManager.AddOption(new FloatFieldOption(cfgCrabRadius));
+            ModSettingsManager.AddOption(new FloatFieldOption(cfgCrabRadiusPerPlayer));
+
 
 
 
@@ -97,9 +88,9 @@ ModSettingsManager.AddOption(new FloatFieldOption(cfgCrabRadiusPerPlayer));
         public static void InitConfig()
         {
             ResetStatsButton = ConfigFileUNSORTED.Bind(
-                "Main", 
-                "Reset Wave Count Button", 
-                false, 
+                "Main",
+                "Reset Wave Count Button",
+                false,
                 "Add buttons to reset wave count or set it to 50."
             );
 
@@ -116,13 +107,8 @@ ModSettingsManager.AddOption(new FloatFieldOption(cfgCrabRadiusPerPlayer));
                  true,
                  "Add previously unused Void Coins with which you can purchase Void Interactables. You can still purchase them with Blood if you do not have any."
              );
-            cfgVoidTripleAllTier = ConfigFileUNSORTED.Bind(
-                "Main",
-                "Void Potential Chests can drop more tiers",
-                true,
-                "With this they can give items from any tier, normally they use a normal chest pool."
-            );
- 
+            
+
             cfgNewEnemiesVisible = ConfigFileUNSORTED.Bind(
                 "Main",
                 "Logbook Entries for Simu Bosses",
@@ -135,13 +121,7 @@ ModSettingsManager.AddOption(new FloatFieldOption(cfgCrabRadiusPerPlayer));
                 true,
                 "Void themed teleport effect for Simulacrum runs"
             );
-            cfgWaveOnEndScreen = ConfigFileUNSORTED.Bind(
-                "Main",
-                "Wave name on end screen",
-                true,
-                "More info"
-            );
-
+ 
             //
             //Crab stuff
             cfgCrabSpeedOnLaterWaves = ConfigFileUNSORTED.Bind(
@@ -176,18 +156,18 @@ ModSettingsManager.AddOption(new FloatFieldOption(cfgCrabRadiusPerPlayer));
             );
             //
             //Artifacts
-           /* cfgEnableArtifactAugments = ConfigFileUNSORTED.Bind(
-                "Main : Artifacts",
-                "Enable Artifact of Augments",
-                true,
-                "An Artifact that allows only special augments."
-            );
-            cfgEnableArtifactStages = ConfigFileUNSORTED.Bind(
-                "Main : Artifacts",
-                "Enable Artifact of Reality",
-                true,
-                "An Artifact that makes the game mode use normal stages instead of simu variants"
-            );*/
+            /* cfgEnableArtifactAugments = ConfigFileUNSORTED.Bind(
+                 "Main : Artifacts",
+                 "Enable Artifact of Augments",
+                 true,
+                 "An Artifact that allows only special augments."
+             );
+             cfgEnableArtifactStages = ConfigFileUNSORTED.Bind(
+                 "Main : Artifacts",
+                 "Enable Artifact of Reality",
+                 true,
+                 "An Artifact that makes the game mode use normal stages instead of simu variants"
+             );*/
             ArtifactOfRealityBonusRadius = ConfigFileUNSORTED.Bind(
                 "Main : Artifacts",
                 "Artifact of Reality : Larger Radius",
@@ -273,7 +253,7 @@ ModSettingsManager.AddOption(new FloatFieldOption(cfgCrabRadiusPerPlayer));
                 false,
                 "Dump wave info on startup in log"
             );
- 
+
 
         }
 

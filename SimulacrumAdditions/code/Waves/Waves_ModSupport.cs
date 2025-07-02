@@ -1,11 +1,10 @@
-﻿using RoR2;
+﻿using R2API;
+using RoR2;
 //using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using R2API;
 
-namespace SimulacrumAdditions
+namespace SimulacrumAdditions.Waves
 {
     public class Waves_ModSupport
     {
@@ -13,33 +12,33 @@ namespace SimulacrumAdditions
         {
             #region StarStorm2 Artifact of Cognation
             //SS2 Cognation
-            GameObject InfiniteTowerWaveArtifactSS2Cognation = PrefabAPI.InstantiateClone(Const.ArtifactWave, "InfiniteTowerWaveArtifactSS2Cognation", true);
-            GameObject InfiniteTowerWaveArtifactSS2CognationUI = PrefabAPI.InstantiateClone(Const.ArtifactWaveUI, "InfiniteTowerWaveArtifactSS2CognationUI", false);
+            GameObject InfiniteTowerWaveArtifactSS2Cognation = PrefabAPI.InstantiateClone(Constant.ArtifactWave, "InfiniteTowerWaveArtifactSS2Cognation", true);
+            GameObject InfiniteTowerWaveArtifactSS2CognationUI = PrefabAPI.InstantiateClone(Constant.ArtifactWaveUI, "InfiniteTowerWaveArtifactSS2CognationUI", false);
 
             InfiniteTowerWaveArtifactSS2Cognation.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWaveArtifactSS2CognationUI;
-            InfiniteTowerWaveArtifactSS2Cognation.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Const.dtITBasicWaveOnKill;
+            InfiniteTowerWaveArtifactSS2Cognation.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITBasicWaveOnKill;
 
             //InfiniteTowerWaveArtifactSS2CognationUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = SS2Cognation.smallIconSelectedSprite;
             InfiniteTowerWaveArtifactSS2CognationUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "SS2_ITWAVE_NAME_BASIC_COGNATION";
             InfiniteTowerWaveArtifactSS2CognationUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "SS2_ITWAVE_DESC_BASIC_COGNATION";
 
             InfiniteTowerWaveCategory.WeightedWave ITBasicArtifacSS2Cognation = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveArtifactSS2Cognation, weight = 1.5f };
-            Const.ITModSupportWaves.wavePrefabs = Const.ITModSupportWaves.wavePrefabs.Add(ITBasicArtifacSS2Cognation);
+            Constant.ITModSupportWaves.wavePrefabs = Constant.ITModSupportWaves.wavePrefabs.Add(ITBasicArtifacSS2Cognation);
             #endregion
 
             //Risky Origin
-            GameObject InfiniteTowerWaveArtifactRiskyOrigin = PrefabAPI.InstantiateClone(Const.ArtifactWave, "InfiniteTowerWaveArtifactRiskyOrigin", true);
-            GameObject InfiniteTowerWaveArtifactRiskyOriginUI = PrefabAPI.InstantiateClone(Const.ArtifactWaveUI, "InfiniteTowerWaveArtifactRiskyOriginUI", false);
+            GameObject InfiniteTowerWaveArtifactRiskyOrigin = PrefabAPI.InstantiateClone(Constant.ArtifactWave, "InfiniteTowerWaveArtifactRiskyOrigin", true);
+            GameObject InfiniteTowerWaveArtifactRiskyOriginUI = PrefabAPI.InstantiateClone(Constant.ArtifactWaveUI, "InfiniteTowerWaveArtifactRiskyOriginUI", false);
 
             InfiniteTowerWaveArtifactRiskyOrigin.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWaveArtifactRiskyOriginUI;
-            InfiniteTowerWaveArtifactRiskyOrigin.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Const.dtITWaveTier1;
+            InfiniteTowerWaveArtifactRiskyOrigin.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITWaveTier1;
 
             //InfiniteTowerWaveArtifactRiskyOriginUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = RiskyOrigin.smallIconSelectedSprite;
             InfiniteTowerWaveArtifactRiskyOriginUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "MOD_ITWAVE_NAME_BASIC_ORIGIN";
             InfiniteTowerWaveArtifactRiskyOriginUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "MOD_ITWAVE_DESC_BASIC_ORIGIN";
 
             InfiniteTowerWaveCategory.WeightedWave ITBasicArtifacRiskyOrigin = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveArtifactRiskyOrigin, weight = 1f };
-            Const.ITModSupportWaves.wavePrefabs = Const.ITModSupportWaves.wavePrefabs.Add(ITBasicArtifacRiskyOrigin);
+            Constant.ITModSupportWaves.wavePrefabs = Constant.ITModSupportWaves.wavePrefabs.Add(ITBasicArtifacRiskyOrigin);
         }
 
 
@@ -49,8 +48,8 @@ namespace SimulacrumAdditions
             //Could do NemMando NemMerc but idk they'd just fucking die like in the regular game
 
             //Minor Mod - DireSeeker
-            GameObject WaveBoss_Direseeker = PrefabAPI.InstantiateClone(Const.ScavWave, "WaveBoss_Direseeker", true);
-            GameObject InfiniteTowerCurrentBossDireseekerWaveUI = PrefabAPI.InstantiateClone(Const.BossWaveUI, "InfiniteTowerCurrentBossDireseekerWaveUI", false);
+            GameObject WaveBoss_Direseeker = PrefabAPI.InstantiateClone(Constant.ScavWave, "WaveBoss_Direseeker", true);
+            GameObject InfiniteTowerCurrentBossDireseekerWaveUI = PrefabAPI.InstantiateClone(Constant.BossWaveUI, "InfiniteTowerCurrentBossDireseekerWaveUI", false);
 
             WaveBoss_Direseeker.GetComponent<InfiniteTowerExplicitSpawnWaveController>().immediateCreditsFraction = 0.15f;
             WaveBoss_Direseeker.GetComponent<InfiniteTowerExplicitSpawnWaveController>().baseCredits = 150;
@@ -58,7 +57,7 @@ namespace SimulacrumAdditions
             WaveBoss_Direseeker.GetComponent<InfiniteTowerExplicitSpawnWaveController>().secondsBeforeSuddenDeath = 120;
 
             WaveBoss_Direseeker.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier3;
-            WaveBoss_Direseeker.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Const.dtITWaveTier3;
+            WaveBoss_Direseeker.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITWaveTier3;
 
             WaveBoss_Direseeker.AddComponent<SimulacrumExtrasHelper>().newRadius = 80;
             WaveBoss_Direseeker.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<DirectorCardCategorySelection>(key: "RoR2/Base/dampcave/dccsDampCaveMonstersDLC1.asset").WaitForCompletion();
@@ -72,15 +71,15 @@ namespace SimulacrumAdditions
             //InfiniteTowerCurrentBossDireseekerWaveUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0f, 0.9f, 0.6f, 1);
             //InfiniteTowerCurrentBossDireseekerWaveUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color(0f, 0.6f, 0.6f, 1);
 
-            InfiniteTowerWaveCategory.WeightedWave ITBossDireseeker = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = WaveBoss_Direseeker, weight = 4f, prerequisites = Const.StartWave20Prerequisite };
-            Const.ITModSupportWaves.wavePrefabs = Const.ITModSupportWaves.wavePrefabs.Add(ITBossDireseeker);
+            InfiniteTowerWaveCategory.WeightedWave ITBossDireseeker = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = WaveBoss_Direseeker, weight = 4f, prerequisites = Constant.StartWave20Prerequisite };
+            Constant.ITModSupportWaves.wavePrefabs = Constant.ITModSupportWaves.wavePrefabs.Add(ITBossDireseeker);
             //
             //
             //Will need to see what Empyrean Elites actually do
-            GameObject InfiniteTowerWaveSS2RainbowElites = PrefabAPI.InstantiateClone(Const.ScavWave, "InfiniteTowerWaveSS2RainbowElites", true);
-            GameObject InfiniteTowerCurrentSS2RainbowElitesWaveUI = PrefabAPI.InstantiateClone(Const.BasicWaveUI, "InfiniteTowerCurrentSS2RainbowElitesWaveUI", false);
+            GameObject InfiniteTowerWaveSS2RainbowElites = PrefabAPI.InstantiateClone(Constant.ScavWave, "InfiniteTowerWaveSS2RainbowElites", true);
+            GameObject InfiniteTowerCurrentSS2RainbowElitesWaveUI = PrefabAPI.InstantiateClone(Constant.BasicWaveUI, "InfiniteTowerCurrentSS2RainbowElitesWaveUI", false);
 
-            InfiniteTowerWaveSS2RainbowElites.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Const.dtITWaveTier1;
+            InfiniteTowerWaveSS2RainbowElites.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITWaveTier1;
             InfiniteTowerWaveSS2RainbowElites.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
             InfiniteTowerWaveSS2RainbowElites.GetComponent<InfiniteTowerWaveController>().baseCredits = 100;
             InfiniteTowerWaveSS2RainbowElites.GetComponent<InfiniteTowerWaveController>().wavePeriodSeconds = 30;
@@ -94,10 +93,10 @@ namespace SimulacrumAdditions
             InfiniteTowerCurrentSS2RainbowElitesWaveUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0.7f, 1f, 0.7f);
             InfiniteTowerCurrentSS2RainbowElitesWaveUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color(0.85f, 0.3f, 0.3f);
 
-            InfiniteTowerWaveCategory.WeightedWave ITBasicSS2RainbowElites = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveSS2RainbowElites, weight = 4f, prerequisites = Const.StartWave30Prerequisite };
-            Const.ITModSupportWaves.wavePrefabs = Const.ITModSupportWaves.wavePrefabs.Add(ITBasicSS2RainbowElites);
+            InfiniteTowerWaveCategory.WeightedWave ITBasicSS2RainbowElites = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveSS2RainbowElites, weight = 4f, prerequisites = Constant.StartWave30Prerequisite };
+            Constant.ITModSupportWaves.wavePrefabs = Constant.ITModSupportWaves.wavePrefabs.Add(ITBasicSS2RainbowElites);
             //
-            
+
             /*
             //Storms
             GameObject InfiniteTowerWaveSS2Storms = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWaveSS2Storms", true);
@@ -127,4 +126,3 @@ namespace SimulacrumAdditions
 
 }
 
- 

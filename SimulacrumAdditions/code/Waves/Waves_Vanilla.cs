@@ -1,12 +1,9 @@
 ﻿using RoR2;
-//using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using R2API;
-using static SimulacrumAdditions.Const;
+using static SimulacrumAdditions.Constant;
 
-namespace SimulacrumAdditions
+namespace SimulacrumAdditions.Waves
 {
     public class Waves_Vanilla
     {
@@ -14,8 +11,9 @@ namespace SimulacrumAdditions
         {
             GameObject InfiniteTowerWaveArtifactEnigma = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveArtifactEnigma.prefab").WaitForCompletion();
             WavesMain.orangeWaves.Add(InfiniteTowerWaveArtifactEnigma);
-            InfiniteTowerWaveArtifactEnigma.AddComponent<SimulacrumExtrasHelper>().rewardDropTable = Const.dtITSpecialEquipment;
+            InfiniteTowerWaveArtifactEnigma.AddComponent<SimulacrumExtrasHelper>().rewardDropTable = Constant.dtITSpecialEquipment;
             InfiniteTowerWaveArtifactEnigma.GetComponent<SimulacrumExtrasHelper>().rewardOptionCount = 2;
+            InfiniteTowerWaveArtifactEnigma.AddComponent<SimuWaveUnsortedExtras>().code = SimuWaveUnsortedExtras.Case.Enigma;
 
 
             float ITSpecialBossWaveWeight = 2.5f;
@@ -28,7 +26,7 @@ namespace SimulacrumAdditions
                         break;
                     case "InfiniteTowerWaveArtifactMixEnemy":
                         ITBasicWaves.wavePrefabs[i].weight = 3.5f;
-                        ITBasicWaves.wavePrefabs[i].wavePrefab.GetComponent<InfiniteTowerWaveController>().rewardDropTable = dtAllTier;
+                        ITBasicWaves.wavePrefabs[i].wavePrefab.GetComponent<InfiniteTowerWaveController>().rewardDropTable = WolfoFixes.Shared.dtAllTier;
                         ITBasicWaves.wavePrefabs[i].wavePrefab.GetComponent<InfiniteTowerWaveController>().baseCredits = 184;
                         break;
                     case "InfiniteTowerWaveArtifactBomb":
@@ -42,7 +40,7 @@ namespace SimulacrumAdditions
                         break;
                     case "InfiniteTowerWaveArtifactRandomLoadout":
                         ITBasicWaves.wavePrefabs[i].weight = 2f;
-                        ITBasicWaves.wavePrefabs[i].wavePrefab.GetComponent<InfiniteTowerWaveController>().rewardDropTable = dtAllTier;
+                        ITBasicWaves.wavePrefabs[i].wavePrefab.GetComponent<InfiniteTowerWaveController>().rewardDropTable = WolfoFixes.Shared.dtAllTier;
                         ITBasicWaves.wavePrefabs[i].wavePrefab.GetComponent<InfiniteTowerWaveController>().baseCredits = 159;
                         break;
                     case "InfiniteTowerWaveArtifactSingleEliteType":
@@ -73,10 +71,10 @@ namespace SimulacrumAdditions
                     CombatDirector temp = ITBossWaves.wavePrefabs[i].wavePrefab.GetComponent<RoR2.CombatDirector>();
                     temp.monsterCards = dccsLunarFamily;
                     temp.skipSpawnIfTooCheap = false;
-                    ITBossWaves.wavePrefabs[i].wavePrefab.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Const.dtITWaveTier2;
+                    ITBossWaves.wavePrefabs[i].wavePrefab.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITWaveTier2;
                     ITBossWaves.wavePrefabs[i].wavePrefab.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier2;
 
-                    ITBossWaves.wavePrefabs[i].wavePrefab.AddComponent<SimulacrumExtrasHelper>().rewardDropTable = Const.dtITLunar;
+                    ITBossWaves.wavePrefabs[i].wavePrefab.AddComponent<SimulacrumExtrasHelper>().rewardDropTable = Constant.dtITLunar;
                     ITBossWaves.wavePrefabs[i].wavePrefab.GetComponent<SimulacrumExtrasHelper>().rewardDisplayTier = ItemTier.Lunar;
                 }
                 else if (ITBossWaves.wavePrefabs[i].wavePrefab.name.Equals("InfiniteTowerWaveScav"))
@@ -87,6 +85,7 @@ namespace SimulacrumAdditions
                 }
                 else if (ITBossWaves.wavePrefabs[i].wavePrefab.name.Equals("InfiniteTowerWaveBrother"))
                 {
+                    ITBossWaves.wavePrefabs[i].wavePrefab.AddComponent<PhaseCounter>().phase = 3;
                     ITBossWaves.wavePrefabs[i].weight = ITSpecialBossWaveWeight;
                     ITBossWaves.wavePrefabs[i].prerequisites = StartWave35Prerequisite;
                     ITSuperBossWaves.wavePrefabs.Add(ITBossWaves.wavePrefabs[i]);

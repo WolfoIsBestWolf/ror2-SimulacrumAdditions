@@ -1,11 +1,9 @@
-﻿using RoR2;
+﻿using R2API;
+using RoR2;
 //using System;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using R2API;
 
-namespace SimulacrumAdditions
+namespace SimulacrumAdditions.Waves
 {
     public class Waves_Pulse
     {
@@ -22,10 +20,10 @@ namespace SimulacrumAdditions
 
             #region Design
             //Lunar
-            GameObject InfiniteTowerWavePulseLunar = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWavePulseLunar", true);
-            GameObject InfiniteTowerWavePulseLunarUI = PrefabAPI.InstantiateClone(Const.LunarWaveUI, "InfiniteTowerWavePulseLunarUI", false);
+            GameObject InfiniteTowerWavePulseLunar = PrefabAPI.InstantiateClone(Constant.BasicWave, "InfiniteTowerWavePulseLunar", true);
+            GameObject InfiniteTowerWavePulseLunarUI = PrefabAPI.InstantiateClone(Constant.LunarWaveUI, "InfiniteTowerWavePulseLunarUI", false);
 
-            InfiniteTowerWavePulseLunar.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Const.dtITBasicBonusLunar;
+            InfiniteTowerWavePulseLunar.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITBasicBonusLunar;
             InfiniteTowerWavePulseLunar.GetComponent<InfiniteTowerWaveController>().baseCredits = 160;
             //
             GameObject PulseLunar = PrefabAPI.InstantiateClone(LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/MoonBatteryDesignPulse"), "ITPulseLunar", true);
@@ -61,16 +59,16 @@ namespace SimulacrumAdditions
             InfiniteTowerWavePulseLunarUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0.55f, 0.85f, 0.95f);
             //InfiniteTowerCurrentWaveUIFamilyLunar.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color(0.5f, 0.75f, 0.95f);
 
-            InfiniteTowerWaveCategory.WeightedWave ITWavePulseLunar = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWavePulseLunar, weight = 4, prerequisites = Const.AfterWave5Prerequisite };
-            Const.ITBasicWaves.wavePrefabs = Const.ITBasicWaves.wavePrefabs.Add(ITWavePulseLunar);
+            InfiniteTowerWaveCategory.WeightedWave ITWavePulseLunar = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWavePulseLunar, weight = 4, prerequisites = Constant.AfterWave5Prerequisite };
+            Constant.ITBasicWaves.wavePrefabs = Constant.ITBasicWaves.wavePrefabs.Add(ITWavePulseLunar);
             #endregion
             #region Nullifcation
             //
             //Void
-            GameObject InfiniteTowerWavePulseVoid = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWavePulseVoid", true);
-            GameObject InfiniteTowerWavePulseVoidUI = PrefabAPI.InstantiateClone(Const.VoidWaveUI, "InfiniteTowerWavePulseVoidUI", false);
+            GameObject InfiniteTowerWavePulseVoid = PrefabAPI.InstantiateClone(Constant.BasicWave, "InfiniteTowerWavePulseVoid", true);
+            GameObject InfiniteTowerWavePulseVoidUI = PrefabAPI.InstantiateClone(Constant.VoidWaveUI, "InfiniteTowerWavePulseVoidUI", false);
 
-            InfiniteTowerWavePulseVoid.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Const.dtITBasicBonusVoid;
+            InfiniteTowerWavePulseVoid.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITBasicBonusVoid;
             InfiniteTowerWavePulseVoid.GetComponent<InfiniteTowerWaveController>().baseCredits = 160;
             //
             GameObject PulseVoid = PrefabAPI.InstantiateClone(PulseLunar, "ITPulseVoid", true);
@@ -111,16 +109,16 @@ namespace SimulacrumAdditions
             InfiniteTowerWavePulseVoidUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = Nullified.buffColor;
             //InfiniteTowerCurrentWaveUIFamilyLunar.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color(0.5f, 0.75f, 0.95f);
 
-            InfiniteTowerWaveCategory.WeightedWave ITWavePulseVoid = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWavePulseVoid, weight = 4, prerequisites = Const.AfterWave5Prerequisite };
-            Const.ITBasicWaves.wavePrefabs = Const.ITBasicWaves.wavePrefabs.Add(ITWavePulseVoid);
+            InfiniteTowerWaveCategory.WeightedWave ITWavePulseVoid = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWavePulseVoid, weight = 4, prerequisites = Constant.AfterWave5Prerequisite };
+            Constant.ITBasicWaves.wavePrefabs = Constant.ITBasicWaves.wavePrefabs.Add(ITWavePulseVoid);
             #endregion
             #region Big Suck
             //
             //Reverse Force
-            GameObject InfiniteTowerWavePulseSuckInward = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWavePulseSuckInward", true);
-            GameObject InfiniteTowerWavePulseSuckInwardUI = PrefabAPI.InstantiateClone(Const.BasicWaveUI, "InfiniteTowerWavePulseSuckInwardUI", false);
+            GameObject InfiniteTowerWavePulseSuckInward = PrefabAPI.InstantiateClone(Constant.BasicWave, "InfiniteTowerWavePulseSuckInward", true);
+            GameObject InfiniteTowerWavePulseSuckInwardUI = PrefabAPI.InstantiateClone(Constant.BasicWaveUI, "InfiniteTowerWavePulseSuckInwardUI", false);
 
-            InfiniteTowerWavePulseSuckInward.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Const.dtITCategoryUtility;
+            InfiniteTowerWavePulseSuckInward.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITCategoryUtility;
             InfiniteTowerWavePulseSuckInward.GetComponent<InfiniteTowerWaveController>().baseCredits = 160;
             //
             GameObject PulseSuckInward = PrefabAPI.InstantiateClone(PulseLunar, "ITPulseSuckInward", true);
@@ -163,15 +161,15 @@ namespace SimulacrumAdditions
             InfiniteTowerWavePulseSuckInwardUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0.6f, 0.6f, 0.6f);
             InfiniteTowerWavePulseSuckInwardUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color(0.3f, 0.3f, 0.3f);
 
-            InfiniteTowerWaveCategory.WeightedWave ITWavePulseSuckInward = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWavePulseSuckInward, weight = 4, prerequisites = Const.StartWave11Prerequisite };
-            Const.ITBasicWaves.wavePrefabs = Const.ITBasicWaves.wavePrefabs.Add(ITWavePulseSuckInward);
+            InfiniteTowerWaveCategory.WeightedWave ITWavePulseSuckInward = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWavePulseSuckInward, weight = 4, prerequisites = Constant.StartWave11Prerequisite };
+            Constant.ITBasicWaves.wavePrefabs = Constant.ITBasicWaves.wavePrefabs.Add(ITWavePulseSuckInward);
             #endregion
             #region Malachite Pulse
             //PulseNoHealing
-            GameObject InfiniteTowerWavePulseNoHealing = PrefabAPI.InstantiateClone(Const.BasicWave, "InfiniteTowerWavePulseNoHealing", true);
-            GameObject InfiniteTowerWavePulseNoHealingUI = PrefabAPI.InstantiateClone(Const.BasicWaveUI, "InfiniteTowerWavePulseNoHealingUI", false);
+            GameObject InfiniteTowerWavePulseNoHealing = PrefabAPI.InstantiateClone(Constant.BasicWave, "InfiniteTowerWavePulseNoHealing", true);
+            GameObject InfiniteTowerWavePulseNoHealingUI = PrefabAPI.InstantiateClone(Constant.BasicWaveUI, "InfiniteTowerWavePulseNoHealingUI", false);
 
-            InfiniteTowerWavePulseNoHealing.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Const.dtITCategoryHealing;
+            InfiniteTowerWavePulseNoHealing.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITCategoryHealing;
             InfiniteTowerWavePulseNoHealing.GetComponent<InfiniteTowerWaveController>().baseCredits = 160;
             ///
             GameObject PulseNoHealing = PrefabAPI.InstantiateClone(PulseLunar, "ITPulseNoHealing", true);
@@ -204,8 +202,8 @@ namespace SimulacrumAdditions
             InfiniteTowerWavePulseNoHealingUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0.4f, 0.9f, 0.3f);
             InfiniteTowerWavePulseNoHealingUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color(0.3f, 0.5f, 0.2f);
 
-            InfiniteTowerWaveCategory.WeightedWave ITWavePulseNoHealing = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWavePulseNoHealing, weight = 4, prerequisites = Const.StartWave11Prerequisite };
-            Const.ITBasicWaves.wavePrefabs = Const.ITBasicWaves.wavePrefabs.Add(ITWavePulseNoHealing);
+            InfiniteTowerWaveCategory.WeightedWave ITWavePulseNoHealing = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWavePulseNoHealing, weight = 4, prerequisites = Constant.StartWave11Prerequisite };
+            Constant.ITBasicWaves.wavePrefabs = Constant.ITBasicWaves.wavePrefabs.Add(ITWavePulseNoHealing);
             #endregion
         }
 

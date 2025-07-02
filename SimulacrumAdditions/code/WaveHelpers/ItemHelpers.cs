@@ -1,191 +1,92 @@
-﻿using BepInEx;
-using MonoMod.Cil;
+﻿using MonoMod.Cil;
 using R2API;
-using R2API.Utils;
 using RoR2;
-using RoR2.ExpansionManagement;
-using System.Security;
-using System.Security.Permissions;
+using SimulacrumAdditions.Waves;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.Networking;
 
 namespace SimulacrumAdditions
 {
-    public class ItemHelpers
+    public static class ItemHelpers
     {
+        public static ItemDef Ghost = LegacyResourcesAPI.Load<ItemDef>("ItemDefs/Ghost");
+        public static ItemDef HealthDecay = LegacyResourcesAPI.Load<ItemDef>("ItemDefs/HealthDecay");
+        public static ItemDef AACannon = LegacyResourcesAPI.Load<ItemDef>("ItemDefs/AACannon");
+        public static ItemDef ITDamageDownMult;
+        public static ItemDef ITAttackSpeedDownMult;
+        public static ItemDef ITHealthUpMult;
+        public static ItemDef ITKillOnCompletion;
+        public static ItemDef ITHorrorName;
+        public static ItemDef ITCooldownUp;
 
-        public static ItemDef ITDamageDown = ScriptableObject.CreateInstance<ItemDef>();
-        public static ItemDef ITAttackSpeedDown = ScriptableObject.CreateInstance<ItemDef>();
-        public static ItemDef ITHealthScaling = ScriptableObject.CreateInstance<ItemDef>();
-        public static ItemDef ITKillOnCompletion = ScriptableObject.CreateInstance<ItemDef>();
-        public static ItemDef ITHorrorName = ScriptableObject.CreateInstance<ItemDef>();
-        public static ItemDef ITCooldownUp = ScriptableObject.CreateInstance<ItemDef>();
+        public static ItemDef ITMakeDudeInvisible;
+        public static ItemDef ITDisableAllSkills;
+        public static ItemDef ITDisableMovement;
+        public static ItemDef ITMakeImmune;
 
-        public static ItemDef ITMakeDudeInvisible = ScriptableObject.CreateInstance<ItemDef>();
-        public static ItemDef ITDisableAllSkills = ScriptableObject.CreateInstance<ItemDef>();
-        public static ItemDef ITDisableMovement = ScriptableObject.CreateInstance<ItemDef>();
-
-
-        public static ItemDef ImmuneToVoidFog = ScriptableObject.CreateInstance<ItemDef>();
-
+        public static ItemDef Make(string name)
+        {
+            ItemDef def = ScriptableObject.CreateInstance<ItemDef>();
+            def.name = name;
+            def.nameToken = name;
+            def.pickupToken = name;
+            def.descriptionToken = name;
+            def.deprecatedTier = ItemTier.NoTier;
+            def.hidden = true;
+            def.canRemove = false;
+            def.pickupIconSprite = AACannon.pickupIconSprite;
+            def.pickupModelPrefab = AACannon.pickupModelPrefab;
+            ItemAPI.Add(new CustomItem(def, System.Array.Empty<ItemDisplayRule>()));
+            return def;
+        }
 
 
         public static void MakeItems()
         {
-            ItemDef AACannon = LegacyResourcesAPI.Load<ItemDef>("ItemDefs/AACannon");
-            ITDamageDown.name = "ITDamageDown";
-            ITDamageDown.nameToken = "ITDamageDown";
-            ITDamageDown.pickupToken = "ITDamageDown";
-            ITDamageDown.descriptionToken = "ITDamageDown";
-            ITDamageDown.deprecatedTier = ItemTier.NoTier;
-            ITDamageDown._itemTierDef = AACannon._itemTierDef;
-            ITDamageDown.hidden = true;
-            ITDamageDown.canRemove = false;
-            ITDamageDown.pickupIconSprite = AACannon.pickupIconSprite;
-            ITDamageDown.pickupModelPrefab = AACannon.pickupModelPrefab;
+            ITDamageDownMult = Make("ITDamageDownMult");
+            ITAttackSpeedDownMult = Make("ITAttackSpeedDownMult");
+            ITHealthUpMult = Make("ITHealthUpMult");
+            ITKillOnCompletion = Make("ITKillsThisGuy");
+            ITCooldownUp = Make("ITCooldownUp");
+            ITMakeDudeInvisible = Make("ITMakeDudeInvisible");
+            ITDisableAllSkills = Make("ITDisableAllSkills");
+            ITDisableMovement = Make("ITDisableMovement");
+            ITMakeImmune = Make("ITMakeImmune");
 
-            CustomItem customItem = new CustomItem(ITDamageDown, new ItemDisplayRule[0]);
-            ItemAPI.Add(customItem);
-            
-            ITAttackSpeedDown.name = "ITAttackSpeedDown";
-            ITAttackSpeedDown.nameToken = "ITAttackSpeedDown";
-            ITAttackSpeedDown.pickupToken = "ITAttackSpeedDown";
-            ITAttackSpeedDown.descriptionToken = "ITAttackSpeedDown";
-            ITAttackSpeedDown.deprecatedTier = ItemTier.NoTier;
-            ITAttackSpeedDown._itemTierDef = AACannon._itemTierDef;
-            ITAttackSpeedDown.hidden = true;
-            ITAttackSpeedDown.canRemove = false;
-            ITAttackSpeedDown.pickupIconSprite = AACannon.pickupIconSprite;
-            ITAttackSpeedDown.pickupModelPrefab = AACannon.pickupModelPrefab;
-            customItem = new CustomItem(ITAttackSpeedDown, new ItemDisplayRule[0]);
-            ItemAPI.Add(customItem);
-            //
-            ITHealthScaling.name = "ITHealthScaling";
-            ITHealthScaling.nameToken = "ITHealthScaling";
-            ITHealthScaling.pickupToken = "ITHealthScaling";
-            ITHealthScaling.descriptionToken = "ITHealthScaling";
-            ITHealthScaling.deprecatedTier = ItemTier.NoTier;
-            ITHealthScaling._itemTierDef = AACannon._itemTierDef;
-            ITHealthScaling.hidden = true;
-            ITHealthScaling.canRemove = false;
-            ITHealthScaling.pickupIconSprite = AACannon.pickupIconSprite;
-            ITHealthScaling.pickupModelPrefab = AACannon.pickupModelPrefab;
-            customItem = new CustomItem(ITHealthScaling, new ItemDisplayRule[0]);
-            ItemAPI.Add(customItem);
-            //
-            ITKillOnCompletion.name = "ITKillOnCompletion";
-            ITKillOnCompletion.nameToken = "ITKillOnCompletion";
-            ITKillOnCompletion.pickupToken = "ITKillOnCompletion";
-            ITKillOnCompletion.descriptionToken = "ITKillOnCompletion";
-            ITKillOnCompletion.deprecatedTier = ItemTier.NoTier;
-            ITKillOnCompletion._itemTierDef = AACannon._itemTierDef;
-            ITKillOnCompletion.hidden = true;
-            ITKillOnCompletion.canRemove = false;
-            ITKillOnCompletion.pickupIconSprite = AACannon.pickupIconSprite;
-            ITKillOnCompletion.pickupModelPrefab = AACannon.pickupModelPrefab;
 
-            customItem = new CustomItem(ITKillOnCompletion, new ItemDisplayRule[0]);
-            ItemAPI.Add(customItem);
-            //
-            ITHorrorName.name = "ITHorrorName";
-            ITHorrorName.nameToken = "ITHorrorName";
-            ITHorrorName.pickupToken = "ITHorrorName";
-            ITHorrorName.descriptionToken = "ITHorrorName";
-            ITHorrorName.deprecatedTier = ItemTier.NoTier;
-            ITHorrorName._itemTierDef = AACannon._itemTierDef;
-            ITHorrorName.hidden = true;
-            ITHorrorName.canRemove = false;
-            ITHorrorName.pickupIconSprite = AACannon.pickupIconSprite;
-            ITHorrorName.pickupModelPrefab = AACannon.pickupModelPrefab;
-            customItem = new CustomItem(ITHorrorName, new ItemDisplayRule[0]);
-            ItemAPI.Add(customItem);
-
-            On.RoR2.Util.GetBestBodyName += (orig, bodyObject) =>
-            {
-                if (bodyObject)
-                {
-                    CharacterBody characterBody = bodyObject.GetComponent<CharacterBody>();
-                    if (characterBody && characterBody.inventory)
-                    {
-                        if (characterBody.inventory.GetItemCount(ITHorrorName) > 0)
-                        {
-                            return Language.GetString("HORROR_BODY_NAME");
-                            //return "Unknown Horror";
-                        }
-                    }
-                }
-                return orig(bodyObject);
-            };
-
-            ITCooldownUp.name = "ITCooldownUp";
-            ITCooldownUp.nameToken = "ITCooldownUp";
-            ITCooldownUp.pickupToken = "ITCooldownUp";
-            ITCooldownUp.descriptionToken = "10% longer cooldown";
-            ITCooldownUp.deprecatedTier = ItemTier.NoTier;
-            ITCooldownUp._itemTierDef = AACannon._itemTierDef;
-            ITCooldownUp.hidden = true;
-            ITCooldownUp.canRemove = false;
-            ITCooldownUp.pickupIconSprite = AACannon.pickupIconSprite;
-            ITCooldownUp.pickupModelPrefab = AACannon.pickupModelPrefab;
-            customItem = new CustomItem(ITCooldownUp, new ItemDisplayRule[0]);
-            ItemAPI.Add(customItem);
-
-            ImmuneToVoidFog.name = "ImmuneToVoidFog";         
-            ImmuneToVoidFog.nameToken = "ImmuneToVoidFog";
-            ImmuneToVoidFog.pickupToken = "ImmuneToVoidFog";
-            ImmuneToVoidFog.descriptionToken = "No damage from void fog";
-            ImmuneToVoidFog.deprecatedTier = ItemTier.NoTier;
-            ImmuneToVoidFog._itemTierDef = AACannon._itemTierDef;
-            ImmuneToVoidFog.hidden = true;
-            ImmuneToVoidFog.canRemove = false;
-            ImmuneToVoidFog.pickupIconSprite = AACannon.pickupIconSprite;
-            ImmuneToVoidFog.pickupModelPrefab = AACannon.pickupModelPrefab;
-            customItem = new CustomItem(ImmuneToVoidFog, new ItemDisplayRule[0]);
-            ItemAPI.Add(customItem);
-
-            ITMakeDudeInvisible.name = "ITMakeDudeInvisible";
-            ITMakeDudeInvisible.nameToken = "ITMakeDudeInvisible";
-            ITMakeDudeInvisible.pickupToken = "ITMakeDudeInvisible";
-            ITMakeDudeInvisible.descriptionToken = "ITMakeDudeInvisible";
-            ITMakeDudeInvisible.deprecatedTier = ItemTier.NoTier;
-            ITMakeDudeInvisible._itemTierDef = AACannon._itemTierDef;
-            ITMakeDudeInvisible.hidden = true;
-            ITMakeDudeInvisible.canRemove = false;
-            ITMakeDudeInvisible.pickupIconSprite = AACannon.pickupIconSprite;
-            ITMakeDudeInvisible.pickupModelPrefab = AACannon.pickupModelPrefab;
-            customItem = new CustomItem(ITMakeDudeInvisible, new ItemDisplayRule[0]);
-            ItemAPI.Add(customItem);
-
-            ITDisableAllSkills.name = "ITDisableAllSkills";
-            ITDisableAllSkills.nameToken = "ITDisableAllSkills";
-            ITDisableAllSkills.pickupToken = "ITDisableAllSkills";
-            ITDisableAllSkills.descriptionToken = "ITDisableAllSkills";
-            ITDisableAllSkills.deprecatedTier = ItemTier.NoTier;
-            ITDisableAllSkills._itemTierDef = AACannon._itemTierDef;
-            ITDisableAllSkills.hidden = true;
-            ITDisableAllSkills.canRemove = false;
-            ITDisableAllSkills.pickupIconSprite = AACannon.pickupIconSprite;
-            ITDisableAllSkills.pickupModelPrefab = AACannon.pickupModelPrefab;
-            customItem = new CustomItem(ITDisableAllSkills, new ItemDisplayRule[0]);
-            ItemAPI.Add(customItem);
-
+            On.RoR2.Util.GetBestBodyName += HorrorName;
 
             On.RoR2.CharacterBody.RecalculateStats += CharacterBody_RecalculateStats;
             IL.RoR2.CharacterBody.RecalculateStats += IL_CharacterBody_RecalculateStats;
- 
+
         }
+
+        private static string HorrorName(On.RoR2.Util.orig_GetBestBodyName orig, GameObject bodyObject)
+        {
+            if (bodyObject)
+            {
+                CharacterBody characterBody = bodyObject.GetComponent<CharacterBody>();
+                if (characterBody && characterBody.inventory)
+                {
+                    if (characterBody.inventory.GetItemCount(ITHorrorName) > 0)
+                    {
+                        return Language.GetString("HORROR_BODY_NAME");
+                    }
+                }
+            }
+            return orig(bodyObject);
+        }
+
         private static void CharacterBody_RecalculateStats(On.RoR2.CharacterBody.orig_RecalculateStats orig, CharacterBody self)
         {
             orig(self);
             if (self.inventory)
             {
-                int numDmg = self.inventory.GetItemCount(ITDamageDown);
+                int numDmg = self.inventory.GetItemCount(ITDamageDownMult);
                 if (numDmg > 0)
                 {
                     self.damage *= 1 - 0.01f * numDmg;
                 }
-                int numAspd = self.inventory.GetItemCount(ITAttackSpeedDown);
+                int numAspd = self.inventory.GetItemCount(ITAttackSpeedDownMult);
                 if (numAspd > 0)
                 {
                     self.attackSpeed *= 1 - 0.01f * numAspd;
@@ -241,6 +142,22 @@ namespace SimulacrumAdditions
                     }
                 }
 
+                int noMove = self.inventory.GetItemCount(ITDisableMovement);
+                if (noMove > 0)
+                {
+                    self.SetBuffCount(RoR2Content.Buffs.Nullified.buffIndex, 1);
+                }
+                int makeImmune = self.inventory.GetItemCount(ITMakeImmune);
+                if (makeImmune > 0)
+                {
+                    self.SetBuffCount(RoR2Content.Buffs.Immune.buffIndex, 1);
+                }
+                int DisableAllSkills = self.inventory.GetItemCount(ITDisableAllSkills);
+                if (DisableAllSkills > 0)
+                {
+                    self.SetBuffCount(DLC2Content.Buffs.DisableAllSkills.buffIndex, 1);
+                }
+
                 if (self.HasBuff(Waves_BuffRelated.bdSlippery))
                 {
                     self.acceleration /= 7.5f;
@@ -266,7 +183,7 @@ namespace SimulacrumAdditions
                     //Might not have inventory ig
                     if (body.inventory)
                     {
-                        int numHealth = body.inventory.GetItemCount(ITHealthScaling);
+                        int numHealth = body.inventory.GetItemCount(ITHealthUpMult);
                         if (numHealth > 0)
                         {
                             body.maxHealth *= 1 + 0.01f * numHealth;

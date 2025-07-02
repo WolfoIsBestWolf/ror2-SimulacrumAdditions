@@ -2,7 +2,6 @@
 using System.IO;
 using System.Linq;
 using UnityEngine;
-using System;
 
 namespace SimulacrumAdditions
 {

@@ -1,5 +1,10 @@
 ## Changelog:
 ```
+v2.4.2
+Minor optimiazions for waves starting/ending
+Removed some duplicate or no longer needed fixes/ui stuff for mod compatibility.
+ 
+
 v2.4.1
 Last minute changed left in startup error.
 Left in debug spam on startup.

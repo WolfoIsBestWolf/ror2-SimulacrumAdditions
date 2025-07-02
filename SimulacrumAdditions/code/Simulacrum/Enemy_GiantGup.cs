@@ -33,9 +33,9 @@ namespace SimulacrumAdditions
             cscGiantGup.requiredFlags = NodeFlags.None;
             cscGiantGup.directorCreditCost = 2000;
             cscGiantGup.occupyPosition = true;
- 
-            GameObject WaveBoss_GiantGup = PrefabAPI.InstantiateClone(Const.ScavWave, "WaveBoss_GiantGup", true);
-            GameObject WaveBoss_GiantGupUI = PrefabAPI.InstantiateClone(Const.ScavWaveUI, "InfiniteTowerCurrentBossGiantGupWaveUI", false);
+
+            GameObject WaveBoss_GiantGup = PrefabAPI.InstantiateClone(Constant.ScavWave, "WaveBoss_GiantGup", true);
+            GameObject WaveBoss_GiantGupUI = PrefabAPI.InstantiateClone(Constant.ScavWaveUI, "InfiniteTowerCurrentBossGiantGupWaveUI", false);
 
             WaveBoss_GiantGup.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/dccsGupFamily.asset").WaitForCompletion();
             InfiniteTowerExplicitSpawnWaveController wave = WaveBoss_GiantGup.GetComponent<InfiniteTowerExplicitSpawnWaveController>();
@@ -44,7 +44,7 @@ namespace SimulacrumAdditions
             wave.linearCreditsPerWave = 3;
             wave.spawnList[0].spawnCard = cscGiantGup;
             wave.spawnList[0].spawnDistance = DirectorCore.MonsterSpawnDistance.Far;
-            wave.rewardDropTable = Const.dtITWaveTier2;
+            wave.rewardDropTable = Constant.dtITWaveTier2;
             wave.rewardDisplayTier = ItemTier.Tier2;
             WaveBoss_GiantGup.AddComponent<SimulacrumExtrasHelper>().newRadius = 110;
 
@@ -68,8 +68,8 @@ namespace SimulacrumAdditions
             WaveBoss_GiantGupUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BOSS_GIANTGUP";
             WaveBoss_GiantGupUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BOSS_GIANTGUP"; //Gurp failed
 
-            InfiniteTowerWaveCategory.WeightedWave ITGiantGup = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = WaveBoss_GiantGup, weight = 7, prerequisites = Const.StartWave20Prerequisite };
-             Const.ITBossWaves.wavePrefabs = Const.ITBossWaves.wavePrefabs.Add(ITGiantGup);
+            InfiniteTowerWaveCategory.WeightedWave ITGiantGup = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = WaveBoss_GiantGup, weight = 7, prerequisites = Constant.StartWave20Prerequisite };
+            Constant.ITBossWaves.wavePrefabs = Constant.ITBossWaves.wavePrefabs.Add(ITGiantGup);
 
 
         }
@@ -87,8 +87,8 @@ namespace SimulacrumAdditions
             GiantCharacterBody.isChampion = true;
             GiantCharacterBody.portraitIcon = Assets.Bundle.LoadAsset<Texture2D>("Assets/Simulacrum/Bodies/GiantGupBody.png");
 
- 
-    
+
+
             GiantCharacterBody.baseMaxHealth *= 4f; //Base Health is 1000
             GiantCharacterBody.baseDamage *= 1.2f;
             GiantCharacterBody.baseAttackSpeed = 0.3f;
@@ -116,7 +116,7 @@ namespace SimulacrumAdditions
             mdlGup.GetComponent<ModelPanelParameters>().minDistance = 5;
             mdlGup.GetComponent<ModelPanelParameters>().maxDistance = 9;
 
- 
+
             SkinDef skinGupGiant = Object.Instantiate(Addressables.LoadAssetAsync<SkinDef>(key: "d777989411688b347927be3f356a0e9a").WaitForCompletion());
             SkinDefParams paramsGupGiant = Object.Instantiate(Addressables.LoadAssetAsync<SkinDefParams>(key: "1ad54031e06b3f748b4f3e21a2d40f19").WaitForCompletion());
             skinGupGiant.skinDefParams = paramsGupGiant;
@@ -219,7 +219,7 @@ namespace SimulacrumAdditions
             if (fixedAge > deathDelay && !hasDied)
             {
                 hasDied = true;
-                
+
                 if (NetworkServer.active)
                 {
                     EffectManager.SpawnEffect(deathEffectPrefab, new EffectData
@@ -288,13 +288,13 @@ namespace SimulacrumAdditions
                             gameObject.GetComponentInChildren<UnlockPickup>().unlockableDef = GiantGup.unlockable;
                             gameObject.GetComponent<TeamFilter>().teamIndex = TeamIndex.Player;
                             NetworkServer.Spawn(gameObject);
- 
+
                         }
                     }
 
                     DestroyBodyAsapServer();
                 }
-            
+
                 LocalUser user = LocalUserManager.GetFirstLocalUser();
                 if (user != null)
                 {
