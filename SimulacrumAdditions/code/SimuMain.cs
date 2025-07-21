@@ -15,7 +15,7 @@ using UnityEngine.AddressableAssets;
 namespace SimulacrumAdditions
 {
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("Wolfo.SimulacrumAdditions", "SimulacrumAdditions", "2.4.2")]
+    [BepInPlugin("Wolfo.SimulacrumAdditions", "SimulacrumAdditions", "2.4.3")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
 
     public class SimuMain : BaseUnityPlugin

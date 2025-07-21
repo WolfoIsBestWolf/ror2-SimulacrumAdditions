@@ -159,16 +159,17 @@ namespace SimulacrumAdditions
                 combatDirector[i].enabled = false;
             }
 
-            PortalStatueBehavior[] newtList2 = Object.FindObjectsOfType(typeof(PortalStatueBehavior)) as PortalStatueBehavior[];
-            if (newtList2.Length > 0)
+            //Only find 1 instead of all
+            PortalStatueBehavior firstNewt = Object.FindObjectOfType(typeof(PortalStatueBehavior)) as PortalStatueBehavior;
+            if (firstNewt)
             {
                 Material newMat = Addressables.LoadAssetAsync<Material>(key: "RoR2/DLC1/voidstage/matVoidCrystal.mat").WaitForCompletion();
                 GameObject SupressorObject = LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/VoidSuppressor");
-                Transform MainTransform = newtList2[0].gameObject.transform.parent;
+                Transform newtHolder = firstNewt.transform.parent;
 
-                for (int i = 0; i < MainTransform.childCount; i++)
+                for (int i = 0; i < newtHolder.childCount; i++)
                 {
-                    Transform NewtAltar = MainTransform.GetChild(i);
+                    Transform NewtAltar = newtHolder.GetChild(i);
                     if (NewtAltar.GetComponent<PortalStatueBehavior>())
                     {
                         Debug.Log(NewtAltar);

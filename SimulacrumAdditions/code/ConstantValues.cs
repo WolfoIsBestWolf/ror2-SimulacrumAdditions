@@ -161,15 +161,15 @@ namespace SimulacrumAdditions
             dtITEnemyTier1.voidTier1Weight = 0.1f;
             dtITEnemyTier1.bannedItemTags = bannedTags;
 
-            dtITEnemyTier2.tier1Weight = 1;
-            dtITEnemyTier2.tier2Weight = 0;
+            dtITEnemyTier2.tier1Weight = 0;
+            dtITEnemyTier2.tier2Weight = 1;
             dtITEnemyTier2.tier3Weight = 0;
             dtITEnemyTier2.voidTier2Weight = 0.075f;
             dtITEnemyTier2.bannedItemTags = bannedTags;
 
-            dtITEnemyTier3.tier1Weight = 1;
+            dtITEnemyTier3.tier1Weight = 0;
             dtITEnemyTier3.tier2Weight = 0;
-            dtITEnemyTier3.tier3Weight = 0;
+            dtITEnemyTier3.tier3Weight = 1;
             dtITEnemyTier3.voidTier3Weight = 0.075f;
             dtITEnemyTier3.bannedItemTags = bannedTags;
 
