@@ -200,7 +200,7 @@ namespace SimulacrumAdditions
                 Run.instance.PickNextStageScene(null);
             }
             //
-            GameObject ITWeather = GameObject.Instantiate(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/Weather, InfiniteTower.prefab").WaitForCompletion());
+            GameObject ITWeather = GameObject.Instantiate(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/ITAssets/Weather, InfiniteTower.prefab").WaitForCompletion());
 
             Light ITSun = ITWeather.transform.GetChild(2).GetComponent<Light>();
             SetAmbientLight newLighting = ITWeather.transform.GetChild(0).GetComponent<SetAmbientLight>();
@@ -380,11 +380,11 @@ namespace SimulacrumAdditions
                     spawnCard = Addressables.LoadAssetAsync<SpawnCard>(key: "RoR2/DLC1/VoidTriple/iscVoidTriple.asset").WaitForCompletion(),
                     selectionWeight = 15,
                 };
-                DirectorCard iscVoidSuppressorIT = new DirectorCard
+                /*DirectorCard iscVoidSuppressorIT = new DirectorCard
                 {
                     spawnCard = SimulacrumDCCS.iscVoidSuppressorIT,
                     selectionWeight = 15,
-                };
+                };*/
                 DirectorCard iscVoidCoinBarrelITSacrifice = new DirectorCard
                 {
                     spawnCard = SimulacrumDCCS.iscVoidCoinBarrelITSacrifice,
@@ -392,7 +392,7 @@ namespace SimulacrumAdditions
                 };
                 dccs.AddCard(voidIndex, iscVoidCoinBarrelITSacrifice);
                 dccs.AddCard(voidIndex, iscVoidChestSacrificeOn);
-                dccs.AddCard(voidIndex, iscVoidSuppressorIT);
+                //dccs.AddCard(voidIndex, iscVoidSuppressorIT);
                 dccs.AddCard(voidIndex, iscVoidTriple);
             }
             dccs.RemoveCardsThatFailFilter(trimmer);

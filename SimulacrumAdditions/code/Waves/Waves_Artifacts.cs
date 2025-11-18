@@ -88,7 +88,7 @@ namespace SimulacrumAdditions.Waves
                 name = "ArtifactMetamorphosis",
                 wavePrefab = ArtifactWave,
                 uiPrefab = ArtifactWaveUI,
-                dropTable = WolfoFixes.Shared.dtAllTier,
+                dropTable = Constant.dtITRainbow,
                 waveCategory = ITBasicWaves,
                 weight = 1,
                 prereq = ArtifacRandomSurvivorDisabledPrerequisite,
@@ -292,7 +292,7 @@ namespace SimulacrumAdditions.Waves
             //Kin Boss
             GameObject WaveBoss_ArtifactKin = PrefabAPI.InstantiateClone(Constant.BossWave, "WaveBoss_ArtifactSingleMonsterType", true);
             GameObject WaveBoss_ArtifactKinUI = PrefabAPI.InstantiateClone(Constant.BossWaveUI, "WaveBoss_ArtifactSingleMonsterTypeUI", false);
-            InfiniteTowerWaveArtifactPrerequisites ArtifactSingleMonsterTypeDisabledPrerequisite = Addressables.LoadAssetAsync<InfiniteTowerWaveArtifactPrerequisites>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/ArtifactSingleMonsterTypeDisabledPrerequisite.asset").WaitForCompletion();
+            InfiniteTowerWaveArtifactPrerequisites ArtifactSingleMonsterTypeDisabledPrerequisite = Addressables.LoadAssetAsync<InfiniteTowerWaveArtifactPrerequisites>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/ITAssets/ArtifactSingleMonsterTypeDisabledPrerequisite.asset").WaitForCompletion();
 
             WaveBoss_ArtifactKin.AddComponent<ArtifactEnabler>().artifactDef = ArtifactSingleMonsterTypeDisabledPrerequisite.bannedArtifact;
             WaveBoss_ArtifactKin.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = WaveBoss_ArtifactKinUI;
@@ -312,7 +312,7 @@ namespace SimulacrumAdditions.Waves
             //Dissonance Boss
             GameObject WaveBoss_ArtifactDissonance = PrefabAPI.InstantiateClone(Constant.BossWave, "WaveBoss_ArtifactDissonance", true);
             GameObject WaveBoss_ArtifactDissonanceUI = PrefabAPI.InstantiateClone(Constant.BossWaveUI, "WaveBoss_ArtifactDissonanceUI", false);
-            InfiniteTowerWaveArtifactPrerequisites ArtifactMixEnemyDisabledPrerequisite = Addressables.LoadAssetAsync<InfiniteTowerWaveArtifactPrerequisites>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/ArtifactMixEnemyDisabledPrerequisite.asset").WaitForCompletion();
+            InfiniteTowerWaveArtifactPrerequisites ArtifactMixEnemyDisabledPrerequisite = Addressables.LoadAssetAsync<InfiniteTowerWaveArtifactPrerequisites>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/ITAssets/ArtifactMixEnemyDisabledPrerequisite.asset").WaitForCompletion();
 
             WaveBoss_ArtifactDissonance.AddComponent<ArtifactEnabler>().artifactDef = ArtifactMixEnemyDisabledPrerequisite.bannedArtifact;
             WaveBoss_ArtifactDissonance.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = WaveBoss_ArtifactDissonanceUI;

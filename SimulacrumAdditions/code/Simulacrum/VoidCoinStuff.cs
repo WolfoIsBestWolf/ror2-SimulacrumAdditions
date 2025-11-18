@@ -101,19 +101,25 @@ namespace SimulacrumAdditions
             CostTypeVoidCoinBlood.darkenWorldStyledCostString = true;
             CostTypeVoidCoinBlood.isAffordable = delegate (CostTypeDef costTypeDef, CostTypeDef.IsAffordableContext context)
             {
+                return CostTypeCatalog.GetCostTypeDef(CostTypeIndex.VoidCoin).IsAffordable(1, context.activator) ||  
+                CostTypeCatalog.GetCostTypeDef(CostTypeIndex.PercentHealth).IsAffordable(context.cost, context.activator);
+
                 CharacterBody body = context.activator.GetComponent<CharacterBody>();
                 HealthComponent component = context.activator.GetComponent<HealthComponent>();
                 return body && body.master.voidCoins >= (ulong)((long)1) || component && component.combinedHealth / component.fullCombinedHealth * 100f >= (float)context.cost;
             };
-            CostTypeVoidCoinBlood.payCost = delegate (CostTypeDef costTypeDef, CostTypeDef.PayCostContext context)
+  
+            CostTypeVoidCoinBlood.payCost = delegate (CostTypeDef.PayCostContext context, CostTypeDef.PayCostResults result)
             {
                 if (context.activatorMaster && context.activatorMaster.voidCoins > 0)
                 {
-                    context.activatorMaster.voidCoins -= (uint)1;
+                    CostTypeCatalog.GetCostTypeDef(CostTypeIndex.VoidCoin).PayCost(context, result);
+                    //context.activatorMaster.voidCoins -= (uint)1;
                 }
                 else
                 {
-                    HealthComponent component = context.activator.GetComponent<HealthComponent>();
+                    CostTypeCatalog.GetCostTypeDef(CostTypeIndex.PercentHealth).PayCost(context, result);
+                    /*HealthComponent component = context.activator.GetComponent<HealthComponent>();
                     if (component)
                     {
                         float combinedHealth = component.combinedHealth;
@@ -128,7 +134,7 @@ namespace SimulacrumAdditions
                                 damageType = (DamageType.NonLethal | DamageType.BypassArmor)
                             });
                         }
-                    }
+                    }*/
                 }
             };
             CostIndexVoidCoinBlood = (CostTypeIndex)CostTypeCatalog.costTypeDefs.Length + obj.Count;

@@ -4,26 +4,26 @@ using RoR2.ExpansionManagement;
 using System;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using WolfoFixes;
+using WolfoLibrary;
 
 namespace SimulacrumAdditions
 {
     public static class Constant
     {
-        public static GameObject BasicWave = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveDefault.prefab").WaitForCompletion();
-        public static GameObject BasicWaveUI = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentWaveUI.prefab").WaitForCompletion();
+        public static GameObject BasicWave = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/ITAssets/InfiniteTowerWaveDefault.prefab").WaitForCompletion();
+        public static GameObject BasicWaveUI = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/ITAssets/InfiniteTowerCurrentWaveUI.prefab").WaitForCompletion();
 
-        public static GameObject BossWave = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveBoss.prefab").WaitForCompletion();
-        public static GameObject BossWaveUI = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentBossWaveUI.prefab").WaitForCompletion();
+        public static GameObject BossWave = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/ITAssets/InfiniteTowerWaveBoss.prefab").WaitForCompletion();
+        public static GameObject BossWaveUI = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/ITAssets/InfiniteTowerCurrentBossWaveUI.prefab").WaitForCompletion();
 
-        public static GameObject ScavWave = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveBossScav.prefab").WaitForCompletion();
-        public static GameObject ScavWaveUI = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentBossScavWaveUI.prefab").WaitForCompletion();
+        public static GameObject ScavWave = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/ITAssets/InfiniteTowerWaveBossScav.prefab").WaitForCompletion();
+        public static GameObject ScavWaveUI = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/ITAssets/InfiniteTowerCurrentBossScavWaveUI.prefab").WaitForCompletion();
 
-        public static GameObject ArtifactWave = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveArtifactBomb.prefab").WaitForCompletion();
-        public static GameObject ArtifactWaveUI = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentArtifactBombWaveUI.prefab").WaitForCompletion();
+        public static GameObject ArtifactWave = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/ITAssets/InfiniteTowerWaveArtifactBomb.prefab").WaitForCompletion();
+        public static GameObject ArtifactWaveUI = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/ITAssets/InfiniteTowerCurrentArtifactBombWaveUI.prefab").WaitForCompletion();
 
-        public static GameObject LunarWaveUI = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentBossLunarWaveUI.prefab").WaitForCompletion();
-        public static GameObject VoidWaveUI = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentBossVoidWaveUI.prefab").WaitForCompletion();
+        public static GameObject LunarWaveUI = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/ITAssets/InfiniteTowerCurrentBossLunarWaveUI.prefab").WaitForCompletion();
+        public static GameObject VoidWaveUI = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/ITAssets/InfiniteTowerCurrentBossVoidWaveUI.prefab").WaitForCompletion();
 
         public static Sprite texITWaveDefaultWhiteS;
 
@@ -42,8 +42,8 @@ namespace SimulacrumAdditions
 
         //CommonWaveCategory
         //BossWaveCategory
-        public static InfiniteTowerWaveCategory ITBasicWaves = Addressables.LoadAssetAsync<InfiniteTowerWaveCategory>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveCategories/CommonWaveCategory.asset").WaitForCompletion();
-        public static InfiniteTowerWaveCategory ITBossWaves = Addressables.LoadAssetAsync<InfiniteTowerWaveCategory>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveCategories/BossWaveCategory.asset").WaitForCompletion();
+        public static InfiniteTowerWaveCategory ITBasicWaves = Addressables.LoadAssetAsync<InfiniteTowerWaveCategory>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/ITAssets/ITWaveCategories/CommonWaveCategory.asset").WaitForCompletion();
+        public static InfiniteTowerWaveCategory ITBossWaves = Addressables.LoadAssetAsync<InfiniteTowerWaveCategory>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/ITAssets/ITWaveCategories/BossWaveCategory.asset").WaitForCompletion();
         public static InfiniteTowerWaveCategory ITSuperBossWaves = ScriptableObject.CreateInstance<InfiniteTowerWaveCategory>();
         public static InfiniteTowerWaveCategory ITModSupportWaves = ScriptableObject.CreateInstance<InfiniteTowerWaveCategory>();
         //Would need to be the first in the Array to work normally
@@ -59,7 +59,7 @@ namespace SimulacrumAdditions
 
         //Wave Prerequesites
         public static InfiniteTowerWaveCountPrerequisites AfterWave5Prerequisite = ScriptableObject.CreateInstance<InfiniteTowerWaveCountPrerequisites>();
-        public static InfiniteTowerWaveCountPrerequisites StartWave11Prerequisite = Addressables.LoadAssetAsync<InfiniteTowerWaveCountPrerequisites>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/Wave11OrGreaterPrerequisite.asset").WaitForCompletion();
+        public static InfiniteTowerWaveCountPrerequisites StartWave11Prerequisite = Addressables.LoadAssetAsync<InfiniteTowerWaveCountPrerequisites>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/ITAssets/Wave11OrGreaterPrerequisite.asset").WaitForCompletion();
         public static InfiniteTowerWaveCountPrerequisites StartWave15Prerequisite = ScriptableObject.CreateInstance<InfiniteTowerWaveCountPrerequisites>();
         public static InfiniteTowerWaveCountPrerequisites StartWave20Prerequisite = ScriptableObject.CreateInstance<InfiniteTowerWaveCountPrerequisites>();
         public static InfiniteTowerWaveCountPrerequisites StartWave25Prerequisite = ScriptableObject.CreateInstance<InfiniteTowerWaveCountPrerequisites>();
@@ -78,12 +78,17 @@ namespace SimulacrumAdditions
         public static ITWave_DLC_Prerequisites DLC2_StartWave15Prerequisite = ScriptableObject.CreateInstance<ITWave_DLC_Prerequisites>();
         public static ITWave_DLC_Prerequisites DLC2_StartWave30Prerequisite = ScriptableObject.CreateInstance<ITWave_DLC_Prerequisites>();
 
+        public static ITWave_DLC_Prerequisites DLC3_Prerequisite = ScriptableObject.CreateInstance<ITWave_DLC_Prerequisites>();
+        public static ITWave_DLC_Prerequisites DLC3_StartWave20Prerequisite = ScriptableObject.CreateInstance<ITWave_DLC_Prerequisites>();
+        public static ITWave_DLC_Prerequisites DLC3_StartWave40Prerequisite = ScriptableObject.CreateInstance<ITWave_DLC_Prerequisites>();
+
+
         //Simu Wave Reward Drop Tables
-        public static BasicPickupDropTable dtITWaveTier1 = Addressables.LoadAssetAsync<BasicPickupDropTable>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/dtITDefaultWave.asset").WaitForCompletion();
-        public static BasicPickupDropTable dtITWaveTier2 = Addressables.LoadAssetAsync<BasicPickupDropTable>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/dtITBossWave.asset").WaitForCompletion();
-        public static BasicPickupDropTable dtITWaveTier3 = Addressables.LoadAssetAsync<BasicPickupDropTable>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/dtITSpecialBossWave.asset").WaitForCompletion();
-        public static BasicPickupDropTable dtITVoid = Addressables.LoadAssetAsync<BasicPickupDropTable>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/dtITVoid.asset").WaitForCompletion();
-        public static BasicPickupDropTable dtITLunar = Addressables.LoadAssetAsync<BasicPickupDropTable>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/dtITLunar.asset").WaitForCompletion();
+        public static BasicPickupDropTable dtITWaveTier1 = Addressables.LoadAssetAsync<BasicPickupDropTable>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/ITAssets/dtITDefaultWave.asset").WaitForCompletion();
+        public static BasicPickupDropTable dtITWaveTier2 = Addressables.LoadAssetAsync<BasicPickupDropTable>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/ITAssets/dtITBossWave.asset").WaitForCompletion();
+        public static BasicPickupDropTable dtITWaveTier3 = Addressables.LoadAssetAsync<BasicPickupDropTable>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/ITAssets/dtITSpecialBossWave.asset").WaitForCompletion();
+        public static BasicPickupDropTable dtITVoid = Addressables.LoadAssetAsync<BasicPickupDropTable>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/ITAssets/dtITVoid.asset").WaitForCompletion();
+        public static BasicPickupDropTable dtITLunar = Addressables.LoadAssetAsync<BasicPickupDropTable>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/ITAssets/dtITLunar.asset").WaitForCompletion();
 
 
         public static AdvancedPickupDropTable dtITFamilyWaveDamage = ScriptableObject.CreateInstance<AdvancedPickupDropTable>();
@@ -112,6 +117,7 @@ namespace SimulacrumAdditions
         public static AdvancedPickupDropTable dtITSpecialBossYellow = ScriptableObject.CreateInstance<AdvancedPickupDropTable>();
         public static ExplicitPickupDropTable dtITHeresy = ScriptableObject.CreateInstance<ExplicitPickupDropTable>();
         public static ExplicitPickupDropTable dtITWurms = ScriptableObject.CreateInstance<ExplicitPickupDropTable>();
+        public static AdvancedPickupDropTable dtITRainbow = ScriptableObject.CreateInstance<AdvancedPickupDropTable>();
 
 
         public static MasterCatalog.MasterIndex IndexAffixHealingCore = MasterCatalog.MasterIndex.none;
@@ -127,7 +133,6 @@ namespace SimulacrumAdditions
 
         public static void MakeValues()
         {
-            WolfoFixes.Shared.SetupShared();
             SimuTPEffect();
             MakePortal();
             SetupConstants();
@@ -191,7 +196,7 @@ namespace SimulacrumAdditions
             dtAISafeRandomVoid.voidBossWeight = 0.1f; //Friendly Void Reaver would just suck him up and kill him
             dtAISafeRandomVoid.canDropBeReplaced = false;
             dtAISafeRandomVoid.bannedItemTags = Addressables.LoadAssetAsync<BasicPickupDropTable>(key: "81e89866bab7f7f49ad46cd10f6d9ac8").WaitForCompletion().bannedItemTags;
-
+ 
         }
 
         public static void WaveDropPools()
@@ -358,6 +363,21 @@ namespace SimulacrumAdditions
             dtITSpecialEquipment.equipmentWeight = 170f;
             dtITSpecialEquipment.lunarEquipmentWeight = 30f;
             dtITSpecialEquipment.name = "dtITSpecialEquipment";
+
+            //OnKill for On Kill Artifacts
+            dtITRainbow.name = "dtITRainbow";
+            dtITRainbow.tier1Weight = 80;
+            dtITRainbow.tier2Weight = 20;
+            dtITRainbow.tier3Weight = 1;
+            dtITRainbow.bossWeight = 1;
+            dtITRainbow.equipmentWeight = 10;
+            dtITRainbow.lunarItemWeight = 4;
+            dtITRainbow.voidTier1Weight = 20;
+            dtITRainbow.voidTier2Weight = 5;
+            dtITRainbow.voidTier3Weight = 1;
+            dtITRainbow.voidBossWeight = 1;
+            dtITRainbow.lunarEquipmentWeight = 1;
+            dtITRainbow.eliteEquipmentWeight = 1;
         }
 
         public static void WavePrerequesites()
@@ -383,12 +403,25 @@ namespace SimulacrumAdditions
             AfterWave5EndWave30Prerequisite.maximumWaveCount = 30;
             AfterWave5EndWave30Prerequisite.name = "AfterWave5EndWave30Prerequisite";
 
+            DLC2_StartWave10Prerequisite.requiredDLC = DLCS.DLC2;
             DLC2_StartWave10Prerequisite.minimumWaveCount = 10;
             DLC2_StartWave10Prerequisite.name = "StartWave10PrerequisiteDLC2";
+            DLC2_StartWave15Prerequisite.requiredDLC = DLCS.DLC2;
             DLC2_StartWave15Prerequisite.minimumWaveCount = 15;
             DLC2_StartWave15Prerequisite.name = "StartWave15PrerequisiteDLC2";
+            DLC2_StartWave30Prerequisite.requiredDLC = DLCS.DLC2;
             DLC2_StartWave30Prerequisite.minimumWaveCount = 30;
             DLC2_StartWave30Prerequisite.name = "StartWave30PrerequisiteDLC2";
+
+            DLC3_Prerequisite.requiredDLC = DLCS.DLC3; 
+            DLC3_Prerequisite.minimumWaveCount = 0;
+            DLC3_Prerequisite.name = "DLC3_Prerequisite";
+            DLC3_StartWave20Prerequisite.requiredDLC = DLCS.DLC3;
+            DLC3_StartWave20Prerequisite.minimumWaveCount = 20;
+            DLC3_StartWave20Prerequisite.name = "DLC3_StartWave20Prerequisite";
+            DLC3_StartWave40Prerequisite.requiredDLC = DLCS.DLC3;
+            DLC3_StartWave40Prerequisite.minimumWaveCount = 40;
+            DLC3_StartWave40Prerequisite.name = "DLC3_StartWave40Prerequisite";
 
         }
 
@@ -459,7 +492,7 @@ namespace SimulacrumAdditions
 
 
            
-            DirectorCardCategorySelection dccsITVoidMonsters = Addressables.LoadAssetAsync<DirectorCardCategorySelection>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/dccsITVoidMonsters.asset").WaitForCompletion();
+            DirectorCardCategorySelection dccsITVoidMonsters = Addressables.LoadAssetAsync<DirectorCardCategorySelection>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/ITAssets/dccsITVoidMonsters.asset").WaitForCompletion();
             dccsITVoidMonsters.categories[1].selectionWeight = 2;
             dccsITVoidMonsters.categories[2].cards[0].selectionWeight = 2;
         }
@@ -594,8 +627,7 @@ namespace SimulacrumAdditions
             return false;
         }
 
-        public static ExpansionDef requiredDLC = Addressables.LoadAssetAsync<ExpansionDef>(key: "RoR2/DLC2/Common/DLC2.asset").WaitForCompletion();
-
+        public ExpansionDef requiredDLC;
         public int minimumWaveCount;
     }
 

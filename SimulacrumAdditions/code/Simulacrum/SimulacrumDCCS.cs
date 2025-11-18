@@ -10,7 +10,7 @@ namespace SimulacrumAdditions
     {
 
         //Simu Interactable DCCS
-        public static DirectorCardCategorySelection dccsInfiniteTowerInteractables = Addressables.LoadAssetAsync<DirectorCardCategorySelection>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/dccsInfiniteTowerInteractables.asset").WaitForCompletion();
+        public static DirectorCardCategorySelection dccsInfiniteTowerInteractables = Addressables.LoadAssetAsync<DirectorCardCategorySelection>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/ITAssets/dccsInfiniteTowerInteractables.asset").WaitForCompletion();
         public static DirectorCardCategorySelection dccsITGolemPlainsInteractablesW = null;
         public static DirectorCardCategorySelection dccsITGooLakeInteractablesW = null;
         public static DirectorCardCategorySelection dccsITAncientLoftInteractablesW = null;
@@ -198,50 +198,49 @@ namespace SimulacrumAdditions
 
             --[4]--Void Stuff--  wt:3
             [0] iscVoidChest  wt:1  minStage:0*/
+ 
 
-            DirectorCard ADVoidTriple = new DirectorCard
-            {
-                spawnCard = Addressables.LoadAssetAsync<SpawnCard>(key: "RoR2/DLC1/VoidTriple/iscVoidTriple.asset").WaitForCompletion(),
-                selectionWeight = 3,
-            };
-
-            DirectorCard ADVoidChestSacrifice = new DirectorCard
-            {
-                spawnCard = Addressables.LoadAssetAsync<SpawnCard>(key: "RoR2/DLC1/VoidChest/iscVoidChestSacrificeOn.asset").WaitForCompletion(),
-                selectionWeight = 1,
-            };
+           
             //To prevent softlocks with sacrfice or other credits manipulators
-            DirectorCard ADVoidCoinBarrel = new DirectorCard
-            {
-                spawnCard = VoidCoinBarrel,
-                selectionWeight = 10,
-            };
-            DirectorCard ADSafteyBarrel = new DirectorCard
-            {
-                spawnCard = iscVoidCoinBarrelITSacrifice,
-                selectionWeight = 1,
-            };
-
-
-            dccsInfiniteTowerInteractables.categories[0].cards[2].selectionWeight -= 5; //Eq Barrel
-            dccsInfiniteTowerInteractables.categories[0].cards[3].selectionWeight -= 10; //Triple
-            dccsInfiniteTowerInteractables.categories[0].cards[4].selectionWeight += 5; //Lunar Chest
-            dccsInfiniteTowerInteractables.categories[0].cards[9].selectionWeight -= 10; //Eq triple
-            dccsInfiniteTowerInteractables.categories[0].cards = dccsInfiniteTowerInteractables.categories[0].cards.Remove(dccsInfiniteTowerInteractables.categories[0].cards[8], dccsInfiniteTowerInteractables.categories[0].cards[7], dccsInfiniteTowerInteractables.categories[0].cards[6], dccsInfiniteTowerInteractables.categories[0].cards[5]);
-            dccsInfiniteTowerInteractables.AddCard(0, ADVoidCoinBarrel);
-
-            dccsInfiniteTowerInteractables.categories[1].selectionWeight = 2f;
+         
+            //dccsInfiniteTowerInteractables.categories[0].cards[2].selectionWeight = 15; //Eq Barrel
+            dccsInfiniteTowerInteractables.categories[0].cards[3].selectionWeight = 60; //Triple
+            dccsInfiniteTowerInteractables.categories[0].cards[4].selectionWeight = 15; //Lunar Chest
+            dccsInfiniteTowerInteractables.categories[0].cards[9].selectionWeight = 5; //Eq triple
+            dccsInfiniteTowerInteractables.categories[0].cards = dccsInfiniteTowerInteractables.categories[0].cards.Remove(dccsInfiniteTowerInteractables.categories[0].cards[8]);
+           //Removing Casino Chest -> Annoying to Simu
+           //NOT ANYMORE Removing Category x3 -> Specific ones per stage (?)
+            dccsInfiniteTowerInteractables.AddCard(0, new DirectorCard
+			{
+				spawnCard = VoidCoinBarrel,
+				selectionWeight = 10,
+			});
+			dccsInfiniteTowerInteractables.AddCard(0, new DirectorCard
+			{
+                //Temporary Vendor
+				spawnCard = Addressables.LoadAssetAsync<SpawnCard>(key: "6df786822d3105e4e820c69e1ef94d16").WaitForCompletion(),
+				selectionWeight = 15222,
+			});
+			dccsInfiniteTowerInteractables.categories[1].selectionWeight = 2f;
 
             dccsInfiniteTowerInteractables.categories[2].selectionWeight = 0.8f;
             dccsInfiniteTowerInteractables.categories[2].cards[0].minimumStageCompletions = 1;
             dccsInfiniteTowerInteractables.categories[2].cards[1].minimumStageCompletions = 1; //No red chest stage 1 ig
-            dccsInfiniteTowerInteractables.AddCard(2, ADSafteyBarrel);
-            dccsInfiniteTowerInteractables.AddCard(2, ADVoidChestSacrifice);
             dccsInfiniteTowerInteractables.AddCard(2, new DirectorCard
+			{
+				spawnCard = iscVoidCoinBarrelITSacrifice,
+				selectionWeight = 1,
+			});
+            dccsInfiniteTowerInteractables.AddCard(2, new DirectorCard
+			{
+				spawnCard = Addressables.LoadAssetAsync<SpawnCard>(key: "RoR2/DLC1/VoidChest/iscVoidChestSacrificeOn.asset").WaitForCompletion(),
+				selectionWeight = 1,
+			});
+            /*dccsInfiniteTowerInteractables.AddCard(2, new DirectorCard
             {
                 spawnCard = iscVoidSuppressorIT,
                 selectionWeight = 6
-            });
+            });*/
 
             dccsInfiniteTowerInteractables.categories[3].cards[1].selectionWeight = 8;
             dccsInfiniteTowerInteractables.categories[3].cards[2].selectionWeight = 2;
@@ -252,7 +251,13 @@ namespace SimulacrumAdditions
 
             dccsInfiniteTowerInteractables.categories[4].selectionWeight = 7f;
             dccsInfiniteTowerInteractables.categories[4].cards[0].selectionWeight = 3;
-            dccsInfiniteTowerInteractables.AddCard(4, ADVoidTriple);
+            dccsInfiniteTowerInteractables.AddCard(4, new DirectorCard
+			{
+				spawnCard = Addressables.LoadAssetAsync<SpawnCard>(key: "RoR2/DLC1/VoidTriple/iscVoidTriple.asset").WaitForCompletion(),
+				selectionWeight = 3,
+			});
+
+            int drone = dccsInfiniteTowerInteractables.AddCategory("Drones", 0);
 
             dccsITGolemPlainsInteractablesW = UnityEngine.Object.Instantiate(dccsInfiniteTowerInteractables);
             dccsITGooLakeInteractablesW = UnityEngine.Object.Instantiate(dccsInfiniteTowerInteractables);
@@ -290,17 +295,17 @@ namespace SimulacrumAdditions
             DirectorCard ADCategoryChest2Damage = new DirectorCard
             {
                 spawnCard = Addressables.LoadAssetAsync<SpawnCard>(key: "RoR2/DLC1/CategoryChest2/iscCategoryChest2Damage.asset").WaitForCompletion(),
-                selectionWeight = 9,
+                selectionWeight = 10,
             };
             DirectorCard ADCategoryChest2Healing = new DirectorCard
             {
                 spawnCard = Addressables.LoadAssetAsync<SpawnCard>(key: "RoR2/DLC1/CategoryChest2/iscCategoryChest2Healing.asset").WaitForCompletion(),
-                selectionWeight = 9,
+                selectionWeight = 10,
             };
             DirectorCard ADCategoryChest2Utility = new DirectorCard
             {
                 spawnCard = Addressables.LoadAssetAsync<SpawnCard>(key: "RoR2/DLC1/CategoryChest2/iscCategoryChest2Utility.asset").WaitForCompletion(),
-                selectionWeight = 9,
+                selectionWeight = 10,
             };
             DirectorCard ADGreenMultiShop = new DirectorCard
             {
@@ -396,7 +401,8 @@ namespace SimulacrumAdditions
             //
             dccsITAncientLoftInteractablesW.AddCard(0, ADCategoryChest1Utility);
             dccsITAncientLoftInteractablesW.AddCard(0, ADCategoryChest2Utility);
-            dccsITAncientLoftInteractablesW.categories[1].selectionWeight = 6.5f; //Healing Cleanse
+            dccsITAncientLoftInteractablesW.categories[0].cards[8].selectionWeight = 30;
+            dccsITAncientLoftInteractablesW.categories[1].selectionWeight = 7f; //Healing Cleanse
             dccsITAncientLoftInteractablesW.categories[1].cards[0] = ADShrineCleanse;
             dccsITAncientLoftInteractablesW.AddCard(1, ADShrineHealing);
             dccsITAncientLoftInteractablesW.AddCard(1, ADShrineChance);
@@ -442,7 +448,16 @@ namespace SimulacrumAdditions
             {
                 dccsITMoonInteractablesW.categories[2].cards[1].selectionWeight = 4;
             }
-        }
+            SimulacrumDroneArtifactCategory(drone);
+
+		}
+
+        public static void SimulacrumDroneArtifactCategory(int dr)
+        {
+            //dccsITMoonInteractablesW.AddCard(dr, null);
+
+		}
+
 
         public static void SimuInteractableDCCSAdder(On.RoR2.InfiniteTowerRun.orig_OnPrePopulateSceneServer orig, InfiniteTowerRun self, SceneDirector sceneDirector)
         {

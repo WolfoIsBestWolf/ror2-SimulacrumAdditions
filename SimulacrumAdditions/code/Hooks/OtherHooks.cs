@@ -452,12 +452,7 @@ namespace SimulacrumAdditions
             return orig(tier);
         }
 
-        private static void PickupPickerController_SetOptionsFromPickupForCommandArtifact(On.RoR2.PickupPickerController.orig_SetOptionsFromPickupForCommandArtifact orig, PickupPickerController self, PickupIndex pickupIndex)
-        {
-            //IF ORANGE THEN JUST USE FRUIT IDK
-
-            orig(self, pickupIndex);
-        }
+ 
 
 
     }

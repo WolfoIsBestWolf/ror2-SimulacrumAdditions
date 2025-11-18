@@ -111,8 +111,8 @@ namespace SimulacrumAdditions
 
             cfgNewEnemiesVisible = ConfigFileUNSORTED.Bind(
                 "Main",
-                "Logbook Entries for Simu Bosses",
-                true,
+                "Logbook Entries for mod content",
+                false,
                 "Add reskins of enemies added by mod to Logbook."
             );
             cfgDifferentTeleportEffect = ConfigFileUNSORTED.Bind(

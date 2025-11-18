@@ -86,7 +86,7 @@ namespace SimulacrumAdditions.Waves
             #region (Boss) Equipment Drone x2
             //Equipment Drone Boss        
             GameObject WaveBoss_EquipmentDrone = PrefabAPI.InstantiateClone(Constant.ScavWave, "WaveBoss_EquipmentDrone", true);
-            GameObject InfiniteTowerCurrentBossEquipmentDroneWaveUI = PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentBossBrotherUI.prefab").WaitForCompletion(), "InfiniteTowerCurrentBossEquipmentDroneWaveUI", false);
+            GameObject InfiniteTowerCurrentBossEquipmentDroneWaveUI = PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/ITAssets/InfiniteTowerCurrentBossBrotherUI.prefab").WaitForCompletion(), "InfiniteTowerCurrentBossEquipmentDroneWaveUI", false);
 
             WaveBoss_EquipmentDrone.AddComponent<SimuWaveUnsortedExtras>().code = SimuWaveUnsortedExtras.Case.EquipmentDroneWave;
 

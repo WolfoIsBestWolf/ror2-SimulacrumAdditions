@@ -9,7 +9,7 @@ namespace SimulacrumAdditions.Waves
     {
         internal static void MakeChanges()
         {
-            GameObject InfiniteTowerWaveArtifactEnigma = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerWaveArtifactEnigma.prefab").WaitForCompletion();
+            GameObject InfiniteTowerWaveArtifactEnigma = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/ITAssets/InfiniteTowerWaveArtifactEnigma.prefab").WaitForCompletion();
             WavesMain.orangeWaves.Add(InfiniteTowerWaveArtifactEnigma);
             InfiniteTowerWaveArtifactEnigma.AddComponent<SimulacrumExtrasHelper>().rewardDropTable = Constant.dtITSpecialEquipment;
             InfiniteTowerWaveArtifactEnigma.GetComponent<SimulacrumExtrasHelper>().rewardOptionCount = 2;
@@ -26,7 +26,7 @@ namespace SimulacrumAdditions.Waves
                         break;
                     case "InfiniteTowerWaveArtifactMixEnemy":
                         ITBasicWaves.wavePrefabs[i].weight = 3.5f;
-                        ITBasicWaves.wavePrefabs[i].wavePrefab.GetComponent<InfiniteTowerWaveController>().rewardDropTable = WolfoFixes.Shared.dtAllTier;
+                        ITBasicWaves.wavePrefabs[i].wavePrefab.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITRainbow;
                         ITBasicWaves.wavePrefabs[i].wavePrefab.GetComponent<InfiniteTowerWaveController>().baseCredits = 184;
                         break;
                     case "InfiniteTowerWaveArtifactBomb":
@@ -40,7 +40,7 @@ namespace SimulacrumAdditions.Waves
                         break;
                     case "InfiniteTowerWaveArtifactRandomLoadout":
                         ITBasicWaves.wavePrefabs[i].weight = 2f;
-                        ITBasicWaves.wavePrefabs[i].wavePrefab.GetComponent<InfiniteTowerWaveController>().rewardDropTable = WolfoFixes.Shared.dtAllTier;
+                        ITBasicWaves.wavePrefabs[i].wavePrefab.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITRainbow;
                         ITBasicWaves.wavePrefabs[i].wavePrefab.GetComponent<InfiniteTowerWaveController>().baseCredits = 159;
                         break;
                     case "InfiniteTowerWaveArtifactSingleEliteType":
@@ -51,11 +51,9 @@ namespace SimulacrumAdditions.Waves
             }
 
 
-            Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentArtifactEnigmaWaveUI.prefab").WaitForCompletion().transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_ENIGMA";
-            Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentArtifactSingleMonsterTypeWaveUI.prefab").WaitForCompletion().transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_KIN";
-
-            FamilyDirectorCardCategorySelection dccsLunarFamily = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/dccsLunarFamily.asset").WaitForCompletion();
-
+            Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/ITAssets/InfiniteTowerCurrentArtifactEnigmaWaveUI.prefab").WaitForCompletion().transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_ENIGMA";
+            Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/ITAssets/InfiniteTowerCurrentArtifactSingleMonsterTypeWaveUI.prefab").WaitForCompletion().transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_KIN";
+ 
             ITBasicWaves.wavePrefabs[0].weight = BasicWaveWeight;
             ITBossWaves.wavePrefabs[0].weight = BasicBossWaveWight;
 
@@ -69,7 +67,7 @@ namespace SimulacrumAdditions.Waves
                 {
                     ITBossWaves.wavePrefabs[i].weight = 5f;
                     CombatDirector temp = ITBossWaves.wavePrefabs[i].wavePrefab.GetComponent<RoR2.CombatDirector>();
-                    temp.monsterCards = dccsLunarFamily;
+                    temp.monsterCards = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/DirectorCardCategorySelections/dccsLunarFamily.asset").WaitForCompletion(); ;
                     temp.skipSpawnIfTooCheap = false;
                     ITBossWaves.wavePrefabs[i].wavePrefab.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITWaveTier2;
                     ITBossWaves.wavePrefabs[i].wavePrefab.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier2;

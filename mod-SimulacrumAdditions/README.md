@@ -59,7 +59,7 @@ Warbanners drop on Boss Waves similiar to teleporters.
 
 #
 ## Artifacts
-__Adds 2 Simulacrum only Artifacts__
+__Adds 3 Simulacrum only Artifacts__
 
 Artifact of Augments  | Only augmented waves. For when the normal ~50% chance isn't enough for you.
 

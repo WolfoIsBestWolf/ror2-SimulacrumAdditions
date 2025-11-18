@@ -22,7 +22,7 @@ namespace SimulacrumAdditions.Waves
             GameObject InfiniteTowerWaveFamilyBeetle = PrefabAPI.InstantiateClone(Constant.BasicWave, "InfiniteTowerWaveFamilyBeetle", true);
             GameObject InfiniteTowerCurrentWaveUIFamilyBeetle = PrefabAPI.InstantiateClone(Constant.BasicWaveUI, "InfiniteTowerCurrentWaveUIFamilyBeetle", false);
 
-            InfiniteTowerWaveFamilyBeetle.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/dccsBeetleFamily.asset").WaitForCompletion();
+            InfiniteTowerWaveFamilyBeetle.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/DirectorCardCategorySelections/dccsBeetleFamily.asset").WaitForCompletion();
             InfiniteTowerWaveFamilyBeetle.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITFamilyWaveUtility;
 
             InfiniteTowerWaveFamilyBeetle.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerCurrentWaveUIFamilyBeetle;
@@ -37,7 +37,7 @@ namespace SimulacrumAdditions.Waves
             GameObject InfiniteTowerWaveFamilyWisp = PrefabAPI.InstantiateClone(Constant.BasicWave, "InfiniteTowerWaveFamilyWisp", true);
             GameObject InfiniteTowerCurrentWaveUIFamilyWisp = PrefabAPI.InstantiateClone(Constant.BasicWaveUI, "InfiniteTowerCurrentWaveUIFamilyWisp", false);
 
-            InfiniteTowerWaveFamilyWisp.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/dccsWispFamily.asset").WaitForCompletion();
+            InfiniteTowerWaveFamilyWisp.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/DirectorCardCategorySelections/dccsWispFamily.asset").WaitForCompletion();
             InfiniteTowerWaveFamilyWisp.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITFamilyWaveDamage;
 
             InfiniteTowerWaveFamilyWisp.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerCurrentWaveUIFamilyWisp;
@@ -52,7 +52,7 @@ namespace SimulacrumAdditions.Waves
             GameObject InfiniteTowerWaveFamilyGolem = PrefabAPI.InstantiateClone(Constant.BasicWave, "InfiniteTowerWaveFamilyGolem", true);
             GameObject InfiniteTowerCurrentWaveUIFamilyGolem = PrefabAPI.InstantiateClone(Constant.BasicWaveUI, "InfiniteTowerCurrentWaveUIFamilyGolem", false);
 
-            InfiniteTowerWaveFamilyGolem.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/dccsGolemFamily.asset").WaitForCompletion();
+            InfiniteTowerWaveFamilyGolem.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/DirectorCardCategorySelections/dccsGolemFamily.asset").WaitForCompletion();
             InfiniteTowerWaveFamilyGolem.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITFamilyWaveHealing;
 
             InfiniteTowerWaveFamilyGolem.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerCurrentWaveUIFamilyGolem;
@@ -67,7 +67,7 @@ namespace SimulacrumAdditions.Waves
             GameObject InfiniteTowerWaveFamilyJellyfish = PrefabAPI.InstantiateClone(Constant.BasicWave, "InfiniteTowerWaveFamilyJellyfish", true);
             GameObject InfiniteTowerCurrentWaveUIFamilyJellyfish = PrefabAPI.InstantiateClone(Constant.BasicWaveUI, "InfiniteTowerCurrentWaveUIFamilyJellyfish", false);
 
-            InfiniteTowerWaveFamilyJellyfish.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/dccsJellyfishFamily.asset").WaitForCompletion();
+            InfiniteTowerWaveFamilyJellyfish.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/DirectorCardCategorySelections/dccsJellyfishFamily.asset").WaitForCompletion();
             InfiniteTowerWaveFamilyJellyfish.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITFamilyWaveDamage;
 
             InfiniteTowerWaveFamilyJellyfish.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerCurrentWaveUIFamilyJellyfish;
@@ -82,7 +82,7 @@ namespace SimulacrumAdditions.Waves
             GameObject InfiniteTowerWaveFamilyLemurian = PrefabAPI.InstantiateClone(Constant.BasicWave, "InfiniteTowerWaveFamilyLemurian", true);
             GameObject InfiniteTowerCurrentWaveUIFamilyLemurian = PrefabAPI.InstantiateClone(Constant.BasicWaveUI, "InfiniteTowerCurrentWaveUIFamilyLemurian", false);
 
-            InfiniteTowerWaveFamilyLemurian.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/dccsLemurianFamily.asset").WaitForCompletion();
+            InfiniteTowerWaveFamilyLemurian.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/DirectorCardCategorySelections/dccsLemurianFamily.asset").WaitForCompletion();
             InfiniteTowerWaveFamilyLemurian.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITFamilyWaveDamage;
 
             InfiniteTowerWaveFamilyLemurian.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerCurrentWaveUIFamilyLemurian;
@@ -97,7 +97,7 @@ namespace SimulacrumAdditions.Waves
             GameObject InfiniteTowerWaveFamilyImp = PrefabAPI.InstantiateClone(Constant.BasicWave, "InfiniteTowerWaveFamilyImp", true);
             GameObject InfiniteTowerCurrentWaveUIFamilyImp = PrefabAPI.InstantiateClone(Constant.BasicWaveUI, "InfiniteTowerCurrentWaveUIFamilyImp", false);
 
-            InfiniteTowerWaveFamilyImp.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/dccsImpFamily.asset").WaitForCompletion();
+            InfiniteTowerWaveFamilyImp.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/DirectorCardCategorySelections/dccsImpFamily.asset").WaitForCompletion();
             InfiniteTowerWaveFamilyImp.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITFamilyWaveDamage;
 
             InfiniteTowerWaveFamilyImp.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerCurrentWaveUIFamilyImp;
@@ -112,7 +112,7 @@ namespace SimulacrumAdditions.Waves
             GameObject InfiniteTowerWaveFamilyParent = PrefabAPI.InstantiateClone(Constant.BasicWave, "InfiniteTowerWaveFamilyParent", true);
             GameObject InfiniteTowerCurrentWaveUIFamilyParent = PrefabAPI.InstantiateClone(Constant.BasicWaveUI, "InfiniteTowerCurrentWaveUIFamilyParent", false);
 
-            InfiniteTowerWaveFamilyParent.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/dccsParentFamily.asset").WaitForCompletion();
+            InfiniteTowerWaveFamilyParent.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/DirectorCardCategorySelections/dccsParentFamily.asset").WaitForCompletion();
             InfiniteTowerWaveFamilyParent.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITFamilyWaveHealing;
 
             InfiniteTowerWaveFamilyParent.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerCurrentWaveUIFamilyParent;
@@ -127,7 +127,7 @@ namespace SimulacrumAdditions.Waves
             GameObject InfiniteTowerWaveFamilyMushroom = PrefabAPI.InstantiateClone(Constant.BasicWave, "InfiniteTowerWaveFamilyMushroom", true);
             GameObject InfiniteTowerCurrentWaveUIFamilyMushroom = PrefabAPI.InstantiateClone(Constant.BasicWaveUI, "InfiniteTowerCurrentWaveUIFamilyMushroom", false);
 
-            InfiniteTowerWaveFamilyMushroom.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/dccsMushroomFamily.asset").WaitForCompletion();
+            InfiniteTowerWaveFamilyMushroom.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/DirectorCardCategorySelections/dccsMushroomFamily.asset").WaitForCompletion();
             InfiniteTowerWaveFamilyMushroom.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITFamilyWaveHealing;
 
             InfiniteTowerWaveFamilyMushroom.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerCurrentWaveUIFamilyMushroom;
@@ -142,7 +142,7 @@ namespace SimulacrumAdditions.Waves
             GameObject InfiniteTowerWaveFamilyLunar = PrefabAPI.InstantiateClone(Constant.BasicWave, "InfiniteTowerWaveFamilyLunar", true);
             GameObject InfiniteTowerCurrentWaveUIFamilyLunar = PrefabAPI.InstantiateClone(Constant.LunarWaveUI, "InfiniteTowerCurrentWaveUIFamilyLunar", false);
 
-            InfiniteTowerWaveFamilyLunar.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/dccsLunarFamily.asset").WaitForCompletion();
+            InfiniteTowerWaveFamilyLunar.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/DirectorCardCategorySelections/dccsLunarFamily.asset").WaitForCompletion();
             InfiniteTowerWaveFamilyLunar.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITBasicBonusLunar;
 
             InfiniteTowerWaveFamilyLunar.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerCurrentWaveUIFamilyLunar;
@@ -160,7 +160,7 @@ namespace SimulacrumAdditions.Waves
             GameObject InfiniteTowerWaveFamilyGup = PrefabAPI.InstantiateClone(Constant.BasicWave, "InfiniteTowerWaveFamilyGup", true);
             GameObject InfiniteTowerCurrentWaveUIFamilyGup = PrefabAPI.InstantiateClone(Constant.BasicWaveUI, "InfiniteTowerCurrentWaveUIFamilyGup", false);
 
-            InfiniteTowerWaveFamilyGup.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/dccsGupFamily.asset").WaitForCompletion();
+            InfiniteTowerWaveFamilyGup.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/DirectorCardCategorySelections/dccsGupFamily.asset").WaitForCompletion();
             InfiniteTowerWaveFamilyGup.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITWaveTier1;
             InfiniteTowerWaveFamilyGup.GetComponent<InfiniteTowerWaveController>().rewardOptionCount = 6;
 

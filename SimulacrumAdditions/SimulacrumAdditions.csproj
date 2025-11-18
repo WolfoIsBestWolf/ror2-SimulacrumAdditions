@@ -36,11 +36,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="RiskOfOptions">
-      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\RiskOfRain2\profiles\testvanill\BepInEx\plugins\Rune580-Risk_Of_Options\RiskOfOptions\RiskOfOptions.dll</HintPath>
-    </Reference>
-    <Reference Include="WolfoFixes">
-      <HintPath>..\..\ror2-WolfoQualityoLlife\WolfoFixes\obj\Debug\netstandard2.1\WolfoFixes.dll</HintPath>
+    <Reference Include="WolfoLibrary">
+      <HintPath>..\..\ror2-WolfFixes\proj_WolfoLibrary\obj\Debug\netstandard2.1\WolfoLibrary.dll</HintPath>
     </Reference>
   </ItemGroup>
 

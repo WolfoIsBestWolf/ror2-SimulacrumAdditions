@@ -87,7 +87,7 @@ namespace SimulacrumAdditions.Waves
             #region Aurelionite
             //Gold Titan
             GameObject WaveBoss_TitanGold = PrefabAPI.InstantiateClone(Constant.ScavWave, "WaveBoss_TitanGold", true);
-            GameObject InfiniteTowerCurrentBossTitanGoldWaveUI = PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentBossBrotherUI.prefab").WaitForCompletion(), "InfiniteTowerCurrentBossTitanGoldWaveUI", false);
+            GameObject InfiniteTowerCurrentBossTitanGoldWaveUI = PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/ITAssets/InfiniteTowerCurrentBossBrotherUI.prefab").WaitForCompletion(), "InfiniteTowerCurrentBossTitanGoldWaveUI", false);
             wave = WaveBoss_TitanGold.GetComponent<InfiniteTowerExplicitSpawnWaveController>();
 
             CharacterSpawnCard cscTitanGoldIT = Object.Instantiate(Addressables.LoadAssetAsync<CharacterSpawnCard>(key: "RoR2/Base/Titan/cscTitanGold.asset").WaitForCompletion());
@@ -124,7 +124,7 @@ namespace SimulacrumAdditions.Waves
             #region Sots_FalseSon
             //SEEKERS FALSE SON
             GameObject WaveBoss_FalseSon = PrefabAPI.InstantiateClone(Constant.ScavWave, "WaveBoss_FalseSon", true);
-            GameObject InfiniteTowerCurrentBossFalseSonWaveUI = PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentBossBrotherUI.prefab").WaitForCompletion(), "InfiniteTowerCurrentBossFalseSonWaveUI", false);
+            GameObject InfiniteTowerCurrentBossFalseSonWaveUI = PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/ITAssets/InfiniteTowerCurrentBossBrotherUI.prefab").WaitForCompletion(), "InfiniteTowerCurrentBossFalseSonWaveUI", false);
             wave = WaveBoss_FalseSon.GetComponent<InfiniteTowerExplicitSpawnWaveController>();
             CharacterSpawnCard cscFalseSonIT = Object.Instantiate(Addressables.LoadAssetAsync<CharacterSpawnCard>(key: "RoR2/Base/Titan/cscTitanGold.asset").WaitForCompletion());
             cscFalseSonIT.name = "cscFalseSonIT";
@@ -201,11 +201,21 @@ namespace SimulacrumAdditions.Waves
             InfiniteTowerCurrentBossSuperRoboBallBossWaveUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color(0f, 0.6f, 0.6f, 1);
 
             InfiniteTowerWaveCategory.WeightedWave ITBossSuperRoboBallBoss = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = WaveBoss_SuperRoboBallBoss, weight = ITSpecialBossWaveWeight + 0.5f, prerequisites = Constant.StartWave25Prerequisite };
-            #endregion
+			#endregion
 
-            Constant.ITBossWaves.wavePrefabs = Constant.ITBossWaves.wavePrefabs.Add(ITBossScavLunar, ITBossVoidRaidCrab, ITBossSuperRoboBallBoss, ITBossTitanGold, ITBossFalseSon);
-            ITBossTitanGold.weight = 0.3f;
-            Constant.ITSuperBossWaves.wavePrefabs = Constant.ITSuperBossWaves.wavePrefabs.Add(ITBossScavLunar, ITBossVoidRaidCrab, ITBossTitanGold, ITBossFalseSon); //ITBossSuperRoboBallBoss
+			#region Solus Amalgamator
+            //Amalgam +1 every 15? No Scaling?
+			#endregion
+			#region Vulture Hunter
+            //Scaling, mildly
+			#endregion
+			#region Solus Wing
+            //Scaling, very, mildly
+			#endregion
+
+
+			Constant.ITBossWaves.wavePrefabs = Constant.ITBossWaves.wavePrefabs.Add(ITBossScavLunar, ITBossVoidRaidCrab, ITBossSuperRoboBallBoss, ITBossTitanGold, ITBossFalseSon);
+            Constant.ITSuperBossWaves.wavePrefabs = Constant.ITSuperBossWaves.wavePrefabs.Add(ITBossScavLunar, ITBossVoidRaidCrab, ITBossFalseSon);
 
         }
 

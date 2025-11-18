@@ -1,5 +1,7 @@
 ﻿using RoR2;
 using System.Collections.Generic;
+using System.Linq;
+
 //using System;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -28,10 +30,19 @@ namespace SimulacrumAdditions
     {
         public override void Spawn(Vector3 position, Quaternion rotation, DirectorSpawnRequest directorSpawnRequest, ref SpawnCard.SpawnResult result)
         {
-            int random = (int)(directorSpawnRequest.rng.nextNormalizedFloat * (float)this.cscList.Length);
-            cscList[random].Spawn(position, rotation, directorSpawnRequest, ref result);
-        }
+            var list = cscList.ToList();
+            foreach (var keyPair in blacklistScenes)
+            {
+                if (SceneCatalog.mostRecentSceneDef == keyPair.Key)
+                {
+                    list.Remove(keyPair.Value);
+                }
+            }
 
+            int random = (int)(directorSpawnRequest.rng.nextNormalizedFloat * (float)list.Count);
+            list[random].Spawn(position, rotation, directorSpawnRequest, ref result);
+        }
+        public Dictionary<SceneDef, CharacterSpawnCard> blacklistScenes;
         public CharacterSpawnCard[] cscList;
     }
 
@@ -130,55 +141,5 @@ namespace SimulacrumAdditions
         }
 
     }
-
-    public class EliteInclusiveDropTable : BasicPickupDropTable
-    {
-        public float eliteEquipWeight;
-        public float pearlWeight;
-
-        public override void Regenerate(Run run)
-        {
-            base.GenerateWeightedSelection(run);
-            if (eliteEquipWeight > 0)
-            {
-                List<PickupIndex> EliteList = new List<PickupIndex>();
-                for (int i = 0; i < EliteCatalog.eliteDefs.Length; i++)
-                {
-                    EliteDef tempDef = EliteCatalog.eliteDefs[i];
-
-                    if (tempDef == null || !tempDef.eliteEquipmentDef || tempDef.eliteEquipmentDef && tempDef.eliteEquipmentDef.equipmentIndex != EquipmentIndex.None)
-                    {
-                        Debug.LogWarning("Null EliteDef");
-                        break;
-                    }
-
-                    if (!(tempDef.name.StartsWith("edGold") || tempDef.name.StartsWith("edSecretSpeed")))
-                    {
-                        if (tempDef.IsAvailable() && tempDef.eliteEquipmentDef.dropOnDeathChance > 0)
-                        {
-                            PickupIndex temp = PickupCatalog.FindPickupIndex(tempDef.eliteEquipmentDef.equipmentIndex);
-                            if (!EliteList.Contains(temp))
-                            {
-                                EliteList.Add(temp);
-                            }
-                        }
-                    }
-                }
-                if (EliteList.Count > 0)
-                {
-                    this.Add(EliteList, eliteEquipWeight);
-                }
-                else
-                {
-                    Debug.Log("No dropable Elite Equipment");
-                }
-            }
-            if (pearlWeight > 0)
-            {
-                this.selector.AddChoice(PickupCatalog.FindPickupIndex(RoR2Content.Items.Pearl.itemIndex), pearlWeight * 0.8f);
-                this.selector.AddChoice(PickupCatalog.FindPickupIndex(RoR2Content.Items.ShinyPearl.itemIndex), pearlWeight * 0.2f);
-            }
-        }
-    }
-
+     
 }

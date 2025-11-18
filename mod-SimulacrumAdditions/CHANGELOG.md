@@ -1,5 +1,27 @@
 ## Changelog:
 ```
+v3.0.0
+(TODO)Ghost Grandparent and Vagrant waves now spawn with pillars to guarantee a hiding spot. 
+(TODO)(maybe all ghost waves could have the pillars just in general)
+(TODO)Inventory Disable and Skills Disable pulse or smth wave
+(TODO)Move Drone/Lems immune to fog here
+il amount if infinitetower run 0
+remove fukin voidsupp from normal stage pool
+
+item theft wave?
+old unstable transmitter type of wave
+
+
+maybe keep default wave weightat 50 at all times and first wave always default
+first boss always default too??
+
+
+v2.4.4
+Fixed for AC.
+Added Temp Shop to all Simu Stages.
+Removed Void Eradicator from all Simu Stages.
+
+
 v2.4.3
 Fixed only white items being given on accident.
 

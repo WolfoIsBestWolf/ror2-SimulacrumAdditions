@@ -15,7 +15,7 @@ using UnityEngine.AddressableAssets;
 namespace SimulacrumAdditions
 {
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("Wolfo.SimulacrumAdditions", "SimulacrumAdditions", "2.4.3")]
+    [BepInPlugin("Wolfo.SimulacrumAdditions", "SimulacrumAdditions", "2.4.4")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
 
     public class SimuMain : BaseUnityPlugin
@@ -65,7 +65,7 @@ namespace SimulacrumAdditions
             //
 
             //Doesn't need to ban world unique anymore anyways
-            Addressables.LoadAssetAsync<BasicPickupDropTable>(key: "RoR2/Base/DuplicatorWild/dtDuplicatorWild.asset").WaitForCompletion().bannedItemTags = new ItemTag[0];
+            /*Addressables.LoadAssetAsync<BasicPickupDropTable>(key: "RoR2/Base/DuplicatorWild/dtDuplicatorWild.asset").WaitForCompletion().bannedItemTags = new ItemTag[0];
             On.RoR2.Run.BuildDropTable += (orig, self) =>
             {
                 orig(self);
@@ -74,7 +74,7 @@ namespace SimulacrumAdditions
                     self.availableBossDropList.Add(PickupCatalog.FindPickupIndex(RoR2Content.Items.Pearl.itemIndex));
                     //self.availableBossDropList.Add(PickupCatalog.FindPickupIndex(RoR2Content.Items.TitanGoldDuringTP.itemIndex));
                 }
-            };
+            };*/
 
             //What is this?
             On.RoR2.InfiniteTowerWaveController.HasFullProgress += (orig, self) =>
@@ -174,7 +174,7 @@ namespace SimulacrumAdditions
             itmoon.bossTrack = MTDPrelude;
 
  
-            //Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/InfiniteTowerAssets/InfiniteTowerCurrentArtifactEnigmaWaveUI.prefab").WaitForCompletion()
+            //Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/ITAssets/InfiniteTowerCurrentArtifactEnigmaWaveUI.prefab").WaitForCompletion()
         }
 
 

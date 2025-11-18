@@ -37,7 +37,7 @@ namespace SimulacrumAdditions
             GameObject WaveBoss_GiantGup = PrefabAPI.InstantiateClone(Constant.ScavWave, "WaveBoss_GiantGup", true);
             GameObject WaveBoss_GiantGupUI = PrefabAPI.InstantiateClone(Constant.ScavWaveUI, "InfiniteTowerCurrentBossGiantGupWaveUI", false);
 
-            WaveBoss_GiantGup.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/dccsGupFamily.asset").WaitForCompletion();
+            WaveBoss_GiantGup.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/DirectorCardCategorySelections/dccsGupFamily.asset").WaitForCompletion();
             InfiniteTowerExplicitSpawnWaveController wave = WaveBoss_GiantGup.GetComponent<InfiniteTowerExplicitSpawnWaveController>();
             wave.baseCredits = 5;
             wave.immediateCreditsFraction = 0;
