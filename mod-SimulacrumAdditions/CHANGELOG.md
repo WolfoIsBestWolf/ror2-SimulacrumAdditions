@@ -1,5 +1,8 @@
 ## Changelog:
 ```
+v2.6.1
+Fixed VoidCoin or Blood cost type being broken from update.
+
 v2.6.0
 Added 6 waves related to Alloyed Collective content.
 

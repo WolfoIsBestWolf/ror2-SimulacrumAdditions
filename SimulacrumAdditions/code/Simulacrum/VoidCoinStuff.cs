@@ -113,8 +113,8 @@ namespace SimulacrumAdditions
             {
                 if (context.activatorMaster && context.activatorMaster.voidCoins > 0)
                 {
-                    CostTypeCatalog.GetCostTypeDef(CostTypeIndex.VoidCoin).PayCost(context, result);
-                    //context.activatorMaster.voidCoins -= (uint)1;
+                    //CostTypeCatalog.GetCostTypeDef(CostTypeIndex.VoidCoin).PayCost(1, result);
+                    context.activatorMaster.voidCoins -= (uint)1;
                 }
                 else
                 {
