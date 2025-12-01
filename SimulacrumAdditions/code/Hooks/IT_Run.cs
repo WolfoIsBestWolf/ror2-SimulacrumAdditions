@@ -28,8 +28,18 @@ namespace SimulacrumAdditions
                 On.RoR2.InfiniteTowerRun.AdvanceWave += MoreItems_AdvanceWave;
             }
 
+            On.RoR2.InfiniteTowerRun.Start += InfiniteTowerRun_Start;
         }
 
+        private static void InfiniteTowerRun_Start(On.RoR2.InfiniteTowerRun.orig_Start orig, InfiniteTowerRun self)
+        {
+            orig(self);
+            if (NetworkServer.active)
+            {
+                self.SetEventFlag("NoArtifactWorld");
+                self.SetEventFlag("NoMysterySpace");
+            }
+        }
 
         private static void MakeWavesMoreCommon(On.RoR2.InfiniteTowerRun.orig_AdvanceWave orig, InfiniteTowerRun self)
         {
@@ -186,9 +196,9 @@ namespace SimulacrumAdditions
                 VoidCoin.VoidCoinRunStart();
             }
             GameObject eqDrone = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterMasters/EquipmentDroneMaster");
-            eqDrone.GetComponent<RoR2.StartEvent>().enabled = false;
+            eqDrone.GetComponent<StartEvent>().enabled = false;
             eqDrone.AddComponent<EquipmentDroneInSimulacrum>();
-            Object.Destroy(eqDrone.GetComponent<RoR2.SetDontDestroyOnLoad>());
+            Object.Destroy(eqDrone.GetComponent<SetDontDestroyOnLoad>());
  
         }
 
@@ -196,8 +206,8 @@ namespace SimulacrumAdditions
         {
             orig(self);
             GameObject eqDrone = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterMasters/EquipmentDroneMaster");
-            eqDrone.GetComponent<RoR2.StartEvent>().enabled = true;
-            eqDrone.AddComponent<RoR2.SetDontDestroyOnLoad>();
+            eqDrone.GetComponent<StartEvent>().enabled = true;
+            eqDrone.AddComponent<SetDontDestroyOnLoad>();
             Object.Destroy(eqDrone.GetComponent<EquipmentDroneInSimulacrum>());
             SimulacrumDCCS.MakeITSand(false);
             if (WConfig.cfgVoidCoins.Value)

@@ -10,12 +10,30 @@ namespace SimulacrumAdditions
 {
     public static class Constant
     {
+        //BaseCredits: 159
+        //immediateCreditsFraction: 0.15
+        //maxSquadSize: 30
+        //secondsBeforeFailsafe: 60
+        //secondsBeforeSuddenDeath: 60
+        //wavePeriodSeconds: 30
         public static GameObject BasicWave = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/ITAssets/InfiniteTowerWaveDefault.prefab").WaitForCompletion();
         public static GameObject BasicWaveUI = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/ITAssets/InfiniteTowerCurrentWaveUI.prefab").WaitForCompletion();
 
+        //BaseCredits: 500
+        //immediateCreditsFraction: 0.3
+        //maxSquadSize: 30
+        //secondsBeforeFailsafe: 60
+        //secondsBeforeSuddenDeath: 60
+        //wavePeriodSeconds: 60
         public static GameObject BossWave = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/ITAssets/InfiniteTowerWaveBoss.prefab").WaitForCompletion();
         public static GameObject BossWaveUI = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/ITAssets/InfiniteTowerCurrentBossWaveUI.prefab").WaitForCompletion();
 
+        //BaseCredits: 0
+        //immediateCreditsFraction: 0
+        //maxSquadSize: 30
+        //secondsBeforeFailsafe: 60
+        //secondsBeforeSuddenDeath: 60
+        //wavePeriodSeconds: 30
         public static GameObject ScavWave = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/ITAssets/InfiniteTowerWaveBossScav.prefab").WaitForCompletion();
         public static GameObject ScavWaveUI = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/ITAssets/InfiniteTowerCurrentBossScavWaveUI.prefab").WaitForCompletion();
 
@@ -79,9 +97,12 @@ namespace SimulacrumAdditions
         public static ITWave_DLC_Prerequisites DLC2_StartWave30Prerequisite = ScriptableObject.CreateInstance<ITWave_DLC_Prerequisites>();
 
         public static ITWave_DLC_Prerequisites DLC3_Prerequisite = ScriptableObject.CreateInstance<ITWave_DLC_Prerequisites>();
-        public static ITWave_DLC_Prerequisites DLC3_StartWave20Prerequisite = ScriptableObject.CreateInstance<ITWave_DLC_Prerequisites>();
-        public static ITWave_DLC_Prerequisites DLC3_StartWave40Prerequisite = ScriptableObject.CreateInstance<ITWave_DLC_Prerequisites>();
+        public static ITWave_DLC_Prerequisites DLC3_StartWave10Prerequisite = ScriptableObject.CreateInstance<ITWave_DLC_Prerequisites>();
+        public static ITWave_DLC_Prerequisites DLC3_StartWave25Prerequisite = ScriptableObject.CreateInstance<ITWave_DLC_Prerequisites>();
+        public static ITWave_DLC_Prerequisites DLC3_StartWave50Prerequisite = ScriptableObject.CreateInstance<ITWave_DLC_Prerequisites>();
 
+        public static ITWave_PreReq_BlacklistedFromItMoon NoItMoonStartWave5 = ScriptableObject.CreateInstance<ITWave_PreReq_BlacklistedFromItMoon>();
+        public static ITWave_PreReq_BlacklistedFromItMoon NoItMoonStartWave15 = ScriptableObject.CreateInstance<ITWave_PreReq_BlacklistedFromItMoon>();
 
         //Simu Wave Reward Drop Tables
         public static BasicPickupDropTable dtITWaveTier1 = Addressables.LoadAssetAsync<BasicPickupDropTable>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/ITAssets/dtITDefaultWave.asset").WaitForCompletion();
@@ -115,6 +136,7 @@ namespace SimulacrumAdditions
         public static AdvancedPickupDropTable dtITSpecialEquipment = ScriptableObject.CreateInstance<AdvancedPickupDropTable>();
         public static AdvancedPickupDropTable dtITVoidInfestorWave = ScriptableObject.CreateInstance<AdvancedPickupDropTable>();
         public static AdvancedPickupDropTable dtITSpecialBossYellow = ScriptableObject.CreateInstance<AdvancedPickupDropTable>();
+        public static AdvancedPickupDropTable dtITTechnology = ScriptableObject.CreateInstance<AdvancedPickupDropTable>();
         public static ExplicitPickupDropTable dtITHeresy = ScriptableObject.CreateInstance<ExplicitPickupDropTable>();
         public static ExplicitPickupDropTable dtITWurms = ScriptableObject.CreateInstance<ExplicitPickupDropTable>();
         public static AdvancedPickupDropTable dtITRainbow = ScriptableObject.CreateInstance<AdvancedPickupDropTable>();
@@ -231,7 +253,7 @@ namespace SimulacrumAdditions
 
             //For Boss waves intended to be difficult
             dtITBossBonusRed.tier1Weight = 0f;
-            dtITBossBonusRed.tier2Weight = 20f; //80 default
+            dtITBossBonusRed.tier2Weight = 40f; //80 default
             dtITBossBonusRed.tier3Weight = 12f; //7.5 default
             dtITBossBonusRed.bossWeight = 0f; //7.5 default
             dtITBossBonusRed.name = "dtITBossBonusRed";
@@ -278,13 +300,14 @@ namespace SimulacrumAdditions
 
             //Vengance & Honor Boss
             dtITSpecialBossYellow.tier1Weight = 0;
-            dtITSpecialBossYellow.tier2Weight = 10;
+            dtITSpecialBossYellow.tier2Weight = 45;
             dtITSpecialBossYellow.tier3Weight = 10;
-            dtITSpecialBossYellow.bossWeight = 100; //Because how weighted selections actually work, boss items will be a lot less common
+            dtITSpecialBossYellow.bossWeight = 45; //Because how weighted selections actually work, boss items will be a lot less common
             dtITSpecialBossYellow.name = "dtITSpecialBossYellow";
             //dtITSpecialBossYellow.eliteEquipWeight = 5f;
             //dtITSpecialBossYellow.pearlWeight = 70f;
-            dtITSpecialBossYellow.voidBossWeight = 20;
+            dtITSpecialBossYellow.voidBossWeight = 5;
+            dtITSpecialBossYellow.unbiasedByItemCount = true;
 
             //Family Waves biased 
             dtITFamilyWaveDamage.tier1Weight = 80;
@@ -332,23 +355,23 @@ namespace SimulacrumAdditions
 
             //Family Waves biased 
             dtITBossCategoryDamage.tier1Weight = 0;
-            dtITBossCategoryDamage.tier2Weight = 20f;
-            dtITBossCategoryDamage.tier3Weight = 10f;
-            dtITBossCategoryDamage.bossWeight = 5f;
+            dtITBossCategoryDamage.tier2Weight = 80f;
+            dtITBossCategoryDamage.tier3Weight = 20f;
+            dtITBossCategoryDamage.bossWeight = 10f;
             dtITBossCategoryDamage.name = "dtITBossCategoryDamage";
             dtITBossCategoryDamage.requiredItemTags = new ItemTag[] { ItemTag.Damage };
 
             dtITBossCategoryHealing.tier1Weight = 0;
-            dtITBossCategoryHealing.tier2Weight = 20f;
-            dtITBossCategoryHealing.tier3Weight = 10f;
-            dtITBossCategoryHealing.bossWeight = 5f;
+            dtITBossCategoryHealing.tier2Weight = 80f;
+            dtITBossCategoryHealing.tier3Weight = 20f;
+            dtITBossCategoryHealing.bossWeight = 10f;
             dtITBossCategoryHealing.name = "dtITBossCategoryHealing";
             dtITBossCategoryHealing.requiredItemTags = new ItemTag[] { ItemTag.Healing };
 
             dtITBossCategoryUtility.tier1Weight = 0;
-            dtITBossCategoryUtility.tier2Weight = 20f;
-            dtITBossCategoryUtility.tier3Weight = 10f;
-            dtITBossCategoryUtility.bossWeight = 5f;
+            dtITBossCategoryUtility.tier2Weight = 80f;
+            dtITBossCategoryUtility.tier3Weight = 20f;
+            dtITBossCategoryUtility.bossWeight = 10f;
             dtITBossCategoryUtility.name = "dtITBossCategoryUtility";
             dtITBossCategoryUtility.requiredItemTags = new ItemTag[] { ItemTag.Utility };
             //
@@ -364,7 +387,7 @@ namespace SimulacrumAdditions
             dtITSpecialEquipment.lunarEquipmentWeight = 30f;
             dtITSpecialEquipment.name = "dtITSpecialEquipment";
 
-            //OnKill for On Kill Artifacts
+            //Random tier for random ass whole everything
             dtITRainbow.name = "dtITRainbow";
             dtITRainbow.tier1Weight = 80;
             dtITRainbow.tier2Weight = 20;
@@ -378,6 +401,14 @@ namespace SimulacrumAdditions
             dtITRainbow.voidBossWeight = 1;
             dtITRainbow.lunarEquipmentWeight = 1;
             dtITRainbow.eliteEquipmentWeight = 1;
+
+            //Technology for technology
+            dtITTechnology.name = "dtITTechnology";
+            dtITTechnology.tier1Weight = 80;
+            dtITTechnology.tier2Weight = 15;
+            dtITTechnology.tier3Weight = 2;
+            dtITTechnology.bossWeight = 2;
+            dtITTechnology.requiredItemTags = new ItemTag[] { ItemTag.Technology };
         }
 
         public static void WavePrerequesites()
@@ -399,6 +430,12 @@ namespace SimulacrumAdditions
             StartWave50Prerequisite.minimumWaveCount = 50;
             StartWave50Prerequisite.name = "StartWave50Prerequisite";
 
+            NoItMoonStartWave15.minimumWaveCount = 15;
+            NoItMoonStartWave15.name = "NoItMoonStartWave15";
+            NoItMoonStartWave5.minimumWaveCount = 5;
+            NoItMoonStartWave5.name = "NoItMoonStartWave5";
+
+
             AfterWave5EndWave30Prerequisite.minimumWaveCount = 6;
             AfterWave5EndWave30Prerequisite.maximumWaveCount = 30;
             AfterWave5EndWave30Prerequisite.name = "AfterWave5EndWave30Prerequisite";
@@ -413,15 +450,18 @@ namespace SimulacrumAdditions
             DLC2_StartWave30Prerequisite.minimumWaveCount = 30;
             DLC2_StartWave30Prerequisite.name = "StartWave30PrerequisiteDLC2";
 
-            DLC3_Prerequisite.requiredDLC = DLCS.DLC3; 
-            DLC3_Prerequisite.minimumWaveCount = 0;
-            DLC3_Prerequisite.name = "DLC3_Prerequisite";
-            DLC3_StartWave20Prerequisite.requiredDLC = DLCS.DLC3;
-            DLC3_StartWave20Prerequisite.minimumWaveCount = 20;
-            DLC3_StartWave20Prerequisite.name = "DLC3_StartWave20Prerequisite";
-            DLC3_StartWave40Prerequisite.requiredDLC = DLCS.DLC3;
-            DLC3_StartWave40Prerequisite.minimumWaveCount = 40;
-            DLC3_StartWave40Prerequisite.name = "DLC3_StartWave40Prerequisite";
+            DLC3_Prerequisite.requiredDLC = DLCS.DLC3;
+            DLC3_Prerequisite.minimumWaveCount = 5;
+            DLC3_Prerequisite.name = "DLC3_StartWave5Prerequisite";
+            DLC3_StartWave10Prerequisite.requiredDLC = DLCS.DLC3;
+            DLC3_StartWave10Prerequisite.minimumWaveCount = 10;
+            DLC3_StartWave10Prerequisite.name = "DLC3_StartWave10Prerequisite";
+            DLC3_StartWave25Prerequisite.requiredDLC = DLCS.DLC3;
+            DLC3_StartWave25Prerequisite.minimumWaveCount = 25;
+            DLC3_StartWave25Prerequisite.name = "DLC3_StartWave25Prerequisite";
+            DLC3_StartWave50Prerequisite.requiredDLC = DLCS.DLC3;
+            DLC3_StartWave50Prerequisite.minimumWaveCount = 50;
+            DLC3_StartWave50Prerequisite.name = "DLC3_StartWave50Prerequisite";
 
         }
 
@@ -589,7 +629,6 @@ namespace SimulacrumAdditions
             //This is where we'd need to add Fireworks
             //Fireworks is Interactable Related and that tagged is banned
             HG.ArrayUtils.ArrayAppend(ref Simu_Run_Run.blacklistedItems, RoR2Content.Items.Squid);
-            Simu_Run_Run.blacklistedItems = Simu_Run_Run.blacklistedItems.Remove(DLC1Content.Items.DroneWeapons); //But Squid Polyp wouldn't work they just die
             Simu_Run_Run.blacklistedTags = Simu_Run_Run.blacklistedTags.Remove(ItemTag.InteractableRelated); //There's only two and Fireworks works plenty
 
             ItemDef tempDef = ItemCatalog.GetItemDef(ItemCatalog.FindItemIndex("VV_ITEM_CORNUCOPIACELL_ITEM"));
@@ -628,6 +667,20 @@ namespace SimulacrumAdditions
         }
 
         public ExpansionDef requiredDLC;
+        public int minimumWaveCount;
+    }
+
+    public class ITWave_PreReq_BlacklistedFromItMoon : InfiniteTowerWavePrerequisites
+    {
+        public override bool AreMet(InfiniteTowerRun run)
+        {
+            if (SceneInfo.instance && SceneInfo.instance.sceneDef != SceneList.itMoon)
+            {
+                return run.waveIndex >= this.minimumWaveCount;
+            }
+            return false;
+        }
+ 
         public int minimumWaveCount;
     }
 

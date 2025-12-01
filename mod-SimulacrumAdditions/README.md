@@ -59,9 +59,8 @@ Warbanners drop on Boss Waves similiar to teleporters.
 
 #
 ## Artifacts
-__Adds 3 Simulacrum only Artifacts__
+###__Adds 3 Simulacrum only Artifacts__
 
-Artifact of Augments  | Only augmented waves. For when the normal ~50% chance isn't enough for you.
 
 Artifact of Reality | Any stage can be used instead of the small set of Simulacrum stages.
 - Stages will use Simu-Stage skybox.
@@ -69,6 +68,15 @@ Artifact of Reality | Any stage can be used instead of the small set of Simulacr
 - Void Fields and Void Locust can appear too.
 - Newt Shrines replaced with Void Eradicators.
 - Safe radius is larger to account for less compatible stages
+
+Artifact of Ingenuity | Allows Drones.
+- Drones and related interactabes are allowed to spawn.
+- Drone related items can drop.
+- Drones will be immune to void fog.
+
+
+Artifact of Augments  | Only augmented waves. For when the normal ~50% chance isn't enough for you.
+
 
 
 Nerfs Artifact of Sacrifice in Simulacrum. (Only 2 options per potential)

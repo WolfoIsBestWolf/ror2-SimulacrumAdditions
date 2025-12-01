@@ -113,7 +113,7 @@ namespace SimulacrumAdditions
             float newRadius = VoidSafeWard_Hooks.baseRadius + Run.instance.participatingPlayerCount * VoidSafeWard_Hooks.radiusPerPlayer;
             if (self.zone && self.zone.radius > newRadius)
             {
-                VoidSafeWard_Hooks.RadiusShrinker shrink = self.gameObject.AddComponent<VoidSafeWard_Hooks.RadiusShrinker>();
+                RadiusShrinker shrink = self.gameObject.AddComponent<RadiusShrinker>();
                 shrink.originalRadius = self.zone.radius;
                 shrink.newRadius = newRadius;
                 self.radius = self.zone.radius;
@@ -184,7 +184,7 @@ namespace SimulacrumAdditions
             }
             else if (self.zone && self.zone.radius > newRadius)
             {
-                VoidSafeWard_Hooks.RadiusShrinker shrink = self.gameObject.AddComponent<VoidSafeWard_Hooks.RadiusShrinker>();
+                RadiusShrinker shrink = self.gameObject.AddComponent<RadiusShrinker>();
                 shrink.originalRadius = self.zone.radius;
                 shrink.remove *= 2;
                 shrink.newRadius = newRadius;

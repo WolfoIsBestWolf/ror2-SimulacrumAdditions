@@ -1,8 +1,10 @@
 ﻿using R2API;
 using RoR2;
-//using System;
-using UnityEngine;
+using RoR2.UI;
+using UnityEngine.UI;
+using TMPro;
 using UnityEngine.AddressableAssets;
+using UnityEngine;
 using static SimulacrumAdditions.H;
 using static SimulacrumAdditions.Constant;
 
@@ -12,8 +14,9 @@ namespace SimulacrumAdditions.Waves
     {
         //public static CharacterSpawnCard[] AllCSCEquipmentDronesIT;
         public static CardRandomizer CardRandomizerEquipmentDrones;
-
+        public static GameObject WaveBoss_EquipmentDrone;
         public static MultiCSC CardRandomizerBasicGhost;
+        public static MultiCharacterSpawnCard CardRandomizerACGhost;
         public static MultiCSC CardRandomizerBossGhost;
 
         internal static void MakeWaves()
@@ -69,15 +72,15 @@ namespace SimulacrumAdditions.Waves
             WaveBasic_EquipmentDrone.AddComponent<SimuWaveUnsortedExtras>().code = SimuWaveUnsortedExtras.Case.EquipmentDroneWave;
 
             SimuExplicitStats simuExplicitStats = WaveBasic_EquipmentDrone.AddComponent<SimuExplicitStats>();
-            simuExplicitStats.ExtraSpawnAfterWave = 30;
+            simuExplicitStats.OneExtraSpawnStartingWave = 35;
 
             WaveBasic_EquipmentDrone.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = WaveBasic_EquipmentDroneUI;
-            WaveBasic_EquipmentDroneUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_EQUIPMENTDRONE";
-            WaveBasic_EquipmentDroneUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_EQUIPMENTDRONE";
+            WaveBasic_EquipmentDroneUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_EQUIPMENTDRONE";
+            WaveBasic_EquipmentDroneUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_EQUIPMENTDRONE";
 
-            WaveBasic_EquipmentDroneUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = Assets.Bundle.LoadAsset<Sprite>("Assets/Simulacrum/Wave/waveEquipment.png");
-            WaveBasic_EquipmentDroneUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color(1f, 0.55f, 0.1f, 1);
-            WaveBasic_EquipmentDroneUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 0.65f, 0.25f, 1);
+            WaveBasic_EquipmentDroneUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = Assets.Bundle.LoadAsset<Sprite>("Assets/Simulacrum/Wave/waveEquipment.png");
+            WaveBasic_EquipmentDroneUI.transform.GetChild(0).GetChild(2).GetComponent<Image>().color = new Color(1f, 0.55f, 0.1f, 1);
+            WaveBasic_EquipmentDroneUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().color = new Color(1f, 0.65f, 0.25f, 1);
 
             InfiniteTowerWaveCategory.WeightedWave ITBasicEquipmentDrone = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = WaveBasic_EquipmentDrone, weight = 14f, prerequisites = Constant.AfterWave5Prerequisite };
             Constant.ITBasicWaves.wavePrefabs = Constant.ITBasicWaves.wavePrefabs.Add(ITBasicEquipmentDrone);
@@ -85,7 +88,7 @@ namespace SimulacrumAdditions.Waves
 
             #region (Boss) Equipment Drone x2
             //Equipment Drone Boss        
-            GameObject WaveBoss_EquipmentDrone = PrefabAPI.InstantiateClone(Constant.ScavWave, "WaveBoss_EquipmentDrone", true);
+            WaveBoss_EquipmentDrone = PrefabAPI.InstantiateClone(Constant.ScavWave, "WaveBoss_EquipmentDrone", true);
             GameObject InfiniteTowerCurrentBossEquipmentDroneWaveUI = PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/ITAssets/InfiniteTowerCurrentBossBrotherUI.prefab").WaitForCompletion(), "InfiniteTowerCurrentBossEquipmentDroneWaveUI", false);
 
             WaveBoss_EquipmentDrone.AddComponent<SimuWaveUnsortedExtras>().code = SimuWaveUnsortedExtras.Case.EquipmentDroneWave;
@@ -110,16 +113,16 @@ namespace SimulacrumAdditions.Waves
             WaveBoss_EquipmentDrone.GetComponent<SimulacrumExtrasHelper>().newRadius = 90;
  
             simuExplicitStats = WaveBoss_EquipmentDrone.AddComponent<SimuExplicitStats>();
-            simuExplicitStats.ExtraSpawnAfterWave = 30;
+            simuExplicitStats.OneExtraSpawnStartingWave = 40;
 
             wave.overlayEntries[1].prefab = InfiniteTowerCurrentBossEquipmentDroneWaveUI;
 
-            InfiniteTowerCurrentBossEquipmentDroneWaveUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BOSS_EQUIPMENTDRONE";
-            InfiniteTowerCurrentBossEquipmentDroneWaveUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BOSS_EQUIPMENTDRONE";
+            InfiniteTowerCurrentBossEquipmentDroneWaveUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BOSS_EQUIPMENTDRONE";
+            InfiniteTowerCurrentBossEquipmentDroneWaveUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<LanguageTextMeshController>().token = "ITWAVE_DESC_BOSS_EQUIPMENTDRONE";
 
-            InfiniteTowerCurrentBossEquipmentDroneWaveUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = Assets.Bundle.LoadAsset<Sprite>("Assets/Simulacrum/Wave/waveEquipmentBoss.png");
-            InfiniteTowerCurrentBossEquipmentDroneWaveUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color(1f, 0.55f, 0.1f, 1);
-            InfiniteTowerCurrentBossEquipmentDroneWaveUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 0.65f, 0.25f, 1);
+            InfiniteTowerCurrentBossEquipmentDroneWaveUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = Assets.Bundle.LoadAsset<Sprite>("Assets/Simulacrum/Wave/waveEquipmentBoss.png");
+            InfiniteTowerCurrentBossEquipmentDroneWaveUI.transform.GetChild(0).GetChild(2).GetComponent<Image>().color = new Color(1f, 0.55f, 0.1f, 1);
+            InfiniteTowerCurrentBossEquipmentDroneWaveUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().color = new Color(1f, 0.65f, 0.25f, 1);
 
             InfiniteTowerWaveCategory.WeightedWave ITBossEquipmentDrone = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = WaveBoss_EquipmentDrone, weight = 10f, prerequisites = Constant.AfterWave5Prerequisite };
             Constant.ITBossWaves.wavePrefabs = Constant.ITBossWaves.wavePrefabs.Add(ITBossEquipmentDrone);
@@ -128,83 +131,126 @@ namespace SimulacrumAdditions.Waves
 
             #region Basic Ghost
             //Ghost Haunting Basic
-            GameObject WaveBasic_GhostHaunting = PrefabAPI.InstantiateClone(Constant.ScavWave, "WaveBasic_GhostHaunting", true);
-            GameObject WaveBasic_GhostHauntingUI = PrefabAPI.InstantiateClone(Constant.BossWaveUI, "WaveBasic_GhostHauntingUI", false);
+            GameObject WaveBasic_Ghost = PrefabAPI.InstantiateClone(Constant.ScavWave, "WaveBasic_Ghost", true);
+            GameObject WaveBasic_GhostUI = PrefabAPI.InstantiateClone(Constant.BossWaveUI, "WaveBasic_GhostUI", false);
 
             CardRandomizerBasicGhost = ScriptableObject.CreateInstance<MultiCSC>();
             CardRandomizerBasicGhost.name = "MulticscITGhost";
             CardRandomizerBasicGhost.sendOverNetwork = true;
 
-            WaveBasic_GhostHaunting.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList[0].spawnCard = CardRandomizerBasicGhost;
+            WaveBasic_Ghost.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList[0].spawnCard = CardRandomizerBasicGhost;
 
-            WaveBasic_GhostHaunting.GetComponent<InfiniteTowerWaveController>().immediateCreditsFraction = 0.1f;
-            WaveBasic_GhostHaunting.GetComponent<InfiniteTowerExplicitSpawnWaveController>().baseCredits = 160;
-            WaveBasic_GhostHaunting.GetComponent<InfiniteTowerExplicitSpawnWaveController>().linearCreditsPerWave = 0;
-            WaveBasic_GhostHaunting.GetComponent<InfiniteTowerExplicitSpawnWaveController>().secondsBeforeSuddenDeath = 90;
-            WaveBasic_GhostHaunting.GetComponent<InfiniteTowerExplicitSpawnWaveController>().wavePeriodSeconds = 60;
-            WaveBasic_GhostHaunting.AddComponent<SimulacrumExtrasHelper>().newRadius = 80;
+            WaveBasic_Ghost.GetComponent<InfiniteTowerWaveController>().immediateCreditsFraction = 0.1f;
+            WaveBasic_Ghost.GetComponent<InfiniteTowerExplicitSpawnWaveController>().baseCredits = 160;
+            WaveBasic_Ghost.GetComponent<InfiniteTowerExplicitSpawnWaveController>().linearCreditsPerWave = 0;
+            WaveBasic_Ghost.GetComponent<InfiniteTowerExplicitSpawnWaveController>().secondsBeforeSuddenDeath = 90;
+            WaveBasic_Ghost.GetComponent<InfiniteTowerExplicitSpawnWaveController>().wavePeriodSeconds = 60;
+            WaveBasic_Ghost.AddComponent<SimulacrumExtrasHelper>().newRadius = 80;
+            WaveBasic_Ghost.AddComponent<PillarSpawner>();
 
-            WaveBasic_GhostHaunting.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier2;
-            WaveBasic_GhostHaunting.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITBasicBonusGreen;
-            WaveBasic_GhostHaunting.GetComponent<InfiniteTowerExplicitSpawnWaveController>().isBossWave = false;
+            WaveBasic_Ghost.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier2;
+            WaveBasic_Ghost.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITBasicBonusGreen;
+            WaveBasic_Ghost.GetComponent<InfiniteTowerExplicitSpawnWaveController>().isBossWave = false;
 
-            simuExplicitStats = WaveBasic_GhostHaunting.AddComponent<SimuExplicitStats>();
+            simuExplicitStats = WaveBasic_Ghost.AddComponent<SimuExplicitStats>();
             simuExplicitStats.hpBonusMulti = 0;
             simuExplicitStats.damageBonusMulti = 0.8f;
-            simuExplicitStats.ExtraSpawnAfterWave = 30;
+            simuExplicitStats.OneExtraSpawnStartingWave = 40;
 
-            WaveBasic_GhostHaunting.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = WaveBasic_GhostHauntingUI;
-            WaveBasic_GhostHauntingUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_GHOST";
-            WaveBasic_GhostHauntingUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_GHOST";
+            WaveBasic_Ghost.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = WaveBasic_GhostUI;
+            WaveBasic_GhostUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_GHOST";
+            WaveBasic_GhostUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_GHOST";
 
-            WaveBasic_GhostHauntingUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = Assets.Bundle.LoadAsset<Sprite>("Assets/Simulacrum/Wave/waveGhost.png");
-            WaveBasic_GhostHauntingUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0.8f, 0.8f, 0.85f, 1);
-            WaveBasic_GhostHauntingUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color(0.8f, 0.8f, 0.85f, 1);
+            WaveBasic_GhostUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = Assets.Bundle.LoadAsset<Sprite>("Assets/Simulacrum/Wave/waveGhost.png");
+            WaveBasic_GhostUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().color = new Color(0.8f, 0.8f, 0.85f, 1);
+            WaveBasic_GhostUI.transform.GetChild(0).GetChild(2).GetComponent<Image>().color = new Color(0.8f, 0.8f, 0.85f, 1);
 
-            InfiniteTowerWaveCategory.WeightedWave ITBasicGhostHaunting = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = WaveBasic_GhostHaunting, weight = 10f, prerequisites = Constant.AfterWave5Prerequisite };
-            Constant.ITBasicWaves.wavePrefabs = Constant.ITBasicWaves.wavePrefabs.Add(ITBasicGhostHaunting);
+            InfiniteTowerWaveCategory.WeightedWave ITBasicGhost = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = WaveBasic_Ghost, weight = 10f, prerequisites = Constant.NoItMoonStartWave5 };
+            Constant.ITBasicWaves.wavePrefabs = Constant.ITBasicWaves.wavePrefabs.Add(ITBasicGhost);
             #endregion
 
+            #region Basic Ghost
+            //Ghost  Basic
+            GameObject WaveBasic_GhostThieves = PrefabAPI.InstantiateClone(Constant.ScavWave, "WaveBasic_GhostThieves", true);
+            GameObject WaveBasic_GhostThievesUI = PrefabAPI.InstantiateClone(Constant.BossWaveUI, "WaveBasic_GhostThievesUI", false);
+
+            CardRandomizerACGhost = ScriptableObject.CreateInstance<MultiCharacterSpawnCard>();
+            CardRandomizerACGhost.name = "MulticscITGhostAC";
+            CardRandomizerACGhost.sendOverNetwork = true;
+
+            WaveBasic_GhostThieves.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList[0].spawnCard = CardRandomizerACGhost;
+            WaveBasic_GhostThieves.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList[0].count = 1;
+ 
+            WaveBasic_GhostThieves.GetComponent<InfiniteTowerWaveController>().immediateCreditsFraction = 0.1f;
+            WaveBasic_GhostThieves.GetComponent<InfiniteTowerExplicitSpawnWaveController>().baseCredits = 160;
+            WaveBasic_GhostThieves.GetComponent<InfiniteTowerExplicitSpawnWaveController>().linearCreditsPerWave = 0;
+            WaveBasic_GhostThieves.GetComponent<InfiniteTowerExplicitSpawnWaveController>().secondsBeforeSuddenDeath = 60;
+            WaveBasic_GhostThieves.GetComponent<InfiniteTowerExplicitSpawnWaveController>().wavePeriodSeconds = 60;
+           
+            WaveBasic_GhostThieves.GetComponent<InfiniteTowerWaveController>().rewardOptionCount = 3;
+            WaveBasic_GhostThieves.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITTechnology;
+            WaveBasic_GhostThieves.GetComponent<InfiniteTowerExplicitSpawnWaveController>().isBossWave = false;
+
+            simuExplicitStats = WaveBasic_GhostThieves.AddComponent<SimuExplicitStats>();
+            simuExplicitStats.hpBonusMulti = 0;
+            simuExplicitStats.damageBonusMulti = -1;
+            simuExplicitStats.ExtraSpawnPerWaves = 10;
+            simuExplicitStats.OneExtraSpawnStartingWave = 10;
+
+            WaveBasic_GhostThieves.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = WaveBasic_GhostThievesUI;
+            WaveBasic_GhostThievesUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_DLC3_ITEMFAMILY";
+            WaveBasic_GhostThievesUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_DLC3_ITEMFAMILY";
+
+            WaveBasic_GhostThievesUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = Assets.Bundle.LoadAsset<Sprite>("Assets/Simulacrum/Wave/waveGhost.png");
+            WaveBasic_GhostThievesUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().color = new Color(0.85f, 0.8f, 0.85f, 1);
+            WaveBasic_GhostThievesUI.transform.GetChild(0).GetChild(2).GetComponent<Image>().color = new Color(0.85f, 0.75f, 0.85f, 1);
+
+            InfiniteTowerWaveCategory.WeightedWave WaveBasic_GhostThievesÌT = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = WaveBasic_GhostThieves, weight = 10f, prerequisites = Constant.DLC3_Prerequisite };
+            Constant.ITBasicWaves.wavePrefabs = Constant.ITBasicWaves.wavePrefabs.Add(WaveBasic_GhostThievesÌT);
+            #endregion
+
+
             #region (Boss) Ghost Boss
-            //Ghost Haunting Boss
-            GameObject WaveBoss_GhostHaunting = PrefabAPI.InstantiateClone(Constant.ScavWave, "WaveBoss_GhostHaunting", true);
-            GameObject WaveBoss_GhostHauntingUI = PrefabAPI.InstantiateClone(Constant.BossWaveUI, "WaveBoss_GhostHauntingUI", false);
+            //Ghost  Boss
+            GameObject WaveBoss_Ghost = PrefabAPI.InstantiateClone(Constant.ScavWave, "WaveBoss_GhostBoss", true);
+            GameObject WaveBoss_GhostUI = PrefabAPI.InstantiateClone(Constant.BossWaveUI, "WaveBoss_GhostBossUI", false);
 
             CardRandomizerBossGhost = ScriptableObject.CreateInstance<MultiCSC>();
             CardRandomizerBossGhost.name = "MulticscITGhostBoss";
             CardRandomizerBossGhost.sendOverNetwork = true;
 
-            WaveBoss_GhostHaunting.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList[0] = new InfiniteTowerExplicitSpawnWaveController.SpawnInfo
+            WaveBoss_Ghost.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList[0] = new InfiniteTowerExplicitSpawnWaveController.SpawnInfo
             {
                 spawnCard = CardRandomizerBossGhost,
                 spawnDistance = DirectorCore.MonsterSpawnDistance.Far,
                 count = 1
             };
 
-            WaveBoss_GhostHaunting.GetComponent<InfiniteTowerExplicitSpawnWaveController>().immediateCreditsFraction = 0;
-            WaveBoss_GhostHaunting.GetComponent<InfiniteTowerExplicitSpawnWaveController>().baseCredits = 500;
-            WaveBoss_GhostHaunting.GetComponent<InfiniteTowerExplicitSpawnWaveController>().linearCreditsPerWave = 0;
-            WaveBoss_GhostHaunting.GetComponent<InfiniteTowerExplicitSpawnWaveController>().secondsBeforeSuddenDeath = 90;
-            WaveBoss_GhostHaunting.GetComponent<InfiniteTowerExplicitSpawnWaveController>().wavePeriodSeconds = 60;
-            WaveBoss_GhostHaunting.AddComponent<SimulacrumExtrasHelper>().newRadius = 160;
+            WaveBoss_Ghost.GetComponent<InfiniteTowerExplicitSpawnWaveController>().immediateCreditsFraction = 0;
+            WaveBoss_Ghost.GetComponent<InfiniteTowerExplicitSpawnWaveController>().baseCredits = 500;
+            WaveBoss_Ghost.GetComponent<InfiniteTowerExplicitSpawnWaveController>().linearCreditsPerWave = 0;
+            WaveBoss_Ghost.GetComponent<InfiniteTowerExplicitSpawnWaveController>().secondsBeforeSuddenDeath = 90;
+            WaveBoss_Ghost.GetComponent<InfiniteTowerExplicitSpawnWaveController>().wavePeriodSeconds = 60;
+            WaveBoss_Ghost.AddComponent<SimulacrumExtrasHelper>().newRadius = 100;
+            WaveBoss_Ghost.AddComponent<PillarSpawner>();
 
-            WaveBoss_GhostHaunting.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Boss;
-            WaveBoss_GhostHaunting.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITSpecialBossYellow;
+            WaveBoss_Ghost.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Boss;
+            WaveBoss_Ghost.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITSpecialBossYellow;
 
-            simuExplicitStats = WaveBoss_GhostHaunting.AddComponent<SimuExplicitStats>();
+            simuExplicitStats = WaveBoss_Ghost.AddComponent<SimuExplicitStats>();
             simuExplicitStats.damageBonusMulti = 0.4f;
-            simuExplicitStats.ExtraSpawnAfterWave = 54;
+            simuExplicitStats.OneExtraSpawnStartingWave = 55;
 
-            WaveBoss_GhostHaunting.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = WaveBoss_GhostHauntingUI;
-            WaveBoss_GhostHauntingUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BOSS_GHOST";
-            WaveBoss_GhostHauntingUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BOSS_GHOST";
+            WaveBoss_Ghost.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = WaveBoss_GhostUI;
+            WaveBoss_GhostUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BOSS_GHOST";
+            WaveBoss_GhostUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<LanguageTextMeshController>().token = "ITWAVE_DESC_BOSS_GHOST";
 
-            WaveBoss_GhostHauntingUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = Assets.Bundle.LoadAsset<Sprite>("Assets/Simulacrum/Wave/waveGhostBoss.png");
-            WaveBoss_GhostHauntingUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0.8f, 0.8f, 0.85f, 1);
-            WaveBoss_GhostHauntingUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color(0.8f, 0.8f, 0.85f, 1);
+            WaveBoss_GhostUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = Assets.Bundle.LoadAsset<Sprite>("Assets/Simulacrum/Wave/waveGhostBoss.png");
+            WaveBoss_GhostUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().color = new Color(0.8f, 0.8f, 0.85f, 1);
+            WaveBoss_GhostUI.transform.GetChild(0).GetChild(2).GetComponent<Image>().color = new Color(0.8f, 0.8f, 0.85f, 1);
 
-            InfiniteTowerWaveCategory.WeightedWave ITBossGhostHaunting = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = WaveBoss_GhostHaunting, weight = 15f, prerequisites = Constant.StartWave11Prerequisite };
-            Constant.ITBossWaves.wavePrefabs = Constant.ITBossWaves.wavePrefabs.Add(ITBossGhostHaunting);
+            InfiniteTowerWaveCategory.WeightedWave ITBossGhost = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = WaveBoss_Ghost, weight = 15f, prerequisites = Constant.StartWave20Prerequisite };
+            Constant.ITBossWaves.wavePrefabs = Constant.ITBossWaves.wavePrefabs.Add(ITBossGhost);
             #endregion
 
             #region Brother Haunt / Moon Explode
@@ -221,7 +267,7 @@ namespace SimulacrumAdditions.Waves
 
             simuExplicitStats = InfiniteTowerWaveBrotherHaunt.AddComponent<SimuExplicitStats>();
             simuExplicitStats.spawnAsVoidTeam = true;
-            simuExplicitStats.ExtraSpawnAfterWave = 30;
+            simuExplicitStats.OneExtraSpawnStartingWave = 35;
 
             //If we made him Void Team the enemies would probably go after him when he's not actually real
             CharacterSpawnCard cscBrotherHauntIT = Object.Instantiate(LegacyResourcesAPI.Load<CharacterSpawnCard>("SpawnCards/CharacterSpawnCards/cscBrother"));
@@ -240,11 +286,11 @@ namespace SimulacrumAdditions.Waves
             InfiniteTowerWaveBrotherHaunt.GetComponent<InfiniteTowerExplicitSpawnWaveController>().isBossWave = false;
 
             InfiniteTowerWaveBrotherHaunt.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWaveBrotherHauntUI;
-            InfiniteTowerWaveBrotherHauntUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_BROTHERHAUNT";
-            InfiniteTowerWaveBrotherHauntUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_BROTHERHAUNT";
-            InfiniteTowerWaveBrotherHauntUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color = new Color(0.6f, 1f, 1f);
-            InfiniteTowerWaveBrotherHauntUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0.7f, 0.9f, 1);
-            InfiniteTowerWaveBrotherHauntUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color(0.4f, 0.6f, 0.8f);
+            InfiniteTowerWaveBrotherHauntUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_BROTHERHAUNT";
+            InfiniteTowerWaveBrotherHauntUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_BROTHERHAUNT";
+            InfiniteTowerWaveBrotherHauntUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().color = new Color(0.6f, 1f, 1f);
+            InfiniteTowerWaveBrotherHauntUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().color = new Color(0.7f, 0.9f, 1);
+            InfiniteTowerWaveBrotherHauntUI.transform.GetChild(0).GetChild(2).GetComponent<Image>().color = new Color(0.4f, 0.6f, 0.8f);
 
             InfiniteTowerWaveCategory.WeightedWave ITBrotherHaunt = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveBrotherHaunt, weight = 5f, prerequisites = Constant.StartWave11Prerequisite };
             Constant.ITBasicWaves.wavePrefabs = Constant.ITBasicWaves.wavePrefabs.Add(ITBrotherHaunt);
@@ -309,13 +355,13 @@ namespace SimulacrumAdditions.Waves
             WaveBoss_Characters.GetComponent<SimuWaveSizeModifier>().neededItem = AdaptiveArmor;
 
             WaveBoss_Characters.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = WaveBoss_CharactersUI;
-            WaveBoss_CharactersUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BOSS_ACRID";
+            WaveBoss_CharactersUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BOSS_ACRID";
             //WaveBoss_CharactersUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "This is a simulation everything is under control."; //"This is a simulation everything is under control."
-            WaveBoss_CharactersUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BOSS_ACRID"; //"This is a simulation everything is under control."
+            WaveBoss_CharactersUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<LanguageTextMeshController>().token = "ITWAVE_DESC_BOSS_ACRID"; //"This is a simulation everything is under control."
 
-            WaveBoss_CharactersUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color = new Color(1f, 0.8f, 1f, 1);
-            WaveBoss_CharactersUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0.8f, 0.6f, 1f, 1);
-            WaveBoss_CharactersUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color(0.6f, 0.4f, 0.8f, 1);
+            WaveBoss_CharactersUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().color = new Color(1f, 0.8f, 1f, 1);
+            WaveBoss_CharactersUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().color = new Color(0.8f, 0.6f, 1f, 1);
+            WaveBoss_CharactersUI.transform.GetChild(0).GetChild(2).GetComponent<Image>().color = new Color(0.6f, 0.4f, 0.8f, 1);
 
             InfiniteTowerWaveCategory.WeightedWave ITBossCharacters = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = WaveBoss_Characters, weight = 4f, prerequisites = Constant.AfterWave5Prerequisite }; //This is a very basic wave modifier with a slight extra reward idk how common
             Constant.ITBossWaves.wavePrefabs = Constant.ITBossWaves.wavePrefabs.Add(ITBossCharacters);
@@ -354,16 +400,16 @@ namespace SimulacrumAdditions.Waves
 
             simuExplicitStats = InfiniteTowerWaveInvisibleDude.AddComponent<SimuExplicitStats>();
             simuExplicitStats.hpBonusMulti = -1;
-            simuExplicitStats.ExtraSpawnAfterWave = 30;
+            simuExplicitStats.OneExtraSpawnStartingWave = 30;
 
 
             InfiniteTowerWaveInvisibleDude.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWaveInvisibleDudeUI;
-            InfiniteTowerWaveInvisibleDudeUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_CELESTIAL";
-            InfiniteTowerWaveInvisibleDudeUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_CELESTIAL";
-            InfiniteTowerWaveInvisibleDudeUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = LegacyResourcesAPI.Load<Sprite>("Textures/BuffIcons/texBuffAffixHaunted");
-            InfiniteTowerWaveInvisibleDudeUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color = new Color(0.5f, 0.95f, 0.7f);
-            InfiniteTowerWaveInvisibleDudeUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0.5f, 0.95f, 0.7f);
-            InfiniteTowerWaveInvisibleDudeUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color(0.5f, 0.95f, 0.7f);
+            InfiniteTowerWaveInvisibleDudeUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_CELESTIAL";
+            InfiniteTowerWaveInvisibleDudeUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_CELESTIAL";
+            InfiniteTowerWaveInvisibleDudeUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = Addressables.LoadAssetAsync<Sprite>(key: "da81138a468d2724fb9f518b0acac5c7").WaitForCompletion();
+            InfiniteTowerWaveInvisibleDudeUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().color = new Color(0.5f, 0.95f, 0.7f);
+            InfiniteTowerWaveInvisibleDudeUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().color = new Color(0.5f, 0.95f, 0.7f);
+            InfiniteTowerWaveInvisibleDudeUI.transform.GetChild(0).GetChild(2).GetComponent<Image>().color = new Color(0.5f, 0.95f, 0.7f);
 
             InfiniteTowerWaveCategory.WeightedWave ITInvisibleDude = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveInvisibleDude, weight = 4f, prerequisites = Constant.StartWave11Prerequisite };
             Constant.ITBasicWaves.wavePrefabs = Constant.ITBasicWaves.wavePrefabs.Add(ITInvisibleDude);
@@ -377,13 +423,13 @@ namespace SimulacrumAdditions.Waves
             InfiniteTowerWaveVagrantNovaDude.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier2;
             InfiniteTowerWaveVagrantNovaDude.GetComponent<InfiniteTowerWaveController>().baseCredits = 160;
             InfiniteTowerWaveVagrantNovaDude.GetComponent<InfiniteTowerWaveController>().immediateCreditsFraction = 0.10f;
-            InfiniteTowerWaveVagrantNovaDude.AddComponent<SimulacrumExtrasHelper>().newRadius = 100;
+            InfiniteTowerWaveVagrantNovaDude.AddComponent<PillarSpawner>();
             InfiniteTowerWaveVagrantNovaDude.GetComponent<InfiniteTowerWaveController>().wavePeriodSeconds = 30;
             //If we made him Void Team the enemies would probably go after him when he's not actually real
             CharacterSpawnCard cscVagrantNovaDudeIT = Object.Instantiate(LegacyResourcesAPI.Load<CharacterSpawnCard>("SpawnCards/CharacterSpawnCards/cscGipBody"));
             cscVagrantNovaDudeIT.name = "cscITSuperNovaGip";
             cscVagrantNovaDudeIT.itemsToGrant = new ItemCountPair[] {
-                new ItemCountPair { itemDef = ItemHelpers.ITKillOnCompletion, count = 1},
+                new ItemCountPair { itemDef = ItemHelpers.ITKillOnCompletion, count = 78},
                 new ItemCountPair { itemDef = Ghost, count = 1 },
                 new ItemCountPair { itemDef = ItemHelpers.ITHorrorName, count = 1 },
                 new ItemCountPair { itemDef = ItemHelpers.ITDamageDownMult, count = 80 },
@@ -403,14 +449,14 @@ namespace SimulacrumAdditions.Waves
 
             simuExplicitStats = InfiniteTowerWaveVagrantNovaDude.AddComponent<SimuExplicitStats>();
             simuExplicitStats.spawnAsVoidTeam = true;
-            simuExplicitStats.ExtraSpawnAfterWave = 30;
+            simuExplicitStats.OneExtraSpawnStartingWave = 30;
 
             InfiniteTowerWaveVagrantNovaDude.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWaveVagrantNovaDudeUI;
-            InfiniteTowerWaveVagrantNovaDudeUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_VAGRANTNOVA";
-            InfiniteTowerWaveVagrantNovaDudeUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_VAGRANTNOVA";
-            InfiniteTowerWaveVagrantNovaDudeUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color = new Color(0.5f, 0.8f, 0.95f);
-            InfiniteTowerWaveVagrantNovaDudeUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0.5f, 0.8f, 0.95f);
-            InfiniteTowerWaveVagrantNovaDudeUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color(0.5f, 0.8f, 0.95f);
+            InfiniteTowerWaveVagrantNovaDudeUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_VAGRANTNOVA";
+            InfiniteTowerWaveVagrantNovaDudeUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_VAGRANTNOVA";
+            InfiniteTowerWaveVagrantNovaDudeUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().color = new Color(0.5f, 0.8f, 0.95f);
+            InfiniteTowerWaveVagrantNovaDudeUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().color = new Color(0.5f, 0.8f, 0.95f);
+            InfiniteTowerWaveVagrantNovaDudeUI.transform.GetChild(0).GetChild(2).GetComponent<Image>().color = new Color(0.5f, 0.8f, 0.95f);
 
             InfiniteTowerWaveCategory.WeightedWave ITVagrantNovaDude = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveVagrantNovaDude, weight = 4f, prerequisites = Constant.StartWave15Prerequisite };
             //InfiniteTowerWaveCategory.WeightedWave ITVagrantNovaDude = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveVagrantNovaDude, weight = 44444 };
@@ -451,11 +497,11 @@ namespace SimulacrumAdditions.Waves
             simuExplicitStats.hpBonusMulti = -1;
 
             InfiniteTowerWaveArtiifactReliquary.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWaveArtiifactReliquaryUI;
-            InfiniteTowerWaveArtiifactReliquaryUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_ARTIFACTBALL";
-            InfiniteTowerWaveArtiifactReliquaryUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_ARTIFACTBALL";
-            InfiniteTowerWaveArtiifactReliquaryUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color = new Color(1f, 0.7f, 0.8f);
-            InfiniteTowerWaveArtiifactReliquaryUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 0.7f, 0.8f);
-            InfiniteTowerWaveArtiifactReliquaryUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color(1f, 0.7f, 0.8f);
+            InfiniteTowerWaveArtiifactReliquaryUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_ARTIFACTBALL";
+            InfiniteTowerWaveArtiifactReliquaryUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_ARTIFACTBALL";
+            InfiniteTowerWaveArtiifactReliquaryUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().color = new Color(1f, 0.7f, 0.8f);
+            InfiniteTowerWaveArtiifactReliquaryUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().color = new Color(1f, 0.7f, 0.8f);
+            InfiniteTowerWaveArtiifactReliquaryUI.transform.GetChild(0).GetChild(2).GetComponent<Image>().color = new Color(1f, 0.7f, 0.8f);
 
             InfiniteTowerWaveCategory.WeightedWave ITArtiifactReliquary = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveArtiifactReliquary, weight = 1f, prerequisites = Constant.StartWave15Prerequisite };
             //InfiniteTowerWaveCategory.WeightedWave ITArtiifactReliquary = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveArtiifactReliquary, weight = 44444 };
@@ -464,7 +510,7 @@ namespace SimulacrumAdditions.Waves
             On.EntityStates.VagrantNovaItem.ReadyState.OnEnter += (orig, self) =>
             {
                 orig(self);
-                if (self.attachedBody.inventory.GetItemCount(ItemHelpers.ITKillOnCompletion) == 78)
+                if (self.attachedBody.inventory.GetItemCount(ItemHelpers.ITHorrorName) > 0)
                 {
                     self.attachedHealthComponent.Networkhealth = 10;
                 }
@@ -502,11 +548,11 @@ namespace SimulacrumAdditions.Waves
             InfiniteTowerWaveHalcyonite.GetComponent<InfiniteTowerExplicitSpawnWaveController>().rewardPickupPrefab = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC2/FragmentPotentialPickup.prefab").WaitForCompletion();
 
             InfiniteTowerWaveHalcyonite.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWaveHalcyoniteUI;
-            InfiniteTowerWaveHalcyoniteUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BOSS_HALCYONITE";
-            InfiniteTowerWaveHalcyoniteUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BOSS_HALCYONITE";
-            InfiniteTowerWaveHalcyoniteUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color = new Color(1f, 1f, 0.3f, 1);
-            InfiniteTowerWaveHalcyoniteUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color(1f, 0.9f, 0.55f, 1);
-            InfiniteTowerWaveHalcyoniteUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 0.8f, 0.4f, 1);
+            InfiniteTowerWaveHalcyoniteUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BOSS_HALCYONITE";
+            InfiniteTowerWaveHalcyoniteUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<LanguageTextMeshController>().token = "ITWAVE_DESC_BOSS_HALCYONITE";
+            InfiniteTowerWaveHalcyoniteUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().color = new Color(1f, 1f, 0.3f, 1);
+            InfiniteTowerWaveHalcyoniteUI.transform.GetChild(0).GetChild(2).GetComponent<Image>().color = new Color(1f, 0.9f, 0.55f, 1);
+            InfiniteTowerWaveHalcyoniteUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().color = new Color(1f, 0.8f, 0.4f, 1);
 
             InfiniteTowerWaveCategory.WeightedWave ITHalcyonite = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveHalcyonite, weight = 5f, prerequisites = Constant.DLC2_StartWave15Prerequisite };
             Constant.ITBossWaves.wavePrefabs = Constant.ITBossWaves.wavePrefabs.Add(ITHalcyonite);

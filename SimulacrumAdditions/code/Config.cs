@@ -27,6 +27,7 @@ namespace SimulacrumAdditions
         public static ConfigEntry<bool> cfgVoidCoins;
         //public static ConfigEntry<bool> cfgEnableArtifactAugments;
         //public static ConfigEntry<bool> cfgEnableArtifactStages;
+        public static ConfigEntry<bool> cfgMusicChanges;
         public static ConfigEntry<bool> cfgMusicSuperBoss;
         public static ConfigEntry<bool> cfgSacrificeBalance;
 
@@ -68,6 +69,7 @@ namespace SimulacrumAdditions
 
 
             ModSettingsManager.AddOption(new CheckBoxOption(cfgCrabSpeedOnLaterWaves));
+            ModSettingsManager.AddOption(new CheckBoxOption(cfgMusicChanges));
             ModSettingsManager.AddOption(new CheckBoxOption(cfgMusicSuperBoss));
             //ModSettingsManager.AddOption(new CheckBoxOption(cfgMakeSpecialWavesMoreCommon));
             ModSettingsManager.AddOption(new CheckBoxOption(cfgAwaitTravel));
@@ -92,6 +94,13 @@ namespace SimulacrumAdditions
                 "Reset Wave Count Button",
                 false,
                 "Add buttons to reset wave count or set it to 50."
+            );
+
+            cfgMusicChanges = ConfigFileUNSORTED.Bind(
+                "Main",
+                "Simu Stage Music Changes",
+                true,
+                "Changes the music of some simu stages.\nPlains -> Void Fields\n"
             );
 
             cfgMusicSuperBoss = ConfigFileUNSORTED.Bind(

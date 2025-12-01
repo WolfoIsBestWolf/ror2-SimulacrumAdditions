@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 3302455355
+CRC: 897024277
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 4c6894cee0fa8b893b099d732de98f04
+    Hash: bb33e9fe244482d95156f96aaf1e6a22
   TypeTreeHash:
     serializedVersion: 2
     Hash: c21d61fe394c58399df3c6fb5c7c99b3
@@ -19,11 +19,12 @@ Assets:
 - Assets/Simulacrum/Wave/waveEquipmentBoss.png
 - Assets/Simulacrum/Artifacts/Artifact2_On.png
 - Assets/Simulacrum/Bodies/GiantGupBody.png
-- Assets/Simulacrum/Bodies/VoidSuperMegaCrabBody.png
+- Assets/Simulacrum/Artifacts/Artifact_Drones_On.png
 - Assets/Simulacrum/Main/texRampPulseNoHeal.png
 - Assets/Simulacrum/Main/texRampPulseVoid.png
 - Assets/Simulacrum/Wave/waveGupYellow.png
 - Assets/Simulacrum/Wave/waveVoidBlue.png
+- Assets/Simulacrum/Bodies/VoidSuperMegaCrabBody.png
 - Assets/Simulacrum/Wave/waveFalseSonGreen.png
 - Assets/Simulacrum/Wave/waveEclipse.png
 - Assets/Simulacrum/Wave/waveGup.png
@@ -32,6 +33,7 @@ Assets:
 - Assets/Simulacrum/Wave/waveGhost.png
 - Assets/Simulacrum/Wave/waveEclipseAlt.png
 - Assets/Simulacrum/Wave/waveVoidling.png
+- Assets/Simulacrum/Artifacts/Artifact_Drones_On - Copy.png
 - Assets/Simulacrum/Wave/waveJetpack.png
 - Assets/Simulacrum/Wave/waveBasicWhite.png
 - Assets/Simulacrum/Wave/waveBIG.png
@@ -40,13 +42,16 @@ Assets:
 - Assets/Simulacrum/Wave/waveGhostBoss.png
 - Assets/Simulacrum/Wave/waveFamily.png
 - Assets/Simulacrum/Wave/waveVoid.png
+- Assets/Simulacrum/Artifacts/Artifact_Drones_Off.png
 - Assets/Simulacrum/Main/texRampPulseLunar.png
 - Assets/Simulacrum/Artifacts/ArtifactOff.png
+- Assets/Simulacrum/Artifacts/Artifact_Drones_Off - Copy.png
 - Assets/Simulacrum/Main/texRampPulseSuck.png
 - Assets/Simulacrum/Wave/waveHalcy.png
 - Assets/Simulacrum/Wave/waveLunarWhite.png
 - Assets/Simulacrum/Wave/waveVoid2.png
 - Assets/Simulacrum/Artifacts/Artifact2_Off.png
+- Assets/Simulacrum/Wave/waveAC.png
 - Assets/Simulacrum/Wave/waveGoldTitan.png
 - Assets/Simulacrum/Artifacts/ArtifactOn.png
 - Assets/Simulacrum/Wave/waveHeresy.png

@@ -15,7 +15,7 @@ using UnityEngine.AddressableAssets;
 namespace SimulacrumAdditions
 {
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("Wolfo.SimulacrumAdditions", "SimulacrumAdditions", "2.4.4")]
+    [BepInPlugin("Wolfo.SimulacrumAdditions", "SimulacrumAdditions", "2.6.0")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
 
     public class SimuMain : BaseUnityPlugin
@@ -51,6 +51,7 @@ namespace SimulacrumAdditions
 
             Artifact_OnlyAugments.MakeArtifact();
             Artifact_RealStages.MakeArtifact();
+            Artifact_SimuDrones.MakeArtifact();
 
             VoidCoin.MakeVoidCoin();
 
@@ -65,16 +66,8 @@ namespace SimulacrumAdditions
             //
 
             //Doesn't need to ban world unique anymore anyways
-            /*Addressables.LoadAssetAsync<BasicPickupDropTable>(key: "RoR2/Base/DuplicatorWild/dtDuplicatorWild.asset").WaitForCompletion().bannedItemTags = new ItemTag[0];
-            On.RoR2.Run.BuildDropTable += (orig, self) =>
-            {
-                orig(self);
-                if (self is InfiniteTowerRun)
-                {
-                    self.availableBossDropList.Add(PickupCatalog.FindPickupIndex(RoR2Content.Items.Pearl.itemIndex));
-                    //self.availableBossDropList.Add(PickupCatalog.FindPickupIndex(RoR2Content.Items.TitanGoldDuringTP.itemIndex));
-                }
-            };*/
+            Addressables.LoadAssetAsync<BasicPickupDropTable>(key: "RoR2/Base/DuplicatorWild/dtDuplicatorWild.asset").WaitForCompletion().bannedItemTags = new ItemTag[0];
+            On.RoR2.Run.BuildDropTable += SimuDropTableEdits;
 
             //What is this?
             On.RoR2.InfiniteTowerWaveController.HasFullProgress += (orig, self) =>
@@ -93,6 +86,27 @@ namespace SimulacrumAdditions
             matAncientLoft_Water.SetTextureScale("_FoamTex", new Vector2(20, 20));
 
         }
+
+        private void SimuDropTableEdits(On.RoR2.Run.orig_BuildDropTable orig, Run self)
+        {
+            orig(self);
+            if (self is InfiniteTowerRun)
+            {
+                if (RunArtifactManager.instance.IsArtifactEnabled(Artifact_SimuDrones.ArtifactDef))
+                {
+                    if (self.IsExpansionEnabled(WolfoLibrary.DLCS.DLC1))
+                    {
+                        self.availableTier3DropList.Add(PickupCatalog.FindPickupIndex(DLC1Content.Items.DroneWeapons.itemIndex));
+                    }
+                    if (self.IsExpansionEnabled(WolfoLibrary.DLCS.DLC3))
+                    {
+                        self.availableTier2DropList.Add(PickupCatalog.FindPickupIndex(DLC3Content.Items.DroneDynamiteDisplay.itemIndex));
+                    }
+                }
+                self.availableBossDropList.Add(PickupCatalog.FindPickupIndex(RoR2Content.Items.Pearl.itemIndex));
+            }
+        }
+
         public void Start()
         {
             SimulacrumDCCS.Start();
@@ -147,6 +161,8 @@ namespace SimulacrumAdditions
 
         public static void SimuChanges()
         {
+            if (!WConfig.cfgMusicChanges.Value)
+                { return; }
             SceneDef itgolemplains = Addressables.LoadAssetAsync<SceneDef>(key: "RoR2/DLC1/itgolemplains/itgolemplains.asset").WaitForCompletion();
             SceneDef itgoolake = Addressables.LoadAssetAsync<SceneDef>(key: "RoR2/DLC1/itgoolake/itgoolake.asset").WaitForCompletion();
             SceneDef itfrozenwall = Addressables.LoadAssetAsync<SceneDef>(key: "RoR2/DLC1/itfrozenwall/itfrozenwall.asset").WaitForCompletion();
@@ -163,7 +179,7 @@ namespace SimulacrumAdditions
 
             itgolemplains.mainTrack = MusicVoidFields;
             itfrozenwall.mainTrack = MusicSnowyForest;
-            itdampcave.mainTrack = MusicVoidStage;
+            //itdampcave.mainTrack = MusicVoidStage;
 
             //GP : Thermodynamic Equilibrium 
             itgoolake.bossTrack = MTDSulfurBoss; //A Boat Made from a Sheet of Newspaper

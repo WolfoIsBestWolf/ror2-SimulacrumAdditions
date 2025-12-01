@@ -1,12 +1,15 @@
 {
     "name": "SimulacrumAdditions",
-    "version_number": "2.4.4",
+    "version_number": "2.6.0",
     "website_url": "https://github.com/WolfoIsBestWolf/ror2-SimulacrumAdditions",
-    "description": "Large content addition to Simulacrum. Adds 80+ Augments, makes Simulacrum beatable, 2 Simulacrum Artifacts and a lot of extras for the gamemode.",
+    "description": "Large content addition to Simulacrum. Adds 80+ Augments, a way to end Simulacrum runs, guaranteed super boss wave, Simulacrum Artifacts that add more Stage varitey or Drones, and a lot of extras for the gamemode.",
     "dependencies": [
-		"Wolfo-WolfFixes-1.0.0",
+		"Wolfo-WolfFixes-1.2.2",
 		"Rune580-Risk_Of_Options-2.8.2",
-		"Wolfo-WolfFixes-1.0.0",
-		"tristanmcpherson-R2API-5.0.5"
+		"RiskofThunder-R2API_Networking-1.0.4",
+		"RiskofThunder-R2API_Prefab-1.1.1",
+		"RiskofThunder-R2API_Language-1.1.0",
+		"RiskofThunder-R2API_Items-1.0.3",
+		"RiskofThunder-HookGenPatcher-1.2.9"
     ]
 }

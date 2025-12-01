@@ -35,12 +35,19 @@ namespace SimulacrumAdditions
             if (!SimulacrumExtrasHelper.shareSuitInstalled)
             {
                 int players = Run.instance.participatingPlayerCount - 1;
-                sceneDirector.interactableCredit += players * 150;
+                sceneDirector.interactableCredit += players * 120;
             }
-
-            if (self.waveIndex < 40) //First 4 stages
+            if (RunArtifactManager.instance.IsArtifactEnabled(Artifact_SimuDrones.ArtifactDef))
             {
-                sceneDirector.interactableCredit += 30; //630
+                sceneDirector.interactableCredit += 40;
+            }
+            //0 1
+            //10 2
+            //20 3
+            //30 4
+            if (self.waveIndex < 30) //First 4 stages
+            {
+                sceneDirector.interactableCredit += 40; //630
             }
             else if (self.waveIndex >= 60)//Stage 7+
             {
@@ -219,7 +226,7 @@ namespace SimulacrumAdditions
 			{
                 //Temporary Vendor
 				spawnCard = Addressables.LoadAssetAsync<SpawnCard>(key: "6df786822d3105e4e820c69e1ef94d16").WaitForCompletion(),
-				selectionWeight = 15222,
+				selectionWeight = 10,
 			});
 			dccsInfiniteTowerInteractables.categories[1].selectionWeight = 2f;
 
@@ -257,8 +264,9 @@ namespace SimulacrumAdditions
 				selectionWeight = 3,
 			});
 
-            int drone = dccsInfiniteTowerInteractables.AddCategory("Drones", 0);
-
+            int drone = dccsInfiniteTowerInteractables.AddCategory("SimuDrones", 0);
+            int drone2 = dccsInfiniteTowerInteractables.AddCategory("SimuDroneRelated", 0);
+            SimulacrumDCCS_Drones.SimulacrumDroneArtifactCategoryGlobal(drone, drone2);
             dccsITGolemPlainsInteractablesW = UnityEngine.Object.Instantiate(dccsInfiniteTowerInteractables);
             dccsITGooLakeInteractablesW = UnityEngine.Object.Instantiate(dccsInfiniteTowerInteractables);
             dccsITAncientLoftInteractablesW = UnityEngine.Object.Instantiate(dccsInfiniteTowerInteractables);
@@ -435,7 +443,7 @@ namespace SimulacrumAdditions
             dccsITMoonInteractablesW.categories[0].cards = dccsITMoonInteractablesW.categories[0].cards.Remove(dccsITMoonInteractablesW.categories[0].cards[5]);
             dccsITMoonInteractablesW.categories[1].selectionWeight = 3f; // Order
             dccsITMoonInteractablesW.categories[1].cards[0] = ADShrineOrder;
-            dccsITMoonInteractablesW.categories[2].selectionWeight *= 4;
+            //dccsITMoonInteractablesW.categories[2].selectionWeight *= 2;
             dccsITMoonInteractablesW.categories[2].cards = dccsITMoonInteractablesW.categories[2].cards.Remove(dccsITMoonInteractablesW.categories[2].cards[0]); //No Cloaked
             dccsITMoonInteractablesW.categories[2].cards[0].spawnCard = iscGoldChestIT;
             dccsITMoonInteractablesW.categories[3].selectionWeight += 4; //Soups
@@ -448,15 +456,11 @@ namespace SimulacrumAdditions
             {
                 dccsITMoonInteractablesW.categories[2].cards[1].selectionWeight = 4;
             }
-            SimulacrumDroneArtifactCategory(drone);
+            SimulacrumDCCS_Drones.SimulacrumDroneArtifactCategory(drone);
 
 		}
 
-        public static void SimulacrumDroneArtifactCategory(int dr)
-        {
-            //dccsITMoonInteractablesW.AddCard(dr, null);
-
-		}
+ 
 
 
         public static void SimuInteractableDCCSAdder(On.RoR2.InfiniteTowerRun.orig_OnPrePopulateSceneServer orig, InfiniteTowerRun self, SceneDirector sceneDirector)
@@ -495,7 +499,7 @@ namespace SimulacrumAdditions
             }
         }
 
-        public static void Stage_ExtraObjects(On.RoR2.SceneDirector.orig_Start orig, global::RoR2.SceneDirector self)
+        public static void Stage_ExtraObjects(On.RoR2.SceneDirector.orig_Start orig, SceneDirector self)
         {
             orig(self);
             if (!SceneInfo.instance)

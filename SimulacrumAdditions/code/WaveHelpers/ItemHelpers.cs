@@ -47,16 +47,62 @@ namespace SimulacrumAdditions
             ITHealthUpMult = Make("ITHealthUpMult");
             ITKillOnCompletion = Make("ITKillsThisGuy");
             ITCooldownUp = Make("ITCooldownUp");
+            ITHorrorName = Make("ITHorrorName");
+
             ITMakeDudeInvisible = Make("ITMakeDudeInvisible");
             ITDisableAllSkills = Make("ITDisableAllSkills");
             ITDisableMovement = Make("ITDisableMovement");
             ITMakeImmune = Make("ITMakeImmune");
-
+        
 
             On.RoR2.Util.GetBestBodyName += HorrorName;
 
             On.RoR2.CharacterBody.RecalculateStats += CharacterBody_RecalculateStats;
+            On.RoR2.CharacterBody.OnInventoryChanged += CharacterBody_OnInventoryChanged;
             IL.RoR2.CharacterBody.RecalculateStats += IL_CharacterBody_RecalculateStats;
+
+        }
+
+        private static void CharacterBody_OnInventoryChanged(On.RoR2.CharacterBody.orig_OnInventoryChanged orig, CharacterBody self)
+        {
+            orig(self);
+            if (self.inventory.GetItemCount(ITDisableMovement) > 0)
+            {
+                self.SetBuffCount(RoR2Content.Buffs.Nullified.buffIndex, 1);
+            }
+            if (self.inventory.GetItemCount(ITMakeImmune) > 0)
+            {
+                self.SetBuffCount(RoR2Content.Buffs.Immune.buffIndex, 1);
+            }
+            if (self.inventory.GetItemCount(ITDisableAllSkills) > 0)
+            {
+                GenericSkill primary = self.skillLocator.primary;
+                if (primary != null)
+                {
+                    primary.SetSkillOverride(self, CharacterBody.CommonAssets.disabledSkill, GenericSkill.SkillOverridePriority.Contextual);
+                }
+                GenericSkill secondary = self.skillLocator.secondary;
+                if (secondary != null)
+                {
+                    secondary.SetSkillOverride(self, CharacterBody.CommonAssets.disabledSkill, GenericSkill.SkillOverridePriority.Contextual);
+                }
+                GenericSkill utility = self.skillLocator.utility;
+                if (utility != null)
+                {
+                    utility.SetSkillOverride(self, CharacterBody.CommonAssets.disabledSkill, GenericSkill.SkillOverridePriority.Contextual);
+                }
+                GenericSkill special = self.skillLocator.special;
+                if (special != null)
+                {
+                    special.SetSkillOverride(self, CharacterBody.CommonAssets.disabledSkill, GenericSkill.SkillOverridePriority.Contextual);
+                }
+            }
+            if (self.inventory.GetItemCount(ITHorrorName) > 0)
+            {
+                self.master.aiComponents[0].fullVision = true;
+                self.master.aiComponents[0].xrayVision = true;
+                self.master.aiComponents[0].ignoreFliers = true;
+            }
 
         }
 
@@ -67,7 +113,7 @@ namespace SimulacrumAdditions
                 CharacterBody characterBody = bodyObject.GetComponent<CharacterBody>();
                 if (characterBody && characterBody.inventory)
                 {
-                    if (characterBody.inventory.GetItemCount(ITHorrorName) > 0)
+                    if (characterBody.inventory.GetItemCountPermanent(ITHorrorName) > 0)
                     {
                         return Language.GetString("HORROR_BODY_NAME");
                     }
@@ -141,23 +187,7 @@ namespace SimulacrumAdditions
                         self.skillLocator.specialBonusStockSkill.cooldownScale *= 1 + numCooldown / 10;
                     }
                 }
-
-                int noMove = self.inventory.GetItemCount(ITDisableMovement);
-                if (noMove > 0)
-                {
-                    self.SetBuffCount(RoR2Content.Buffs.Nullified.buffIndex, 1);
-                }
-                int makeImmune = self.inventory.GetItemCount(ITMakeImmune);
-                if (makeImmune > 0)
-                {
-                    self.SetBuffCount(RoR2Content.Buffs.Immune.buffIndex, 1);
-                }
-                int DisableAllSkills = self.inventory.GetItemCount(ITDisableAllSkills);
-                if (DisableAllSkills > 0)
-                {
-                    self.SetBuffCount(DLC2Content.Buffs.DisableAllSkills.buffIndex, 1);
-                }
-
+ 
                 if (self.HasBuff(Waves_BuffRelated.bdSlippery))
                 {
                     self.acceleration /= 7.5f;
@@ -175,9 +205,11 @@ namespace SimulacrumAdditions
         {
             ILCursor c = new ILCursor(il);
             if (c.TryGotoNext(MoveType.Before,
-             x => x.MatchCall("RoR2.CharacterBody", "get_maxBarrier")
+             x => x.MatchCall("RoR2.CharacterBody", "set_maxBarrier")
             ))
             {
+                c.TryGotoPrev(MoveType.After,
+                x => x.MatchLdarg(0));
                 c.EmitDelegate<System.Func<CharacterBody, CharacterBody>>((body) =>
                 {
                     //Might not have inventory ig

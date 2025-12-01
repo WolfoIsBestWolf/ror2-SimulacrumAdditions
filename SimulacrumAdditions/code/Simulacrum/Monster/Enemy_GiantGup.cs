@@ -284,7 +284,7 @@ namespace SimulacrumAdditions
 
                         if (GiantGup.unlockable && Run.instance.CanUnlockableBeGrantedThisRun(GiantGup.unlockable))
                         {
-                            GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(DeathRewards.logbookPrefab, characterBody.corePosition, UnityEngine.Random.rotation);
+                            GameObject gameObject = UnityEngine.Object.Instantiate(DeathRewards.logbookPrefab, characterBody.corePosition, UnityEngine.Random.rotation);
                             gameObject.GetComponentInChildren<UnlockPickup>().unlockableDef = GiantGup.unlockable;
                             gameObject.GetComponent<TeamFilter>().teamIndex = TeamIndex.Player;
                             NetworkServer.Spawn(gameObject);

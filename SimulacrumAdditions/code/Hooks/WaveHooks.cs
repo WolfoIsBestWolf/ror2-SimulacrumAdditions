@@ -26,6 +26,7 @@ namespace SimulacrumAdditions
             On.RoR2.InfiniteTowerWaveController.OnAllEnemiesDefeatedServer += InfiniteTowerWaveController_OnAllEnemiesDefeatedServer;
 
             //Remove current wave
+            //Network only?
             On.RoR2.InfiniteTowerRun.CleanUpCurrentWave += InfiniteTowerRun_CleanUpCurrentWave;
 
             //Double Reward
@@ -46,7 +47,18 @@ namespace SimulacrumAdditions
         private static void KillAllGhosts_StartTimer(On.RoR2.InfiniteTowerWaveController.orig_StartTimer orig, InfiniteTowerWaveController self)
         {
             orig(self);
-
+            if (Run.instance)
+            {
+                Run.instance.GetComponent<EnemyInfoPanelInventoryProvider>().MarkAsDirty();
+            }
+            if (self.TryGetComponent<PillarSpawner>(out var pillar))
+            {
+                pillar.RemovePillars();
+            }
+            if (self.TryGetComponent<SimulacrumPulseWave>(out var pulse))
+            {
+                pulse.RemovePulse();
+            }
             if (WConfig.cfgFasterWavesLater.Value)
             {
                 if (self.waveIndex % 5 != 0)
@@ -54,7 +66,7 @@ namespace SimulacrumAdditions
                     int players = Mathf.Min(5, Run.instance.participatingPlayerCount);
                     self.Network_timerStart += self.waveIndex / 10 * players * 0.2f;
 
-                    Debug.Log("secondsAfterWave: " + self.Network_timerStart);
+                    //Debug.Log("secondsAfterWave: " + self.Network_timerStart);
                 }
             }
             MusicTrackOverride music = self.gameObject.GetComponent<MusicTrackOverride>();
@@ -121,11 +133,8 @@ namespace SimulacrumAdditions
             {
                 self.GetComponent<SimulacrumLightningStormWave>().DisableStorm();
             }
-
-            if (Run.instance)
-            {
-                Run.instance.GetComponent<RoR2.EnemyInfoPanelInventoryProvider>().MarkAsDirty();
-            }
+            RoR2.UI.EnemyInfoPanel.MarkDirty();
+           
             Debug.Log("OnAllEnemiesDefeatedServer  " + self);
         }
 
@@ -171,17 +180,30 @@ namespace SimulacrumAdditions
                         }
                         else
                         {
-                            bonusBonusDmgMulti = stats.damageBonusMulti;
-                            bonusBonusHPMulti = stats.hpBonusMulti;
+                            bonusBonusHPMulti = stats.hpBonusMulti; 
+                            bonusBonusDmgMulti = stats.damageBonusMulti;     
                         }
                         if (stats.spawnAsVoidTeam)
                         {
                             self.combatDirector.teamIndex = TeamIndex.Void;
                         }
-                        if (stats.ExtraSpawnAfterWave > 0 && waveIndex > stats.ExtraSpawnAfterWave)
+                        if (stats.OneExtraSpawnStartingWave > 0 && waveIndex >= stats.OneExtraSpawnStartingWave)
                         {
                             self.spawnList[0].count++;
+                            if (stats.ExtraSpawnPerWaves > 0)
+                            {
+                                int extraSpawns = (waveIndex-stats.OneExtraSpawnStartingWave) / (stats.ExtraSpawnPerWaves);
+                                if (extraSpawns > 0)
+                                {
+                                    self.spawnList[0].count += extraSpawns;
+                                } 
+                            }
                         }
+                        if (stats.spawnsPerExtraPlayer > 0)
+                        {
+                            self.spawnList[0].count += (int)(((float)PlayerCharacterMasterController.instances.Count-1) * stats.spawnsPerExtraPlayer);
+                        }
+                      
                     }
 
                     if (bonusBonusHPMulti > 0)
@@ -247,7 +269,7 @@ namespace SimulacrumAdditions
                             {
                                 grant = grant.Add(new ItemCountPair { itemDef = RoR2Content.Items.TeleportWhenOob, count = 1 });
                             }
-
+                            self.spawnList[list].spawnCard.itemsToGrant = grant;
                             /*foreach (ItemCountPair itemPair in self.spawnList[0].spawnCard.itemsToGrant)
                             {
                                 Debug.Log(itemPair.itemDef + "  " + itemPair.count);
@@ -282,15 +304,11 @@ namespace SimulacrumAdditions
         }
 
 
-        public static void InfiniteTowerRun_BeginNextWave(On.RoR2.InfiniteTowerRun.orig_InitializeWaveController orig, global::RoR2.InfiniteTowerRun self)
+        public static void InfiniteTowerRun_BeginNextWave(On.RoR2.InfiniteTowerRun.orig_InitializeWaveController orig, InfiniteTowerRun self)
         {
+            //DOES RUN ON CLIENT
             orig(self);
-
-            if (NetworkServer.active)
-            {
-                //GoldTitanManager.TryStartChannelingTitansServer(self.safeWardController.gameObject, self.safeWardController.gameObject.transform.position, null, null);
-            }
-
+            RoR2.UI.EnemyInfoPanel.MarkDirty();
             CombatDirector combatDirector = self.waveInstance.GetComponent<CombatDirector>();
             InfiniteTowerWaveController waveController = self.waveInstance.GetComponent<InfiniteTowerWaveController>();
             //Radius
@@ -329,6 +347,10 @@ namespace SimulacrumAdditions
 
             if (self._waveController)
             {
+                if (self.waveInstance.TryGetComponent<PillarSpawner>(out var pillar))
+                {
+                    pillar.MakePillar();
+                }
                 if (self.waveInstance.TryGetComponent<SimuWaveUnsortedExtras>(out var a))
                 {
                     a.InitializeWaveController(self, self.waveInstance);
@@ -355,7 +377,7 @@ namespace SimulacrumAdditions
                                     int itemCount = master.inventory.GetItemCount(RoR2Content.Items.WardOnLevel);
                                     if (itemCount > 0)
                                     {
-                                        GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/WarbannerWard"), body.transform.position, Quaternion.identity);
+                                        GameObject gameObject = UnityEngine.Object.Instantiate(LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/WarbannerWard"), body.transform.position, Quaternion.identity);
                                         gameObject.GetComponent<TeamFilter>().teamIndex = TeamIndex.Player;
                                         gameObject.GetComponent<BuffWard>().Networkradius = 8f + 8f * (float)itemCount;
                                         NetworkServer.Spawn(gameObject);
@@ -368,7 +390,7 @@ namespace SimulacrumAdditions
                 }
             }
      
-            self.GetComponent<RoR2.EnemyInfoPanelInventoryProvider>().MarkAsDirty();
+            self.GetComponent<EnemyInfoPanelInventoryProvider>().MarkAsDirty();
             if (self.waveIndex < 11)
             {
                 if (self.waveIndex == 5)
@@ -459,6 +481,7 @@ namespace SimulacrumAdditions
 
         public static void InfiniteTowerRun_CleanUpCurrentWave(On.RoR2.InfiniteTowerRun.orig_CleanUpCurrentWave orig, InfiniteTowerRun self)
         {
+            //NETWORK ONLY
             try
             {
                 if (NetworkServer.active)
@@ -469,10 +492,7 @@ namespace SimulacrumAdditions
                         {
                             a.CleanUpCurrentWave(self, self.waveInstance);
                         }
-                        if (Run.instance)
-                        {
-                            Run.instance.GetComponent<RoR2.EnemyInfoPanelInventoryProvider>().MarkAsDirty();
-                        }
+                   
                     }
                 }
             }
@@ -496,13 +516,7 @@ namespace SimulacrumAdditions
                 {
                     self.combatSquad.RemoveMember(master);
                     CharacterBody body = master.GetBody();
-
-                    if (master.inventory.GetItemCount(ItemHelpers.ITDisableAllSkills) > 0)
-                    {
-                        body.AddBuff(DLC2Content.Buffs.DisableAllSkills);
-                        body.AddBuff(RoR2Content.Buffs.Nullified);
-                    }
-
+ 
                     int horror = master.inventory.GetItemCount(ItemHelpers.ITHorrorName);
                     if (horror > 0)
                     {

@@ -44,32 +44,32 @@ namespace SimulacrumAdditions
 
                     GameObject newButton = GameObject.Instantiate(originalButton, JuicePannel);
                     newButton.name = "ResetAll";
-                    newButton.GetComponent<UnityEngine.UI.Image>().color = Color.red;
-                    newButton.transform.GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "Reset all Survivors";
+                    newButton.GetComponent<Image>().color = Color.red;
+                    newButton.transform.GetChild(1).GetComponent<LanguageTextMeshController>().token = "Reset all Survivors";
                     ResetAllButton = newButton.transform;
 
                     newButton = GameObject.Instantiate(originalButton, JuicePannel);
                     newButton.name = "Reset";
-                    newButton.GetComponent<UnityEngine.UI.Image>().color = Color.red;
-                    newButton.transform.GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "Reset selected Survivor";
+                    newButton.GetComponent<Image>().color = Color.red;
+                    newButton.transform.GetChild(1).GetComponent<LanguageTextMeshController>().token = "Reset selected Survivor";
                     ResetButton = newButton.transform;
 
                     newButton = GameObject.Instantiate(originalButton, JuicePannel);
                     newButton.name = "Set50D";
-                    newButton.GetComponent<UnityEngine.UI.Image>().color = Color.magenta;
-                    newButton.transform.GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "Set to 50 for selected Driz";
+                    newButton.GetComponent<Image>().color = Color.magenta;
+                    newButton.transform.GetChild(1).GetComponent<LanguageTextMeshController>().token = "Set to 50 for selected Driz";
                     Set50ButtonD = newButton.transform;
 
                     newButton = GameObject.Instantiate(originalButton, JuicePannel);
                     newButton.name = "Set50R";
-                    newButton.GetComponent<UnityEngine.UI.Image>().color = Color.magenta;
-                    newButton.transform.GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "Set to 50 for selected Rain";
+                    newButton.GetComponent<Image>().color = Color.magenta;
+                    newButton.transform.GetChild(1).GetComponent<LanguageTextMeshController>().token = "Set to 50 for selected Rain";
                     Set50ButtonR = newButton.transform;
 
                     newButton = GameObject.Instantiate(originalButton, JuicePannel);
                     newButton.name = "Set50M";
-                    newButton.GetComponent<UnityEngine.UI.Image>().color = Color.magenta;
-                    newButton.transform.GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "Set to 50 for selected Mons";
+                    newButton.GetComponent<Image>().color = Color.magenta;
+                    newButton.transform.GetChild(1).GetComponent<LanguageTextMeshController>().token = "Set to 50 for selected Mons";
                     Set50ButtonM = newButton.transform;
 
 

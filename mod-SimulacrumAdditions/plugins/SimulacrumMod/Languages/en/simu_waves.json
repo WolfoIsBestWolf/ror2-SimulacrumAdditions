@@ -263,10 +263,10 @@
 
 
 		"ITWAVE_NAME_BASIC_GHOST": "Wave {0} - Augment of Haunting",
-		"ITWAVE_DESC_BASIC_GHOST": "A unknown horror follows you.",
+		"ITWAVE_DESC_BASIC_GHOST": "A unknown horror haunts you.",
 
 		"ITWAVE_NAME_BOSS_GHOST": "Wave {0} - Boss Augment of Haunting",
-		"ITWAVE_DESC_BOSS_GHOST": "A strong unknown horror follows you.",
+		"ITWAVE_DESC_BOSS_GHOST": "A strong unknown horror haunts you.",
 		
 		"ITWAVE_NAME_BASIC_BROTHERHAUNT": "Wave {0} - Augment of Detonation",
 		"ITWAVE_DESC_BASIC_BROTHERHAUNT": "The planet turns unstable.",
@@ -345,8 +345,38 @@
 		"ITWAVE_NAME_BASIC_WIP": "Wave {0}",
 		"ITWAVE_DESC_BASIC_WIP": "Defeat all enemies.",
 		
-		 
-
+		
+		
+		"ITWAVE_NAME_BASIC_ENEMYSURVIVORS": "Wave {0} - Augment of Passengers",
+		"ITWAVE_DESC_BASIC_ENEMYSURVIVORS": "Monsters are replaced by weak Umbras.",
+		
+		
+		"ITWAVE_NAME_BASIC_DLC3_ITEMFAMILY": "Wave {0} - Augment of Theft",
+		"ITWAVE_DESC_BASIC_DLC3_ITEMFAMILY": "Thieving ghosts attacks you.",
+		
+		"ITWAVE_NAME_BASIC_DLC3_SOLUSFAMILY": "Wave {0} - Augment of Solus X",
+		"ITWAVE_DESC_BASIC_DLC3_SOLUSFAMILY": "The Collective is converging.",
+		
+		"ITWAVE_NAME_BASIC_DLC3_VULTUREFAMILY": "Wave {0} - Augment of Vulture",
+		"ITWAVE_DESC_BASIC_DLC3_VULTUREFAMILY": "A committee swarms above.",
+		
+		"ITWAVE_NAME_BOSS_DLC3_VULTUREHUNTER": "Wave {0} - Boss Augment of the Hunt",
+		"ITWAVE_DESC_BOSS_DLC3_VULTUREHUNTER": "Defeat the Seer's Chosen",
+		
+		"ITWAVE_NAME_BOSS_DLC3_SOLUSAMALGAM": "Wave {0} - Boss Augment of Amalgam",
+		"ITWAVE_DESC_BOSS_DLC3_SOLUSAMALGAM": "Incomplete Prototypes",
+		
+		"ITWAVE_NAME_BOSS_DLC3_SOLUSWING": "Wave {0} - Boss Augment of Solus Wing",
+		"ITWAVE_DESC_BOSS_DLC3_SOLUSWING": "Defeat the Alloyed Collective",
+		
+		"ITWAVE_NAME_BOSS_DLC3_SOLUSHEART": "Wave {0} - Boss Augment of Solus Heart",
+		"ITWAVE_DESC_BOSS_DLC3_SOLUSHEART": "Defeat the Virtual Super Ego",
+		
+		"ITWAVE_NAME_BASIC_DLC3_COLLECTIVE": "Wave {0} - Augment of the Collective",
+		"ITWAVE_DESC_BASIC_DLC3_COLLECTIVE": "Elites spawn as Collective.",
+		
+ 
+ 
 		
 		
 	}

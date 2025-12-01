@@ -1,8 +1,12 @@
-﻿using RoR2;
-//using System;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using R2API;
+using RoR2;
+using RoR2.UI;
+using UnityEngine.UI;
+using TMPro;
 using UnityEngine.AddressableAssets;
+using UnityEngine;
+using System.Collections.Generic;
+ 
 
 namespace SimulacrumAdditions.Waves
 {
@@ -37,6 +41,7 @@ namespace SimulacrumAdditions.Waves
         {
             MakeMultiCSCs.CreateEquipmentDroneSpawnCards();
             MakeMultiCSCs.CreateGhostSpawnCards();
+            MakeMultiCSCs.CreateGhostSpawnCardsAC();
             MakeMultiCSCs.CreateBossGhostSpawnCards();
             MakeMultiCSCs.CreateDroneSpawnCards();
             //Mod Support
@@ -65,7 +70,7 @@ namespace SimulacrumAdditions.Waves
                         if (SingleEliteType)
                         {
                             wave.AddComponent<ArtifactEnabler>().artifactDef = SingleEliteType;
-                            wave.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = SingleEliteType.smallIconSelectedSprite;
+                            wave.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = SingleEliteType.smallIconSelectedSprite;
                             Constant.ITBasicWaves.wavePrefabs = Constant.ITBasicWaves.wavePrefabs.Add(Constant.ITModSupportWaves.wavePrefabs[i]);
                         }
                         break;
@@ -94,7 +99,7 @@ namespace SimulacrumAdditions.Waves
                             };
                             wave.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList[0].spawnCard = cscEmpyreanIT;
                             wave.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList[0].spawnDistance = DirectorCore.MonsterSpawnDistance.Far;
-                            controller.overlayEntries[1].prefab.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = rainbowEliteEquip.passiveBuffDef.iconSprite;
+                            controller.overlayEntries[1].prefab.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = rainbowEliteEquip.passiveBuffDef.iconSprite;
 
                             Constant.ITBasicWaves.wavePrefabs = Constant.ITBasicWaves.wavePrefabs.Add(Constant.ITModSupportWaves.wavePrefabs[i]);
                         }
@@ -104,7 +109,7 @@ namespace SimulacrumAdditions.Waves
                         if (SS2Cognation)
                         {
                             wave.GetComponent<ArtifactEnabler>().artifactDef = SS2Cognation;
-                            wave.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = SS2Cognation.smallIconSelectedSprite;
+                            wave.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = SS2Cognation.smallIconSelectedSprite;
 
                             Constant.ITBasicWaves.wavePrefabs = Constant.ITBasicWaves.wavePrefabs.Add(Constant.ITModSupportWaves.wavePrefabs[i]);
                         }
@@ -152,7 +157,7 @@ namespace SimulacrumAdditions.Waves
                 ArtifactEnabler artifact = wave.GetComponent<ArtifactEnabler>();
                 if (artifact)
                 {
-                    controller.overlayEntries[1].prefab.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = newArticfact;
+                    controller.overlayEntries[1].prefab.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().color = newArticfact;
                 }
             }
             for (int i = 0; i < orangeWaves.Count; i++)
@@ -161,18 +166,14 @@ namespace SimulacrumAdditions.Waves
             }
             orangeWaves.Clear();
 
+            Waves_SpecialGuy.WaveBoss_EquipmentDrone.AddComponent<CardRandomizer>().cscList = Waves_SpecialGuy.CardRandomizerEquipmentDrones.cscList;
+            Waves_SpecialGuy.WaveBoss_EquipmentDrone.GetComponent<SimulacrumExtrasHelper>().rewardDisplayTier = Constant.ItemOrangeTierDef.tier;
+
             for (int i = 0; i < Constant.ITBossWaves.wavePrefabs.Length; i++)
             {
                 GameObject wave = Constant.ITBossWaves.wavePrefabs[i].wavePrefab;
                 InfiniteTowerWaveController controller = wave.GetComponent<InfiniteTowerWaveController>();
-                switch (wave.name)
-                {
-                    case "WaveBoss_EquipmentDrone":
-                        wave.AddComponent<CardRandomizer>().cscList = Waves_SpecialGuy.CardRandomizerEquipmentDrones.cscList;
-                        wave.GetComponent<SimulacrumExtrasHelper>().rewardDisplayTier = Constant.ItemOrangeTierDef.tier;
-                        break;
-                }
-
+        
                 if (controller.maxSquadSize > 20)
                 {
                     controller.maxSquadSize = 20;
@@ -194,14 +195,14 @@ namespace SimulacrumAdditions.Waves
 
                 switch (wave.name)
                 {
-                    case "InfiniteTowerWaveBrother":
+                    case "InfiniteTowerWaveBossBrother":
                         wave.AddComponent<SimulacrumExtrasHelper>().rewardDropTable = Constant.dtITLunar;
                         wave.GetComponent<SimulacrumExtrasHelper>().rewardDisplayTier = ItemTier.Lunar;
                         wave.GetComponent<SimulacrumExtrasHelper>().newRadius = 110;
-                        wave.AddComponent<SimuExplicitStats>().hpBonusMulti = 2.5f;
+                        wave.AddComponent<SimuExplicitStats>().hpBonusMulti = 3f;
                         wave.GetComponent<SimuExplicitStats>().damageBonusMulti = 1.2f;
                         wave.GetComponent<SimuExplicitStats>().halfOnNonFinal = false;
-                        temp = wave.GetComponent<RoR2.InfiniteTowerExplicitSpawnWaveController>();
+                        temp = wave.GetComponent<InfiniteTowerExplicitSpawnWaveController>();
                         temp.baseCredits = 50;
                         temp.immediateCreditsFraction = 0.5f;
                         temp.linearCreditsPerWave = 4;
@@ -210,7 +211,7 @@ namespace SimulacrumAdditions.Waves
                         break;
                     case "InfiniteTowerWaveWaveBossScav":
                         Constant.ITSuperBossWaves.wavePrefabs[i].weight = 0f;
-                        temp = wave.GetComponent<RoR2.InfiniteTowerExplicitSpawnWaveController>();
+                        temp = wave.GetComponent<InfiniteTowerExplicitSpawnWaveController>();
                         temp.rewardDisplayTier = ItemTier.Boss;
                         temp.rewardDropTable = Constant.dtITSpecialBossYellow;
                         temp.baseCredits = 100;

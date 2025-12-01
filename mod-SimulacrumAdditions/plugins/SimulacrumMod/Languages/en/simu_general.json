@@ -23,6 +23,8 @@
 		    "ARTIFACT_NORMALSTAGES_NAME": "Artifact of Reality",
 			"ARTIFACT_NORMALSTAGES_DESCRIPTION": "Void versions of any stage may be used instead of only Simulacrum stage variants.",
 		   
+		    "ARTIFACT_SIMUDRONES_NAME": "Artifact of Ingenuity",
+			"ARTIFACT_SIMUDRONES_DESCRIPTION": "Broken drones, drone related interactables and items are allowed to spawn. Drones are immune to Void Fog.",
 		   
 		   
 			"HORROR_BODY_NAME": "Unknown Horror",

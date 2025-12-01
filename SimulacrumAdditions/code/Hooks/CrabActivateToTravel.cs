@@ -58,12 +58,12 @@ namespace SimulacrumAdditions
             purchaseInteraction.SetAvailable(true);
             purchaseInteraction.contextToken = "INFINITETOWER_TRAVEL_CONTEXT";
 
-            PersistentCall newCall = new UnityEngine.Events.PersistentCall
+            PersistentCall newCall = new PersistentCall
             {
                 m_Target = travelComamnd,
                 m_MethodName = "Activate",
                 m_Mode = UnityEngine.Events.PersistentListenerMode.Void,
-                m_Arguments = new UnityEngine.Events.ArgumentCache
+                m_Arguments = new ArgumentCache
                 {
                 }
             };

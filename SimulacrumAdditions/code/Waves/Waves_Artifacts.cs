@@ -1,8 +1,11 @@
 ﻿using R2API;
 using RoR2;
-using System.Collections;
-using UnityEngine;
+using RoR2.UI;
+using UnityEngine.UI;
+using TMPro;
 using UnityEngine.AddressableAssets;
+using UnityEngine;
+using System.Collections;
 using static SimulacrumAdditions.Constant;
 using static SimulacrumAdditions.H;
 
@@ -25,7 +28,7 @@ namespace SimulacrumAdditions.Waves
 
             #region Artifact of Evolution
 
-            InfiniteTowerWaveArtifactPrerequisites ArtifacEvolutionDisabledPrerequisite = ScriptableObject.CreateInstance<RoR2.InfiniteTowerWaveArtifactPrerequisites>();
+            InfiniteTowerWaveArtifactPrerequisites ArtifacEvolutionDisabledPrerequisite = ScriptableObject.CreateInstance<InfiniteTowerWaveArtifactPrerequisites>();
             ArtifacEvolutionDisabledPrerequisite.bannedArtifact = ArtifactDefMonsterTeamGainsItems;
             ArtifacEvolutionDisabledPrerequisite.name = "ArtifacEvolutionDisabledPrerequisite";
 
@@ -53,7 +56,7 @@ namespace SimulacrumAdditions.Waves
             #endregion
             #region Artifact of Sacrifice
 
-            InfiniteTowerWaveArtifactPrerequisites ArtifacSacrificeDisabledPrerequisite = ScriptableObject.CreateInstance<RoR2.InfiniteTowerWaveArtifactPrerequisites>();
+            InfiniteTowerWaveArtifactPrerequisites ArtifacSacrificeDisabledPrerequisite = ScriptableObject.CreateInstance<InfiniteTowerWaveArtifactPrerequisites>();
             ArtifacSacrificeDisabledPrerequisite.bannedArtifact = ArtifactDefSacrifice;
             ArtifacSacrificeDisabledPrerequisite.name = "ArtifacSacrificeDisabledPrerequisite";
 
@@ -79,7 +82,7 @@ namespace SimulacrumAdditions.Waves
             WaveArtifactSacrifice.GetComponent<ArtifactEnabler>().artifactDef = ArtifactDefSacrifice;
             #endregion
             #region Artifact of Metamorphosis
-            InfiniteTowerWaveArtifactPrerequisites ArtifacRandomSurvivorDisabledPrerequisite = ScriptableObject.CreateInstance<RoR2.InfiniteTowerWaveArtifactPrerequisites>();
+            InfiniteTowerWaveArtifactPrerequisites ArtifacRandomSurvivorDisabledPrerequisite = ScriptableObject.CreateInstance<InfiniteTowerWaveArtifactPrerequisites>();
             ArtifacRandomSurvivorDisabledPrerequisite.bannedArtifact = ArtifactDefRandomSurvivor;
             ArtifacRandomSurvivorDisabledPrerequisite.name = "ArtifacRandomSurvivorDisabledPrerequisite";
 
@@ -129,7 +132,7 @@ namespace SimulacrumAdditions.Waves
 
             #endregion
             #region Artifact of Swarms
-            InfiniteTowerWaveArtifactPrerequisites ArtifacSwarmDisabledPrerequisite = ScriptableObject.CreateInstance<RoR2.InfiniteTowerWaveArtifactPrerequisites>();
+            InfiniteTowerWaveArtifactPrerequisites ArtifacSwarmDisabledPrerequisite = ScriptableObject.CreateInstance<InfiniteTowerWaveArtifactPrerequisites>();
             ArtifacSwarmDisabledPrerequisite.bannedArtifact = ArtifactDefSwarms;
             ArtifacSwarmDisabledPrerequisite.name = "ArtifacSwarmDisabledPrerequisite";
             MakeWave(new NewWaveInfo
@@ -242,10 +245,10 @@ namespace SimulacrumAdditions.Waves
             GameObject WaveBoss_ArtifactEliteOnly = PrefabAPI.InstantiateClone(Constant.BossWave, "WaveBoss_ArtifactEliteOnly", true);
             GameObject InfiniteTowerCurrentBossWaveUIArtifactEliteOnly = PrefabAPI.InstantiateClone(Constant.BossWaveUI, "InfiniteTowerCurrentBossWaveUIArtifactEliteOnly", false);
 
-            InfiniteTowerCurrentBossWaveUIArtifactEliteOnly.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BOSS_HONOR";
-            InfiniteTowerCurrentBossWaveUIArtifactEliteOnly.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BOSS_HONOR";
-            InfiniteTowerCurrentBossWaveUIArtifactEliteOnly.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = ArtifactDefEliteOnly.smallIconSelectedSprite;
-            InfiniteTowerCurrentBossWaveUIArtifactEliteOnly.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color = new Color(1, 0.8f, 0.8f, 1);
+            InfiniteTowerCurrentBossWaveUIArtifactEliteOnly.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BOSS_HONOR";
+            InfiniteTowerCurrentBossWaveUIArtifactEliteOnly.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<LanguageTextMeshController>().token = "ITWAVE_DESC_BOSS_HONOR";
+            InfiniteTowerCurrentBossWaveUIArtifactEliteOnly.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = ArtifactDefEliteOnly.smallIconSelectedSprite;
+            InfiniteTowerCurrentBossWaveUIArtifactEliteOnly.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().color = new Color(1, 0.8f, 0.8f, 1);
             WaveBoss_ArtifactEliteOnly.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerCurrentBossWaveUIArtifactEliteOnly;
 
             WaveBoss_ArtifactEliteOnly.AddComponent<ArtifactEnabler>().artifactDef = ArtifactDefEliteOnly;
@@ -266,7 +269,7 @@ namespace SimulacrumAdditions.Waves
             #endregion
             #region Artifact of Vengence
             //Vengence Boss
-            GameObject WaveBoss_ArtifactDoppelganger = PrefabAPI.InstantiateClone(Constant.BossWave, "WaveBoss_ArtifactDoppelganger", true);
+            GameObject WaveBoss_ArtifactDoppelganger = PrefabAPI.InstantiateClone(Constant.BossWave, "WaveBoss_ArtifactDoppelgangerVengence", true);
             GameObject InfiniteTowerCurrentBossWaveUIArtifactDoppelganger = PrefabAPI.InstantiateClone(Constant.BossWaveUI, "InfiniteTowerCurrentBossWaveUIArtifactDoppelganger", false);
 
             //WaveBoss_ArtifactDoppelganger.AddComponent<ArtifactEnabler>().artifactDef = ArtifactDefShadowClone;
@@ -276,13 +279,13 @@ namespace SimulacrumAdditions.Waves
 
             WaveBoss_ArtifactDoppelganger.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier2;
             WaveBoss_ArtifactDoppelganger.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITWaveTier2;
-            WaveBoss_ArtifactDoppelganger.AddComponent<SimulacrumExtrasHelper>().newRadius = 95;
+            WaveBoss_ArtifactDoppelganger.AddComponent<SimulacrumExtrasHelper>().newRadius = 80;
             WaveBoss_ArtifactDoppelganger.AddComponent<SimuWaveUnsortedExtras>().code = SimuWaveUnsortedExtras.Case.Vengence;
 
-            InfiniteTowerCurrentBossWaveUIArtifactDoppelganger.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BOSS_VENGENCE";
-            InfiniteTowerCurrentBossWaveUIArtifactDoppelganger.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BOSS_VENGENCE";
-            InfiniteTowerCurrentBossWaveUIArtifactDoppelganger.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = ArtifactDefShadowClone.smallIconSelectedSprite;
-            InfiniteTowerCurrentBossWaveUIArtifactDoppelganger.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color = new Color(1, 0.8f, 0.8f, 1);
+            InfiniteTowerCurrentBossWaveUIArtifactDoppelganger.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BOSS_VENGENCE";
+            InfiniteTowerCurrentBossWaveUIArtifactDoppelganger.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<LanguageTextMeshController>().token = "ITWAVE_DESC_BOSS_VENGENCE";
+            InfiniteTowerCurrentBossWaveUIArtifactDoppelganger.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = ArtifactDefShadowClone.smallIconSelectedSprite;
+            InfiniteTowerCurrentBossWaveUIArtifactDoppelganger.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().color = new Color(1, 0.8f, 0.8f, 1);
             WaveBoss_ArtifactDoppelganger.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerCurrentBossWaveUIArtifactDoppelganger;
 
             InfiniteTowerWaveCategory.WeightedWave ITBossArtifactDoppelganger = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = WaveBoss_ArtifactDoppelganger, weight = 9f, prerequisites = Constant.StartWave11Prerequisite }; //5 normally
@@ -300,10 +303,10 @@ namespace SimulacrumAdditions.Waves
             WaveBoss_ArtifactKin.GetComponent<CombatDirector>().eliteBias = 0.1f;
             WaveBoss_ArtifactKin.GetComponent<InfiniteTowerWaveController>().wavePeriodSeconds = 30;
 
-            WaveBoss_ArtifactKinUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BOSS_KIN";
-            WaveBoss_ArtifactKinUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BOSS_KIN";
-            WaveBoss_ArtifactKinUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = ArtifactSingleMonsterTypeDisabledPrerequisite.bannedArtifact.smallIconSelectedSprite;
-            WaveBoss_ArtifactKinUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color = new Color(1, 0.8f, 0.8f, 1);
+            WaveBoss_ArtifactKinUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BOSS_KIN";
+            WaveBoss_ArtifactKinUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<LanguageTextMeshController>().token = "ITWAVE_DESC_BOSS_KIN";
+            WaveBoss_ArtifactKinUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = ArtifactSingleMonsterTypeDisabledPrerequisite.bannedArtifact.smallIconSelectedSprite;
+            WaveBoss_ArtifactKinUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().color = new Color(1, 0.8f, 0.8f, 1);
 
             InfiniteTowerWaveCategory.WeightedWave ITBossKin = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = WaveBoss_ArtifactKin, weight = 7f, prerequisites = Constant.StartWave11Prerequisite };
             Constant.ITBossWaves.wavePrefabs = Constant.ITBossWaves.wavePrefabs.Add(ITBossKin);
@@ -318,10 +321,10 @@ namespace SimulacrumAdditions.Waves
             WaveBoss_ArtifactDissonance.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = WaveBoss_ArtifactDissonanceUI;
             WaveBoss_ArtifactDissonance.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITBossGreenVoid;
 
-            WaveBoss_ArtifactDissonanceUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BOSS_DISSONANCE";
-            WaveBoss_ArtifactDissonanceUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BOSS_DISSONANCE";
-            WaveBoss_ArtifactDissonanceUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = ArtifactMixEnemyDisabledPrerequisite.bannedArtifact.smallIconSelectedSprite;
-            WaveBoss_ArtifactDissonanceUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color = new Color(1, 0.8f, 0.8f, 1);
+            WaveBoss_ArtifactDissonanceUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BOSS_DISSONANCE";
+            WaveBoss_ArtifactDissonanceUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<LanguageTextMeshController>().token = "ITWAVE_DESC_BOSS_DISSONANCE";
+            WaveBoss_ArtifactDissonanceUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = ArtifactMixEnemyDisabledPrerequisite.bannedArtifact.smallIconSelectedSprite;
+            WaveBoss_ArtifactDissonanceUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().color = new Color(1, 0.8f, 0.8f, 1);
 
             InfiniteTowerWaveCategory.WeightedWave ITBossDissonance = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = WaveBoss_ArtifactDissonance, weight = 10f, prerequisites = ArtifactMixEnemyDisabledPrerequisite };
             Constant.ITBossWaves.wavePrefabs = Constant.ITBossWaves.wavePrefabs.Add(ITBossDissonance);
@@ -336,14 +339,14 @@ namespace SimulacrumAdditions.Waves
             WaveBoss_AllEnemiesAvailable.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = WaveBoss_AllEnemiesAvailableUI;
             WaveBoss_AllEnemiesAvailable.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITBossGreenVoid;
             WaveBoss_AllEnemiesAvailable.AddComponent<SimulacrumExtrasHelper>().newRadius = 80;
-            WaveBoss_AllEnemiesAvailable.AddComponent<SimulacrumEliteWaves>().addLunar = true;
+            //WaveBoss_AllEnemiesAvailable.AddComponent<SimulacrumEliteWaves>().eliteCase = SimulacrumEliteWaves.EliteCase.Lunar
 
-            WaveBoss_AllEnemiesAvailableUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BOSS_DISSOFAKE";
-            WaveBoss_AllEnemiesAvailableUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BOSS_DISSOFAKE";
-            WaveBoss_AllEnemiesAvailableUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = ArtifactMixEnemyDisabledPrerequisite.bannedArtifact.smallIconSelectedSprite;
-            WaveBoss_AllEnemiesAvailableUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color = new Color(1, 0.8f, 0.8f, 1) * Waves_Family.FamilyEventIconColor;
-            WaveBoss_AllEnemiesAvailableUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color *= Waves_Family.FamilyEventIconColor;
-            WaveBoss_AllEnemiesAvailableUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color *= Waves_Family.FamilyEventOutlineColor;
+            WaveBoss_AllEnemiesAvailableUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BOSS_DISSOFAKE";
+            WaveBoss_AllEnemiesAvailableUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<LanguageTextMeshController>().token = "ITWAVE_DESC_BOSS_DISSOFAKE";
+            WaveBoss_AllEnemiesAvailableUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = ArtifactMixEnemyDisabledPrerequisite.bannedArtifact.smallIconSelectedSprite;
+            WaveBoss_AllEnemiesAvailableUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().color = new Color(1, 0.8f, 0.8f, 1) * Waves_Family.FamilyEventIconColor;
+            WaveBoss_AllEnemiesAvailableUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().color *= Waves_Family.FamilyEventIconColor;
+            WaveBoss_AllEnemiesAvailableUI.transform.GetChild(0).GetChild(2).GetComponent<Image>().color *= Waves_Family.FamilyEventOutlineColor;
 
             InfiniteTowerWaveCategory.WeightedWave ITBossNotDissonance = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = WaveBoss_AllEnemiesAvailable, weight = 4f };
             Constant.ITBossWaves.wavePrefabs = Constant.ITBossWaves.wavePrefabs.Add(ITBossNotDissonance);
@@ -365,11 +368,11 @@ namespace SimulacrumAdditions.Waves
             Color ArtifactBoss2 = new Color(1f, 0.7f, 0.8f, 1f);
 
             WaveBoss_DoubleArtifact.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = WaveBoss_DoubleArtifactUI;
-            WaveBoss_DoubleArtifactUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BOSS_ARTIFACTS";
-            WaveBoss_DoubleArtifactUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BOSS_ARTIFACTS";
-            WaveBoss_DoubleArtifactUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color = ArtifactBoss2;
-            WaveBoss_DoubleArtifactUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color *= ArtifactBoss;
-            WaveBoss_DoubleArtifactUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color *= ArtifactBoss;
+            WaveBoss_DoubleArtifactUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BOSS_ARTIFACTS";
+            WaveBoss_DoubleArtifactUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<LanguageTextMeshController>().token = "ITWAVE_DESC_BOSS_ARTIFACTS";
+            WaveBoss_DoubleArtifactUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().color = ArtifactBoss2;
+            WaveBoss_DoubleArtifactUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().color *= ArtifactBoss;
+            WaveBoss_DoubleArtifactUI.transform.GetChild(0).GetChild(2).GetComponent<Image>().color *= ArtifactBoss;
             GameObject.Instantiate(WaveBoss_DoubleArtifactUI.transform.GetChild(0).GetChild(0).gameObject, WaveBoss_DoubleArtifactUI.transform.GetChild(0));
 
             InfiniteTowerWaveCategory.WeightedWave ITBossTwoArtifactsSemi = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = WaveBoss_DoubleArtifact, weight = 6f, prerequisites = Constant.StartWave11Prerequisite };

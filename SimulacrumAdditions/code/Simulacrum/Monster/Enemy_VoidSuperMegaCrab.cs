@@ -55,8 +55,8 @@ namespace SimulacrumAdditions
             WaveBoss_SuperCrab.GetComponent<SimulacrumExtrasHelper>().newRadius = 110;
 
             SimuExplicitStats simuExplicitStats = WaveBoss_SuperCrab.AddComponent<SimuExplicitStats>();
-            simuExplicitStats.damageBonusMulti = 0.4f;
-            simuExplicitStats.hpBonusMulti = 0.4f;
+            simuExplicitStats.damageBonusMulti = 0.5f;
+            simuExplicitStats.hpBonusMulti = 1f;
             simuExplicitStats.halfOnNonFinal = true;
 
 
@@ -83,7 +83,7 @@ namespace SimulacrumAdditions
             CrabCharacterBody.baseNameToken = "SUPERMEGACRAB_BODY_NAME";
             CrabCharacterBody.portraitIcon = Addressables.LoadAssetAsync<Texture>(key: "RoR2/DLC1/VoidSuperMegaCrabBody.png").WaitForCompletion();
 
-            CrabCharacterBody.baseMaxHealth = 1875 * 2; //Base Health is 2800*1.6 cuz Trans Shrimp
+            CrabCharacterBody.baseMaxHealth = 2020; //Base Health is 2800*1.6 cuz Trans Shrimp
             CrabCharacterBody.baseDamage *= 0.2f; //Bro gets so many damage items
             CrabCharacterBody.baseMoveSpeed *= 0.75f;
             CrabCharacterBody.baseAttackSpeed *= 0.75f;
@@ -197,7 +197,7 @@ namespace SimulacrumAdditions
             {
                 if (SuperMegaCrab.unlockable && Run.instance.CanUnlockableBeGrantedThisRun(SuperMegaCrab.unlockable))
                 {
-                    GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(DeathRewards.logbookPrefab, self.characterBody.corePosition, UnityEngine.Random.rotation);
+                    GameObject gameObject = UnityEngine.Object.Instantiate(DeathRewards.logbookPrefab, self.characterBody.corePosition, UnityEngine.Random.rotation);
                     gameObject.GetComponentInChildren<UnlockPickup>().unlockableDef = SuperMegaCrab.unlockable;
                     gameObject.GetComponent<TeamFilter>().teamIndex = TeamIndex.Player;
                     NetworkServer.Spawn(gameObject);

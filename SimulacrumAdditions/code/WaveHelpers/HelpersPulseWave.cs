@@ -45,6 +45,11 @@ namespace SimulacrumAdditions
             }
         }
 
+        public void RemovePulse()
+        {
+            stateMachine.enabled = false;
+        }
+
         private void OnDisable()
         {
             EntityStates.Missions.Moon.MoonBatteryDesignActive.pulsePrefab = LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/MoonBatteryDesignPulse");

@@ -44,7 +44,16 @@ namespace SimulacrumAdditions
 
             On.RoR2.ArenaMissionController.OnStartServer += ArenaMissionController_OnStartServer;
             On.RoR2.VoidStageMissionController.Start += VoidStageMissionController_Start;
+            On.RoR2.AccessCodesMissionController.OnStartServer += AccessCodesMissionController_OnStartServer;
+        }
 
+        private static void AccessCodesMissionController_OnStartServer(On.RoR2.AccessCodesMissionController.orig_OnStartServer orig, AccessCodesMissionController self)
+        {
+            if (RunArtifactManager.instance && RunArtifactManager.instance.IsArtifactEnabled(ArtifactUseNormalStages))
+            {
+                return;
+            }
+            orig(self);
         }
 
         private static void ArenaMissionController_OnStartServer(On.RoR2.ArenaMissionController.orig_OnStartServer orig, ArenaMissionController self)
@@ -88,7 +97,7 @@ namespace SimulacrumAdditions
                             weight = 0.7f;
                             break;
                         case "helminthroost":
-                            weight = 2;
+                            weight = 1.5f;
                             break;
                     }
 
@@ -242,6 +251,28 @@ namespace SimulacrumAdditions
                         Weather.SetActive(false);
                     }
                     break;
+                case "nest":
+                    GameObject nestS = GameObject.Find("/HOLDER: Weather/Weather, Nest/Directional Light (SUN)");
+                    if (nestS)
+                    {
+                        nestS.SetActive(false);
+                    }
+                    ITWeather.transform.GetChild(2).gameObject.SetActive(false);
+                    break;
+                case "ironalluvium":
+                    GameObject ironalluviumS = GameObject.Find("/HOLDER: Weather/IronAlluvium_Weather/Directional Light (SUN)");
+                    if (ironalluviumS)
+                    {
+                        ironalluviumS.SetActive(false);
+                    }
+                    ITWeather.transform.GetChild(2).gameObject.SetActive(false);
+                    break;
+                case "sulfurpools":
+                case "ironalluvium2":
+                case "village":
+                case "villagenight":
+                    ITWeather.transform.GetChild(2).gameObject.SetActive(false);
+                    break;
                 case "voidstage":
                     GameObject Void = GameObject.Find("/Weather, Void Stage");
                     if (Void)
@@ -302,7 +333,7 @@ namespace SimulacrumAdditions
                     if (self.stageClearCount > 2)
                     {
                         SceneDef voidStage = Addressables.LoadAssetAsync<SceneDef>(key: "RoR2/DLC1/voidstage/voidstage.asset").WaitForCompletion();
-                        weightedSelection.AddChoice(voidStage, 3.3f);
+                        weightedSelection.AddChoice(voidStage, 2f);
                     }
 
                     self.nextStageScene = weightedSelection.Evaluate(self.nextStageRng.nextNormalizedFloat);
@@ -318,8 +349,8 @@ namespace SimulacrumAdditions
                 }
                 else
                 {
-                    SceneDef[] array = SceneCatalog.allStageSceneDefs.Where(new System.Func<SceneDef, bool>(RealityValidSceneDefs)).ToArray<SceneDef>();
-                    self.nextStageScene = self.nextStageRng.NextElementUniform<SceneDef>(array);
+                    SceneDef[] array = SceneCatalog.allStageSceneDefs.Where(new System.Func<SceneDef, bool>(RealityValidSceneDefs)).ToArray();
+                    self.nextStageScene = self.nextStageRng.NextElementUniform(array);
                 }
                 return;
             }
@@ -394,6 +425,7 @@ namespace SimulacrumAdditions
                 dccs.AddCard(voidIndex, iscVoidChestSacrificeOn);
                 //dccs.AddCard(voidIndex, iscVoidSuppressorIT);
                 dccs.AddCard(voidIndex, iscVoidTriple);
+               
             }
             dccs.RemoveCardsThatFailFilter(trimmer);
         }
@@ -401,11 +433,13 @@ namespace SimulacrumAdditions
         public static System.Predicate<DirectorCard> trimmer = new System.Predicate<DirectorCard>(SimulacrumTrimmer);
         public static bool SimulacrumTrimmer(DirectorCard card)
         {
-            GameObject prefab = card.spawnCard.prefab;
-            if ((card.spawnCard as InteractableSpawnCard).skipSpawnWhenDevotionArtifactEnabled && !RunArtifactManager.instance.IsArtifactEnabled(CU8Content.Artifacts.Devotion))
+            GameObject prefab = card.GetSpawnCard().prefab;
+            if ((card.GetSpawnCard() as InteractableSpawnCard).skipSpawnWhenDevotionArtifactEnabled)
             {
-                //Skip Drones only if Devo not active
-                return false;
+                if (!(RunArtifactManager.instance.IsArtifactEnabled(CU8Content.Artifacts.Devotion) || RunArtifactManager.instance.IsArtifactEnabled(Artifact_SimuDrones.ArtifactDef)))
+                {
+                    return false;
+                }
             }
             return !(prefab.GetComponent<ShrineCombatBehavior>() | prefab.GetComponent<HalcyoniteShrineInteractable>() | prefab.GetComponent<OutsideInteractableLocker>() | prefab.GetComponent<ShrineBossBehavior>() | prefab.GetComponent<SeerStationController>() | prefab.GetComponent<PortalStatueBehavior>());
         }

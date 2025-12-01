@@ -1,6 +1,9 @@
 ﻿using R2API;
 using RoR2;
-//using System;
+using RoR2.UI;
+using UnityEngine.UI;
+using TMPro;
+using UnityEngine.AddressableAssets;
 using UnityEngine;
 
 namespace SimulacrumAdditions.Waves
@@ -37,12 +40,12 @@ namespace SimulacrumAdditions.Waves
             waveHelper.spawnsOnStart = 7;
 
             InfiniteTowerWaveSulfurPods.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWaveSulfurPodsUI;
-            InfiniteTowerWaveSulfurPodsUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_SULFURPODS";
-            InfiniteTowerWaveSulfurPodsUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_SULFURPODS";
-            InfiniteTowerWaveSulfurPodsUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = BanditSkull.iconSprite;
-            InfiniteTowerWaveSulfurPodsUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color = new Color(0.7882f, 0.949f, 0.302f, 1);
-            InfiniteTowerWaveSulfurPodsUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0.7882f, 0.949f, 0.302f, 1);
-            InfiniteTowerWaveSulfurPodsUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color(0.7882f, 0.949f, 0.302f, 1) * 0.8f;
+            InfiniteTowerWaveSulfurPodsUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_SULFURPODS";
+            InfiniteTowerWaveSulfurPodsUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_SULFURPODS";
+            InfiniteTowerWaveSulfurPodsUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = BanditSkull.iconSprite;
+            InfiniteTowerWaveSulfurPodsUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().color = new Color(0.7882f, 0.949f, 0.302f, 1);
+            InfiniteTowerWaveSulfurPodsUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().color = new Color(0.7882f, 0.949f, 0.302f, 1);
+            InfiniteTowerWaveSulfurPodsUI.transform.GetChild(0).GetChild(2).GetComponent<Image>().color = new Color(0.7882f, 0.949f, 0.302f, 2) * 0.8f;
 
             InfiniteTowerWaveCategory.WeightedWave ITSulfurPods = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveSulfurPods, weight = 2f, prerequisites = Constant.AfterWave5Prerequisite };
             Constant.ITBasicWaves.wavePrefabs = Constant.ITBasicWaves.wavePrefabs.Add(ITSulfurPods);
@@ -70,11 +73,11 @@ namespace SimulacrumAdditions.Waves
             waveHelper.spawnsOnStart = 2;
 
             InfiniteTowerWaveTarPots.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWaveTarPotsUI;
-            InfiniteTowerWaveTarPotsUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<RoR2.UI.InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_TARPOTS";
-            InfiniteTowerWaveTarPotsUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<RoR2.UI.LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_TARPOTS";
-            InfiniteTowerWaveTarPotsUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().color = new Color(0.2f, 0.0902f, 0.0902f, 1) * 2; //0.2 0.0902 0.0902 1
-            InfiniteTowerWaveTarPotsUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0.2f, 0.0902f, 0.0902f, 1) * 2;
-            InfiniteTowerWaveTarPotsUI.transform.GetChild(0).GetChild(2).GetComponent<UnityEngine.UI.Image>().color = new Color(0.2f, 0.0902f, 0.0902f, 1);
+            InfiniteTowerWaveTarPotsUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_TARPOTS";
+            InfiniteTowerWaveTarPotsUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_TARPOTS";
+            InfiniteTowerWaveTarPotsUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().color = new Color(0.2f, 0.0902f, 0.0902f, 1) * 2; //0.2 0.0902 0.0902 1
+            InfiniteTowerWaveTarPotsUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().color = new Color(0.2f, 0.0902f, 0.0902f, 1) * 2;
+            InfiniteTowerWaveTarPotsUI.transform.GetChild(0).GetChild(2).GetComponent<Image>().color = new Color(0.2f, 0.0902f, 0.0902f, 1);
 
             InfiniteTowerWaveCategory.WeightedWave ITTarPots = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveTarPots, weight = 2f, prerequisites = Constant.AfterWave5Prerequisite };
             Constant.ITBasicWaves.wavePrefabs = Constant.ITBasicWaves.wavePrefabs.Add(ITTarPots);

@@ -1,21 +1,22 @@
 ## Changelog:
 ```
-v3.0.0
-(TODO)Ghost Grandparent and Vagrant waves now spawn with pillars to guarantee a hiding spot. 
-(TODO)(maybe all ghost waves could have the pillars just in general)
-(TODO)Inventory Disable and Skills Disable pulse or smth wave
-(TODO)Move Drone/Lems immune to fog here
-il amount if infinitetower run 0
-remove fukin voidsupp from normal stage pool
+v2.6.0
+Added 6 waves related to Alloyed Collective content.
 
-item theft wave?
-old unstable transmitter type of wave
+Ghost Boss & Ghost Basic & VagrantGuy wave now spawn 4 pillars, to ensure a place to dodge.
+-Especially for Vagrants and Grandparents
+ 
 
-
-maybe keep default wave weightat 50 at all times and first wave always default
-first boss always default too??
+New Simu Artifact : Drones
+-Allows a lot of Drones to spawn.
+-Allows Drone related interactables and Drone items to spawn.
+-Drones will be immune to Void Fog.
 
 
+Various tweaks to be a bit more mild.
+
+```
+```
 v2.4.4
 Fixed for AC.
 Added Temp Shop to all Simu Stages.

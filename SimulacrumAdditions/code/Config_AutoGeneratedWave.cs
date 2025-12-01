@@ -67,7 +67,7 @@ namespace SimulacrumAdditions
             for (int i = 1; i < category.wavePrefabs.Length; i++)
             {
                 ConfigEntry<bool> value = null;
-                ConfigFileAuto.TryGetEntry<bool>(categoryName, category.wavePrefabs[i].wavePrefab.name, out value);
+                ConfigFileAuto.TryGetEntry(categoryName, category.wavePrefabs[i].wavePrefab.name, out value);
                 if (value != null && value.Value == false)
                 {
                     category.wavePrefabs[i].weight = 0;
@@ -79,7 +79,7 @@ namespace SimulacrumAdditions
             for (int i = 1; i < category.wavePrefabs.Length; i++)
             {
                 ConfigEntry<bool> value = null;
-                ConfigFileAuto.TryGetEntry<bool>(categoryName, category.wavePrefabs[i].wavePrefab.name, out value);
+                ConfigFileAuto.TryGetEntry(categoryName, category.wavePrefabs[i].wavePrefab.name, out value);
                 if (value != null && value.Value == false)
                 {
                     category.wavePrefabs[i].weight = 0;
@@ -91,7 +91,7 @@ namespace SimulacrumAdditions
             for (int i = 0; i < category.wavePrefabs.Length; i++)
             {
                 ConfigEntry<bool> value = null;
-                ConfigFileAuto.TryGetEntry<bool>(categoryName, category.wavePrefabs[i].wavePrefab.name, out value);
+                ConfigFileAuto.TryGetEntry(categoryName, category.wavePrefabs[i].wavePrefab.name, out value);
                 if (value != null && value.Value == false)
                 {
                     category.wavePrefabs[i].weight = 0;

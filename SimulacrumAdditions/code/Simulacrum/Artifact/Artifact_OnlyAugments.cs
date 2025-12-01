@@ -31,6 +31,7 @@ namespace SimulacrumAdditions
             orig(self, mustInclude, mustExclude, runSeed);
             self.ForceChoice(mustInclude, mustExclude, RuleCatalog.FindRuleDef("Artifacts.AAAAugmentsOnly").FindChoice("Off"));
             self.ForceChoice(mustInclude, mustExclude, RuleCatalog.FindRuleDef("Artifacts.AAAUseNormalStages").FindChoice("Off"));
+            self.ForceChoice(mustInclude, mustExclude, RuleCatalog.FindRuleDef("Artifacts.AAADronesSimu").FindChoice("Off"));
         }
 
         private static void OnArtifactEnabled(RunArtifactManager runArtifactManager, ArtifactDef artifactDef)
@@ -72,6 +73,8 @@ namespace SimulacrumAdditions
             if (self && !(self is InfiniteTowerRun))
             {
                 self.ForceChoice(mustInclude, mustExclude, RuleCatalog.FindRuleDef("Artifacts.AAAAugmentsOnly").FindChoice("Off"));
+                self.ForceChoice(mustInclude, mustExclude, RuleCatalog.FindRuleDef("Artifacts.AAAUseNormalStages").FindChoice("Off"));
+                self.ForceChoice(mustInclude, mustExclude, RuleCatalog.FindRuleDef("Artifacts.AAADronesSimu").FindChoice("Off"));
             }
         }
     }

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Networking;
+using WolfoLibrary;
 
 namespace SimulacrumAdditions
 {
@@ -230,6 +231,8 @@ namespace SimulacrumAdditions
         public PickupDropTable rewardDropTable;
 
         public int rewardOptionCount = 3;
+
+        //BASE RADIUS IS WHAT 60?
         public float newRadius = 0;
 
         [Server]
@@ -275,9 +278,12 @@ namespace SimulacrumAdditions
 
     public class SimuExplicitStats : MonoBehaviour
     {
-        public int ExtraSpawnAfterWave = -1;
+        public int OneExtraSpawnStartingWave = -1;
+        public int ExtraSpawnPerWaves = -1;
+        public float spawnsPerExtraPlayer = -1f;
         public bool halfOnNonFinal = false;
         public bool spawnAsVoidTeam = false;
+        //-1 for noscaling
         public float hpBonusMulti = 0.5f;
         public float damageBonusMulti = 0.5f;
 
@@ -579,7 +585,7 @@ namespace SimulacrumAdditions
 
     public class SimuWaveBouncyProjectiles : MonoBehaviour
     {
-        private static UnityEngine.PhysicMaterial bouncyMat = Addressables.LoadAssetAsync<PhysicMaterial>(key: "RoR2/DLC1/MajorAndMinorConstruct/physmatMinorConstructProjectile.physicMaterial").WaitForCompletion();
+        private static PhysicMaterial bouncyMat = Addressables.LoadAssetAsync<PhysicMaterial>(key: "RoR2/DLC1/MajorAndMinorConstruct/physmatMinorConstructProjectile.physicMaterial").WaitForCompletion();
 
         private void OnEnable()
         {
@@ -591,7 +597,7 @@ namespace SimulacrumAdditions
             On.RoR2.Projectile.ProjectileController.Start -= BouncyProjectiles;
         }
 
-        private void BouncyProjectiles(On.RoR2.Projectile.ProjectileController.orig_Start orig, RoR2.Projectile.ProjectileController self)
+        private void BouncyProjectiles(On.RoR2.Projectile.ProjectileController.orig_Start orig, ProjectileController self)
         {
             orig(self);
             if (self.myColliders.Length > 0)
@@ -738,13 +744,20 @@ namespace SimulacrumAdditions
 
     public class SimulacrumEliteWaves : MonoBehaviour
     {
+        public enum EliteCase
+        {
+            None,
+            AddLunar,
+            Lunar,
+            Void,
+            LunarAndVoid,
+            Collective,
+            Poison,
+        }
+        public EliteCase eliteCase;
         public CombatDirector.EliteTierDef[] backupTiers;
         public CombatDirector.EliteTierDef[] newTiers;
-        public bool lunarOnly = false;
-        public bool voidOnly = false;
-        public bool lunarPlusVoid = false;
-        public bool addLunar = false;
-
+  
         private void OnEnable()
         {
             backupTiers = CombatDirector.eliteTiers;
@@ -757,7 +770,7 @@ namespace SimulacrumAdditions
                 isAvailable = (SpawnCard.EliteRules rules) => CombatDirector.NotEliteOnlyArtifactActive(),
                 canSelectWithoutAvailableEliteDef = true,
             };
-            if (lunarOnly)
+            if (eliteCase == EliteCase.Lunar)
             {
                 arrayL[1] = new CombatDirector.EliteTierDef
                 {
@@ -771,7 +784,7 @@ namespace SimulacrumAdditions
                 };
                 newTiers = arrayL;
             }
-            else if (voidOnly)
+            else if (eliteCase == EliteCase.Void)
             {
                 arrayL[1] = new CombatDirector.EliteTierDef
                 {
@@ -785,7 +798,21 @@ namespace SimulacrumAdditions
                 };
                 newTiers = arrayL;
             }
-            else if (lunarPlusVoid)
+            else if (eliteCase == EliteCase.Collective)
+            {
+                arrayL[1] = new CombatDirector.EliteTierDef
+                {
+                    costMultiplier = 4.5f,
+                    eliteTypes = new EliteDef[]
+                    {
+                        MissedContent.Elites.CollectiveWeak,
+                    },
+                    isAvailable = (SpawnCard.EliteRules rules) => true,
+                    canSelectWithoutAvailableEliteDef = false,
+                };
+                newTiers = arrayL;
+            }
+            else if (eliteCase == EliteCase.LunarAndVoid)
             {
                 arrayL[1] = new CombatDirector.EliteTierDef
                 {
@@ -800,7 +827,7 @@ namespace SimulacrumAdditions
                 };
                 newTiers = arrayL;
             }
-            else if (addLunar)
+            else if (eliteCase == EliteCase.AddLunar)
             {
                 CombatDirector.eliteTiers[1].eliteTypes = CombatDirector.eliteTiers[1].eliteTypes.Add(RoR2Content.Elites.Lunar);
                 CombatDirector.eliteTiers[2].eliteTypes = CombatDirector.eliteTiers[2].eliteTypes.Add(RoR2Content.Elites.Lunar);
@@ -816,7 +843,7 @@ namespace SimulacrumAdditions
         }
         private void OnDisable()
         {
-            if (addLunar)
+            if (eliteCase == EliteCase.AddLunar)
             {
                 CombatDirector.eliteTiers[1].eliteTypes = CombatDirector.eliteTiers[1].eliteTypes.Remove(RoR2Content.Elites.Lunar);
                 CombatDirector.eliteTiers[2].eliteTypes = CombatDirector.eliteTiers[2].eliteTypes.Remove(RoR2Content.Elites.Lunar);

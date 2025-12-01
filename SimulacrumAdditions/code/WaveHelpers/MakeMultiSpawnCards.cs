@@ -20,7 +20,7 @@ namespace SimulacrumAdditions
                 new ItemCountPair { itemDef = ItemHelpers.ITHorrorName, count = 1 },
 
                 new ItemCountPair { itemDef = ItemHelpers.ITAttackSpeedDownMult, count = 40 },
-                new ItemCountPair { itemDef = DLC1Content.Items.CritGlassesVoid, count = 20 },
+                new ItemCountPair { itemDef = DLC1Content.Items.CritGlassesVoid, count = 1 },
                 new ItemCountPair { itemDef = ItemHelpers.ITDamageDownMult, count = 30 },
             };
 
@@ -38,8 +38,8 @@ namespace SimulacrumAdditions
 
                 //new ItemCountPair { itemDef = RoR2Content.Items.BoostAttackSpeed, count = 0 },
                 //new ItemCountPair { itemDef = RoR2Content.Items.SprintOutOfCombat, count = 0 },
-                new ItemCountPair { itemDef = DLC1Content.Items.CritGlassesVoid, count = 20 },
-                new ItemCountPair { itemDef = RoR2Content.Items.Hoof, count = 1 },
+                new ItemCountPair { itemDef = DLC1Content.Items.CritGlassesVoid, count = 1 },
+                //new ItemCountPair { itemDef = RoR2Content.Items.Hoof, count = 1 },
                 new ItemCountPair { itemDef = DLC1Content.Items.HalfSpeedDoubleHealth, count = 1 },
             };
 
@@ -61,7 +61,7 @@ namespace SimulacrumAdditions
                 new ItemCountPair { itemDef = RoR2Content.Items.SprintOutOfCombat, count = 3 },
                 new ItemCountPair { itemDef = RoR2Content.Items.Hoof, count = 5 },
                 new ItemCountPair { itemDef = RoR2Content.Items.LunarBadLuck, count = 1 },
-                new ItemCountPair { itemDef = DLC1Content.Items.CritGlassesVoid, count = 20 },
+                new ItemCountPair { itemDef = DLC1Content.Items.CritGlassesVoid, count = 1 },
             };
 
             Waves_SpecialGuy.CardRandomizerBasicGhost.cscList = new CharacterSpawnCard[] {
@@ -71,6 +71,29 @@ namespace SimulacrumAdditions
                 cscITGhostBasicSpeedy,
                 cscITGhostBasicSpeedy,
             };
+        }
+
+        public static void CreateGhostSpawnCardsAC()
+        {
+
+            MultiCharacterSpawnCard cscITGhostBasicACThieves = Waves_SpecialGuy.CardRandomizerACGhost;
+            cscITGhostBasicACThieves.masterPrefabs = new GameObject[]
+            {
+                Addressables.LoadAssetAsync<GameObject>(key: "cdca672e6db07ed45a6a81891c155063").WaitForCompletion(),
+                Addressables.LoadAssetAsync<GameObject>(key: "645c6efa053511c488c3993881e2884a").WaitForCompletion(),
+            };
+            cscITGhostBasicACThieves.name = "cscITGhostBasicACThieves";
+            cscITGhostBasicACThieves.itemsToGrant = new ItemCountPair[] {
+                new ItemCountPair { itemDef = RoR2Content.Items.Ghost, count = 1 },
+                new ItemCountPair { itemDef = RoR2Content.Items.TeleportWhenOob, count = 1 },
+                new ItemCountPair { itemDef = ItemHelpers.ITKillOnCompletion, count = 2 },
+                new ItemCountPair { itemDef = ItemHelpers.ITHorrorName, count = 1 },
+
+                new ItemCountPair { itemDef = RoR2Content.Items.BoostAttackSpeed, count = 5 },
+                new ItemCountPair { itemDef = RoR2Content.Items.Hoof, count = 4 },
+            };
+
+              
         }
 
         public static void CreateBossGhostSpawnCards()
@@ -86,7 +109,7 @@ namespace SimulacrumAdditions
                 new ItemCountPair { itemDef = RoR2Content.Items.TeleportWhenOob, count = 1 },
                 new ItemCountPair { itemDef = ItemHelpers.ITKillOnCompletion, count = 2 },
                 new ItemCountPair { itemDef = ItemHelpers.ITHorrorName, count = 1 },
-                new ItemCountPair { itemDef = DLC1Content.Items.CritGlassesVoid, count = 20 },
+                new ItemCountPair { itemDef = DLC1Content.Items.CritGlassesVoid, count = 1 },
 
                 new ItemCountPair { itemDef = RoR2Content.Items.BoostAttackSpeed, count = 1 },
                 //new ItemCountPair { itemDef = RoR2Content.Items.Hoof, count = 0 },
@@ -107,12 +130,12 @@ namespace SimulacrumAdditions
                 new ItemCountPair { itemDef = RoR2Content.Items.TeleportWhenOob, count = 1 },
                 new ItemCountPair { itemDef = ItemHelpers.ITKillOnCompletion, count = 6 },
                 new ItemCountPair { itemDef = ItemHelpers.ITHorrorName, count = 1 },
-                new ItemCountPair { itemDef = DLC1Content.Items.CritGlassesVoid, count = 20 },
+                new ItemCountPair { itemDef = DLC1Content.Items.CritGlassesVoid, count = 1 },
 
-                new ItemCountPair { itemDef = DLC1Content.Items.HalfSpeedDoubleHealth, count = 50 },
+                new ItemCountPair { itemDef = DLC1Content.Items.HalfSpeedDoubleHealth, count = 1 },
                 new ItemCountPair { itemDef = RoR2Content.Items.BoostAttackSpeed, count = 1 },
                 new ItemCountPair { itemDef = RoR2Content.Items.Hoof, count = 1 },
-                new ItemCountPair { itemDef = RoR2Content.Items.SecondarySkillMagazine, count = 6 },
+                new ItemCountPair { itemDef = RoR2Content.Items.SecondarySkillMagazine, count = 1 },
                 new ItemCountPair { itemDef = RoR2Content.Items.AlienHead, count = 0 },
                 new ItemCountPair { itemDef = ItemHelpers.ITDamageDownMult, count = 20 },
             };
@@ -121,18 +144,19 @@ namespace SimulacrumAdditions
             CharacterSpawnCard cscITBossGhostRoboBallBoss = ScriptableObject.CreateInstance<CharacterSpawnCard>();
             cscITBossGhostRoboBallBoss.prefab = LegacyResourcesAPI.Load<CharacterSpawnCard>("SpawnCards/CharacterSpawnCards/cscSuperRoboBallBoss").prefab;
             cscITBossGhostRoboBallBoss.name = "cscITBossGhostRoboBallBoss";
+            cscITBossGhostRoboBallBoss.nodeGraphType = RoR2.Navigation.MapNodeGroup.GraphType.Air;
             cscITBossGhostRoboBallBoss.itemsToGrant = new ItemCountPair[] {
                 new ItemCountPair { itemDef = RoR2Content.Items.Ghost, count = 1 },
                 new ItemCountPair { itemDef = RoR2Content.Items.TeleportWhenOob, count = 1 },
                 new ItemCountPair { itemDef = ItemHelpers.ITKillOnCompletion, count = 5 },
                 new ItemCountPair { itemDef = ItemHelpers.ITHorrorName, count = 1 },
                 new ItemCountPair { itemDef = ItemHelpers.ITCooldownUp, count = 5 },
-                new ItemCountPair { itemDef = DLC1Content.Items.CritGlassesVoid, count = 20 },
+                new ItemCountPair { itemDef = DLC1Content.Items.CritGlassesVoid, count = 1 },
 
                 //new ItemCountPair { itemDef = RoR2Content.Items.AlienHead, count = 0 },
                 //new ItemCountPair { itemDef = RoR2Content.Items.Hoof, count = 0 },
                 new ItemCountPair { itemDef = ItemHelpers.ITAttackSpeedDownMult, count = 30 },
-                new ItemCountPair { itemDef = ItemHelpers.ITDamageDownMult, count = 50 },
+                new ItemCountPair { itemDef = ItemHelpers.ITDamageDownMult, count = 35 },
             };
 
             CharacterSpawnCard cscITBossGhostGrandparent = ScriptableObject.CreateInstance<CharacterSpawnCard>();
@@ -143,7 +167,7 @@ namespace SimulacrumAdditions
                 //new ItemCountPair { itemDef = RoR2Content.Items.TeleportWhenOob, count = 1 },
                 new ItemCountPair { itemDef = ItemHelpers.ITKillOnCompletion, count = 4 },
                 new ItemCountPair { itemDef = ItemHelpers.ITHorrorName, count = 1 },
-                new ItemCountPair { itemDef = DLC1Content.Items.CritGlassesVoid, count = 20 },
+                new ItemCountPair { itemDef = DLC1Content.Items.CritGlassesVoid, count = 1 },
 
                 new ItemCountPair { itemDef = ItemHelpers.ITAttackSpeedDownMult, count = 10 },
                 new ItemCountPair { itemDef = RoR2Content.Items.LunarBadLuck, count = 1 },
@@ -165,17 +189,18 @@ namespace SimulacrumAdditions
             CharacterSpawnCard cscITBossGhostVagrant = ScriptableObject.CreateInstance<CharacterSpawnCard>();
             cscITBossGhostVagrant.prefab = LegacyResourcesAPI.Load<CharacterSpawnCard>("SpawnCards/CharacterSpawnCards/cscVagrant").prefab;
             cscITBossGhostVagrant.name = "cscITBossGhostVagrant";
+            cscITBossGhostVagrant.nodeGraphType = RoR2.Navigation.MapNodeGroup.GraphType.Air;
             cscITBossGhostVagrant.itemsToGrant = new ItemCountPair[] {
                 new ItemCountPair { itemDef = RoR2Content.Items.Ghost, count = 1 },
                 new ItemCountPair { itemDef = RoR2Content.Items.TeleportWhenOob, count = 1 },
                 new ItemCountPair { itemDef = ItemHelpers.ITKillOnCompletion, count = 4 },
                 new ItemCountPair { itemDef = ItemHelpers.ITHorrorName, count = 1 },
-                new ItemCountPair { itemDef = DLC1Content.Items.CritGlassesVoid, count = 20 },
+                new ItemCountPair { itemDef = DLC1Content.Items.CritGlassesVoid, count = 1 },
 
                 new ItemCountPair { itemDef = RoR2Content.Items.Hoof, count = 2 },
                 //new ItemCountPair { itemDef = RoR2Content.Items.LunarBadLuck, count = 1 },
                 new ItemCountPair { itemDef = ItemHelpers.ITAttackSpeedDownMult, count = 30 },
-                new ItemCountPair { itemDef = ItemHelpers.ITDamageDownMult, count = 40 },
+                new ItemCountPair { itemDef = ItemHelpers.ITDamageDownMult, count = 35 },
                 new ItemCountPair { itemDef = RoR2Content.Items.SecondarySkillMagazine, count = 3 },
             };
 
@@ -229,14 +254,14 @@ namespace SimulacrumAdditions
             CharacterSpawnCard cscEquipmentDroneITFireBallDash = Object.Instantiate(cscEquipmentDroneIT);
             cscEquipmentDroneITFireBallDash.name = "cscEquipmentDroneITFireBallDash";
             cscEquipmentDroneITFireBallDash.equipmentToGrant = new EquipmentDef[] { RoR2Content.Equipment.FireBallDash };
-            cscEquipmentDroneITFireBallDash.itemsToGrant[0].count = 25;
+            cscEquipmentDroneITFireBallDash.itemsToGrant[0].count = 20;
             cscEquipmentDroneITFireBallDash.itemsToGrant[1].count = 97;
             cscEquipmentDroneITFireBallDash.itemsToGrant[5].count = 2;
 
             CharacterSpawnCard cscEquipmentDroneITTeamWarCry = Object.Instantiate(cscEquipmentDroneIT);
             cscEquipmentDroneITTeamWarCry.name = "cscEquipmentDroneITTeamWarCry";
             cscEquipmentDroneITTeamWarCry.equipmentToGrant = new EquipmentDef[] { RoR2Content.Equipment.TeamWarCry };
-            cscEquipmentDroneITTeamWarCry.itemsToGrant[0].count = 15;
+            cscEquipmentDroneITTeamWarCry.itemsToGrant[0].count = 12;
 
             CharacterSpawnCard cscEquipmentDroneITVendingMachine = Object.Instantiate(cscEquipmentDroneIT);
             cscEquipmentDroneITVendingMachine.name = "cscEquipmentDroneITVendingMachine";
@@ -247,7 +272,7 @@ namespace SimulacrumAdditions
             CharacterSpawnCard cscEquipmentDroneITMeteor = Object.Instantiate(cscEquipmentDroneIT);
             cscEquipmentDroneITMeteor.name = "cscEquipmentDroneITMeteor";
             cscEquipmentDroneITMeteor.equipmentToGrant = new EquipmentDef[] { RoR2Content.Equipment.Meteor };
-            cscEquipmentDroneITMeteor.itemsToGrant[0].count = 15;
+            cscEquipmentDroneITMeteor.itemsToGrant[0].count = 10;
             cscEquipmentDroneITMeteor.itemsToGrant[1].count = 35;
             cscEquipmentDroneITMeteor.itemsToGrant[4].count = 1;
             cscEquipmentDroneITMeteor.itemsToGrant[4].itemDef = RoR2Content.Items.ShieldOnly;
@@ -255,7 +280,7 @@ namespace SimulacrumAdditions
             CharacterSpawnCard cscEquipmentDroneITCrippleWard = Object.Instantiate(cscEquipmentDroneIT);
             cscEquipmentDroneITCrippleWard.name = "cscEquipmentDroneITCrippleWard";
             cscEquipmentDroneITCrippleWard.equipmentToGrant = new EquipmentDef[] { RoR2Content.Equipment.CrippleWard };
-            cscEquipmentDroneITCrippleWard.itemsToGrant[0].count = 15;
+            cscEquipmentDroneITCrippleWard.itemsToGrant[0].count = 12;
             cscEquipmentDroneITCrippleWard.itemsToGrant[4].count = 1;
             cscEquipmentDroneITCrippleWard.itemsToGrant[4].itemDef = RoR2Content.Items.ShieldOnly;
 
