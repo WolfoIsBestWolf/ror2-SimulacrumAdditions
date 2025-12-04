@@ -20,7 +20,7 @@ namespace SimulacrumAdditions.Waves
 
             InfiniteTowerWaveSulfurPods.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITWaveTier1;
             InfiniteTowerWaveSulfurPods.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
-            InfiniteTowerWaveSulfurPods.GetComponent<InfiniteTowerWaveController>().baseCredits = 160;
+            //InfiniteTowerWaveSulfurPods.GetComponent<InfiniteTowerWaveController>().baseCredits = 159;
             InfiniteTowerWaveSulfurPods.GetComponent<InfiniteTowerWaveController>().wavePeriodSeconds += 5;
 
             InteractableSpawnCard cscITSulfurPod = ScriptableObject.CreateInstance<InteractableSpawnCard>();
@@ -37,7 +37,7 @@ namespace SimulacrumAdditions.Waves
             SimulacrumInteractablesWaveHelper waveHelper = InfiniteTowerWaveSulfurPods.AddComponent<SimulacrumInteractablesWaveHelper>();
             waveHelper.spawnCard = cscITSulfurPod;
             waveHelper.interval = 1f;
-            waveHelper.spawnsOnStart = 7;
+            //waveHelper.spawnsOnStart = 7;
 
             InfiniteTowerWaveSulfurPods.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWaveSulfurPodsUI;
             InfiniteTowerWaveSulfurPodsUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_SULFURPODS";
@@ -47,16 +47,16 @@ namespace SimulacrumAdditions.Waves
             InfiniteTowerWaveSulfurPodsUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().color = new Color(0.7882f, 0.949f, 0.302f, 1);
             InfiniteTowerWaveSulfurPodsUI.transform.GetChild(0).GetChild(2).GetComponent<Image>().color = new Color(0.7882f, 0.949f, 0.302f, 2) * 0.8f;
 
-            InfiniteTowerWaveCategory.WeightedWave ITSulfurPods = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveSulfurPods, weight = 2f, prerequisites = Constant.AfterWave5Prerequisite };
+            InfiniteTowerWaveCategory.WeightedWave ITSulfurPods = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveSulfurPods, weight = 1f, prerequisites = Constant.AfterWave5Prerequisite };
             Constant.ITBasicWaves.wavePrefabs = Constant.ITBasicWaves.wavePrefabs.Add(ITSulfurPods);
             //
             GameObject InfiniteTowerWaveTarPots = PrefabAPI.InstantiateClone(Constant.BasicWave, "InfiniteTowerWaveTarPots", true);
             GameObject InfiniteTowerWaveTarPotsUI = PrefabAPI.InstantiateClone(Constant.LunarWaveUI, "InfiniteTowerWaveTarPotsUI", false);
 
-            InfiniteTowerWaveTarPots.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITWaveTier1;
-            InfiniteTowerWaveTarPots.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
-            InfiniteTowerWaveTarPots.GetComponent<InfiniteTowerWaveController>().baseCredits = 160;
-            InfiniteTowerWaveTarPots.GetComponent<InfiniteTowerWaveController>().wavePeriodSeconds += 5;
+			//InfiniteTowerWaveTarPots.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITWaveTier1;
+			//InfiniteTowerWaveTarPots.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
+			//InfiniteTowerWaveTarPots.GetComponent<InfiniteTowerWaveController>().baseCredits = 159;
+			InfiniteTowerWaveTarPots.GetComponent<InfiniteTowerWaveController>().wavePeriodSeconds += 5;
 
             InteractableSpawnCard cscITTarPot = ScriptableObject.CreateInstance<InteractableSpawnCard>();
             cscITTarPot.name = "cscITTarPot";
@@ -79,7 +79,7 @@ namespace SimulacrumAdditions.Waves
             InfiniteTowerWaveTarPotsUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().color = new Color(0.2f, 0.0902f, 0.0902f, 1) * 2;
             InfiniteTowerWaveTarPotsUI.transform.GetChild(0).GetChild(2).GetComponent<Image>().color = new Color(0.2f, 0.0902f, 0.0902f, 1);
 
-            InfiniteTowerWaveCategory.WeightedWave ITTarPots = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveTarPots, weight = 2f, prerequisites = Constant.AfterWave5Prerequisite };
+            InfiniteTowerWaveCategory.WeightedWave ITTarPots = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveTarPots, weight = 1f, prerequisites = Constant.AfterWave5Prerequisite };
             Constant.ITBasicWaves.wavePrefabs = Constant.ITBasicWaves.wavePrefabs.Add(ITTarPots);
         }
 

@@ -1,0 +1,42 @@
+{
+	"strings":
+	{      
+	
+			"INFINITETOWER_SUDDEN_DEATH": "<style=cWorldEvent>[ПРЕДУПРЕЖДЕНИЕ] Фокус начинает ослабевать..</style>",
+            "INFINITETOWER_OBJECTIVE_AWAITINGACTIVATION": "Активируйте <style=cIsVoid>Фокус</style>",
+            "INFINITETOWER_OBJECTIVE_TRAVEL": "Следуйте за <style=cIsVoid>Фокусом</style>",
+            "INFINITETOWER_OBJECTIVE_PORTAL": "Пройдите через <style=cIsVoid>Бесконечный Порта</style>",
+ 
+ 
+            "INFINITETOWER_OBJECTIVE_AWAITING_TRAVEL": "Ожидание разрешения на перемещение.",
+            "INFINITETOWER_TRAVEL_NOTICE": "<style=cWorldEvent>Фокус ожидает ввода для дальнейшего перемещения.</style>",
+            "INFINITETOWER_TRAVEL_CONTEXT": "Начать перемещение",
+ 
+			"PORTAL_ITEND_NAME": "Симулированный Выходной Разлом",
+			"PORTAL_ITEND_CONTEXT": "Завершить Симуляцию?",
+			"OBJECTIVE_ITEND": "Продолжить или завершить <style=cIsVoid>Симуляцию</style>",
+           
+		   
+		    "ARTIFACT_AUGMENTS_NAME": "Артефакт Усилений",
+			"ARTIFACT_AUGMENTS_DESCRIPTION": "Все волны будут усиленными.",
+		   
+		    "ARTIFACT_NORMALSTAGES_NAME": "Артефакт Реальности",
+			"ARTIFACT_NORMALSTAGES_DESCRIPTION": "Бездные версии любых локаций могут использоваться вместо вариантов локаций Симулякра.",
+		   
+		   
+		   
+			"HORROR_BODY_NAME": "Неизвестный Ужас",
+		   
+		   
+			"GIANTGUP_BODY_NAME": "Гуап",
+			"UNLOCKABLE_LOG_GIANTGUP": "Запись монстра: Гуап",
+			 
+			"SUPERMEGACRAB_BODY_NAME": "Глубинный Опустошитель Бездны",
+			"UNLOCKABLE_LOG_SUPERMEGACRAB": "Запись монстра: Глубинный Опустошитель Бездны",
+
+			"COST_VOIDCOINBLOOD_FORMAT": "<color=#FF349F><sprite name=\"Пустотная монета\" tint=1>1 или <color=#DA1D1D>{0}% ОЗ</color></color>",
+            
+
+		
+	}
+}

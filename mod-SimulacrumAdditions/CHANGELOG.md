@@ -1,5 +1,8 @@
 ## Changelog:
 ```
+v2.6.2
+Added Russian translation thanks to 'coldeib' on Discord.
+
 v2.6.1
 Fixed VoidCoin or Blood cost type being broken from update.
 

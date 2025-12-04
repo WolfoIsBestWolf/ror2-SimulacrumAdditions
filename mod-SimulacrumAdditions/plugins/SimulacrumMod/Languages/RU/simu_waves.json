@@ -1,0 +1,375 @@
+{
+	"strings":
+	{      
+	
+		"INFINITETOWER_WAVE_DESCRIPTION_BOSS_BROTHER": "Победите Короля Пустоты.",
+		"INFINITETOWER_WAVE_DESCRIPTION_BOSS_SCAV": "Попробуйте своё же лекарство.",
+		
+		
+		"ITWAVE_DESC_BASIC_ENIGMA": "Ваше снаряжение меняется при каждой активации.",
+		"ITWAVE_DESC_BASIC_KIN": "Монстры будут только одного типа.",
+		
+		
+		
+		"ITWAVE_NAME_BASIC_EVOLUTION": "Волна {0} - Усиление Эволюции",
+		"ITWAVE_DESC_BASIC_EVOLUTION": "У монстров в этой волне есть дополнительные предметы.",
+		
+		"ITWAVE_NAME_BASIC_SACRIFICE": "Волна {0} - Усиление Жертвы",
+		"ITWAVE_DESC_BASIC_SACRIFICE": "Из монстров после смерти выпадают предметы.",
+		
+		"ITWAVE_NAME_BASIC_METAMORPH": "Волна {0} - Усиление Изменения",
+		"ITWAVE_DESC_BASIC_METAMORPH": "Играйте за случайного выжившего в этой волне.",
+		
+		"ITWAVE_NAME_BASIC_HONOR": "Волна {0} - Усиление Чести",
+		"ITWAVE_DESC_BASIC_HONOR": "Будут появляться только элитные враги.",
+		
+		"ITWAVE_NAME_BASIC_SWARMS": "Волна {0} - Усиление Роя",
+		
+		"ITWAVE_NAME_BASIC_HONORBRIGADE": "Волна {0} - Усиление Бригады и Чести",
+		"ITWAVE_DESC_BASIC_HONORBRIGADE": "Все враги элитные и одного элитного типа.",
+		
+		"ITWAVE_NAME_BASIC_DEVOTION": "Волна {0} - Усиление Преданности",
+		"ITWAVE_DESC_BASIC_DEVOTION": "Появляются лемурианские яйца.",
+		
+		"ITWAVE_NAME_BASIC_DELUSION": "Волна {0} - Усиление Заблуждения",
+		"ITWAVE_DESC_BASIC_DELUSION": "Рискните своими предметами на ранее открытых сундуках в испытании памяти",
+		
+		"ITWAVE_NAME_BOSS_HONOR": "Волна с боссом {0} - Усиление Чести",
+		"ITWAVE_DESC_BOSS_HONOR": "Враги сильнее и гарантированно элитные.",
+
+		"ITWAVE_NAME_BOSS_VENGENCE": "Волна с боссом {0} - Усиление Возмездия",
+		"ITWAVE_DESC_BOSS_VENGENCE": "Ваш безжалостный двойник вторгается.",
+		
+		"ITWAVE_NAME_BOSS_KIN": "Волна с боссом {0} - Усиление Роя",
+		"ITWAVE_DESC_BOSS_KIN": "Победите орду из одинаковых монстров.",
+		
+		"ITWAVE_NAME_BOSS_DISSONANCE": "Волна с боссом {0} - Усиление Разлада",
+		"ITWAVE_DESC_BOSS_DISSONANCE": "Враги сильнее и появляются вне привычных мест обитания.",
+		
+		"ITWAVE_NAME_BOSS_DISSOFAKE": "Волна с боссом {0} - Усиление Истинного Разлада",
+		"ITWAVE_DESC_BOSS_DISSOFAKE": "Все враги могут появляться.",
+		
+		"ITWAVE_NAME_BOSS_ARTIFACTS": "Волна с боссом {0} - Усиление Артефактов",
+		"ITWAVE_DESC_BOSS_ARTIFACTS": "2 случайных артефакта активны.",
+		
+		"ITWAVE_NAME_BASIC_VOIDBEAR": "Волна {0} - Усиление Безопасности",
+		"ITWAVE_DESC_BASIC_VOIDBEAR": "Враги блокируют первые несколько попаданий.",
+		
+		"ITWAVE_NAME_BASIC_BLIND": "Волна {0} - Усиление Слепоты",
+		"ITWAVE_DESC_BASIC_BLIND": "Становится трудно видеть.",
+
+		"ITWAVE_NAME_BASIC_SLIPPERY": "Волна {0} - Усиление Трения",
+		"ITWAVE_DESC_BASIC_SLIPPERY": "Земля становится скользкой.",
+
+		"ITWAVE_NAME_BASIC_BADLUCK": "Волна {0} - Усиление Неудачи",
+		"ITWAVE_DESC_BASIC_BADLUCK": "Ваша удача уменьшена на текущую волну.",
+
+		"ITWAVE_NAME_BASIC_NOCOOLDOWN": "Волна {0} - Усиление Безумия",
+		"ITWAVE_DESC_BASIC_NOCOOLDOWN": "Умения не имеют времени перезарядки.",
+
+		"ITWAVE_NAME_BASIC_TONIC": "Волна {0} - Усиление Тоника",
+		"ITWAVE_DESC_BASIC_TONIC": "У монстров кратковременное усиление характеристик, после которого они ослабевают.",
+
+		"ITWAVE_NAME_BOSS_LEECH": "Усиление {0} - Усиление Вампира",
+		"ITWAVE_DESC_BOSS_LEECH": "Монстры исцеляются при ударе и имеют увеличенное исцеление.",
+
+
+
+		"ITWAVE_NAME_BASIC_SULFURPODS": "Волна {0} - Усиление Серы",
+		"ITWAVE_DESC_BASIC_SULFURPODS": "Серные коконы продолжают расти.",
+		
+		"ITWAVE_NAME_BASIC_TARPOTS": "Волна {0} - Усиление Смолы",
+		"ITWAVE_DESC_BASIC_TARPOTS": "Идёт дождь из горшков со смолой.",
+		
+		
+		
+		"ITWAVE_NAME_BASIC_LUNARELITE": "Волна {0} - Усиление Совершенства",
+		"ITWAVE_DESC_BASIC_LUNARELITE": "Элиты появляются как Совершенные.",
+		
+		"ITWAVE_NAME_BASIC_VOIDELITE": "Волна {0} - Усиление Коллапса",
+		"ITWAVE_DESC_BASIC_VOIDELITE": "Элиты появляются как затронутые пустотой.",
+		
+		"ITWAVE_NAME_BOSS_LUNARVOIDELITE_PRECOLOR": "Волна {0} - Босс-Усиление Двойственности",
+		"ITWAVE_NAME_BOSS_LUNARVOIDELITE": "<color=#6EB5F5>Волна {0}</color><color=#8CA9EB> - Босс</color><color=#AB9DE1>-Усиле</color><color=#CA92D7>ние Дв</color><color=#E987CE>ойственности</color>",
+		"ITWAVE_DESC_BOSS_LUNARVOIDELITE": "Элиты появляются как Совершенные или затронутые пустотой.",
+		
+		
+		
+		"ITWAVE_NAME_BASIC_FLYING": "Волна {0} - Усиление Полёта",
+		"ITWAVE_DESC_BASIC_FLYING": "Все враги получают способность к полёту.",
+	
+		"ITWAVE_NAME_BASIC_MALACHITE": "Волна {0} - Усиление Малахита",
+		"ITWAVE_DESC_BASIC_MALACHITE": "Все враги появляются как ослабленные Малахиты.",
+	
+		"ITWAVE_NAME_BASIC_BATTERY": "Волна {0} - Усиление Батареи",
+		"ITWAVE_DESC_BASIC_BATTERY": "Неправильное хранение может причинить серьёзный вред.",
+	
+		"ITWAVE_NAME_BASIC_GOOBO": "Волна {0} - Усиление Клона",
+		"ITWAVE_DESC_BASIC_GOOBO": "Монстры создают клонов.",
+	
+
+	
+		"ITWAVE_NAME_BASIC_FAMILY_BEETLE": "Волна {0} - Усиление Жука",
+		"ITWAVE_DESC_BASIC_FAMILY_BEETLE": "Земля начинает сдвигаться под вами.",
+		
+		"ITWAVE_NAME_BASIC_FAMILY_GOLEM": "Волна {0} - Усиление Земли",
+		"ITWAVE_DESC_BASIC_FAMILY_GOLEM": "Земля дрожит и стонет.",
+		
+		"ITWAVE_NAME_BASIC_FAMILY_JELLYFISH": "Волна {0} - Усиление Медузы",
+		"ITWAVE_DESC_BASIC_FAMILY_JELLYFISH": "Воздух трещит и искрится.",
+		
+		"ITWAVE_NAME_BASIC_FAMILY_WISP": "Волна {0} - Усиление Сгустка",
+		"ITWAVE_DESC_BASIC_FAMILY_WISP": "Воздух начинает гореть.",
+		
+		"ITWAVE_NAME_BASIC_FAMILY_LEMURIAN": "Волна {0} - Усиление Лемурианца",
+		"ITWAVE_DESC_BASIC_FAMILY_LEMURIAN": "Температура земли начинает повышаться.",
+		
+		"ITWAVE_NAME_BASIC_FAMILY_IMP": "Волна {0} - Усиление Импа",
+		"ITWAVE_DESC_BASIC_FAMILY_IMP": "Разрыв в ткани вселенной.",
+		
+		"ITWAVE_NAME_BASIC_FAMILY_GUP": "Волна {0} - Усиление Гипа",
+		"ITWAVE_DESC_BASIC_FAMILY_GUP": "Воздух пахнет сладкой клубникой.",
+		
+		"ITWAVE_NAME_BASIC_FAMILY_CONSTRUCT": "Волна {0} - Усиление Конструкции",
+		"ITWAVE_DESC_BASIC_FAMILY_CONSTRUCT": "Вы активировали древнюю сигнализацию.",
+		
+		"ITWAVE_NAME_BASIC_FAMILY_PARENT": "Волна {0} - Усиление Родительства",
+		"ITWAVE_DESC_BASIC_FAMILY_PARENT": "Родственная связь прерывается.",
+		
+		"ITWAVE_NAME_BASIC_FAMILY_LARVA": "Волна {0} - Усиление Личинки",
+		"ITWAVE_DESC_BASIC_FAMILY_LARVA": "Воздух отвратительно пахнет.",
+		
+		"ITWAVE_NAME_BASIC_FAMILY_MUSHROOM": "Волна {0} - Усиление Грибов",
+		"ITWAVE_DESC_BASIC_FAMILY_MUSHROOM": "Земля становится болезненной.",
+		
+		"ITWAVE_NAME_BASIC_FAMILY_LUNAR": "Волна {0} - Усиление Луны",
+		"ITWAVE_DESC_BASIC_FAMILY_LUNAR": "Бастион начинает ослабевать.",
+		
+		"ITWAVE_NAME_BASIC_FAMILY_VOID": "Волна {0} - Усиление Пустоты",
+		"ITWAVE_DESC_BASIC_FAMILY_VOID": "Пустота заинтересовалась.",
+		
+		"ITWAVE_NAME_BASIC_FAMILY_CLAY": "Волна {0} - Усиление Глины",
+		"ITWAVE_DESC_BASIC_FAMILY_CLAY": "Вы чувствуете паразитическое влияние.",
+		
+		"ITWAVE_NAME_BASIC_FAMILY_SOLUS": "Волна {0} - Усиление Солуса Икс",
+		"ITWAVE_DESC_BASIC_FAMILY_SOLUS": "Жужжание крыльев и механизмов.",
+		
+		"ITWAVE_NAME_BASIC_FAMILY_VERMIN": "Волна {0} - Усиление Паразита",
+		"ITWAVE_DESC_BASIC_FAMILY_VERMIN": "Вы вторглись на бурно размножающиеся территории.",
+		
+		"ITWAVE_NAME_BOSS_FAMILY_WORM": "Волна с боссом {0} - Усиление Червей",
+		"ITWAVE_DESC_BOSS_FAMILY_WORM": "Его брат любил червей.",
+		
+		"ITWAVE_NAME_BOSS_FAMILY_BOSS": "Волна с боссом {0} - Усиление Чемпионов",
+		"ITWAVE_DESC_BOSS_FAMILY_BOSS": "Появляются только босс-монстры.",
+		
+		"ITWAVE_NAME_BOSS_FAMILY_DRONES": "Волна с боссом {0} - Усиление Машин",
+		"ITWAVE_DESC_BOSS_FAMILY_DRONES": "Дроны и машины сражаются против вас.",
+		
+		
+		
+		"ITWAVE_NAME_BASIC_DEATHLUNAR": "Волна {0} - Усиление Пламени",
+		"ITWAVE_DESC_BASIC_DEATHLUNAR": "Земля покрывается лунным огнём.",
+		
+		"ITWAVE_NAME_BASIC_DEATHVOID": "Волна {0} - Усиление Имплозии",
+		"ITWAVE_DESC_BASIC_DEATHVOID": "Происходят бесконечные имплозии пустоты.",
+		
+		"ITWAVE_NAME_BASIC_DEATHHEALING": "Волна {0} - Усиление Исцеления",
+		"ITWAVE_DESC_BASIC_DEATHHEALING": "Появляются бесконечные ядра исцеления.",
+		
+		"ITWAVE_NAME_BASIC_DEATHICE": "Волна {0} - Усиление Льда",
+		"ITWAVE_DESC_BASIC_DEATHICE": "Происходят бесконечные ледяные удары.",
+		
+
+ 		"ITWAVE_NAME_BASIC_MANYITEMS": "Волна {0} - Усиление Накопительства",
+		"ITWAVE_DESC_BASIC_MANYITEMS": "Монстры получают больше стаков предметов.",
+
+ 		"ITWAVE_NAME_BASIC_HERESY": "Волна {0} - Усиление Ереси",
+		"ITWAVE_DESC_BASIC_HERESY": "Враги получают предметы ереси на эту волну.",
+		"ITWAVE_HERESY_ANNOUNCE_EYE": "<style=cWorldEvent>[ПРЕДУПРЕЖДЕНИЕ] Запуск теста с <color=#307FFF>Видениями Ереси</color></style>",
+		"ITWAVE_HERESY_ANNOUNCE_ARM": "<style=cWorldEvent>[ПРЕДУПРЕЖДЕНИЕ] Запуск теста с <color=#307FFF>Крюками и Распространением Ереси</color></style>",
+
+
+ 		"ITWAVE_NAME_BASIC_COFFEE": "Волна {0} - Усиление Кофеина",
+		"ITWAVE_DESC_BASIC_COFFEE": "Враги имеют увеличенную скорость передвижения и атаки.",
+		
+ 		"ITWAVE_NAME_BASIC_KNOCKBACKFIN": "Волна {0} - Усиление Отбрасывания",
+		"ITWAVE_DESC_BASIC_KNOCKBACKFIN": "Попадания подбрасывают всё в воздух.",
+
+ 		"ITWAVE_NAME_BASIC_LEPTON": "Волна {0} - Усиление Цветов",
+		"ITWAVE_DESC_BASIC_LEPTON": "Появление монстров может выпускать ауру исцеления.",
+
+ 		"ITWAVE_NAME_BOSS_BEHEMOTH": "Волна с боссом {0} - Усиление Нестабильности",
+		"ITWAVE_DESC_BOSS_BEHEMOTH": "Атаки врагов вызывают взрывы.",
+
+ 		"ITWAVE_NAME_BOSS_PEARL": "Волна с боссом {0} - Усиление Сияния",
+		"ITWAVE_DESC_BOSS_PEARL": "Все характеристики врагов увеличены.",
+
+	
+	
+	
+		"ITWAVE_NAME_BASIC_BOUNCY": "Волна {0} - Усиление Прыгучести",
+		"ITWAVE_DESC_BASIC_BOUNCY": "Все постоянно прыгают.",
+		
+		"ITWAVE_NAME_BASIC_ALLCREDITS": "Волна {0} - Усиление Сюрприза",
+		"ITWAVE_DESC_BASIC_ALLCREDITS": "Все враги появляются мгновенно.",
+		
+ 		"ITWAVE_NAME_BOSS_INFESTORS": "Волна с боссом {0} - Усиление Заражения",
+		"ITWAVE_DESC_BOSS_INFESTORS": "Собирается рой заражённых пустотой.",
+		
+		"ITWAVE_NAME_BOSS_MOUNTAIN": "Волна с боссом {0} - Усиление Горы",
+		"ITWAVE_DESC_BOSS_MOUNTAIN": "Победите вдвое больше врагов для удвоенной награды.",
+		
+		"ITWAVE_NAME_BOSS_FLAMEDRONES": "Волна с боссом {0} - Усиление Пламени",
+		"ITWAVE_DESC_BOSS_FLAMEDRONES": "Дроны-поджигатели сражаются вместе с монстрами.",
+		
+		"ITWAVE_NAME_BOSS_ECLIPSE8": "Волна с боссом {0} - Усиление Затмения",
+		"ITWAVE_DESC_BOSS_ECLIPSE8": "Все модификаторы затмения 8 активны.",
+	
+
+
+	
+		"ITWAVE_NAME_BASIC_PULSE_LUNAR": "Волна {0} - Усиление Дизайна",
+		"ITWAVE_DESC_BASIC_PULSE_LUNAR": "Испускается изнуряющий импульс.",
+	
+		"ITWAVE_NAME_BASIC_PULSE_VOID": "Волна {0} - Усиление Пустоты",
+		"ITWAVE_DESC_BASIC_PULSE_VOID": "Обнуление наземных субъектов.",
+	
+		"ITWAVE_NAME_BASIC_PULSE_MALACHITE": "Волна {0} - Усиление Малахита",
+		"ITWAVE_DESC_BASIC_PULSE_MALACHITE": "Ваше исцеление будет отключено при импульсе.",
+	
+		"ITWAVE_NAME_BASIC_PULSE_BIGSUCK": "Волна {0} - Усиление Притяжения",
+		"ITWAVE_DESC_BASIC_PULSE_BIGSUCK": "Наземные субъекты притягиваются внутрь.",
+	
+
+
+
+		"ITWAVE_NAME_BASIC_BIG": "Волна {0} - Усиление Гигантизма",
+		"ITWAVE_DESC_BASIC_BIG": "Враги больше по размеру.",
+		
+		"ITWAVE_NAME_BASIC_SMALL": "Волна {0} - Усиление Малости",
+		"ITWAVE_DESC_BASIC_SMALL": "Враги крошечные.",
+
+
+
+
+		"ITWAVE_NAME_BASIC_EQUIPMENTDRONE": "Волна {0} - Усиление Дрона Снаряжения",
+		"ITWAVE_DESC_BASIC_EQUIPMENTDRONE": "Дрон снаряжения был выпущен из фокуса.",
+
+		"ITWAVE_NAME_BOSS_EQUIPMENTDRONE": "Волна с боссом {0} - Усиление Дронов Снаряжения",
+		"ITWAVE_DESC_BOSS_EQUIPMENTDRONE": "Несколько дронов снаряжения были выпущены из фокуса.",	
+		"ITWAVE_EQUIPMENTDRONE_ANNOUNCE": "<style=cWorldEvent>[ПРЕДУПРЕЖДЕНИЕ] Запуск теста с {0}</style>",
+		
+
+
+		"ITWAVE_NAME_BASIC_GHOST": "Волна {0} - Усиление Призрачности",
+		"ITWAVE_DESC_BASIC_GHOST": "За вами следует неизвестный ужас.",
+
+		"ITWAVE_NAME_BOSS_GHOST": "Волна с боссом {0} - Усиление Призрачности",
+		"ITWAVE_DESC_BOSS_GHOST": "За вами следует сильный неизвестный ужас.",
+		
+		"ITWAVE_NAME_BASIC_BROTHERHAUNT": "Волна {0} - Усиление Детонации",
+		"ITWAVE_DESC_BASIC_BROTHERHAUNT": "Планета становится нестабильной.",
+		
+		"ITWAVE_NAME_BOSS_ACRID": "Волна с боссом {0} - Усиление Прорыва Клетки",
+		"ITWAVE_DESC_BOSS_ACRID": "Субъект симулирован, всё под контролем.",
+		
+		"ITWAVE_NAME_BASIC_CELESTIAL": "Волна {0} - Усиление Невидимости",
+		"ITWAVE_DESC_BASIC_CELESTIAL": "Враги невидимы внутри сферы.",
+		
+		"ITWAVE_NAME_BASIC_VAGRANTNOVA": "Волна {0} - Усиление Новы",
+		"ITWAVE_DESC_BASIC_VAGRANTNOVA": "Периодически происходит нова.",
+		
+		"ITWAVE_NAME_BASIC_ARTIFACTBALL": "Волна {0} - Усиление Реликвария",
+		"ITWAVE_DESC_BASIC_ARTIFACTBALL": "Реликварий обрушивает выстрелы.",
+		
+		"ITWAVE_NAME_BOSS_HALCYONITE": "Волна с боссом {0} - Усиление Безмятежницы",
+		"ITWAVE_DESC_BOSS_HALCYONITE": "Победите Безмятежницу в дополнении к волне.",
+		
+
+		"ITWAVE_NAME_BOSS_SCAVLUNAR": "Волна {0} - Босс-Усиление Искажённого Собирателя",
+		"ITWAVE_DESC_BOSS_SCAVLUNAR": "Победите Искажённого Собирателя.",
+
+		"ITWAVE_NAME_BOSS_VOIDLING": "Волна с боссом {0} - Усиление 「Пустоты」",
+		"ITWAVE_DESC_BOSS_VOIDLING": "П?об?едите「Провидца Глубин」",
+
+		"ITWAVE_NAME_BOSS_TITANGOLD": "Волна с боссом {0} - Усиление Аурелионита",
+		"ITWAVE_DESC_BOSS_TITANGOLD": "Победите Титанического Златоткача.",
+
+		"ITWAVE_NAME_BOSS_FALSESON": "Волна с боссом {0} - Усиление Ложного Сына",
+		"ITWAVE_DESC_BOSS_FALSESON": "Победите пародию на высшее существо.",
+
+		"ITWAVE_NAME_BOSS_SUPERBALL": "Волна с боссом {0} - Усиление Модуля восхищения сплавами",
+		"ITWAVE_DESC_BOSS_SUPERBALL": "Победите Друга Стервятников.",
+
+
+
+		"ITWAVE_NAME_BOSS_GIANTGUP": "Волна с боссом {0} - Усиление Гиганта",
+		"ITWAVE_DESC_BOSS_GIANTGUP": "Боже мой.",
+
+		"ITWAVE_NAME_BOSS_SUPERCRAB": "Волна с боссом {0} - Усиление Разбойника Пустоты",
+		"ITWAVE_DESC_BOSS_SUPERCRAB": "Сразитесь с Разбойником Пустоты.",
+
+
+
+
+		"MOD_ITWAVE_NAME_BOSS_DIRESEEKER": "Волна с боссом {0} - Усиление Ужасоискателя",
+		"MOD_ITWAVE_DESC_BOSS_DIRESEEKER": "Выследить и Убить.",
+
+		"SS2_ITWAVE_NAME_BASIC_RAINBOWELITE": "Волна {0} - Усиление Эмпирея",
+		"SS2_ITWAVE_DESC_BASIC_RAINBOWELITE": "Мощные энергии гармонизировались.",
+
+ 		"SS2_ITWAVE_NAME_BASIC_COGNATION": "Волна {0} - Усиление Познания",
+		"SS2_ITWAVE_DESC_BASIC_COGNATION": "Враги оставляют после себя временные копии при смерти.",
+
+ 		"MOD_ITWAVE_NAME_BASIC_TOSSING": "Волна {0} - Усиление Бросания",
+		"MOD_ITWAVE_DESC_BASIC_TOSSING": "Игроки могут выбрасывать и утилизировать свои предметы.",
+
+ 		"MOD_ITWAVE_NAME_BASIC_ORIGIN": "Волна {0} - Усиление Происхождения",
+		"MOD_ITWAVE_DESC_BASIC_ORIGIN": "Босс-монстры вторгаются в симуляцию.",
+
+ 
+		"ITWAVE_NAME_BASIC_ELIXIR": "Волна {0} - Усиление Эликсира",
+		"ITWAVE_DESC_BASIC_ELIXIR": "Враги исцеляются при достижении низкого здоровья.",
+		
+		"ITWAVE_NAME_BASIC_SHURIKEN": "Волна {0} - Усиление Сюрикена",
+		"ITWAVE_DESC_BASIC_SHURIKEN": "Враги выпускают смертельные сюрикены при атаке.",
+		
+		"ITWAVE_NAME_BASIC_PMSTORM": "Волна {0} - Усиление Меридиана",
+		"ITWAVE_DESC_BASIC_PMSTORM": "Бушует гроза.",
+		
+		"ITWAVE_NAME_BASIC_TWISTED": "Волна {0} - Усиление Искажения",
+		"ITWAVE_DESC_BASIC_TWISTED": "Могут появляться ослабленные Искажённые элиты.",
+			 
+	 
+		"ITWAVE_NAME_BASIC_WIP": "Волна {0}",
+		"ITWAVE_DESC_BASIC_WIP": "Победите всех врагов."
+
+		"ITWAVE_NAME_BASIC_ENEMYSURVIVORS": "Волна {0} - Усиление Экстракторов",
+		"ITWAVE_DESC_BASIC_ENEMYSURVIVORS": "Монстры заменяются слабыми Умбрами.",
+
+		"ITWAVE_NAME_BASIC_DLC3_ITEMFAMILY": "Волна {0} - Усиление Экстракторов",
+		"ITWAVE_DESC_BASIC_DLC3_ITEMFAMILY": "Вас атакуют ворующие призраки.",
+
+		"ITWAVE_NAME_BASIC_DLC3_SOLUSFAMILY": "Волна {0} - Усиление Солуса X",
+		"ITWAVE_DESC_BASIC_DLC3_SOLUSFAMILY": "Коллектив собирается.",
+
+		"ITWAVE_NAME_BASIC_DLC3_VULTUREFAMILY": "Волна {0} - Усиление Стервятника",
+		"ITWAVE_DESC_BASIC_DLC3_VULTUREFAMILY": "Комитет роится вверху.",
+
+		"ITWAVE_NAME_BOSS_DLC3_VULTUREHUNTER": "Волна с боссом {0} - Усиление Охоты",
+		"ITWAVE_DESC_BOSS_DLC3_VULTUREHUNTER": "Победите Избранного Провидца",
+
+		"ITWAVE_NAME_BOSS_DLC3_SOLUSAMALGAM": "Волна с боссом {0} - Усиление Амальгамы",
+		"ITWAVE_DESC_BOSS_DLC3_SOLUSAMALGAM": "Незавершённые прототипы",
+
+		"ITWAVE_NAME_BOSS_DLC3_SOLUSWING": "Волна с боссом {0} - Усиление Крыла Солуса",
+		"ITWAVE_DESC_BOSS_DLC3_SOLUSWING": "Победите Сплавленный Коллектив",
+
+		"ITWAVE_NAME_BOSS_DLC3_SOLUSHEART": "Волна с боссом {0} - Усиление Сердца Солуса",
+		"ITWAVE_DESC_BOSS_DLC3_SOLUSHEART": "Победите Виртуальное Сверх Эго",
+
+		"ITWAVE_NAME_BASIC_DLC3_COLLECTIVE": "Волна {0} - Усиление Коллектива",
+		"ITWAVE_DESC_BASIC_DLC3_COLLECTIVE": "Элиты появляются как Коллектив.",
+	}
+}

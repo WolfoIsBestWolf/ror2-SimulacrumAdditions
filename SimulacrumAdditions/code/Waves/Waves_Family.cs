@@ -657,19 +657,16 @@ namespace SimulacrumAdditions.Waves
 
             #endregion
             #region Worm Boss : Family
-            GameObject BossInfiniteTowerWaveFamilyWorms = PrefabAPI.InstantiateClone(Constant.ScavWave, "WaveBoss_FamilyWorms", true);
+            GameObject BossInfiniteTowerWaveFamilyWorms = PrefabAPI.InstantiateClone(Constant.BossWave, "WaveBoss_FamilyWorms", true);
             GameObject InfiniteTowerCurrentWaveUIFamilyWorms = PrefabAPI.InstantiateClone(Constant.BossWaveUI, "InfiniteTowerCurrentWaveUIFamilyWorms", false);
 
             BossInfiniteTowerWaveFamilyWorms.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITSpecialBossYellow;
             BossInfiniteTowerWaveFamilyWorms.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Boss;
-
-            BossInfiniteTowerWaveFamilyWorms.GetComponent<CombatDirector>().eliteBias = 0f;
-            BossInfiniteTowerWaveFamilyWorms.GetComponent<InfiniteTowerWaveController>().immediateCreditsFraction = 0.3f;
-            BossInfiniteTowerWaveFamilyWorms.GetComponent<InfiniteTowerWaveController>().maxSquadSize = 12; //The director doesn't seem to really care
-            BossInfiniteTowerWaveFamilyWorms.GetComponent<InfiniteTowerWaveController>().baseCredits = 500f;
-            BossInfiniteTowerWaveFamilyWorms.GetComponent<InfiniteTowerWaveController>().linearCreditsPerWave = 0;
+ 
+            BossInfiniteTowerWaveFamilyWorms.GetComponent<InfiniteTowerWaveController>().immediateCreditsFraction = 0.5f;
+            BossInfiniteTowerWaveFamilyWorms.GetComponent<InfiniteTowerWaveController>().maxSquadSize = 6; //The director doesn't seem to really care
             BossInfiniteTowerWaveFamilyWorms.GetComponent<InfiniteTowerWaveController>().wavePeriodSeconds = 20;
-            BossInfiniteTowerWaveFamilyWorms.AddComponent<SimulacrumExtrasHelper>().newRadius = 140;
+            BossInfiniteTowerWaveFamilyWorms.AddComponent<SimulacrumExtrasHelper>().newRadius = 100;
 
             BossInfiniteTowerWaveFamilyWorms.AddComponent<SimuExplicitStats>().hpBonusMulti = -1;
 

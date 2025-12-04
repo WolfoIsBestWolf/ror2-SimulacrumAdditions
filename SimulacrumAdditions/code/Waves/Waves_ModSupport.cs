@@ -77,7 +77,7 @@ namespace SimulacrumAdditions.Waves
             //
             //
             //Will need to see what Empyrean Elites actually do
-            GameObject InfiniteTowerWaveSS2RainbowElites = PrefabAPI.InstantiateClone(Constant.ScavWave, "InfiniteTowerWaveSS2RainbowElites", true);
+            GameObject InfiniteTowerWaveSS2RainbowElites = PrefabAPI.InstantiateClone(Constant.BaseExplicit_Basic, "InfiniteTowerWaveSS2RainbowElites", true);
             GameObject InfiniteTowerCurrentSS2RainbowElitesWaveUI = PrefabAPI.InstantiateClone(Constant.BasicWaveUI, "InfiniteTowerCurrentSS2RainbowElitesWaveUI", false);
 
             InfiniteTowerWaveSS2RainbowElites.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITWaveTier1;

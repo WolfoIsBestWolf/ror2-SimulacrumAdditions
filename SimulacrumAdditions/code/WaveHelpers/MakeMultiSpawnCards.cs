@@ -76,14 +76,24 @@ namespace SimulacrumAdditions
         public static void CreateGhostSpawnCardsAC()
         {
 
-            MultiCharacterSpawnCard cscITGhostBasicACThieves = Waves_SpecialGuy.CardRandomizerACGhost;
-            cscITGhostBasicACThieves.masterPrefabs = new GameObject[]
-            {
-                Addressables.LoadAssetAsync<GameObject>(key: "cdca672e6db07ed45a6a81891c155063").WaitForCompletion(),
-                Addressables.LoadAssetAsync<GameObject>(key: "645c6efa053511c488c3993881e2884a").WaitForCompletion(),
+            CharacterSpawnCard ExtractorWave = Waves_SpecialGuy.ExtractorGhost;
+            ExtractorWave.prefab = Addressables.LoadAssetAsync<GameObject>(key: "645c6efa053511c488c3993881e2884a").WaitForCompletion();
+            ExtractorWave.name = "cscITExtractorGhost";
+            ExtractorWave.itemsToGrant = new ItemCountPair[] {
+                new ItemCountPair { itemDef = RoR2Content.Items.Ghost, count = 1 },
+                new ItemCountPair { itemDef = RoR2Content.Items.TeleportWhenOob, count = 1 },
+                new ItemCountPair { itemDef = ItemHelpers.ITKillOnCompletion, count = 2 },
+                new ItemCountPair { itemDef = ItemHelpers.ITHorrorName, count = 1 },
+
+                new ItemCountPair { itemDef = RoR2Content.Items.BoostAttackSpeed, count = 10 },
+                new ItemCountPair { itemDef = RoR2Content.Items.Hoof, count = 4 },
+                new ItemCountPair { itemDef = RoR2Content.Items.AlienHead, count = 4 },
             };
-            cscITGhostBasicACThieves.name = "cscITGhostBasicACThieves";
-            cscITGhostBasicACThieves.itemsToGrant = new ItemCountPair[] {
+
+            ExtractorWave = Waves_SpecialGuy.InvalidatorGhost;
+            ExtractorWave.prefab = Addressables.LoadAssetAsync<GameObject>(key: "cdca672e6db07ed45a6a81891c155063").WaitForCompletion();
+            ExtractorWave.name = "cscITInvalidatorGhost";
+            ExtractorWave.itemsToGrant = new ItemCountPair[] {
                 new ItemCountPair { itemDef = RoR2Content.Items.Ghost, count = 1 },
                 new ItemCountPair { itemDef = RoR2Content.Items.TeleportWhenOob, count = 1 },
                 new ItemCountPair { itemDef = ItemHelpers.ITKillOnCompletion, count = 2 },
@@ -92,8 +102,6 @@ namespace SimulacrumAdditions
                 new ItemCountPair { itemDef = RoR2Content.Items.BoostAttackSpeed, count = 5 },
                 new ItemCountPair { itemDef = RoR2Content.Items.Hoof, count = 4 },
             };
-
-              
         }
 
         public static void CreateBossGhostSpawnCards()

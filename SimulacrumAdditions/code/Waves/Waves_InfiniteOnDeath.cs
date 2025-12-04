@@ -54,19 +54,25 @@ namespace SimulacrumAdditions.Waves
                 selectionWeight = 5,
                 spawnDistance = DirectorCore.MonsterSpawnDistance.Standard
             });
-            dccsITSuicideWaveVoid.AddCard(0, new DirectorCard
-            {
-                spawnCard = cscITSuicideVoid,
-                selectionWeight = 1,
-                spawnDistance = DirectorCore.MonsterSpawnDistance.Close
-            });
-            CombatDirector secondDirector = InfiniteTowerWaveDeathVoid.AddComponent<CombatDirector>();
+			dccsITSuicideWaveVoid.AddCard(0, new DirectorCard
+			{
+				spawnCard = cscITSuicideVoid,
+				selectionWeight = 1,
+				spawnDistance = DirectorCore.MonsterSpawnDistance.Close
+			});
+			dccsITSuicideWaveVoid.AddCard(0, new DirectorCard
+			{
+				spawnCard = cscITSuicideVoid,
+				selectionWeight = 1,
+				spawnDistance = DirectorCore.MonsterSpawnDistance.Far
+			});
+			CombatDirector secondDirector = InfiniteTowerWaveDeathVoid.AddComponent<CombatDirector>();
             secondDirector.monsterCards = dccsITSuicideWaveVoid;
             secondDirector.monsterCredit = 10000;
-            secondDirector.maxSeriesSpawnInterval = 2.5f;
-            secondDirector.minSeriesSpawnInterval = 1.5f;
-            secondDirector.maxRerollSpawnInterval = 0.2f;
-            secondDirector.minRerollSpawnInterval = 0.1f;
+            secondDirector.maxSeriesSpawnInterval = 4.5f;
+            secondDirector.minSeriesSpawnInterval = 0.5f;
+            secondDirector.maxRerollSpawnInterval = 1f;
+            secondDirector.minRerollSpawnInterval = 0.5f;
             //RerollSpawnInterval like closer to how long between each wave
 
             InfiniteTowerWaveDeathVoid.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWaveDeathVoidUI;
@@ -86,8 +92,8 @@ namespace SimulacrumAdditions.Waves
             GameObject InfiniteTowerWaveDeathLunarUI = PrefabAPI.InstantiateClone(Constant.LunarWaveUI, "InfiniteTowerWaveDeathLunarUI", false);
 
             InfiniteTowerWaveDeathLunar.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITBasicBonusLunar;
-            InfiniteTowerWaveDeathLunar.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
-            InfiniteTowerWaveDeathLunar.GetComponent<InfiniteTowerWaveController>().baseCredits = 160;
+            //InfiniteTowerWaveDeathLunar.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
+            //InfiniteTowerWaveDeathLunar.GetComponent<InfiniteTowerWaveController>().baseCredits = 159;
             //InfiniteTowerWaveDeathLunar.GetComponent<InfiniteTowerWaveController>().wavePeriodSeconds += 5;
             InfiniteTowerWaveDeathLunar.GetComponent<InfiniteTowerWaveController>().secondsAfterWave++;
             InfiniteTowerWaveDeathLunar.AddComponent<SimulacrumExtrasHelper>().newRadius = 85;
@@ -101,7 +107,7 @@ namespace SimulacrumAdditions.Waves
             cscITSuicideLunar.itemsToGrant = new ItemCountPair[] {
                 new ItemCountPair { itemDef = ItemHelpers.ITAttackSpeedDownMult, count = 99 },
                 new ItemCountPair { itemDef = ItemHelpers.ITKillOnCompletion, count = 1 },
-                new ItemCountPair { itemDef = HealthDecay, count = 2 },
+                new ItemCountPair { itemDef = HealthDecay, count = 1},
                 new ItemCountPair { itemDef = Ghost, count = 1 },
                 new ItemCountPair { itemDef = ItemHelpers.ITDisableAllSkills, count = 1},
             };
@@ -111,7 +117,7 @@ namespace SimulacrumAdditions.Waves
             dccsITSuicideWaveLunar.AddCard(0, new DirectorCard
             {
                 spawnCard = cscITSuicideLunar,
-                selectionWeight = 6,
+                selectionWeight = 5,
                 spawnDistance = DirectorCore.MonsterSpawnDistance.Standard
             });
             dccsITSuicideWaveLunar.AddCard(0, new DirectorCard
@@ -125,7 +131,7 @@ namespace SimulacrumAdditions.Waves
             secondDirector.monsterCredit = 10000;
             secondDirector.teamIndex = TeamIndex.Void;
             secondDirector.maxSeriesSpawnInterval = 1.5f;
-            secondDirector.minSeriesSpawnInterval = 1f;
+            secondDirector.minSeriesSpawnInterval = 0.75f;
             secondDirector.maxRerollSpawnInterval = 2.5f;
             secondDirector.minRerollSpawnInterval = 2f;
 
@@ -146,8 +152,8 @@ namespace SimulacrumAdditions.Waves
             GameObject InfiniteTowerWaveDeathMendingCoreUI = PrefabAPI.InstantiateClone(Constant.BasicWaveUI, "InfiniteTowerWaveDeathMendingCoreUI", false);
 
             InfiniteTowerWaveDeathMendingCore.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITCategoryHealing;
-            InfiniteTowerWaveDeathMendingCore.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
-            InfiniteTowerWaveDeathMendingCore.GetComponent<InfiniteTowerWaveController>().baseCredits = 160;
+            //InfiniteTowerWaveDeathMendingCore.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
+           //InfiniteTowerWaveDeathMendingCore.GetComponent<InfiniteTowerWaveController>().baseCredits = 159;
             //InfiniteTowerWaveDeathMendingCore.GetComponent<InfiniteTowerWaveController>().wavePeriodSeconds += 5;
 
             CharacterSpawnCard cscITSuicideHealing = Object.Instantiate(LegacyResourcesAPI.Load<CharacterSpawnCard>("SpawnCards/CharacterSpawnCards/cscNullifier"));
@@ -163,7 +169,7 @@ namespace SimulacrumAdditions.Waves
             };
             CharacterSpawnCard cscITSuicideHealingAir = Object.Instantiate(cscITSuicideHealing);
             cscITSuicideHealingAir.name = "cscITAffixEarthHealerMasterAIR";
-            cscITSuicideHealingAir.nodeGraphType = RoR2.Navigation.MapNodeGroup.GraphType.Air;
+            cscITSuicideHealingAir.nodeGraphType = RoR2.Navigation.MapNodeGroup.GraphType.Ground;
 
             DirectorCardCategorySelection dccsITSuicideWaveHealing = ScriptableObject.CreateInstance<DirectorCardCategorySelection>();
             dccsITSuicideWaveHealing.name = "dccsITSuicideWaveHealing";
@@ -171,7 +177,7 @@ namespace SimulacrumAdditions.Waves
             dccsITSuicideWaveHealing.AddCard(0, new DirectorCard
             {
                 spawnCard = cscITSuicideHealing,
-                selectionWeight = 2,
+                selectionWeight = 1,
                 spawnDistance = DirectorCore.MonsterSpawnDistance.Standard
             });
             dccsITSuicideWaveHealing.AddCard(0, new DirectorCard
@@ -183,8 +189,8 @@ namespace SimulacrumAdditions.Waves
             secondDirector = InfiniteTowerWaveDeathMendingCore.AddComponent<CombatDirector>();
             secondDirector.monsterCards = dccsITSuicideWaveHealing;
             secondDirector.monsterCredit = 10000;
-            secondDirector.maxSeriesSpawnInterval = 1.5f;
-            secondDirector.minSeriesSpawnInterval = 1f;
+            secondDirector.maxSeriesSpawnInterval = 0.75f;
+            secondDirector.minSeriesSpawnInterval = 0.25f;
             secondDirector.maxRerollSpawnInterval = 0.15f;
             secondDirector.minRerollSpawnInterval = 0.1f;
 
@@ -204,8 +210,8 @@ namespace SimulacrumAdditions.Waves
             GameObject InfiniteTowerWaveDeathIceEliteUI = PrefabAPI.InstantiateClone(Constant.LunarWaveUI, "InfiniteTowerWaveDeathIceEliteUI", false);
 
             InfiniteTowerWaveDeathIceElite.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITBasicWaveOnKill;
-            InfiniteTowerWaveDeathIceElite.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
-            InfiniteTowerWaveDeathIceElite.GetComponent<InfiniteTowerWaveController>().baseCredits = 160;
+            //InfiniteTowerWaveDeathIceElite.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
+            //InfiniteTowerWaveDeathIceElite.GetComponent<InfiniteTowerWaveController>().baseCredits = 159;
             //InfiniteTowerWaveDeathIceElite.GetComponent<InfiniteTowerWaveController>().wavePeriodSeconds += 5;
             InfiniteTowerWaveDeathIceElite.GetComponent<InfiniteTowerWaveController>().secondsAfterWave++;
             InfiniteTowerWaveDeathIceElite.AddComponent<SimulacrumExtrasHelper>().newRadius = 90;
@@ -246,7 +252,7 @@ namespace SimulacrumAdditions.Waves
             dccsITSuicideWaveIce.AddCard(0, new DirectorCard
             {
                 spawnCard = cscITSuicideIce,
-                selectionWeight = 1,
+                selectionWeight = 3,
                 spawnDistance = DirectorCore.MonsterSpawnDistance.Close
             });
             dccsITSuicideWaveIce.AddCard(0, new DirectorCard
@@ -260,8 +266,8 @@ namespace SimulacrumAdditions.Waves
             secondDirector.teamIndex = TeamIndex.Void;
             secondDirector.monsterCards = dccsITSuicideWaveIce;
             secondDirector.monsterCredit = 10000;
-            secondDirector.maxSeriesSpawnInterval = 2f;
-            secondDirector.minSeriesSpawnInterval = 1f;
+            secondDirector.maxSeriesSpawnInterval = 1f;
+            secondDirector.minSeriesSpawnInterval = 0.5f;
             secondDirector.maxRerollSpawnInterval = 0.2f;
             secondDirector.minRerollSpawnInterval = 0.1f;
             //RerollSpawnInterval like closer to how long between each wave

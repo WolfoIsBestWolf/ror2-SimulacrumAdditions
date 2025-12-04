@@ -697,7 +697,13 @@ namespace SimulacrumAdditions
 
         private void OnEnable()
         {
-            if (NetworkServer.active)
+            if (!NetworkServer.active)
+            {
+                spawnedTimer = 999;
+                enabled = false;
+                return;
+            }
+            else
             {
                 InfiniteTowerRun run = Run.instance.GetComponent<InfiniteTowerRun>();
                 rng = new Xoroshiro128Plus((ulong)((long)run.waveIndex ^ (long)Run.instance.seed));
@@ -716,10 +722,7 @@ namespace SimulacrumAdditions
                     DirectorCore.instance.TrySpawnObject(new DirectorSpawnRequest(spawnCard, placementRule, this.rng));
                 }
             }
-            else
-            {
-                Destroy(this);
-            }
+
         }
 
         private void FixedUpdate()
@@ -738,6 +741,7 @@ namespace SimulacrumAdditions
                 };
                 DirectorCore.instance.TrySpawnObject(new DirectorSpawnRequest(spawnCard, placementRule, this.rng));
             }
+        
         }
 
     }

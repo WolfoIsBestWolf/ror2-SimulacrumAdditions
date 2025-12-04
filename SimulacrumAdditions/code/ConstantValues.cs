@@ -33,9 +33,13 @@ namespace SimulacrumAdditions
         //maxSquadSize: 30
         //secondsBeforeFailsafe: 60
         //secondsBeforeSuddenDeath: 60
-        //wavePeriodSeconds: 30
+        //wavePeriodSeconds: 30 
         public static GameObject ScavWave = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/ITAssets/InfiniteTowerWaveBossScav.prefab").WaitForCompletion();
         public static GameObject ScavWaveUI = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/ITAssets/InfiniteTowerCurrentBossScavWaveUI.prefab").WaitForCompletion();
+
+        public static GameObject BaseExplicit_Basic;
+        public static GameObject BaseExplicit_Boss;
+
 
         public static GameObject ArtifactWave = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/ITAssets/InfiniteTowerWaveArtifactBomb.prefab").WaitForCompletion();
         public static GameObject ArtifactWaveUI = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/ITAssets/InfiniteTowerCurrentArtifactBombWaveUI.prefab").WaitForCompletion();
@@ -155,6 +159,7 @@ namespace SimulacrumAdditions
 
         public static void MakeValues()
         {
+            MakeBaseWavesToCopy();
             SimuTPEffect();
             MakePortal();
             SetupConstants();
@@ -164,6 +169,36 @@ namespace SimulacrumAdditions
             ContentAddition.AddEntityState<PulseWaveState>(out _);
             texITWaveDefaultWhiteS = Assets.Bundle.LoadAsset<Sprite>("Assets/Simulacrum/Wave/waveBasicWhite.png");
 
+        }
+
+        public static void MakeBaseWavesToCopy()
+        {
+            GameObject ScavWave = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/ITAssets/InfiniteTowerWaveBossScav.prefab").WaitForCompletion();
+            BaseExplicit_Basic = PrefabAPI.InstantiateClone(ScavWave, "BaseWaveExplicitSpawner_BasicWave", true);
+
+            InfiniteTowerWaveController wave = BaseExplicit_Basic.GetComponent<InfiniteTowerWaveController>();
+            wave.immediateCreditsFraction = 0.1f;
+            wave.baseCredits = 159;
+            wave.linearCreditsPerWave = 0;
+            wave.secondsBeforeSuddenDeath = 60;
+            wave.wavePeriodSeconds = 30;
+
+            wave.rewardOptionCount = 3;
+            wave.rewardDropTable = Constant.dtITWaveTier1;
+            wave.isBossWave = false;
+           
+            BaseExplicit_Boss = PrefabAPI.InstantiateClone(ScavWave, "BaseWaveExplicitSpawner_BossWave", true);
+
+            wave = BaseExplicit_Boss.GetComponent<InfiniteTowerWaveController>();
+            wave.immediateCreditsFraction = 0.25f;
+            wave.baseCredits = 500;
+            wave.linearCreditsPerWave = 0;
+            wave.secondsBeforeSuddenDeath = 60;
+            wave.wavePeriodSeconds = 60;
+
+            wave.rewardOptionCount = 3;
+            wave.rewardDropTable = Constant.dtITWaveTier2;
+            wave.isBossWave = true;
         }
 
         public static void EnemyDropTables()

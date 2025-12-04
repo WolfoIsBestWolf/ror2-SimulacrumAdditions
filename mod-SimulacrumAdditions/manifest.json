@@ -1,6 +1,6 @@
 {
     "name": "SimulacrumAdditions",
-    "version_number": "2.6.1",
+    "version_number": "2.6.2",
     "website_url": "https://github.com/WolfoIsBestWolf/ror2-SimulacrumAdditions",
     "description": "Large content addition to Simulacrum. Adds 80+ Augments, a way to end Simulacrum runs, guaranteed super boss wave, Simulacrum Artifacts that add more Stage varitey or Drones, and a lot of extras for the gamemode.",
     "dependencies": [

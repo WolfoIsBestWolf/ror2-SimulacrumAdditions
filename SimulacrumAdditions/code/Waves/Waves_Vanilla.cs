@@ -31,7 +31,7 @@ namespace SimulacrumAdditions.Waves
                         break;
                     case "InfiniteTowerWaveArtifactMixEnemy":
                         wav.weight = 3.5f;
-                            wav.wavePrefab.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITRainbow;
+                        wav.wavePrefab.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITRainbow;
                         wav.wavePrefab.GetComponent<InfiniteTowerWaveController>().baseCredits = 184;
                         break;
                     case "InfiniteTowerWaveArtifactBomb":
@@ -46,11 +46,9 @@ namespace SimulacrumAdditions.Waves
                     case "InfiniteTowerWaveArtifactRandomLoadout":
                         wav.weight = 2f;
                         wav.wavePrefab.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITRainbow;
-                        wav.wavePrefab.GetComponent<InfiniteTowerWaveController>().baseCredits = 159;
                         break;
                     case "InfiniteTowerWaveArtifactSingleEliteType":
                         wav.weight = 4f;
-                        wav.wavePrefab.GetComponent<InfiniteTowerWaveController>().baseCredits = 159;
                         break;
                 };
             }

@@ -351,8 +351,11 @@
 		"ITWAVE_DESC_BASIC_ENEMYSURVIVORS": "Monsters are replaced by weak Umbras.",
 		
 		
-		"ITWAVE_NAME_BASIC_DLC3_ITEMFAMILY": "Wave {0} - Augment of Theft",
-		"ITWAVE_DESC_BASIC_DLC3_ITEMFAMILY": "Thieving ghosts attacks you.",
+		"ITWAVE_NAME_BASIC_DLC3_EXTRACTOR": "Wave {0} - Augment of Extraction",
+		"ITWAVE_DESC_BASIC_DLC3_EXTRACTOR": "Extracting ghosts attacks you.",
+		
+		"ITWAVE_NAME_BASIC_DLC3_INVALIDATOR": "Wave {0} - Augment of Invalidation",
+		"ITWAVE_DESC_BASIC_DLC3_INVALIDATOR": "Invalidating ghosts attacks you.",
 		
 		"ITWAVE_NAME_BASIC_DLC3_SOLUSFAMILY": "Wave {0} - Augment of Solus X",
 		"ITWAVE_DESC_BASIC_DLC3_SOLUSFAMILY": "The Collective is converging.",

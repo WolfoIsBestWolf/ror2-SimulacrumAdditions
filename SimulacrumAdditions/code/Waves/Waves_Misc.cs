@@ -84,13 +84,11 @@ namespace SimulacrumAdditions.Waves
             dccsVoidInfestorOnly.categories[0].cards[0].spawnCard = cscVoidInfestorIT;
 
 
-            GameObject WaveBoss_VoidElites = PrefabAPI.InstantiateClone(Constant.ScavWave, "WaveBoss_VoidElites", true);
+            GameObject WaveBoss_VoidElites = PrefabAPI.InstantiateClone(Constant.BaseExplicit_Boss, "WaveBoss_VoidElites", true);
             GameObject InfiniteTowerCurrentBossVoidEliteWaveUI = PrefabAPI.InstantiateClone(Constant.VoidWaveUI, "InfiniteTowerCurrentBossVoidEliteWaveUI", false);
             WaveBoss_VoidElites.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList[0].spawnCard = cscVoidInfestorIT;
 
             WaveBoss_VoidElites.GetComponent<InfiniteTowerExplicitSpawnWaveController>().baseCredits = 580;
-            WaveBoss_VoidElites.GetComponent<InfiniteTowerExplicitSpawnWaveController>().linearCreditsPerWave = 0;
-            WaveBoss_VoidElites.GetComponent<InfiniteTowerExplicitSpawnWaveController>().immediateCreditsFraction = 0.3f;
             WaveBoss_VoidElites.GetComponent<InfiniteTowerExplicitSpawnWaveController>().secondsBeforeSuddenDeath = 120;
             WaveBoss_VoidElites.GetComponent<InfiniteTowerExplicitSpawnWaveController>().wavePeriodSeconds = 50;
             WaveBoss_VoidElites.AddComponent<SimulacrumExtrasHelper>().newRadius = 80;
@@ -154,13 +152,12 @@ namespace SimulacrumAdditions.Waves
             #endregion
             #region (Boss) Wave with Flame Drones
             //Wave with the drone in it
-            GameObject WaveBoss_WithDrone = PrefabAPI.InstantiateClone(Constant.ScavWave, "WaveBoss_WithDrone", true);
+            GameObject WaveBoss_WithDrone = PrefabAPI.InstantiateClone(Constant.BaseExplicit_Boss, "WaveBoss_WithDrone", true);
             GameObject WaveBoss_DronesMachinesUI = PrefabAPI.InstantiateClone(Constant.BossWaveUI, "WaveBoss_WithDroneUI", false);
 
             WaveBoss_WithDrone.GetComponent<InfiniteTowerWaveController>().baseCredits = 450f;
             WaveBoss_WithDrone.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITBossCategoryUtility;
             WaveBoss_WithDrone.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier2;
-            WaveBoss_WithDrone.GetComponent<InfiniteTowerWaveController>().wavePeriodSeconds = 50;
             WaveBoss_WithDrone.AddComponent<SimulacrumExtrasHelper>().newRadius = 95;
             DroneWave = WaveBoss_WithDrone.GetComponent<InfiniteTowerExplicitSpawnWaveController>();
 

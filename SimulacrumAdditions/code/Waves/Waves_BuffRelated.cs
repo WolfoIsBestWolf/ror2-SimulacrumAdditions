@@ -21,10 +21,10 @@ namespace SimulacrumAdditions.Waves
             GameObject InfiniteTowerWaveVoidBearUI = PrefabAPI.InstantiateClone(Constant.VoidWaveUI, "InfiniteTowerWaveVoidBearUI", false);
 
             InfiniteTowerWaveVoidBear.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITBasicBonusVoid;
-            InfiniteTowerWaveVoidBear.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
+            //InfiniteTowerWaveVoidBear.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
             InfiniteTowerWaveVoidBear.GetComponent<InfiniteTowerWaveController>().maxSquadSize = 15;
             InfiniteTowerWaveVoidBear.AddComponent<SimuBuffWaveHelper>().variant = 0;
-            InfiniteTowerWaveVoidBear.GetComponent<InfiniteTowerWaveController>().baseCredits = 160;
+            //InfiniteTowerWaveVoidBear.GetComponent<InfiniteTowerWaveController>().baseCredits = 159;
 
             InfiniteTowerWaveVoidBear.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWaveVoidBearUI;
             InfiniteTowerWaveVoidBearUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_VOIDBEAR";
@@ -48,9 +48,9 @@ namespace SimulacrumAdditions.Waves
             GameObject InfiniteTowerWaveBlindnessUI = PrefabAPI.InstantiateClone(Constant.BasicWaveUI, "InfiniteTowerWaveBlindnessUI", false);
 
             InfiniteTowerWaveBlindness.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWaveBlindnessUI;
-            InfiniteTowerWaveBlindness.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITWaveTier1;
-            InfiniteTowerWaveBlindness.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
-            InfiniteTowerWaveBlindness.GetComponent<InfiniteTowerWaveController>().baseCredits = 160;
+            //InfiniteTowerWaveBlindness.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITWaveTier1;
+            //InfiniteTowerWaveBlindness.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
+            //InfiniteTowerWaveBlindness.GetComponent<InfiniteTowerWaveController>().baseCredits = 159;
             InfiniteTowerWaveBlindness.AddComponent<SimuBuffWaveHelper>().variant = -1;
             InfiniteTowerWaveBlindness.GetComponent<SimuBuffWaveHelper>().addToPlayer = true;
             InfiniteTowerWaveBlindness.GetComponent<SimuBuffWaveHelper>().addToEnemies = false;
@@ -85,8 +85,8 @@ namespace SimulacrumAdditions.Waves
 
             InfiniteTowerWaveSlippery.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWaveSlipperyUI;
             InfiniteTowerWaveSlippery.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITCategoryUtility;
-            InfiniteTowerWaveSlippery.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
-            InfiniteTowerWaveSlippery.GetComponent<InfiniteTowerWaveController>().baseCredits = 160;
+            //InfiniteTowerWaveSlippery.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
+            //InfiniteTowerWaveSlippery.GetComponent<InfiniteTowerWaveController>().baseCredits = 159;
             InfiniteTowerWaveSlippery.AddComponent<SimuBuffWaveHelper>().variant = -1;
             InfiniteTowerWaveSlippery.GetComponent<SimuBuffWaveHelper>().addToPlayer = true;
             InfiniteTowerWaveSlippery.GetComponent<SimuBuffWaveHelper>().buffDef = bdSlippery;
@@ -118,9 +118,9 @@ namespace SimulacrumAdditions.Waves
 
             InfiniteTowerWaveBadLuck.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWaveBadLuckUI;
             InfiniteTowerWaveBadLuck.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITWaveTier1;
-            InfiniteTowerWaveBadLuck.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
+            //InfiniteTowerWaveBadLuck.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
             InfiniteTowerWaveBadLuck.GetComponent<InfiniteTowerWaveController>().rewardOptionCount = 6;
-            InfiniteTowerWaveBadLuck.GetComponent<InfiniteTowerWaveController>().baseCredits = 160;
+            //InfiniteTowerWaveBadLuck.GetComponent<InfiniteTowerWaveController>().baseCredits = 159;
             InfiniteTowerWaveBadLuck.AddComponent<SimuBuffWaveHelper>().variant = -1;
             InfiniteTowerWaveBadLuck.GetComponent<SimuBuffWaveHelper>().addToPlayer = true;
             InfiniteTowerWaveBadLuck.GetComponent<SimuBuffWaveHelper>().addToEnemies = false;

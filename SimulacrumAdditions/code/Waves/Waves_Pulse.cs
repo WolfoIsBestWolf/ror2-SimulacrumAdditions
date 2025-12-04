@@ -26,7 +26,7 @@ namespace SimulacrumAdditions.Waves
             GameObject InfiniteTowerWavePulseLunarUI = PrefabAPI.InstantiateClone(Constant.LunarWaveUI, "InfiniteTowerWavePulseLunarUI", false);
 
             InfiniteTowerWavePulseLunar.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITBasicBonusLunar;
-            InfiniteTowerWavePulseLunar.GetComponent<InfiniteTowerWaveController>().baseCredits = 160;
+            //InfiniteTowerWavePulseLunar.GetComponent<InfiniteTowerWaveController>().baseCredits = 159;
             //
             GameObject PulseLunar = PrefabAPI.InstantiateClone(LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/MoonBatteryDesignPulse"), "ITPulseLunar", true);
             PulseLunar.GetComponent<PulseController>().finalRadius = 75;
@@ -71,7 +71,7 @@ namespace SimulacrumAdditions.Waves
             GameObject InfiniteTowerWavePulseVoidUI = PrefabAPI.InstantiateClone(Constant.VoidWaveUI, "InfiniteTowerWavePulseVoidUI", false);
 
             InfiniteTowerWavePulseVoid.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITBasicBonusVoid;
-            InfiniteTowerWavePulseVoid.GetComponent<InfiniteTowerWaveController>().baseCredits = 160;
+            //InfiniteTowerWavePulseVoid.GetComponent<InfiniteTowerWaveController>().baseCredits = 159;
             //
             GameObject PulseVoid = PrefabAPI.InstantiateClone(PulseLunar, "ITPulseVoid", true);
             PulseVoid.GetComponent<PulseController>().finalRadius = 75;
@@ -121,7 +121,7 @@ namespace SimulacrumAdditions.Waves
             GameObject InfiniteTowerWavePulseSuckInwardUI = PrefabAPI.InstantiateClone(Constant.BasicWaveUI, "InfiniteTowerWavePulseSuckInwardUI", false);
 
             InfiniteTowerWavePulseSuckInward.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITCategoryUtility;
-            InfiniteTowerWavePulseSuckInward.GetComponent<InfiniteTowerWaveController>().baseCredits = 160;
+            //InfiniteTowerWavePulseSuckInward.GetComponent<InfiniteTowerWaveController>().baseCredits = 159;
             //
             GameObject PulseSuckInward = PrefabAPI.InstantiateClone(PulseLunar, "ITPulseSuckInward", true);
             PulseSuckInward.GetComponent<PulseController>().finalRadius = 100;
@@ -172,7 +172,7 @@ namespace SimulacrumAdditions.Waves
             GameObject InfiniteTowerWavePulseNoHealingUI = PrefabAPI.InstantiateClone(Constant.BasicWaveUI, "InfiniteTowerWavePulseNoHealingUI", false);
 
             InfiniteTowerWavePulseNoHealing.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITCategoryHealing;
-            InfiniteTowerWavePulseNoHealing.GetComponent<InfiniteTowerWaveController>().baseCredits = 160;
+            //InfiniteTowerWavePulseNoHealing.GetComponent<InfiniteTowerWaveController>().baseCredits = 159;
             ///
             GameObject PulseNoHealing = PrefabAPI.InstantiateClone(PulseLunar, "ITPulseNoHealing", true);
             PulseNoHealing.GetComponent<PulseController>().finalRadius = 150;

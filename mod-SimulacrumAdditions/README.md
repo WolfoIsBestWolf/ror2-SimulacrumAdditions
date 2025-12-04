@@ -158,7 +158,5 @@ Generally happy about gameplay feedback.
 
  
 ### Translations
-Translations are possible as of version 2.3.0. None are included as of now.
-
-
+Russian translation thanks to coldeib on Discord.
  

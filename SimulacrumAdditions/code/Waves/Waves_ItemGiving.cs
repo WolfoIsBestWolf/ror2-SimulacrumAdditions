@@ -24,7 +24,7 @@ namespace SimulacrumAdditions.Waves
             InfiniteTowerWaveManyItems.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITCategoryDamage;
             InfiniteTowerWaveManyItems.GetComponent<InfiniteTowerWaveController>().rewardOptionCount = 6;
             InfiniteTowerWaveManyItems.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
-            InfiniteTowerWaveManyItems.GetComponent<InfiniteTowerWaveController>().baseCredits = 160;
+ 
 
             InfiniteTowerWaveManyItemsUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_MANYITEMS";
             InfiniteTowerWaveManyItemsUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_MANYITEMS";
@@ -46,12 +46,12 @@ namespace SimulacrumAdditions.Waves
             GameObject InfiniteTowerWaveHeresyUI = PrefabAPI.InstantiateClone(Constant.LunarWaveUI, "InfiniteTowerWaveHeresyUI", false);
             InfiniteTowerWaveHeresy.AddComponent<SimuWaveUnsortedExtras>().code = SimuWaveUnsortedExtras.Case.HeresyItems;
 
-            InfiniteTowerWaveHeresy.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITWaveTier1;
-            InfiniteTowerWaveHeresy.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
+            //InfiniteTowerWaveHeresy.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITWaveTier1;
+            //InfiniteTowerWaveHeresy.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
             InfiniteTowerWaveHeresy.AddComponent<SimulacrumExtrasHelper>().rewardDropTable = Constant.dtITHeresy;
             InfiniteTowerWaveHeresy.GetComponent<SimulacrumExtrasHelper>().rewardDisplayTier = ItemTier.Lunar;
 
-            InfiniteTowerWaveHeresy.GetComponent<InfiniteTowerWaveController>().baseCredits = 160;
+            //InfiniteTowerWaveHeresy.GetComponent<InfiniteTowerWaveController>().baseCredits = 159;
             InfiniteTowerWaveHeresy.GetComponent<InfiniteTowerWaveController>().maxSquadSize = 12;
 
 
@@ -77,9 +77,9 @@ namespace SimulacrumAdditions.Waves
 
             InfiniteTowerWaveCoffee.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWaveCoffeeUI;
             InfiniteTowerWaveCoffee.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITCategoryDamage;
-            InfiniteTowerWaveCoffee.GetComponent<InfiniteTowerWaveController>().rewardOptionCount = 3;
-            InfiniteTowerWaveCoffee.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
-            InfiniteTowerWaveCoffee.GetComponent<InfiniteTowerWaveController>().baseCredits = 160;
+            //InfiniteTowerWaveCoffee.GetComponent<InfiniteTowerWaveController>().rewardOptionCount = 3;
+            //InfiniteTowerWaveCoffee.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
+            //InfiniteTowerWaveCoffee.GetComponent<InfiniteTowerWaveController>().baseCredits = 159;
 
             InfiniteTowerWaveCoffee.AddComponent<SimulacrumGiveItemsOnStart>().itemString = "AttackSpeedAndMoveSpeed";
             InfiniteTowerWaveCoffee.GetComponent<SimulacrumGiveItemsOnStart>().count = 6;
@@ -101,8 +101,8 @@ namespace SimulacrumAdditions.Waves
             GameObject InfiniteTowerWaveLeptonUI = PrefabAPI.InstantiateClone(Constant.BasicWaveUI, "InfiniteTowerWaveItemLeptonUI", false);
 
             InfiniteTowerWaveLepton.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITCategoryHealing;
-            InfiniteTowerWaveLepton.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
-            InfiniteTowerWaveLepton.GetComponent<InfiniteTowerWaveController>().baseCredits = 160;
+            //InfiniteTowerWaveLepton.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
+            //InfiniteTowerWaveLepton.GetComponent<InfiniteTowerWaveController>().baseCredits = 159;
 
             InfiniteTowerWaveLepton.AddComponent<SimulacrumGiveItemsOnStart>().itemString = "TPHealingNova";
             InfiniteTowerWaveLepton.GetComponent<SimulacrumGiveItemsOnStart>().count = 0;

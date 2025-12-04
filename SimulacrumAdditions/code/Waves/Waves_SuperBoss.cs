@@ -72,7 +72,7 @@ namespace SimulacrumAdditions.Waves
             wave.secondsAfterWave += 2;
             WaveBoss_VoidRaidCrab.AddComponent<SimulacrumExtrasHelper>().rewardDisplayTier = ItemTier.VoidTier2;
             WaveBoss_VoidRaidCrab.GetComponent<SimulacrumExtrasHelper>().rewardDropTable = Constant.dtITVoid;
-            WaveBoss_VoidRaidCrab.GetComponent<SimulacrumExtrasHelper>().newRadius = 160;
+            WaveBoss_VoidRaidCrab.GetComponent<SimulacrumExtrasHelper>().newRadius = 159;
 
             simuExplicitStats = WaveBoss_VoidRaidCrab.AddComponent<SimuExplicitStats>();
             simuExplicitStats.damageBonusMulti = 0.5f;
@@ -88,7 +88,7 @@ namespace SimulacrumAdditions.Waves
             #endregion
             #region Aurelionite
             //Gold Titan
-            GameObject WaveBoss_TitanGold = PrefabAPI.InstantiateClone(Constant.ScavWave, "WaveBoss_TitanGold", true);
+            GameObject WaveBoss_TitanGold = PrefabAPI.InstantiateClone(Constant.BaseExplicit_Boss, "WaveBoss_TitanGold", true);
             GameObject InfiniteTowerCurrentBossTitanGoldWaveUI = PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/ITAssets/InfiniteTowerCurrentBossBrotherUI.prefab").WaitForCompletion(), "InfiniteTowerCurrentBossTitanGoldWaveUI", false);
             wave = WaveBoss_TitanGold.GetComponent<InfiniteTowerExplicitSpawnWaveController>();
 
@@ -167,7 +167,7 @@ namespace SimulacrumAdditions.Waves
             #endregion
 
             #region SuperRoboBall
-            GameObject WaveBoss_SuperRoboBallBoss = PrefabAPI.InstantiateClone(Constant.ScavWave, "WaveBoss_SuperRoboBallBoss", true);
+            GameObject WaveBoss_SuperRoboBallBoss = PrefabAPI.InstantiateClone(Constant.BaseExplicit_Boss, "WaveBoss_SuperRoboBallBoss", true);
             GameObject InfiniteTowerCurrentBossSuperRoboBallBossWaveUI = PrefabAPI.InstantiateClone(Constant.BossWaveUI, "InfiniteTowerCurrentBossSuperRoboBallBossWaveUI", false);
             wave = WaveBoss_SuperRoboBallBoss.GetComponent<InfiniteTowerExplicitSpawnWaveController>();
 
@@ -207,7 +207,7 @@ namespace SimulacrumAdditions.Waves
 
             #region Solus Amalgamator
             //Amalgam +1 every 15? No Scaling?
-            GameObject WaveBoss_SolusAmalgam = PrefabAPI.InstantiateClone(Constant.ScavWave, "WaveBoss_SolusAmalgam", true);
+            GameObject WaveBoss_SolusAmalgam = PrefabAPI.InstantiateClone(Constant.BaseExplicit_Boss, "WaveBoss_SolusAmalgam", true);
             GameObject WaveBoss_SolusAmalgamUI = PrefabAPI.InstantiateClone(Constant.ScavWaveUI, "WaveBoss_SolusAmalgamUI", false);
             wave = WaveBoss_SolusAmalgam.GetComponent<InfiniteTowerExplicitSpawnWaveController>();
 
@@ -216,12 +216,9 @@ namespace SimulacrumAdditions.Waves
             cscSolusAmalgamator.hullSize = HullClassification.Human;
 
             wave.spawnList[0].spawnCard = cscSolusAmalgamator;
-            wave.baseCredits = 500;
-            wave.immediateCreditsFraction = 0.25f;
-  
+           
             wave.rewardDisplayTier = ItemTier.Boss;
             wave.rewardDropTable = Constant.dtITSpecialBossYellow;
-            wave.secondsAfterWave += 2;
             WaveBoss_SolusAmalgam.AddComponent<SimulacrumExtrasHelper>().newRadius = 90;
 
             simuExplicitStats = WaveBoss_SolusAmalgam.AddComponent<SimuExplicitStats>();
@@ -242,7 +239,7 @@ namespace SimulacrumAdditions.Waves
             #endregion
             #region Vulture Hunter
             //Amalgam +1 every 15? No Scaling?
-            GameObject WaveBoss_VultureHunter = PrefabAPI.InstantiateClone(Constant.ScavWave, "WaveBoss_VultureHunter", true);
+            GameObject WaveBoss_VultureHunter = PrefabAPI.InstantiateClone(Constant.BaseExplicit_Boss, "WaveBoss_VultureHunter", true);
             GameObject WaveBoss_VultureHunterUI = PrefabAPI.InstantiateClone(Constant.ScavWaveUI, "WaveBoss_VultureHunterUI", false);
             wave = WaveBoss_VultureHunter.GetComponent<InfiniteTowerExplicitSpawnWaveController>();
 
@@ -251,18 +248,16 @@ namespace SimulacrumAdditions.Waves
             cscVultureHunterator.hullSize = HullClassification.Human;
 
             wave.spawnList[0].spawnCard = cscVultureHunterator;
-            wave.baseCredits = 100;
-            wave.linearCreditsPerWave = 2;
-            wave.immediateCreditsFraction = 0.05f;
-            wave.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<DirectorCardCategorySelection>(key: "17ceb46d5861cef4cb1a106de50812b4").WaitForCompletion(); //dccsConduitcanyonMonsters
+			wave.baseCredits = 100;
+			wave.linearCreditsPerWave = 2; //Evens out at 400 for wave 50
+			wave.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<DirectorCardCategorySelection>(key: "17ceb46d5861cef4cb1a106de50812b4").WaitForCompletion(); //dccsConduitcanyonMonsters
             wave.rewardDisplayTier = ItemTier.Boss;
             wave.rewardDropTable = Constant.dtITSpecialBossYellow;
-            wave.secondsAfterWave += 2;
             WaveBoss_VultureHunter.AddComponent<SimulacrumExtrasHelper>().newRadius = 90;
 
             simuExplicitStats = WaveBoss_VultureHunter.AddComponent<SimuExplicitStats>();
             simuExplicitStats.damageBonusMulti = 1f;
-            simuExplicitStats.hpBonusMulti = 1f;
+            simuExplicitStats.hpBonusMulti = 1.6f;
   
             WaveBoss_VultureHunter.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = WaveBoss_VultureHunterUI;
             WaveBoss_VultureHunterUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BOSS_DLC3_VULTUREHUNTER";

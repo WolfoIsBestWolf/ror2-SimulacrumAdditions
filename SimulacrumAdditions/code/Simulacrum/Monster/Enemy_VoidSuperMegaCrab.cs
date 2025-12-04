@@ -108,7 +108,6 @@ namespace SimulacrumAdditions
                 //new GivePickupsOnStart.ItemInfo { itemString = ("EquipmentMagazineVoid"), count = 1, },
                 //new GivePickupsOnStart.ItemInfo { itemString = ("SlowOnHitVoid"), count = 1, }, //Tentabaubel duration stacks so keep it low
                 new GivePickupsOnStart.ItemInfo { itemString = ("VoidMegaCrabItem"), count = 3, },
-                new GivePickupsOnStart.ItemInfo { itemString = ("CutHp"), count = 1, }
             };
             SuperCrabMaster.GetComponent<GivePickupsOnStart>().itemDefInfos = new GivePickupsOnStart.ItemDefInfo[] {
                 new GivePickupsOnStart.ItemDefInfo { itemDef = ItemHelpers.ITCooldownUp, count = 5, },
