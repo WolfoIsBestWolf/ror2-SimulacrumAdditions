@@ -66,6 +66,7 @@ namespace SimulacrumAdditions.Waves
                 if (wav.wavePrefab.name.Equals("InfiniteTowerWaveBossVoid"))
                 {
                     wav.weight = 6f;
+                    wav.prerequisites = Constant.StartWave11Prerequisite;
                 }
                 else if (wav.wavePrefab.name.Equals("InfiniteTowerWaveBossLunar"))
                 {
@@ -73,7 +74,7 @@ namespace SimulacrumAdditions.Waves
                     CombatDirector temp = wav.wavePrefab.GetComponent<CombatDirector>();
                     temp.monsterCards = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/DirectorCardCategorySelections/dccsLunarFamily.asset").WaitForCompletion(); ;
                     temp.skipSpawnIfTooCheap = false;
-                        wav.wavePrefab.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITWaveTier2;
+                    wav.wavePrefab.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITWaveTier2;
                     wav.wavePrefab.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier2;
 
                     wav.wavePrefab.AddComponent<SimulacrumExtrasHelper>().rewardDropTable = Constant.dtITLunar;
@@ -83,14 +84,14 @@ namespace SimulacrumAdditions.Waves
                 {
                     wav.weight = 6f;
                     wav.prerequisites = StartWave25Prerequisite;
-                    ITSuperBossWaves.wavePrefabs.Add(ITBossWaves.wavePrefabs[i]);
+                    //ITSuperBossWaves.wavePrefabs.Add(ITBossWaves.wavePrefabs[i]);
                 }
                 else if (wav.wavePrefab.name.Equals("InfiniteTowerWaveBossBrother"))
                 {
                     wav.wavePrefab.AddComponent<PhaseCounter>().phase = 3;
                     wav.weight = ITSpecialBossWaveWeight;
                     wav.prerequisites = StartWave35Prerequisite;
-                    ITSuperBossWaves.wavePrefabs.Add(ITBossWaves.wavePrefabs[i]);
+                    HG.ArrayUtils.ArrayAppend(ref ITSuperBossWaves.wavePrefabs, (new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = wav.wavePrefab, weight = ITSpecialBossWaveWeight }));
                 }
             }
 

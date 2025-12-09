@@ -96,6 +96,7 @@ namespace SimulacrumAdditions
 
         public static ITWave_DLC_Prerequisites DLC1_StartWave10Prerequisite = ScriptableObject.CreateInstance<ITWave_DLC_Prerequisites>();
 
+        public static ITWave_DLC_Prerequisites DLC2_Prerequisite = ScriptableObject.CreateInstance<ITWave_DLC_Prerequisites>();
         public static ITWave_DLC_Prerequisites DLC2_StartWave10Prerequisite = ScriptableObject.CreateInstance<ITWave_DLC_Prerequisites>();
         public static ITWave_DLC_Prerequisites DLC2_StartWave15Prerequisite = ScriptableObject.CreateInstance<ITWave_DLC_Prerequisites>();
         public static ITWave_DLC_Prerequisites DLC2_StartWave30Prerequisite = ScriptableObject.CreateInstance<ITWave_DLC_Prerequisites>();
@@ -475,6 +476,9 @@ namespace SimulacrumAdditions
             AfterWave5EndWave30Prerequisite.maximumWaveCount = 30;
             AfterWave5EndWave30Prerequisite.name = "AfterWave5EndWave30Prerequisite";
 
+            DLC2_Prerequisite.requiredDLC = DLCS.DLC2;
+            DLC2_Prerequisite.minimumWaveCount = 0;
+            DLC2_Prerequisite.name = "DLC2_Prerequisite";
             DLC2_StartWave10Prerequisite.requiredDLC = DLCS.DLC2;
             DLC2_StartWave10Prerequisite.minimumWaveCount = 10;
             DLC2_StartWave10Prerequisite.name = "StartWave10PrerequisiteDLC2";
@@ -486,8 +490,8 @@ namespace SimulacrumAdditions
             DLC2_StartWave30Prerequisite.name = "StartWave30PrerequisiteDLC2";
 
             DLC3_Prerequisite.requiredDLC = DLCS.DLC3;
-            DLC3_Prerequisite.minimumWaveCount = 5;
-            DLC3_Prerequisite.name = "DLC3_StartWave5Prerequisite";
+            DLC3_Prerequisite.minimumWaveCount = 0;
+            DLC3_Prerequisite.name = "DLC3_Prerequisite";
             DLC3_StartWave10Prerequisite.requiredDLC = DLCS.DLC3;
             DLC3_StartWave10Prerequisite.minimumWaveCount = 10;
             DLC3_StartWave10Prerequisite.name = "DLC3_StartWave10Prerequisite";
@@ -518,7 +522,7 @@ namespace SimulacrumAdditions
             ItemOrangeTierDef = ScriptableObject.CreateInstance<ItemTierDef>();
             ItemTierDef Tier1 = Addressables.LoadAssetAsync<ItemTierDef>(key: "RoR2/Base/Common/Tier1Def.asset").WaitForCompletion();
 
-            ItemOrangeTierDef.tier = ItemTier.AssignedAtRuntime;
+            ItemOrangeTierDef.tier = (ItemTier)25523;
             ItemOrangeTierDef.name = "OrangeTierDef";
             ItemOrangeTierDef.bgIconTexture = Tier1.bgIconTexture;
             ItemOrangeTierDef.colorIndex = ColorCatalog.ColorIndex.Equipment;

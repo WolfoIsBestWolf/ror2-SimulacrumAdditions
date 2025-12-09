@@ -191,7 +191,7 @@ namespace SimulacrumAdditions.Waves
                     Constant.ITSuperBossWaves.wavePrefabs[i].weight = 1;
                 }
                 GameObject wave = Constant.ITSuperBossWaves.wavePrefabs[i].wavePrefab;
-                InfiniteTowerExplicitSpawnWaveController temp;
+                InfiniteTowerExplicitSpawnWaveController WaveTemp;
 
                 switch (wave.name)
                 {
@@ -202,46 +202,39 @@ namespace SimulacrumAdditions.Waves
                         wave.AddComponent<SimuExplicitStats>().hpBonusMulti = 3f;
                         wave.GetComponent<SimuExplicitStats>().damageBonusMulti = 1.2f;
                         wave.GetComponent<SimuExplicitStats>().halfOnNonFinal = false;
-                        temp = wave.GetComponent<InfiniteTowerExplicitSpawnWaveController>();
-                        temp.baseCredits = 50;
-                        temp.immediateCreditsFraction = 0.5f;
-                        temp.linearCreditsPerWave = 4;
-                        temp.combatDirector.monsterCards = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/dccsLunarFamily.asset").WaitForCompletion();
-                        temp.secondsBeforeSuddenDeath *= 2;
+                        WaveTemp = wave.GetComponent<InfiniteTowerExplicitSpawnWaveController>();
+                        WaveTemp.baseCredits = 50;
+                        WaveTemp.immediateCreditsFraction = 0.5f;
+                        WaveTemp.linearCreditsPerWave = 4;
+                        WaveTemp.combatDirector.monsterCards = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/dccsLunarFamily.asset").WaitForCompletion();
+                        WaveTemp.secondsBeforeSuddenDeath *= 2;
                         break;
-                    case "InfiniteTowerWaveWaveBossScav":
-                        Constant.ITSuperBossWaves.wavePrefabs[i].weight = 0f;
-                        temp = wave.GetComponent<InfiniteTowerExplicitSpawnWaveController>();
-                        temp.rewardDisplayTier = ItemTier.Boss;
-                        temp.rewardDropTable = Constant.dtITSpecialBossYellow;
-                        temp.baseCredits = 100;
-                        temp.linearCreditsPerWave = 3;
-                        temp.secondsBeforeSuddenDeath *= 2f;
-                        wave.AddComponent<SimuExplicitStats>().hpBonusMulti = 0.3f;
-                        wave.GetComponent<SimuExplicitStats>().damageBonusMulti = 0.3f;
-                        wave.GetComponent<SimuExplicitStats>().halfOnNonFinal = false;
-                        wave.AddComponent<SimulacrumExtrasHelper>().newRadius = 80;
-                        CharacterSpawnCard cscScav = Object.Instantiate(temp.spawnList[0].spawnCard);
-                        cscScav.name = "cscScavBossIT";
-                        cscScav.itemsToGrant = new ItemCountPair[]
-                        {
+ 
+                }
+            }
+
+             
+            var temp = Constant.ScavWave.GetComponent<InfiniteTowerExplicitSpawnWaveController>();
+            temp.rewardDisplayTier = ItemTier.Boss;
+            temp.rewardDropTable = Constant.dtITSpecialBossYellow;
+            temp.baseCredits = 100;
+            temp.linearCreditsPerWave = 3;
+            temp.secondsBeforeSuddenDeath *= 2f;
+            Constant.ScavWave.AddComponent<SimuExplicitStats>().hpBonusMulti = 0.3f;
+            Constant.ScavWave.GetComponent<SimuExplicitStats>().damageBonusMulti = 0.3f;
+            Constant.ScavWave.GetComponent<SimuExplicitStats>().halfOnNonFinal = false;
+            Constant.ScavWave.AddComponent<SimulacrumExtrasHelper>().newRadius = 80;
+            CharacterSpawnCard cscScav = Object.Instantiate(temp.spawnList[0].spawnCard);
+            cscScav.name = "cscScavBossIT";
+            cscScav.itemsToGrant = new ItemCountPair[]
+            {
                             new ItemCountPair
                             {
                                 count = 1,
                                 itemDef = RoR2Content.Items.AdaptiveArmor,
                             }
-                        };
-                        temp.spawnList[0].spawnCard = cscScav;
-                        break;
-                        /*case "WaveBoss_ScavLunar":
-                             temp = wave.GetComponent<RoR2.InfiniteTowerExplicitSpawnWaveController>();
-                             CharacterSpawnCard cscScavLunarIT = Object.Instantiate(Addressables.LoadAssetAsync<CharacterSpawnCard>(key: "RoR2/Base/ScavLunar/cscScavLunar.asset").WaitForCompletion());
-                             cscScavLunarIT.name = "cscScavLunarIT";
-                             cscScavLunarIT.itemsToGrant = new ItemCountPair[] { new ItemCountPair { itemDef = RoR2Content.Items.AdaptiveArmor, count = 1 } };
-                             temp.spawnList[0].spawnCard = cscScavLunarIT;
-                             break;*/
-                }
-            }
+            };
+            temp.spawnList[0].spawnCard = cscScav;
 
             if (WConfig.cfgMusicSuperBoss.Value)
             {
@@ -265,6 +258,7 @@ namespace SimulacrumAdditions.Waves
             MusicTrackDef muSong_HelminthBoss = Addressables.LoadAssetAsync<MusicTrackDef>(key: "RoR2/DLC2/Common/muSong_HelminthBoss.asset").WaitForCompletion();
             MusicTrackDef muSong_MeridianFSB = Addressables.LoadAssetAsync<MusicTrackDef>(key: "RoR2/DLC2/Common/muSong_MeridianFSB.asset").WaitForCompletion();
             MusicTrackDef muSong_LakesBoss = Addressables.LoadAssetAsync<MusicTrackDef>(key: "RoR2/DLC2/Common/muSong_Lakes&HabitatBoss.asset").WaitForCompletion();
+            MusicTrackDef muGameplayDLC3_07_RC_Boss = Addressables.LoadAssetAsync<MusicTrackDef>(key: "bdab9790c981dac439bf3b540b2b171d").WaitForCompletion();
 
             WwiseStateReference Phase1WW = Addressables.LoadAssetAsync<WwiseStateReference>(key: "Wwise/0DE64677-408F-42E3-8F5A-7246170C2CE9.asset").WaitForCompletion();
             WwiseStateReference Phase2WW = Addressables.LoadAssetAsync<WwiseStateReference>(key: "Wwise/08652DAD-B715-437F-AB20-0254AD418B4D.asset").WaitForCompletion();
@@ -288,14 +282,8 @@ namespace SimulacrumAdditions.Waves
                         wave.AddComponent<MusicTrackOverride>().track = muSong_MeridianFSB;
                         wave.AddComponent<AkState>().data = StatePhase1;
                         break;
-                    case "WaveBoss_ScavLunar":
-                        wave.AddComponent<MusicTrackOverride>().track = muSong_LakesBoss;
-                        break;
                     case "WaveBoss_SuperVoidMegaCrab":
                         wave.AddComponent<MusicTrackOverride>().track = muSong_HelminthBoss;
-                        break;
-                    case "InfiniteTowerWaveWaveBossScav":
-                        wave.AddComponent<MusicTrackOverride>().track = MTDSulfurBoss;
                         break;
                     case "WaveBoss_TitanGold":
                         wave.AddComponent<MusicTrackOverride>().track = dampcavesimple.bossTrack;
@@ -305,6 +293,11 @@ namespace SimulacrumAdditions.Waves
                         break;
                 }
             }
+
+
+            Constant.ScavWave.AddComponent<MusicTrackOverride>().track = MTDSulfurBoss;
+            Waves_SuperBoss.WaveBoss_ScavLunar.AddComponent<MusicTrackOverride>().track = muSong_LakesBoss;
+            Waves_SuperBoss.WaveBoss_VultureHunter.AddComponent<MusicTrackOverride>().track = muGameplayDLC3_07_RC_Boss;
         }
 
 

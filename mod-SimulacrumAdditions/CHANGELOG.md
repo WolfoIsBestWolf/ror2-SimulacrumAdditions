@@ -1,5 +1,14 @@
 ## Changelog:
 ```
+v2.6.4
+Fixed not loading with AC 1.4.1
+
+Boss Void Family Augment min wave 0 -> 15
+Fixed Super Boss waves not being able to occur if you set them too early in the config.
+
+v2.6.3
+Fixed a softlock on the Halcyon Wave due to very specific ss2 bug.
+
 v2.6.2
 Added Russian translation thanks to 'coldeib' on Discord.
 

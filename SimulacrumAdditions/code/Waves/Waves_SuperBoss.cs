@@ -11,6 +11,7 @@ namespace SimulacrumAdditions.Waves
     public class Waves_SuperBoss
     {
         public static GameObject WaveBoss_ScavLunar;
+        public static GameObject WaveBoss_VultureHunter;
 
         internal static void MakeWaves()
         {
@@ -48,6 +49,7 @@ namespace SimulacrumAdditions.Waves
             InfiniteTowerCurrentBossScavLunarWaveUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().color = new Color(0.6f, 0.8f, 1f, 1);
 
             InfiniteTowerWaveCategory.WeightedWave ITBossScavLunar = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = WaveBoss_ScavLunar, weight = ITSpecialBossWaveWeight * 3f, prerequisites = Constant.StartWave35Prerequisite };
+            InfiniteTowerWaveCategory.WeightedWave ITBossScavLunarS = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = WaveBoss_ScavLunar, weight = ITSpecialBossWaveWeight, prerequisites = null};
             //
             #endregion
             #region Voidling
@@ -84,6 +86,7 @@ namespace SimulacrumAdditions.Waves
             InfiniteTowerCurrentBossVoidRaidWaveUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<LanguageTextMeshController>().token = "ITWAVE_DESC_BOSS_VOIDLING";
 
             InfiniteTowerWaveCategory.WeightedWave ITBossVoidRaidCrab = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = WaveBoss_VoidRaidCrab, weight = ITSpecialBossWaveWeight + 0.5f, prerequisites = Constant.StartWave50Prerequisite };
+            InfiniteTowerWaveCategory.WeightedWave ITBossVoidRaidCrabS = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = WaveBoss_VoidRaidCrab, weight = ITSpecialBossWaveWeight + 0.5f };
             //
             #endregion
             #region Aurelionite
@@ -143,8 +146,8 @@ namespace SimulacrumAdditions.Waves
             WaveBoss_FalseSon.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<DirectorCardCategorySelection>(key: "RoR2/DLC2/dccsShrineHalcyoniteActivationMonsterWave.asset").WaitForCompletion();
 
             wave.immediateCreditsFraction = 0.5f;
-            wave.baseCredits = 10;
-            wave.linearCreditsPerWave = 1;
+            wave.baseCredits = 40;
+            wave.linearCreditsPerWave = 1.2f;
             wave.secondsBeforeSuddenDeath = 120f;
             wave.rewardPickupPrefab = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC2/FragmentPotentialPickup.prefab").WaitForCompletion();
 
@@ -164,6 +167,7 @@ namespace SimulacrumAdditions.Waves
             InfiniteTowerCurrentBossFalseSonWaveUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().color = new Color(1f, 1f, 0.4f, 1);
 
             InfiniteTowerWaveCategory.WeightedWave ITBossFalseSon = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = WaveBoss_FalseSon, weight = ITSpecialBossWaveWeight, prerequisites = Constant.DLC2_StartWave30Prerequisite };
+            InfiniteTowerWaveCategory.WeightedWave ITBossFalseSonS = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = WaveBoss_FalseSon, weight = ITSpecialBossWaveWeight, prerequisites = Constant.DLC2_Prerequisite };
             #endregion
 
             #region SuperRoboBall
@@ -239,7 +243,7 @@ namespace SimulacrumAdditions.Waves
             #endregion
             #region Vulture Hunter
             //Amalgam +1 every 15? No Scaling?
-            GameObject WaveBoss_VultureHunter = PrefabAPI.InstantiateClone(Constant.BaseExplicit_Boss, "WaveBoss_VultureHunter", true);
+            WaveBoss_VultureHunter = PrefabAPI.InstantiateClone(Constant.BaseExplicit_Boss, "WaveBoss_VultureHunter", true);
             GameObject WaveBoss_VultureHunterUI = PrefabAPI.InstantiateClone(Constant.ScavWaveUI, "WaveBoss_VultureHunterUI", false);
             wave = WaveBoss_VultureHunter.GetComponent<InfiniteTowerExplicitSpawnWaveController>();
 
@@ -263,9 +267,9 @@ namespace SimulacrumAdditions.Waves
             WaveBoss_VultureHunterUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BOSS_DLC3_VULTUREHUNTER";
             WaveBoss_VultureHunterUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<LanguageTextMeshController>().token = "ITWAVE_DESC_BOSS_DLC3_VULTUREHUNTER";
             WaveBoss_VultureHunterUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = Assets.Bundle.LoadAsset<Sprite>("Assets/Simulacrum/Wave/waveAC.png");
-            WaveBoss_VultureHunterUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().color = new Color(0.366f, 0.7f, 0.5f, 1);
-            WaveBoss_VultureHunterUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().color = new Color(0.366f, 0.7f, 0.5f, 1);
-            WaveBoss_VultureHunterUI.transform.GetChild(0).GetChild(2).GetComponent<Image>().color = new Color(0.366f, 0.7f, 0.5f, 2) * 0.8f;
+            WaveBoss_VultureHunterUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().color = new Color(0.366f, 0.7f, 0.5f, 1)*1.2f;
+            WaveBoss_VultureHunterUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().color = new Color(0.366f, 0.7f, 0.5f, 1) * 1.2f;
+            WaveBoss_VultureHunterUI.transform.GetChild(0).GetChild(2).GetComponent<Image>().color = new Color(0.366f, 0.7f, 0.5f, 2);
             InfiniteTowerWaveCategory.WeightedWave WaveBoss_VultureHunterIT = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = WaveBoss_VultureHunter, weight = 4f, prerequisites = Constant.DLC3_StartWave25Prerequisite };
 
             #endregion
@@ -307,7 +311,7 @@ namespace SimulacrumAdditions.Waves
 
 
             Constant.ITBossWaves.wavePrefabs = Constant.ITBossWaves.wavePrefabs.Add(WaveBoss_SolusAmalgamIT, WaveBoss_VultureHunterIT/*, WaveBoss_SolusWingIT*/, ITBossScavLunar, ITBossVoidRaidCrab, ITBossSuperRoboBallBoss, ITBossTitanGold, ITBossFalseSon);
-            Constant.ITSuperBossWaves.wavePrefabs = Constant.ITSuperBossWaves.wavePrefabs.Add(ITBossScavLunar, ITBossVoidRaidCrab, ITBossFalseSon/*, WaveBoss_SolusWingIT*/);
+            Constant.ITSuperBossWaves.wavePrefabs = Constant.ITSuperBossWaves.wavePrefabs.Add(ITBossScavLunarS, ITBossVoidRaidCrabS, ITBossFalseSonS/*, WaveBoss_SolusWingIT*/);
 
         }
 

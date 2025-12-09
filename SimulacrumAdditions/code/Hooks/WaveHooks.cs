@@ -145,6 +145,11 @@ namespace SimulacrumAdditions
             {
                 if (NetworkServer.active)
                 {
+                    if (self.combatDirector.currentActiveEliteTier == null)
+                    {
+                        self.combatDirector.currentActiveEliteTier = CombatDirector.eliteTiers[0];
+                    }
+
                     if (self.linearCreditsPerWave * waveIndex > 400)
                     {
                         self.linearCreditsPerWave = (self.linearCreditsPerWave * waveIndex / 400);

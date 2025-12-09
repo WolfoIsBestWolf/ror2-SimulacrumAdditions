@@ -12,16 +12,16 @@ In total raises Boss Augment count from 5 to 30 (+1 with supported mods).
 
 Basic Augments :
 - 6 Artifact Augments. (+5 with mods)
-- 13 Family Event Augments. (+3 with mods)
+- 15 Family Event Augments. (+3 with mods)
 - 5 Item Augments.
 - 3 Equipment Augments.
 - 6 Buff Augments.
 - 4 Pulse Augments.
 - 3 Elite Augments.
-- 16 Other Augments. (+1 with mods)
+- 18 Other Augments. (+1 with mods)
 
 Boss Augments :
-- 8 Specific Boss Augments.
+- 10 Specific Boss Augments.
 - 5 Boss Artifact Augments.
 - 2 Boss Family Augment. (+1 with mods)
 - 1 Boss Elite Augment.

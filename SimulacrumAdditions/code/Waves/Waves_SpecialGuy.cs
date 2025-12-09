@@ -503,7 +503,7 @@ namespace SimulacrumAdditions.Waves
             InfiniteTowerWaveHalcyonite.GetComponent<InfiniteTowerWaveController>().rewardOptionCount = 4;
             InfiniteTowerWaveHalcyonite.AddComponent<SimulacrumExtrasHelper>().newRadius = 80;
             InfiniteTowerWaveHalcyonite.AddComponent<SimuExplicitStats>().halfOnNonFinal = false;
-            InfiniteTowerWaveHalcyonite.GetComponent<SimuExplicitStats>().hpBonusMulti = 2f;
+            InfiniteTowerWaveHalcyonite.GetComponent<SimuExplicitStats>().hpBonusMulti = 2.2f;
             InfiniteTowerWaveHalcyonite.GetComponent<SimuExplicitStats>().damageBonusMulti = 0.8f;
 
             //If we made him Void Team the enemies would probably go after him when he's not actually real
@@ -517,7 +517,7 @@ namespace SimulacrumAdditions.Waves
             };
 
             InfiniteTowerWaveHalcyonite.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList[0].spawnCard = cscHalcyoniteIT;
-            InfiniteTowerWaveHalcyonite.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList[0].eliteDef = Addressables.LoadAssetAsync<EliteDef>(key: "RoR2/DLC2/Elites/EliteAurelionite/edAurelionite.asset").WaitForCompletion();
+            //InfiniteTowerWaveHalcyonite.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList[0].eliteDef = Addressables.LoadAssetAsync<EliteDef>(key: "RoR2/DLC2/Elites/EliteAurelionite/edAurelionite.asset").WaitForCompletion();
             InfiniteTowerWaveHalcyonite.GetComponent<InfiniteTowerExplicitSpawnWaveController>().isBossWave = true;
             InfiniteTowerWaveHalcyonite.GetComponent<InfiniteTowerExplicitSpawnWaveController>().rewardPickupPrefab = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC2/FragmentPotentialPickup.prefab").WaitForCompletion();
 
