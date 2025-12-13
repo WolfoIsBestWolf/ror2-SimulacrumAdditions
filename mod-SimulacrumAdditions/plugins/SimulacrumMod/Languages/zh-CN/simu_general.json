@@ -1,0 +1,44 @@
+{
+	"strings":
+	{      
+	
+			"INFINITETOWER_SUDDEN_DEATH": "<style=cWorldEvent>【警告】焦点开始减弱……</style>",
+            "INFINITETOWER_OBJECTIVE_AWAITINGACTIVATION": "激活 <style=cIsVoid>焦点</style>",
+            "INFINITETOWER_OBJECTIVE_TRAVEL": "跟随 <style=cIsVoid>焦点</style>",
+            "INFINITETOWER_OBJECTIVE_PORTAL": "穿过 <style=cIsVoid>无限传送门</style>",
+ 
+ 
+            "INFINITETOWER_OBJECTIVE_AWAITING_TRAVEL": "等待旅行许可。",
+            "INFINITETOWER_TRAVEL_NOTICE": "<style=cWorldEvent>该焦点等待进一步的信息输入。</style>",
+            "INFINITETOWER_TRAVEL_CONTEXT": "开始旅行",
+ 
+			"PORTAL_ITEND_NAME": "模拟出口裂缝",
+			"PORTAL_ITEND_CONTEXT": "退出模拟?",
+			"OBJECTIVE_ITEND": "继续或结束 <style=cIsVoid>模拟</style>",
+           
+		   
+		    "ARTIFACT_AUGMENTS_NAME": "增强神器",
+			"ARTIFACT_AUGMENTS_DESCRIPTION": "所有波都将是增强波。",
+		   
+		    "ARTIFACT_NORMALSTAGES_NAME": "现实神器",
+			"ARTIFACT_NORMALSTAGES_DESCRIPTION": "可以使用任何阶段的虚空版本，而不仅仅是模拟阶段的变体。",
+		   
+		    "ARTIFACT_SIMUDRONES_NAME": "独创神器",
+			"ARTIFACT_SIMUDRONES_DESCRIPTION": "损坏的无人机、与无人机相关的可互动物品和道具可以生成。无人机免疫虚空迷雾的影响。",
+		   
+		   
+			"HORROR_BODY_NAME": "未知恐怖",
+		   
+		   
+			"GIANTGUP_BODY_NAME": "瓜普",
+			"UNLOCKABLE_LOG_GIANTGUP": "怪物日志：瓜普",
+			 
+			"SUPERMEGACRAB_BODY_NAME": "深渊虚空毁灭者",
+			"UNLOCKABLE_LOG_SUPERMEGACRAB": "怪物日志：深渊虚空毁灭者",
+
+			"COST_VOIDCOINBLOOD_FORMAT": "<color=#FF349F><sprite name=\"VoidCoin\" tint=1>1 or <color=#DA1D1D>{0}% HP</color></color>",
+            
+
+		
+	}
+}

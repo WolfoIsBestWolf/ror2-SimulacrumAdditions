@@ -1,0 +1,381 @@
+{
+	"strings":
+	{      
+	
+		"INFINITETOWER_WAVE_DESCRIPTION_BOSS_BROTHER": "打败虚无之王。",
+		"INFINITETOWER_WAVE_DESCRIPTION_BOSS_SCAV": "以其人之道还治其人之身。",
+		
+		
+		"ITWAVE_DESC_BASIC_ENIGMA": "每次激活时，您的设备都会发生变化。",
+		"ITWAVE_DESC_BASIC_KIN": "怪物只有一种类型。",
+		
+		
+		
+		"ITWAVE_NAME_BASIC_EVOLUTION": "波次 {0} - 演化强化",
+		"ITWAVE_DESC_BASIC_EVOLUTION": "怪物在这一波攻击中会掉落额外的道具。",
+		
+		"ITWAVE_NAME_BASIC_SACRIFICE": "波次 {0} - 牺牲强化",
+		"ITWAVE_DESC_BASIC_SACRIFICE": "怪物死亡时有几率掉落物品。",
+		
+		"ITWAVE_NAME_BASIC_METAMORPH": "波次 {0} - 变态强化",
+		"ITWAVE_DESC_BASIC_METAMORPH": "本波游戏中，你将扮演一名随机幸存者。",
+		
+		"ITWAVE_NAME_BASIC_HONOR": "波次 {0} - 荣誉强化",
+		"ITWAVE_DESC_BASIC_HONOR": "敌人必定是精英。",
+		
+		"ITWAVE_NAME_BASIC_SWARMS": "波次 {0} - 群体强化",
+		
+		"ITWAVE_NAME_BASIC_HONORBRIGADE": "波次 {0} - 亲族荣誉强化",
+		"ITWAVE_DESC_BASIC_HONORBRIGADE": "所有敌人都是精英，而且是同一类型的精英。",
+		
+		"ITWAVE_NAME_BASIC_DEVOTION": "波次 {0} - 奉献强化",
+		"ITWAVE_DESC_BASIC_DEVOTION": "利莫里亚蛋出现。用道具孵化它们。",
+		
+		"ITWAVE_NAME_BASIC_DELUSION": "波次 {0} - 妄想强化",
+		"ITWAVE_DESC_BASIC_DELUSION": "在记忆力测试中，将你的物品冒险放入之前打开过的箱子中。",
+		
+		"ITWAVE_NAME_BOSS_HONOR": "波次 {0} - 首领荣誉强化",
+		"ITWAVE_DESC_BOSS_HONOR": "敌人更强，而且必定是精英怪。",
+
+		"ITWAVE_NAME_BOSS_VENGENCE": "波次 {0} - 首领复仇强化",
+		"ITWAVE_DESC_BOSS_VENGENCE": "你那无情的分身入侵了。",
+		
+		"ITWAVE_NAME_BOSS_KIN": "波次 {0} - 首领亲族强化",
+		"ITWAVE_DESC_BOSS_KIN": "击败一大群同类型的怪物。",
+		
+		"ITWAVE_NAME_BOSS_DISSONANCE": "波次 {0} - 首领不谐强化",
+		"ITWAVE_DESC_BOSS_DISSONANCE": "敌人变得更强，并且出现在他们通常所处的环境之外。",
+		
+		"ITWAVE_NAME_BOSS_DISSOFAKE": "波次 {0} - 真 * 首领不谐强化",
+		"ITWAVE_DESC_BOSS_DISSOFAKE": "允许生成所有敌人。",
+		
+		"ITWAVE_NAME_BOSS_ARTIFACTS": "波次 {0} - 首领神器强化",
+		"ITWAVE_DESC_BOSS_ARTIFACTS": "已启用 2 个随机神器。",
+		
+		"ITWAVE_NAME_BASIC_VOIDBEAR": "波次 {0} - 安全强化",
+		"ITWAVE_DESC_BASIC_VOIDBEAR": "敌人会阻挡前几次伤害。",
+		
+		"ITWAVE_NAME_BASIC_BLIND": "波次 {0} - 盲目强化",
+		"ITWAVE_DESC_BASIC_BLIND": "视线变得模糊不清。",
+
+		"ITWAVE_NAME_BASIC_SLIPPERY": "波次 {0} - 湿滑强化",
+		"ITWAVE_DESC_BASIC_SLIPPERY": "地面变得湿滑。",
+
+		"ITWAVE_NAME_BASIC_BADLUCK": "波次 {0} - 不幸强化",
+		"ITWAVE_DESC_BASIC_BADLUCK": "本波你的幸运值降低。",
+
+		"ITWAVE_NAME_BASIC_NOCOOLDOWN": "波次 {0} - 狂热强化",
+		"ITWAVE_DESC_BASIC_NOCOOLDOWN": "技能没有冷却时间。",
+
+		"ITWAVE_NAME_BASIC_TONIC": "波次 {0} - 补品强化",
+		"ITWAVE_DESC_BASIC_TONIC": "怪物会短暂提升属性，之后就会变得虚弱。",
+
+		"ITWAVE_NAME_BOSS_LEECH": "波次 {0} - 首领吸血强化",
+		"ITWAVE_DESC_BOSS_LEECH": "怪物每次受到攻击都会回复生命值，并且回复生命值的能力也得到了提升。",
+
+
+
+		"ITWAVE_NAME_BASIC_SULFURPODS": "波次 {0} - 硫磺强化",
+		"ITWAVE_DESC_BASIC_SULFURPODS": "硫磺荚持续生长。",
+		
+		"ITWAVE_NAME_BASIC_TARPOTS": "波次 {0} - 焦油强化",
+		"ITWAVE_DESC_BASIC_TARPOTS": "下起了焦油雨。",
+		
+		
+		
+		"ITWAVE_NAME_BASIC_LUNARELITE": "波次 {0} - 完美强化",
+		"ITWAVE_DESC_BASIC_LUNARELITE": "精英怪生成时即为完美怪。",
+		
+		"ITWAVE_NAME_BASIC_VOIDELITE": "波次 {0} - 坍塌强化",
+		"ITWAVE_DESC_BASIC_VOIDELITE": "精英怪生成时为虚空之触。",
+		
+		"ITWAVE_NAME_BOSS_LUNARVOIDELITE_PRECOLOR": "波次 {0} - 首领二元强化",
+		"ITWAVE_NAME_BOSS_LUNARVOIDELITE": "<color=#6EB5F5>波次 {0}</color><color=#8CA9EB> - 首领</color><color=#AB9DE1> 增</color><color=#CA92D7>强 </color><color=#E987CE>二元</color>",
+		"ITWAVE_DESC_BOSS_LUNARVOIDELITE": "精英怪会以完美形态或虚空之触形态出现。",
+		
+		
+		
+		"ITWAVE_NAME_BASIC_FLYING": "波次 {0} - 飞行强化",
+		"ITWAVE_DESC_BASIC_FLYING": "所有敌人都能飞行。",
+	
+		"ITWAVE_NAME_BASIC_MALACHITE": "波次 {0} - 孔雀石强化",
+		"ITWAVE_DESC_BASIC_MALACHITE": "所有敌人都会以虚弱的孔雀石形态出现。",
+	
+		"ITWAVE_NAME_BASIC_BATTERY": "波次 {0} - 电池强化",
+		"ITWAVE_DESC_BASIC_BATTERY": "储存不当可能造成严重伤害。",
+	
+		"ITWAVE_NAME_BASIC_GOOBO": "波次 {0} - 软糖强化",
+		"ITWAVE_DESC_BASIC_GOOBO": "怪物会生成软糖克隆体。",
+	
+"ITWAVE_NAME_BASIC_FAMILY_BEETLE": "波次 {0} - 甲虫强化",
+		"ITWAVE_DESC_BASIC_FAMILY_BEETLE": "你脚下的地面开始移动。",
+		
+		"ITWAVE_NAME_BASIC_FAMILY_GOLEM": "波次 {0} - 大地强化",
+		"ITWAVE_DESC_BASIC_FAMILY_GOLEM": "大地隆隆作响，发出呻吟。",
+		
+		"ITWAVE_NAME_BASIC_FAMILY_JELLYFISH": "波次 {0} - 水母强化",
+		"ITWAVE_DESC_BASIC_FAMILY_JELLYFISH": "空气中噼啪作响，电弧闪烁。",
+		
+		"ITWAVE_NAME_BASIC_FAMILY_WISP": "波次 {0} - 余烬强化",
+		"ITWAVE_DESC_BASIC_FAMILY_WISP": "空气开始燃烧。",
+		
+		"ITWAVE_NAME_BASIC_FAMILY_LEMURIAN": "波次 {0} - 利莫里亚强化",
+		"ITWAVE_DESC_BASIC_FAMILY_LEMURIAN": "地面的温度开始上升。",
+		
+		"ITWAVE_NAME_BASIC_FAMILY_IMP": "波次 {0} - 红色位面强化",
+		"ITWAVE_DESC_BASIC_FAMILY_IMP": "宇宙结构中的一道裂缝。",
+		
+		"ITWAVE_NAME_BASIC_FAMILY_GUP": "波次 {0} - 软泥强化",
+		"ITWAVE_DESC_BASIC_FAMILY_GUP": "空气中弥漫着甜美的草莓味。",
+		
+		"ITWAVE_NAME_BASIC_FAMILY_CONSTRUCT": "波次 {0} - 构筑体强化",
+		"ITWAVE_DESC_BASIC_FAMILY_CONSTRUCT": "你触响了一个古老的警报。",
+		
+		"ITWAVE_NAME_BASIC_FAMILY_PARENT": "波次 {0} - 亲代强化",
+		"ITWAVE_DESC_BASIC_FAMILY_PARENT": "一种家族纽带正在被干扰。",
+		
+		"ITWAVE_NAME_BASIC_FAMILY_LARVA": "波次 {0} - 酸液强化",
+		"ITWAVE_DESC_BASIC_FAMILY_LARVA": "空气闻起来很臭。",
+		
+		"ITWAVE_NAME_BASIC_FAMILY_MUSHROOM": "波次 {0} - 蘑菇强化",
+		"ITWAVE_DESC_BASIC_FAMILY_MUSHROOM": "地面变得病态。",
+		
+		"ITWAVE_NAME_BASIC_FAMILY_LUNAR": "波次 {0} - 月亮强化",
+		"ITWAVE_DESC_BASIC_FAMILY_LUNAR": "堡垒开始动摇。",
+		
+		"ITWAVE_NAME_BASIC_FAMILY_VOID": "波次 {0} - 虚空强化",
+		"ITWAVE_DESC_BASIC_FAMILY_VOID": "虚空变得好奇了。",
+		
+		"ITWAVE_NAME_BASIC_FAMILY_CLAY": "波次 {0} - 阿斐利亚强化",
+		"ITWAVE_DESC_BASIC_FAMILY_CLAY": "你感受到了寄生影响。",
+		
+		"ITWAVE_NAME_BASIC_FAMILY_SOLUS": "波次 {0} - Solus X 强化",
+		"ITWAVE_DESC_BASIC_FAMILY_SOLUS": "翅膀和机械的嗡嗡声。",
+		
+		"ITWAVE_NAME_BASIC_FAMILY_VERMIN": "波次 {0} - 害虫强化",
+		"ITWAVE_DESC_BASIC_FAMILY_VERMIN": "你侵入了猖獗的繁殖地。",
+		
+		"ITWAVE_NAME_BOSS_FAMILY_WORM": "波次 {0} - 首领蠕虫强化",
+		"ITWAVE_DESC_BOSS_FAMILY_WORM": "他的兄弟喜欢蠕虫。",
+		
+		"ITWAVE_NAME_BOSS_FAMILY_BOSS": "波次 {0} - 首领冠军强化",
+		"ITWAVE_DESC_BOSS_FAMILY_BOSS": "只生成首领怪物。",
+		
+		"ITWAVE_NAME_BOSS_FAMILY_DRONES": "波次 {0} - 首领机器强化",
+		"ITWAVE_DESC_BOSS_FAMILY_DRONES": "无人机和机器与你战斗。",
+		
+		
+		
+		"ITWAVE_NAME_BASIC_DEATHLUNAR": "波次 {0} - 烈焰强化",
+		"ITWAVE_DESC_BASIC_DEATHLUNAR": "地面被月球火焰覆盖。",
+		
+		"ITWAVE_NAME_BASIC_DEATHVOID": "波次 {0} - 内爆强化",
+		"ITWAVE_DESC_BASIC_DEATHVOID": "发生无尽的虚空内爆。",
+		
+		"ITWAVE_NAME_BASIC_DEATHHEALING": "波次 {0} - 修复强化",
+		"ITWAVE_DESC_BASIC_DEATHHEALING": "生成无尽的治疗核心。",
+		
+		"ITWAVE_NAME_BASIC_DEATHICE": "波次 {0} - 冰霜强化",
+		"ITWAVE_DESC_BASIC_DEATHICE": "发生无尽的冰冻冲击。",
+		
+
+ 		"ITWAVE_NAME_BASIC_MANYITEMS": "波次 {0} - 囤积强化",
+		"ITWAVE_DESC_BASIC_MANYITEMS": "怪物获得更高叠加的道具。",
+
+ 		"ITWAVE_NAME_BASIC_HERESY": "波次 {0} - 异端强化",
+		"ITWAVE_DESC_BASIC_HERESY": "敌人在此波次中获得异端道具。",
+		"ITWAVE_HERESY_ANNOUNCE_EYE": "<style=cWorldEvent>[警告] 正在使用 <color=#307FFF>异端幻象</color> 运行测试</style>",
+		"ITWAVE_HERESY_ANNOUNCE_ARM": "<style=cWorldEvent>[警告] 正在使用 <color=#307FFF>异端钩索和步伐</color> 运行测试</style>",
+
+
+ 		"ITWAVE_NAME_BASIC_COFFEE": "波次 {0} - 咖啡因强化",
+		"ITWAVE_DESC_BASIC_COFFEE": "敌人移动和攻击速度增加。",
+		
+ 		"ITWAVE_NAME_BASIC_KNOCKBACKFIN": "波次 {0} - 击退强化",
+		"ITWAVE_DESC_BASIC_KNOCKBACKFIN": "击中会将目标击飞到空中。",
+
+ 		"ITWAVE_NAME_BASIC_LEPTON": "波次 {0} - 花朵强化",
+		"ITWAVE_DESC_BASIC_LEPTON": "生成的怪物可能会释放治疗光环。",
+
+ 		"ITWAVE_NAME_BOSS_BEHEMOTH": "波次 {0} - 首领易爆强化",
+		"ITWAVE_DESC_BOSS_BEHEMOTH": "敌人的攻击会引起爆炸。",
+
+ 		"ITWAVE_NAME_BOSS_PEARL": "波次 {0} - 首领辐射强化",
+		"ITWAVE_DESC_BOSS_PEARL": "敌人的所有属性增加。",
+
+	
+	
+	
+		"ITWAVE_NAME_BASIC_BOUNCY": "波次 {0} - 弹跳强化",
+		"ITWAVE_DESC_BASIC_BOUNCY": "所有东西都在不停跳跃。",
+		
+		"ITWAVE_NAME_BASIC_ALLCREDITS": "波次 {0} - 惊吓强化",
+		"ITWAVE_DESC_BASIC_ALLCREDITS": "所有敌人立即生成。",
+		
+ 		"ITWAVE_NAME_BOSS_INFESTORS": "波次 {0} - 首领侵染强化",
+		"ITWAVE_DESC_BOSS_INFESTORS": "一群虚空侵染者正在聚集。",
+		
+		"ITWAVE_NAME_BOSS_MOUNTAIN": "波次 {0} - 首领高山强化",
+		"ITWAVE_DESC_BOSS_MOUNTAIN": "击败两倍的敌人，获得两倍的奖励。",
+		
+		"ITWAVE_NAME_BOSS_FLAMEDRONES": "波次 {0} - 首领火焰强化",
+		"ITWAVE_DESC_BOSS_FLAMEDRONES": "焚化无人机与怪物并肩作战。",
+		
+		"ITWAVE_NAME_BOSS_ECLIPSE8": "波次 {0} - 首领蚀月强化",
+		"ITWAVE_DESC_BOSS_ECLIPSE8": "所有蚀月 8 修饰符均已启用。",
+	
+
+
+	
+		"ITWAVE_NAME_BASIC_PULSE_LUNAR": "波次 {0} - 设计强化",
+		"ITWAVE_DESC_BASIC_PULSE_LUNAR": "正在发出致残脉冲。",
+	
+		"ITWAVE_NAME_BASIC_PULSE_VOID": "波次 {0} - 虚空强化",
+		"ITWAVE_DESC_BASIC_PULSE_VOID": "使地面上的目标无效化。",
+	
+		"ITWAVE_NAME_BASIC_PULSE_MALACHITE": "波次 {0} - 毒药强化",
+		"ITWAVE_DESC_BASIC_PULSE_MALACHITE": "如果受到脉冲影响，你的治疗将被禁用。",
+	
+		"ITWAVE_NAME_BASIC_PULSE_BIGSUCK": "波次 {0} - 引力强化",
+		"ITWAVE_DESC_BASIC_PULSE_BIGSUCK": "地面上的目标被向内拉扯。",
+	
+
+
+
+		"ITWAVE_NAME_BASIC_BIG": "波次 {0} - 巨型强化",
+		"ITWAVE_DESC_BASIC_BIG": "敌人变得更大。",
+		
+		"ITWAVE_NAME_BASIC_SMALL": "波次 {0} - 微小强化",
+		"ITWAVE_DESC_BASIC_SMALL": "敌人变得很小。",
+
+
+
+
+		"ITWAVE_NAME_BASIC_EQUIPMENTDRONE": "波次 {0} - 设备无人机强化",
+		"ITWAVE_DESC_BASIC_EQUIPMENTDRONE": "一架设备无人机已从焦点中释放。",
+
+		"ITWAVE_NAME_BOSS_EQUIPMENTDRONE": "波次 {0} - 首领设备无人机强化",
+		"ITWAVE_DESC_BOSS_EQUIPMENTDRONE": "多架设备无人机已从焦点中释放。",	
+		"ITWAVE_EQUIPMENTDRONE_ANNOUNCE": "<style=cWorldEvent>[警告] 正在使用 {0} 运行测试</style>",
+		
+
+
+		"ITWAVE_NAME_BASIC_GHOST": "波次 {0} - 缠绕强化",
+		"ITWAVE_DESC_BASIC_GHOST": "一个未知的恐怖之物困扰着你。",
+
+		"ITWAVE_NAME_BOSS_GHOST": "波次 {0} - 首领缠绕强化",
+		"ITWAVE_DESC_BOSS_GHOST": "一个强大的未知恐怖之物困扰着你。",
+		
+		"ITWAVE_NAME_BASIC_BROTHERHAUNT": "波次 {0} - 爆炸强化",
+		"ITWAVE_DESC_BASIC_BROTHERHAUNT": "星球变得不稳定。",
+		
+		"ITWAVE_NAME_BOSS_ACRID": "波次 {0} - 首领细胞破裂强化",
+		"ITWAVE_DESC_BOSS_ACRID": "目标被模拟，一切尽在掌控之中。",
+		
+		"ITWAVE_NAME_BASIC_CELESTIAL": "波次 {0} - 隐形强化",
+		"ITWAVE_DESC_BASIC_CELESTIAL": "敌人在此球体内隐形。",
+		
+		"ITWAVE_NAME_BASIC_VAGRANTNOVA": "波次 {0} - 新星强化",
+		"ITWAVE_DESC_BASIC_VAGRANTNOVA": "周期性地发生新星爆炸。",
+		
+		"ITWAVE_NAME_BASIC_ARTIFACTBALL": "波次 {0} - 遗物强化",
+		"ITWAVE_DESC_BASIC_ARTIFACTBALL": "遗物不断地射击。",
+		
+		"ITWAVE_NAME_BOSS_HALCYONITE": "波次 {0} - 首领光辉强化",
+		"ITWAVE_DESC_BOSS_HALCYONITE": "除了此波次，还要击败光辉石。",
+		
+
+		"ITWAVE_NAME_BOSS_SCAVLUNAR": "波次 {0} - 首领扭曲清道夫强化",
+		"ITWAVE_DESC_BOSS_SCAVLUNAR": "击败扭曲清道夫。",
+
+		"ITWAVE_NAME_BOSS_VOIDLING": "波次 {0} - 首领「虚空幼体」强化",
+		"ITWAVE_DESC_BOSS_VOIDLING": "击败「深渊占卜师」",
+
+		"ITWAVE_NAME_BOSS_TITANGOLD": "波次 {0} - 首领金钛强化",
+		"ITWAVE_DESC_BOSS_TITANGOLD": "击败泰坦金织者。",
+
+		"ITWAVE_NAME_BOSS_FALSESON": "波次 {0} - 首领假子强化",
+		"ITWAVE_DESC_BOSS_FALSESON": "击败对更伟大存在的模仿。",
+
+		"ITWAVE_NAME_BOSS_SUPERBALL": "波次 {0} - 首领合金祭祀单元强化",
+		"ITWAVE_DESC_BOSS_SUPERBALL": "击败秃鹫之友。",
+
+
+
+		"ITWAVE_NAME_BOSS_GIANTGUP": "波次 {0} - 首领巨型强化",
+		"ITWAVE_DESC_BOSS_GIANTGUP": "我的天呐。",
+
+		"ITWAVE_NAME_BOSS_SUPERCRAB": "波次 {0} - 首领毁灭者强化",
+		"ITWAVE_DESC_BOSS_SUPERCRAB": "面对深化的虚空毁灭者。",
+
+
+
+
+		"MOD_ITWAVE_NAME_BOSS_DIRESEEKER": "波次 {0} - 首领厄运搜寻者强化",
+		"MOD_ITWAVE_DESC_BOSS_DIRESEEKER": "追踪并杀死。",
+
+		"SS2_ITWAVE_NAME_BASIC_RAINBOWELITE": "波次 {0} - 天界强化",
+		"SS2_ITWAVE_DESC_BASIC_RAINBOWELITE": "强大的能量已经和谐统一。",
+
+ 		"SS2_ITWAVE_NAME_BASIC_COGNATION": "波次 {0} - 亲缘强化",
+		"SS2_ITWAVE_DESC_BASIC_COGNATION": "敌人死亡时会留下暂时的复制品。",
+
+ 		"MOD_ITWAVE_NAME_BASIC_TOSSING": "波次 {0} - 抛掷强化",
+		"MOD_ITWAVE_DESC_BASIC_TOSSING": "玩家可以丢弃和分解他们的道具。",
+
+ 		"MOD_ITWAVE_NAME_BASIC_ORIGIN": "波次 {0} - 起源强化",
+		"MOD_ITWAVE_DESC_BASIC_ORIGIN": "首领怪物入侵模拟。",
+
+ 
+		"ITWAVE_NAME_BASIC_ELIXIR": "波次 {0} - 长生不老药强化",
+		"ITWAVE_DESC_BASIC_ELIXIR": "敌人在生命值较低时会进行治疗。",
+		
+		"ITWAVE_NAME_BASIC_SHURIKEN": "波次 {0} - 手里剑强化",
+		"ITWAVE_DESC_BASIC_SHURIKEN": "敌人在攻击时会发射致命的手里剑。",
+		
+		"ITWAVE_NAME_BASIC_PMSTORM": "波次 {0} - 子午线强化",
+		"ITWAVE_DESC_BASIC_PMSTORM": "一场雷暴正在肆虐。",
+		
+		"ITWAVE_NAME_BASIC_TWISTED": "波次 {0} - 扭曲强化",
+		"ITWAVE_DESC_BASIC_TWISTED": "可能会生成弱化的扭曲精英怪。",
+			 
+	 
+		"ITWAVE_NAME_BASIC_WIP": "波次 {0} - 待定",
+		"ITWAVE_DESC_BASIC_WIP": "击败所有敌人。",
+		
+		
+		
+		"ITWAVE_NAME_BASIC_ENEMYSURVIVORS": "波次 {0} - 乘客强化",
+		"ITWAVE_DESC_BASIC_ENEMYSURVIVORS": "怪物被弱小的阴影所取代。",
+		
+		
+		"ITWAVE_NAME_BASIC_DLC3_EXTRACTOR": "波次 {0} - 提取强化",
+		"ITWAVE_DESC_BASIC_DLC3_EXTRACTOR": "提取幽灵攻击你。",
+		
+		"ITWAVE_NAME_BASIC_DLC3_INVALIDATOR": "波次 {0} - 无效强化",
+		"ITWAVE_DESC_BASIC_DLC3_INVALIDATOR": "无效化幽灵攻击你。",
+		
+		"ITWAVE_NAME_BASIC_DLC3_SOLUSFAMILY": "波次 {0} - Solus X 强化",
+		"ITWAVE_DESC_BASIC_DLC3_SOLUSFAMILY": "集体正在聚合。",
+		
+		"ITWAVE_NAME_BASIC_DLC3_VULTUREFAMILY": "波次 {0} - 秃鹫强化",
+		"ITWAVE_DESC_BASIC_DLC3_VULTUREFAMILY": "一个委员会在上空盘旋。",
+		
+		"ITWAVE_NAME_BOSS_DLC3_VULTUREHUNTER": "波次 {0} - 首领狩猎强化",
+		"ITWAVE_DESC_BOSS_DLC3_VULTUREHUNTER": "击败先知所选之人",
+		
+		"ITWAVE_NAME_BOSS_DLC3_SOLUSAMALGAM": "波次 {0} - 首领混合体强化",
+		"ITWAVE_DESC_BOSS_DLC3_SOLUSAMALGAM": "不完整的原型",
+		
+		"ITWAVE_NAME_BOSS_DLC3_SOLUSWING": "波次 {0} - 首领 Solus 翼强化",
+		"ITWAVE_DESC_BOSS_DLC3_SOLUSWING": "击败合金集体",
+		
+		"ITWAVE_NAME_BOSS_DLC3_SOLUSHEART": "波次 {0} - 首领 Solus 心强化",
+		"ITWAVE_DESC_BOSS_DLC3_SOLUSHEART": "击败虚拟超我",
+		
+		"ITWAVE_NAME_BASIC_DLC3_COLLECTIVE": "波次 {0} - 集体强化",
+		"ITWAVE_DESC_BASIC_DLC3_COLLECTIVE": "精英怪生成为集体。",
+		
+		
+	}
+}

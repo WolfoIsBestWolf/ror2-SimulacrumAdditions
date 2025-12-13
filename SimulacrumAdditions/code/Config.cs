@@ -33,9 +33,7 @@ namespace SimulacrumAdditions
 
         public static ConfigEntry<bool> cfgItemsEvery8;
         public static ConfigEntry<bool> cfgItemsFrequently;
-
-        public static ConfigEntry<bool> cfgMakeSpecialWavesMoreCommon;
-
+ 
         public static ConfigEntry<bool> cfgAwaitTravel;
         
         public static ConfigEntry<float> ArtifactOfRealityBonusRadius;
@@ -55,7 +53,33 @@ namespace SimulacrumAdditions
             ModSettingsManager.SetModDescription("Simulacrum Gaming");
             ModSettingsManager.SetModIcon(Assets.Bundle.LoadAsset<Sprite>("Assets/Simulacrum/Wave/waveGupYellow.png"));
 
-            ModSettingsManager.AddOption(new CheckBoxOption(cfgNewEnemiesVisible, true));
+
+
+            ConfigEntryBase[] entries = ConfigFileUNSORTED.GetConfigEntries();
+            foreach (ConfigEntryBase entry in entries)
+            {
+                if (entry.SettingType == typeof(bool))
+                {
+                    var temp = (ConfigEntry<bool>)entry;
+                    ModSettingsManager.AddOption(new CheckBoxOption(temp, true));
+                }
+                else if (entry.SettingType == typeof(float))
+                {
+                    var temp = (ConfigEntry<float>)entry;
+                    ModSettingsManager.AddOption(new FloatFieldOption(temp, true));
+                }
+                else if(entry.SettingType == typeof(int))
+                {
+                    var temp = (ConfigEntry<int>)entry;
+                    ModSettingsManager.AddOption(new IntFieldOption(temp, true));
+                }
+                else
+                {
+                    Debug.LogWarning("Could not add config " + entry.Definition.Key + " of type : " + entry.SettingType);
+                }
+            }
+
+           /* ModSettingsManager.AddOption(new CheckBoxOption(cfgNewEnemiesVisible, true));
             ModSettingsManager.AddOption(new CheckBoxOption(cfgVoidCoins));
              
             ModSettingsManager.AddOption(new CheckBoxOption(cfgSacrificeBalance));
@@ -71,7 +95,7 @@ namespace SimulacrumAdditions
             ModSettingsManager.AddOption(new CheckBoxOption(cfgCrabSpeedOnLaterWaves));
             ModSettingsManager.AddOption(new CheckBoxOption(cfgMusicChanges));
             ModSettingsManager.AddOption(new CheckBoxOption(cfgMusicSuperBoss));
-            //ModSettingsManager.AddOption(new CheckBoxOption(cfgMakeSpecialWavesMoreCommon));
+ 
             ModSettingsManager.AddOption(new CheckBoxOption(cfgAwaitTravel));
 
             ModSettingsManager.AddOption(new FloatFieldOption(ArtifactOfRealityBonusRadius));
@@ -81,7 +105,7 @@ namespace SimulacrumAdditions
 
 
 
-            ModSettingsManager.AddOption(new CheckBoxOption(ResetStatsButton));
+            ModSettingsManager.AddOption(new CheckBoxOption(ResetStatsButton));*/
 
 
         }
@@ -89,12 +113,14 @@ namespace SimulacrumAdditions
 
         public static void InitConfig()
         {
-            ResetStatsButton = ConfigFileUNSORTED.Bind(
-                "Main",
-                "Reset Wave Count Button",
-                false,
-                "Add buttons to reset wave count or set it to 50."
-            );
+            #region
+            cfgVoidCoins = ConfigFileUNSORTED.Bind(
+              "Main",
+              "Add Void Coins",
+              true,
+              "Add previously unused Void Coins with which you can purchase Void Interactables. You can still purchase them with Blood if you do not have any."
+          );
+
 
             cfgMusicChanges = ConfigFileUNSORTED.Bind(
                 "Main",
@@ -110,13 +136,7 @@ namespace SimulacrumAdditions
                 "Like Mithrix theme for Mithrix wave."
             );
 
-            cfgVoidCoins = ConfigFileUNSORTED.Bind(
-                 "Main",
-                 "Add Void Coins",
-                 true,
-                 "Add previously unused Void Coins with which you can purchase Void Interactables. You can still purchase them with Blood if you do not have any."
-             );
-            
+         
 
             cfgNewEnemiesVisible = ConfigFileUNSORTED.Bind(
                 "Main",
@@ -163,29 +183,8 @@ namespace SimulacrumAdditions
                 true,
                 "After wave 60 void enemies will spawn on all simu stages."
             );
-            //
-            //Artifacts
-            /* cfgEnableArtifactAugments = ConfigFileUNSORTED.Bind(
-                 "Main : Artifacts",
-                 "Enable Artifact of Augments",
-                 true,
-                 "An Artifact that allows only special augments."
-             );
-             cfgEnableArtifactStages = ConfigFileUNSORTED.Bind(
-                 "Main : Artifacts",
-                 "Enable Artifact of Reality",
-                 true,
-                 "An Artifact that makes the game mode use normal stages instead of simu variants"
-             );*/
-            ArtifactOfRealityBonusRadius = ConfigFileUNSORTED.Bind(
-                "Main : Artifacts",
-                "Artifact of Reality : Larger Radius",
-                10f,
-                "Bonus radius since default stages are often bigger and have weird cornerns"
-            );
-
-            //
-            //Balance Stuff
+            #endregion
+            #region Balance
             cfgItemsEvery8 = ConfigFileUNSORTED.Bind(
                 "Simulacrum : Balance",
                 "Items every 8 Waves",
@@ -228,7 +227,32 @@ namespace SimulacrumAdditions
                 true,
                 "Less time between waves and waves spawn enemies faster."
             );
+            #endregion
+
+
             //
+            //Artifacts
+            /* cfgEnableArtifactAugments = ConfigFileUNSORTED.Bind(
+                 "Main : Artifacts",
+                 "Enable Artifact of Augments",
+                 true,
+                 "An Artifact that allows only special augments."
+             );
+             cfgEnableArtifactStages = ConfigFileUNSORTED.Bind(
+                 "Main : Artifacts",
+                 "Enable Artifact of Reality",
+                 true,
+                 "An Artifact that makes the game mode use normal stages instead of simu variants"
+             );*/
+            ArtifactOfRealityBonusRadius = ConfigFileUNSORTED.Bind(
+                "Main : Artifacts",
+                "Artifact of Reality : Larger Radius",
+                10f,
+                "Bonus radius since default stages are often bigger and have weird cornerns"
+            );
+
+            //
+        
             //
             cfgSimuEndingStartAtXWaves = ConfigFileUNSORTED.Bind(
                 "Simulacrum : Ending Portal",
@@ -262,6 +286,12 @@ namespace SimulacrumAdditions
                 false,
                 "Dump wave info on startup in log"
             );
+            ResetStatsButton = ConfigFileUNSORTED.Bind(
+              "Testing",
+              "Reset Wave Count Button",
+              false,
+              "Add buttons to reset wave count or set it to 50."
+          );
 
 
         }

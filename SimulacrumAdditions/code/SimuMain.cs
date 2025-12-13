@@ -15,7 +15,7 @@ using UnityEngine.AddressableAssets;
 namespace SimulacrumAdditions
 {
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("Wolfo.SimulacrumAdditions", "SimulacrumAdditions", "2.6.2")]
+    [BepInPlugin("Wolfo.SimulacrumAdditions", "SimulacrumAdditions", "2.6.4")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
 
     public class SimuMain : BaseUnityPlugin
@@ -96,11 +96,11 @@ namespace SimulacrumAdditions
                 {
                     if (self.IsExpansionEnabled(WolfoLibrary.DLCS.DLC1))
                     {
-                        self.availableTier3DropList.Add(PickupCatalog.FindPickupIndex(DLC1Content.Items.DroneWeapons.itemIndex));
+                        //self.availableTier3DropList.Add(PickupCatalog.FindPickupIndex(DLC1Content.Items.DroneWeapons.itemIndex));
                     }
                     if (self.IsExpansionEnabled(WolfoLibrary.DLCS.DLC3))
                     {
-                        self.availableTier2DropList.Add(PickupCatalog.FindPickupIndex(DLC3Content.Items.DroneDynamiteDisplay.itemIndex));
+                        //self.availableTier2DropList.Add(PickupCatalog.FindPickupIndex(DLC3Content.Items.DronesDropDynamite.itemIndex));
                     }
                 }
                 self.availableBossDropList.Add(PickupCatalog.FindPickupIndex(RoR2Content.Items.Pearl.itemIndex));

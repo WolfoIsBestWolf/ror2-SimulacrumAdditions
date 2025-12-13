@@ -158,5 +158,7 @@ Generally happy about gameplay feedback.
 
  
 ### Translations
-Russian translation thanks to coldeib on Discord.
+Simplified Chinese translation thanks to junking on Github (v2.6.5)
+
+Russian translation thanks to coldeib on Discord. (v2.6.2)
  
