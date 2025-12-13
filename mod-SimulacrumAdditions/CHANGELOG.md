@@ -2,6 +2,7 @@
 ```
 v2.6.5
 Added Simplified Chinese translation thanks to github user 'juking'
+Fixed SimuDroneArtifact adding Dynamite hidden item to the pool.
 
 v2.6.4
 Fixed not loading with AC 1.4.1
