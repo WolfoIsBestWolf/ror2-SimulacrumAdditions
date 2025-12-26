@@ -1,5 +1,8 @@
 ## Changelog:
 ```
+v2.6.6
+Fixed an issue with cost-types when QualityMod is installed.
+
 v2.6.5
 Added Simplified Chinese translation thanks to github user 'juking'
 Fixed SimuDroneArtifact adding Dynamite hidden item to the pool.

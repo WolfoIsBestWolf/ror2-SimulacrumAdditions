@@ -1,4 +1,6 @@
 ﻿using RoR2;
+using RoR2.Audio;
+using System;
 using System.Collections.Generic;
 //using System;
 using UnityEngine;
@@ -15,6 +17,7 @@ namespace SimulacrumAdditions
         public static void MakeVoidCoin()
         {
             CostTypeCatalog.modHelper.getAdditionalEntries += addVoidBloodCost;
+                
             On.RoR2.PlayerCharacterMasterController.Start += StartWithOneVoidCoin;
 
             GameObject VoidCoinBarrel = LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/Chest/VoidCoinBarrel");
@@ -30,6 +33,18 @@ namespace SimulacrumAdditions
 
         }
 
+        [SystemInitializer(typeof(CostTypeCatalog))]
+        static void getCostTypeIndex()
+        {
+            for (int index = 14; index < CostTypeCatalog.costTypeCount; index++)
+            {
+                CostTypeDef costTypeDef = CostTypeCatalog.GetCostTypeDef((CostTypeIndex)index);
+                if (costTypeDef == CostTypeVoidCoinBlood)
+                {
+                    CostIndexVoidCoinBlood = (CostTypeIndex)index;
+                }
+            }
+        }
 
         private static void StartWithOneVoidCoin(On.RoR2.PlayerCharacterMasterController.orig_Start orig, PlayerCharacterMasterController self)
         {

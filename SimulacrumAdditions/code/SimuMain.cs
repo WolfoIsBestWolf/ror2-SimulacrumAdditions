@@ -1,4 +1,5 @@
 ﻿using BepInEx;
+using HG.Reflection;
 using R2API.Utils;
 using RoR2;
 using SimulacrumAdditions.Waves;
@@ -11,11 +12,11 @@ using UnityEngine.AddressableAssets;
 [assembly: SecurityPermission(SecurityAction.RequestMinimum, SkipVerification = true)]
 #pragma warning restore CS0618 // Type or member is obsolete
 [module: UnverifiableCode]
-
+[assembly: SearchableAttribute.OptIn]
 namespace SimulacrumAdditions
 {
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("Wolfo.SimulacrumAdditions", "SimulacrumAdditions", "2.6.4")]
+    [BepInPlugin("Wolfo.SimulacrumAdditions", "SimulacrumAdditions", "2.6.6")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
 
     public class SimuMain : BaseUnityPlugin
