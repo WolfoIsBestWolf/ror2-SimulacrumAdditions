@@ -1,7 +1,5 @@
 ﻿using RoR2;
-using RoR2.Navigation;
 //using System;
-using UnityEngine;
 using UnityEngine.AddressableAssets;
 using static SimulacrumAdditions.SimulacrumDCCS;
 namespace SimulacrumAdditions
@@ -27,7 +25,7 @@ namespace SimulacrumAdditions
                 selectionWeight = 2,
             };
             dccsInfiniteTowerInteractables.AddCard(dr, iscTripleDroneShop);
- 
+
         }
 
         public static void AddDroneRelatedToPrinter(DirectorCardCategorySelection dccs)
@@ -39,14 +37,14 @@ namespace SimulacrumAdditions
                 {
                     spawnCardReference = new AssetReferenceT<SpawnCard>("d7e78d150bd132744934165e6471f5f6"),
                     selectionWeight = 10,
-                }); 
+                });
                 dccs.AddCard(dict, new DirectorCard
                 {
                     spawnCardReference = new AssetReferenceT<SpawnCard>("2eaec01927ea16245822dcb50080cba3"),
                     selectionWeight = 8,
                 });
             }
-            
+
             //Add Combiners and Scrappers to all stages during Simu for better Reality support
             //dccs.AddCard();
         }
@@ -81,7 +79,7 @@ namespace SimulacrumAdditions
                 spawnCardReference = new AssetReferenceT<SpawnCard>("8c0ba07e91edbbd4fa573a6702b0e49f"),
                 selectionWeight = 5,
             };
-           DirectorCard iscBrokenDrone2 = new DirectorCard
+            DirectorCard iscBrokenDrone2 = new DirectorCard
             {
                 spawnCardReference = new AssetReferenceT<SpawnCard>("47129a0298c286f4bb01754a8aaa36b0"),
                 selectionWeight = 5,
@@ -128,12 +126,12 @@ namespace SimulacrumAdditions
                 spawnCardReference = new AssetReferenceT<SpawnCard>("4e0d52fe3545f474b9076987b6ac92ec"),
                 selectionWeight = 3,
             };
-             DirectorCard iscBrokenRechargeDrone = new DirectorCard
+            DirectorCard iscBrokenRechargeDrone = new DirectorCard
             {
                 spawnCardReference = new AssetReferenceT<SpawnCard>("5b6dafbe8f6447e49a151e62961f9f77"),
                 selectionWeight = 3,
             };
-             DirectorCard iscBrokenCleanupDrone = new DirectorCard
+            DirectorCard iscBrokenCleanupDrone = new DirectorCard
             {
                 spawnCardReference = new AssetReferenceT<SpawnCard>("f92a522e57b907d4b8585b495e706636"),
                 selectionWeight = 3,
@@ -169,11 +167,11 @@ namespace SimulacrumAdditions
             dccsITGooLakeInteractablesW.AddCard(dr, iscBrokenDrone2);
             dccsITGooLakeInteractablesW.AddCard(dr, iscBrokenTurret1);
             dccsITGooLakeInteractablesW.AddCard(dr, iscBrokenMissileDrone);
-            
+
             dccsITAncientLoftInteractablesW.AddCard(dr, iscBrokenHaulerDrone);
             dccsITAncientLoftInteractablesW.AddCard(dr, iscBrokenFlameDrone);
             dccsITAncientLoftInteractablesW.AddCard(dr, iscBrokenEquipmentDrone);
-             
+
             dccsITFrozenWallInteractablesW.AddCard(dr, iscBrokenMegaDrone);
             dccsITFrozenWallInteractablesW.AddCard(dr, iscBrokenCopycatDrone);
             dccsITFrozenWallInteractablesW.AddCard(dr, iscBrokenCleanupDrone);
@@ -196,7 +194,7 @@ namespace SimulacrumAdditions
 
             dccsITMoonInteractablesW.AddCard(dr, iscBrokenMegaDrone);
             dccsITMoonInteractablesW.AddCard(dr, iscBrokenCopycatDrone);
-            dccsITMoonInteractablesW.AddCard(dr, iscBrokenJailerDrone);          
+            dccsITMoonInteractablesW.AddCard(dr, iscBrokenJailerDrone);
             dccsITMoonInteractablesW.AddCard(dr, iscBrokenRechargeDrone);
         }
 

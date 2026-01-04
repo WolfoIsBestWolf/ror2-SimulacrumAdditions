@@ -1,7 +1,6 @@
 ﻿using R2API;
 using RoR2;
 using System.Collections.Generic;
-using System.Linq;
 
 //using System;
 using UnityEngine;
@@ -154,7 +153,7 @@ namespace SimulacrumAdditions
             pillar.transform.GetChild(1).GetChild(0).GetChild(4).gameObject.SetActive(false);
             pillar.transform.GetChild(0).GetChild(0).localPosition = new Vector3(0, -20, 0);
             pillar.transform.GetChild(0).GetChild(0).localScale = new Vector3(1, 1, 4);
-            pillar.transform.localScale = new Vector3(4f,20f,4f);
+            pillar.transform.localScale = new Vector3(4f, 20f, 4f);
             //pillar.layer = 0;
 
             ObjectTransformCurve curve = pillar.GetComponentInChildren<ObjectTransformCurve>();
@@ -171,7 +170,7 @@ namespace SimulacrumAdditions
             };
         }
 
-         public List<GameObject> pillarInstances;
+        public List<GameObject> pillarInstances;
         public void MakePillar()
         {
             if (!pillar)
@@ -220,7 +219,7 @@ namespace SimulacrumAdditions
                 curve.Reset();
                 pillarInstance.gameObject.AddComponent<DestroyOnTimer>().duration = 6;
             }
-  
+
         }
     }
 

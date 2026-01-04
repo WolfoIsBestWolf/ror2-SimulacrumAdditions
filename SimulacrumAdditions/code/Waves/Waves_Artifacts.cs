@@ -1,11 +1,11 @@
 ﻿using R2API;
 using RoR2;
 using RoR2.UI;
-using UnityEngine.UI;
-using TMPro;
-using UnityEngine.AddressableAssets;
-using UnityEngine;
 using System.Collections;
+using TMPro;
+using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.UI;
 using static SimulacrumAdditions.Constant;
 using static SimulacrumAdditions.H;
 
@@ -392,8 +392,10 @@ namespace SimulacrumAdditions.Waves
                 {
                     playerCharacterMasterController.StopAllCoroutines();
                     playerCharacterMasterController.StartCoroutine(DelayedRespawn(playerCharacterMasterController, 0.35f));
-                };
-            };
+                }
+                ;
+            }
+            ;
         }
 
         public static void RespawnMetamorphosis_onArtifactDisabledGlobal(RunArtifactManager runArtifactManager, ArtifactDef artifactDef)
@@ -405,8 +407,10 @@ namespace SimulacrumAdditions.Waves
                     playerCharacterMasterController.SetBodyPrefabToPreference();
                     playerCharacterMasterController.StopAllCoroutines();
                     playerCharacterMasterController.StartCoroutine(DelayedRespawn(playerCharacterMasterController, 0.1f));
-                };
-            };
+                }
+                ;
+            }
+            ;
         }
 
         public static IEnumerator DelayedRespawn(PlayerCharacterMasterController playerCharacterMasterController, float delay)

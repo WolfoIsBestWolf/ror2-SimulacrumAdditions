@@ -134,7 +134,7 @@ namespace SimulacrumAdditions
                 self.GetComponent<SimulacrumLightningStormWave>().DisableStorm();
             }
             RoR2.UI.EnemyInfoPanel.MarkDirty();
-           
+
             Debug.Log("OnAllEnemiesDefeatedServer  " + self);
         }
 
@@ -174,7 +174,7 @@ namespace SimulacrumAdditions
                         bonusBonusHPMulti = help.ExplicitInitialize(self, waveIndex);
                         IsCharacterWave = help.code == SimuWaveUnsortedExtras.Case.AcridWave;
                     }
- 
+
                     SimuExplicitStats stats = self.GetComponent<SimuExplicitStats>();
                     if (stats)
                     {
@@ -185,8 +185,8 @@ namespace SimulacrumAdditions
                         }
                         else
                         {
-                            bonusBonusHPMulti = stats.hpBonusMulti; 
-                            bonusBonusDmgMulti = stats.damageBonusMulti;     
+                            bonusBonusHPMulti = stats.hpBonusMulti;
+                            bonusBonusDmgMulti = stats.damageBonusMulti;
                         }
                         if (stats.spawnAsVoidTeam)
                         {
@@ -197,18 +197,18 @@ namespace SimulacrumAdditions
                             self.spawnList[0].count++;
                             if (stats.ExtraSpawnPerWaves > 0)
                             {
-                                int extraSpawns = (waveIndex-stats.OneExtraSpawnStartingWave) / (stats.ExtraSpawnPerWaves);
+                                int extraSpawns = (waveIndex - stats.OneExtraSpawnStartingWave) / (stats.ExtraSpawnPerWaves);
                                 if (extraSpawns > 0)
                                 {
                                     self.spawnList[0].count += extraSpawns;
-                                } 
+                                }
                             }
                         }
                         if (stats.spawnsPerExtraPlayer > 0)
                         {
-                            self.spawnList[0].count += (int)(((float)PlayerCharacterMasterController.instances.Count-1) * stats.spawnsPerExtraPlayer);
+                            self.spawnList[0].count += (int)(((float)PlayerCharacterMasterController.instances.Count - 1) * stats.spawnsPerExtraPlayer);
                         }
-                      
+
                     }
 
                     if (bonusBonusHPMulti > 0)
@@ -360,7 +360,7 @@ namespace SimulacrumAdditions
                 {
                     a.InitializeWaveController(self, self.waveInstance);
                 }
- 
+
                 if (NetworkServer.active)
                 {
                     if (WConfig.cfgSimuMoreGold.Value)
@@ -394,7 +394,7 @@ namespace SimulacrumAdditions
                     }
                 }
             }
-     
+
             self.GetComponent<EnemyInfoPanelInventoryProvider>().MarkAsDirty();
             if (self.waveIndex < 11)
             {
@@ -480,7 +480,7 @@ namespace SimulacrumAdditions
             }
 
             Debug.Log(self.waveIndex + " immediateCreditsFraction: " + waveController.immediateCreditsFraction + " eliteBias: " + combatDirector.eliteBias + " wavePeriodSeconds: " + waveController.wavePeriodSeconds);
- 
+
         }
 
 
@@ -497,7 +497,7 @@ namespace SimulacrumAdditions
                         {
                             a.CleanUpCurrentWave(self, self.waveInstance);
                         }
-                   
+
                     }
                 }
             }
@@ -521,7 +521,7 @@ namespace SimulacrumAdditions
                 {
                     self.combatSquad.RemoveMember(master);
                     CharacterBody body = master.GetBody();
- 
+
                     int horror = master.inventory.GetItemCount(ItemHelpers.ITHorrorName);
                     if (horror > 0)
                     {

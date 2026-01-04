@@ -1,5 +1,4 @@
-﻿using EntityStates.AffixVoid;
-using RoR2;
+﻿using RoR2;
 using RoR2.Artifacts;
 using RoR2.Projectile;
 using System.Collections.Generic;
@@ -212,7 +211,7 @@ namespace SimulacrumAdditions
                     //GetComponent<ArtifactEnabler>().enabled = false;
                     break;
             }
- 
+
         }
 
 
@@ -741,7 +740,7 @@ namespace SimulacrumAdditions
                 };
                 DirectorCore.instance.TrySpawnObject(new DirectorSpawnRequest(spawnCard, placementRule, this.rng));
             }
-        
+
         }
 
     }
@@ -761,7 +760,7 @@ namespace SimulacrumAdditions
         public EliteCase eliteCase;
         public CombatDirector.EliteTierDef[] backupTiers;
         public CombatDirector.EliteTierDef[] newTiers;
-  
+
         private void OnEnable()
         {
             backupTiers = CombatDirector.eliteTiers;

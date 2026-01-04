@@ -40,7 +40,7 @@ namespace SimulacrumAdditions
             GiantGup.Start();
             SuperMegaCrab.Start();
 
-           
+
             ITRun_Hooks.AddHooks();
             Wave_Hooks.AddHooks();
             VoidSafeWard_Hooks.AddHooks();
@@ -163,7 +163,7 @@ namespace SimulacrumAdditions
         public static void SimuChanges()
         {
             if (!WConfig.cfgMusicChanges.Value)
-                { return; }
+            { return; }
             SceneDef itgolemplains = Addressables.LoadAssetAsync<SceneDef>(key: "RoR2/DLC1/itgolemplains/itgolemplains.asset").WaitForCompletion();
             SceneDef itgoolake = Addressables.LoadAssetAsync<SceneDef>(key: "RoR2/DLC1/itgoolake/itgoolake.asset").WaitForCompletion();
             SceneDef itfrozenwall = Addressables.LoadAssetAsync<SceneDef>(key: "RoR2/DLC1/itfrozenwall/itfrozenwall.asset").WaitForCompletion();
@@ -190,7 +190,7 @@ namespace SimulacrumAdditions
             //Sky //Antarctic Oscillation
             itmoon.bossTrack = MTDPrelude;
 
- 
+
             //Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/ITAssets/InfiniteTowerCurrentArtifactEnigmaWaveUI.prefab").WaitForCompletion()
         }
 

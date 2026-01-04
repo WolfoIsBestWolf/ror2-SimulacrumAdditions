@@ -53,7 +53,7 @@ namespace SimulacrumAdditions
             ITDisableAllSkills = Make("ITDisableAllSkills");
             ITDisableMovement = Make("ITDisableMovement");
             ITMakeImmune = Make("ITMakeImmune");
-        
+
 
             On.RoR2.Util.GetBestBodyName += HorrorName;
 
@@ -187,7 +187,7 @@ namespace SimulacrumAdditions
                         self.skillLocator.specialBonusStockSkill.cooldownScale *= 1 + numCooldown / 10;
                     }
                 }
- 
+
                 if (self.HasBuff(Waves_BuffRelated.bdSlippery))
                 {
                     self.acceleration /= 7.5f;

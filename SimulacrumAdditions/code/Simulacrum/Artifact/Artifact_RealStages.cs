@@ -425,7 +425,7 @@ namespace SimulacrumAdditions
                 dccs.AddCard(voidIndex, iscVoidChestSacrificeOn);
                 //dccs.AddCard(voidIndex, iscVoidSuppressorIT);
                 dccs.AddCard(voidIndex, iscVoidTriple);
-               
+
             }
             dccs.RemoveCardsThatFailFilter(trimmer);
         }

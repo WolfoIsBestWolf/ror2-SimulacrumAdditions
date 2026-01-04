@@ -199,7 +199,7 @@ namespace SimulacrumAdditions
             eqDrone.GetComponent<StartEvent>().enabled = false;
             eqDrone.AddComponent<EquipmentDroneInSimulacrum>();
             Object.Destroy(eqDrone.GetComponent<SetDontDestroyOnLoad>());
- 
+
         }
 
         private static void ITRun_SetThingsOn_End(On.RoR2.InfiniteTowerRun.orig_OnDestroy orig, InfiniteTowerRun self)

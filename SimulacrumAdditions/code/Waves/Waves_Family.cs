@@ -5,7 +5,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
-using static ak.wwise;
 namespace SimulacrumAdditions.Waves
 {
 
@@ -251,7 +250,7 @@ namespace SimulacrumAdditions.Waves
             InfiniteTowerWaveCategory.WeightedWave WaveBasic_FamilyVultureIT = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = WaveBasic_FamilyVulture, weight = ITFamilyWaveWeight };
             Constant.ITBasicWaves.wavePrefabs = Constant.ITBasicWaves.wavePrefabs.Add(WaveBasic_FamilyVultureIT);
             #endregion
-           
+
             //Severed Probe family would be funny but they do not have a spawn animation so it would look kind of terrible
             #endregion
 
@@ -662,7 +661,7 @@ namespace SimulacrumAdditions.Waves
 
             BossInfiniteTowerWaveFamilyWorms.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITSpecialBossYellow;
             BossInfiniteTowerWaveFamilyWorms.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Boss;
- 
+
             BossInfiniteTowerWaveFamilyWorms.GetComponent<InfiniteTowerWaveController>().immediateCreditsFraction = 0.5f;
             BossInfiniteTowerWaveFamilyWorms.GetComponent<InfiniteTowerWaveController>().maxSquadSize = 6; //The director doesn't seem to really care
             BossInfiniteTowerWaveFamilyWorms.GetComponent<InfiniteTowerWaveController>().wavePeriodSeconds = 20;

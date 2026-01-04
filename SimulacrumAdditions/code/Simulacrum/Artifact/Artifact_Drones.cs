@@ -1,13 +1,8 @@
 ﻿using MonoMod.Cil;
 using R2API;
 using RoR2;
-using RoR2.Hologram;
-using System.Collections.Generic;
 //using System;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.Networking;
 using WolfoLibrary;
 
 namespace SimulacrumAdditions
@@ -15,7 +10,7 @@ namespace SimulacrumAdditions
     public class Artifact_SimuDrones
     {
         public static ArtifactDef ArtifactDef = ScriptableObject.CreateInstance<ArtifactDef>();
-      
+
         public static void MakeArtifact()
         {
             ArtifactDef.cachedName = "AAADronesSimu";
@@ -25,10 +20,10 @@ namespace SimulacrumAdditions
             ArtifactDef.smallIconDeselectedSprite = Assets.Bundle.LoadAsset<Sprite>("Assets/Simulacrum/Artifacts/Artifact_Drones_Off.png");
             ContentAddition.AddArtifactDef(ArtifactDef);
 
-        
+
             RunArtifactManager.onArtifactEnabledGlobal += OnArtifactEnabled;
             RunArtifactManager.onArtifactDisabledGlobal += OnArtifactDisabled;
-         
+
         }
 
         private static void ArenaMissionController_OnStartServer(On.RoR2.ArenaMissionController.orig_OnStartServer orig, ArenaMissionController self)
@@ -74,7 +69,7 @@ namespace SimulacrumAdditions
 
         private static PickupPickerController.Option[] PickupPickerController_GenerateOptionsFromDropTable(On.RoR2.PickupPickerController.orig_GenerateOptionsFromDropTable orig, int numOptions, PickupDropTable dropTable, Xoroshiro128Plus rng)
         {
-            return orig(numOptions,dropTable,rng);
+            return orig(numOptions, dropTable, rng);
         }
 
         private static void NoFogDamage(ILContext il)
@@ -104,7 +99,7 @@ namespace SimulacrumAdditions
             {
                 dccs.categories[droneRelated].selectionWeight = dccs.categories[dupli].selectionWeight;
             }
-            if (drones!=  -1)
+            if (drones != -1)
             {
                 dccs.categories[drones].selectionWeight *= 1.6f;
             }

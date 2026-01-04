@@ -1,10 +1,9 @@
 ﻿using R2API;
 using RoR2;
 using RoR2.UI;
-using UnityEngine.UI;
 using TMPro;
-using UnityEngine.AddressableAssets;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace SimulacrumAdditions.Waves
 {

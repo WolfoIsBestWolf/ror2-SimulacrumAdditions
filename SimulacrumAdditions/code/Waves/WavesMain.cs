@@ -1,12 +1,10 @@
-﻿using R2API;
-using RoR2;
-using RoR2.UI;
-using UnityEngine.UI;
-using TMPro;
-using UnityEngine.AddressableAssets;
-using UnityEngine;
+﻿using RoR2;
 using System.Collections.Generic;
- 
+using TMPro;
+using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.UI;
+
 
 namespace SimulacrumAdditions.Waves
 {
@@ -173,7 +171,7 @@ namespace SimulacrumAdditions.Waves
             {
                 GameObject wave = Constant.ITBossWaves.wavePrefabs[i].wavePrefab;
                 InfiniteTowerWaveController controller = wave.GetComponent<InfiniteTowerWaveController>();
-        
+
                 if (controller.maxSquadSize > 20)
                 {
                     controller.maxSquadSize = 20;
@@ -209,11 +207,11 @@ namespace SimulacrumAdditions.Waves
                         WaveTemp.combatDirector.monsterCards = Addressables.LoadAssetAsync<FamilyDirectorCardCategorySelection>(key: "RoR2/Base/Common/dccsLunarFamily.asset").WaitForCompletion();
                         WaveTemp.secondsBeforeSuddenDeath *= 2;
                         break;
- 
+
                 }
             }
 
-             
+
             var temp = Constant.ScavWave.GetComponent<InfiniteTowerExplicitSpawnWaveController>();
             temp.rewardDisplayTier = ItemTier.Boss;
             temp.rewardDropTable = Constant.dtITSpecialBossYellow;

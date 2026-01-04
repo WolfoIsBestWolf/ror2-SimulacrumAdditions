@@ -1,10 +1,9 @@
 ﻿using R2API;
 using RoR2;
 using RoR2.UI;
-using UnityEngine.UI;
 using TMPro;
-using UnityEngine.AddressableAssets;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace SimulacrumAdditions.Waves
 {
@@ -53,10 +52,10 @@ namespace SimulacrumAdditions.Waves
             GameObject InfiniteTowerWaveTarPots = PrefabAPI.InstantiateClone(Constant.BasicWave, "InfiniteTowerWaveTarPots", true);
             GameObject InfiniteTowerWaveTarPotsUI = PrefabAPI.InstantiateClone(Constant.LunarWaveUI, "InfiniteTowerWaveTarPotsUI", false);
 
-			//InfiniteTowerWaveTarPots.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITWaveTier1;
-			//InfiniteTowerWaveTarPots.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
-			//InfiniteTowerWaveTarPots.GetComponent<InfiniteTowerWaveController>().baseCredits = 159;
-			InfiniteTowerWaveTarPots.GetComponent<InfiniteTowerWaveController>().wavePeriodSeconds += 5;
+            //InfiniteTowerWaveTarPots.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITWaveTier1;
+            //InfiniteTowerWaveTarPots.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
+            //InfiniteTowerWaveTarPots.GetComponent<InfiniteTowerWaveController>().baseCredits = 159;
+            InfiniteTowerWaveTarPots.GetComponent<InfiniteTowerWaveController>().wavePeriodSeconds += 5;
 
             InteractableSpawnCard cscITTarPot = ScriptableObject.CreateInstance<InteractableSpawnCard>();
             cscITTarPot.name = "cscITTarPot";

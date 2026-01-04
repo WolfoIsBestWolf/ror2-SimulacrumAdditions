@@ -205,44 +205,44 @@ namespace SimulacrumAdditions
 
             --[4]--Void Stuff--  wt:3
             [0] iscVoidChest  wt:1  minStage:0*/
- 
 
-           
+
+
             //To prevent softlocks with sacrfice or other credits manipulators
-         
+
             //dccsInfiniteTowerInteractables.categories[0].cards[2].selectionWeight = 15; //Eq Barrel
             dccsInfiniteTowerInteractables.categories[0].cards[3].selectionWeight = 60; //Triple
             dccsInfiniteTowerInteractables.categories[0].cards[4].selectionWeight = 15; //Lunar Chest
             dccsInfiniteTowerInteractables.categories[0].cards[9].selectionWeight = 5; //Eq triple
             dccsInfiniteTowerInteractables.categories[0].cards = dccsInfiniteTowerInteractables.categories[0].cards.Remove(dccsInfiniteTowerInteractables.categories[0].cards[8]);
-           //Removing Casino Chest -> Annoying to Simu
-           //NOT ANYMORE Removing Category x3 -> Specific ones per stage (?)
+            //Removing Casino Chest -> Annoying to Simu
+            //NOT ANYMORE Removing Category x3 -> Specific ones per stage (?)
             dccsInfiniteTowerInteractables.AddCard(0, new DirectorCard
-			{
-				spawnCard = VoidCoinBarrel,
-				selectionWeight = 10,
-			});
-			dccsInfiniteTowerInteractables.AddCard(0, new DirectorCard
-			{
+            {
+                spawnCard = VoidCoinBarrel,
+                selectionWeight = 10,
+            });
+            dccsInfiniteTowerInteractables.AddCard(0, new DirectorCard
+            {
                 //Temporary Vendor
-				spawnCard = Addressables.LoadAssetAsync<SpawnCard>(key: "6df786822d3105e4e820c69e1ef94d16").WaitForCompletion(),
-				selectionWeight = 10,
-			});
-			dccsInfiniteTowerInteractables.categories[1].selectionWeight = 2f;
+                spawnCard = Addressables.LoadAssetAsync<SpawnCard>(key: "6df786822d3105e4e820c69e1ef94d16").WaitForCompletion(),
+                selectionWeight = 10,
+            });
+            dccsInfiniteTowerInteractables.categories[1].selectionWeight = 2f;
 
             dccsInfiniteTowerInteractables.categories[2].selectionWeight = 0.8f;
             dccsInfiniteTowerInteractables.categories[2].cards[0].minimumStageCompletions = 1;
             dccsInfiniteTowerInteractables.categories[2].cards[1].minimumStageCompletions = 1; //No red chest stage 1 ig
             dccsInfiniteTowerInteractables.AddCard(2, new DirectorCard
-			{
-				spawnCard = iscVoidCoinBarrelITSacrifice,
-				selectionWeight = 1,
-			});
+            {
+                spawnCard = iscVoidCoinBarrelITSacrifice,
+                selectionWeight = 1,
+            });
             dccsInfiniteTowerInteractables.AddCard(2, new DirectorCard
-			{
-				spawnCard = Addressables.LoadAssetAsync<SpawnCard>(key: "RoR2/DLC1/VoidChest/iscVoidChestSacrificeOn.asset").WaitForCompletion(),
-				selectionWeight = 1,
-			});
+            {
+                spawnCard = Addressables.LoadAssetAsync<SpawnCard>(key: "RoR2/DLC1/VoidChest/iscVoidChestSacrificeOn.asset").WaitForCompletion(),
+                selectionWeight = 1,
+            });
             /*dccsInfiniteTowerInteractables.AddCard(2, new DirectorCard
             {
                 spawnCard = iscVoidSuppressorIT,
@@ -259,10 +259,10 @@ namespace SimulacrumAdditions
             dccsInfiniteTowerInteractables.categories[4].selectionWeight = 7f;
             dccsInfiniteTowerInteractables.categories[4].cards[0].selectionWeight = 3;
             dccsInfiniteTowerInteractables.AddCard(4, new DirectorCard
-			{
-				spawnCard = Addressables.LoadAssetAsync<SpawnCard>(key: "RoR2/DLC1/VoidTriple/iscVoidTriple.asset").WaitForCompletion(),
-				selectionWeight = 3,
-			});
+            {
+                spawnCard = Addressables.LoadAssetAsync<SpawnCard>(key: "RoR2/DLC1/VoidTriple/iscVoidTriple.asset").WaitForCompletion(),
+                selectionWeight = 3,
+            });
 
             int drone = dccsInfiniteTowerInteractables.AddCategory("SimuDrones", 0);
             int drone2 = dccsInfiniteTowerInteractables.AddCategory("SimuDroneRelated", 0);
@@ -458,9 +458,9 @@ namespace SimulacrumAdditions
             }
             SimulacrumDCCS_Drones.SimulacrumDroneArtifactCategory(drone);
 
-		}
+        }
 
- 
+
 
 
         public static void SimuInteractableDCCSAdder(On.RoR2.InfiniteTowerRun.orig_OnPrePopulateSceneServer orig, InfiniteTowerRun self, SceneDirector sceneDirector)

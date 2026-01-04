@@ -187,7 +187,7 @@ namespace SimulacrumAdditions
             wave.rewardOptionCount = 3;
             wave.rewardDropTable = Constant.dtITWaveTier1;
             wave.isBossWave = false;
-           
+
             BaseExplicit_Boss = PrefabAPI.InstantiateClone(ScavWave, "BaseWaveExplicitSpawner_BossWave", true);
 
             wave = BaseExplicit_Boss.GetComponent<InfiniteTowerWaveController>();
@@ -254,7 +254,7 @@ namespace SimulacrumAdditions
             dtAISafeRandomVoid.voidBossWeight = 0.1f; //Friendly Void Reaver would just suck him up and kill him
             dtAISafeRandomVoid.canDropBeReplaced = false;
             dtAISafeRandomVoid.bannedItemTags = Addressables.LoadAssetAsync<BasicPickupDropTable>(key: "81e89866bab7f7f49ad46cd10f6d9ac8").WaitForCompletion().bannedItemTags;
- 
+
         }
 
         public static void WaveDropPools()
@@ -570,7 +570,7 @@ namespace SimulacrumAdditions
             InfiniteTowerEnding.cachedName = "InfiniteTowerEnding";
 
 
-           
+
             DirectorCardCategorySelection dccsITVoidMonsters = Addressables.LoadAssetAsync<DirectorCardCategorySelection>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/ITAssets/dccsITVoidMonsters.asset").WaitForCompletion();
             dccsITVoidMonsters.categories[1].selectionWeight = 2;
             dccsITVoidMonsters.categories[2].cards[0].selectionWeight = 2;
@@ -719,7 +719,7 @@ namespace SimulacrumAdditions
             }
             return false;
         }
- 
+
         public int minimumWaveCount;
     }
 

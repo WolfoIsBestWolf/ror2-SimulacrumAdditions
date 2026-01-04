@@ -1,10 +1,7 @@
-﻿using R2API;
-using RoR2;
+﻿using RoR2;
 using RoR2.UI;
-using UnityEngine.UI;
-using TMPro;
-using UnityEngine.AddressableAssets;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using static SimulacrumAdditions.Constant;
 
 namespace SimulacrumAdditions.Waves
@@ -41,7 +38,7 @@ namespace SimulacrumAdditions.Waves
                         break;
                     case "InfiniteTowerWaveArtifactStatsOnLowHealth":
                     case "InfiniteTowerWaveArtifactSingleMonsterType":
-                            wav.weight = 2.5f;
+                        wav.weight = 2.5f;
                         break;
                     case "InfiniteTowerWaveArtifactRandomLoadout":
                         wav.weight = 2f;
@@ -50,13 +47,14 @@ namespace SimulacrumAdditions.Waves
                     case "InfiniteTowerWaveArtifactSingleEliteType":
                         wav.weight = 4f;
                         break;
-                };
+                }
+                ;
             }
 
 
             Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/ITAssets/InfiniteTowerCurrentArtifactEnigmaWaveUI.prefab").WaitForCompletion().transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_ENIGMA";
             Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/GameModes/InfiniteTowerRun/ITAssets/InfiniteTowerCurrentArtifactSingleMonsterTypeWaveUI.prefab").WaitForCompletion().transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_KIN";
- 
+
             ITBasicWaves.wavePrefabs[0].weight = BasicWaveWeight;
             ITBossWaves.wavePrefabs[0].weight = BasicBossWaveWight;
 

@@ -1,6 +1,4 @@
 ﻿using RoR2;
-using RoR2.Audio;
-using System;
 using System.Collections.Generic;
 //using System;
 using UnityEngine;
@@ -17,7 +15,7 @@ namespace SimulacrumAdditions
         public static void MakeVoidCoin()
         {
             CostTypeCatalog.modHelper.getAdditionalEntries += addVoidBloodCost;
-                
+
             On.RoR2.PlayerCharacterMasterController.Start += StartWithOneVoidCoin;
 
             GameObject VoidCoinBarrel = LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/Chest/VoidCoinBarrel");
@@ -57,7 +55,8 @@ namespace SimulacrumAdditions
                     VoidCoinChance chance = self.gameObject.AddComponent<VoidCoinChance>();
                     float players = 1 + (Run.instance.participatingPlayerCount - 1) * 0.2f; //This probably don't really work
                     chance.chance /= players;
-                };
+                }
+                ;
             }
         }
 
@@ -116,14 +115,14 @@ namespace SimulacrumAdditions
             CostTypeVoidCoinBlood.darkenWorldStyledCostString = true;
             CostTypeVoidCoinBlood.isAffordable = delegate (CostTypeDef costTypeDef, CostTypeDef.IsAffordableContext context)
             {
-                return CostTypeCatalog.GetCostTypeDef(CostTypeIndex.VoidCoin).IsAffordable(1, context.activator) ||  
+                return CostTypeCatalog.GetCostTypeDef(CostTypeIndex.VoidCoin).IsAffordable(1, context.activator) ||
                 CostTypeCatalog.GetCostTypeDef(CostTypeIndex.PercentHealth).IsAffordable(context.cost, context.activator);
 
                 CharacterBody body = context.activator.GetComponent<CharacterBody>();
                 HealthComponent component = context.activator.GetComponent<HealthComponent>();
                 return body && body.master.voidCoins >= (ulong)((long)1) || component && component.combinedHealth / component.fullCombinedHealth * 100f >= (float)context.cost;
             };
-  
+
             CostTypeVoidCoinBlood.payCost = delegate (CostTypeDef.PayCostContext context, CostTypeDef.PayCostResults result)
             {
                 if (context.activatorMaster && context.activatorMaster.voidCoins > 0)

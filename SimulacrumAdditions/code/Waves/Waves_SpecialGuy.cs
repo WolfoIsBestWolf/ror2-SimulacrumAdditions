@@ -1,12 +1,10 @@
 ﻿using R2API;
 using RoR2;
 using RoR2.UI;
-using UnityEngine.UI;
 using TMPro;
-using UnityEngine.AddressableAssets;
 using UnityEngine;
-using static SimulacrumAdditions.H;
-using static SimulacrumAdditions.Constant;
+using UnityEngine.AddressableAssets;
+using UnityEngine.UI;
 
 namespace SimulacrumAdditions.Waves
 {
@@ -45,21 +43,21 @@ namespace SimulacrumAdditions.Waves
 
 
             #region Basic Equipment Drone x1
- 
+
             //Equipment Drone Basic
             GameObject WaveBasic_EquipmentDrone = PrefabAPI.InstantiateClone(Constant.BaseExplicit_Basic, "WaveBasic_EquipmentDrone", true);
             GameObject WaveBasic_EquipmentDroneUI = PrefabAPI.InstantiateClone(Constant.BossWaveUI, "WaveBasic_EquipmentDroneUI", false);
             WavesMain.orangeWaves.Add(WaveBasic_EquipmentDrone);
 
             CardRandomizerEquipmentDrones = WaveBasic_EquipmentDrone.AddComponent<CardRandomizer>();
-            
+
             wave = WaveBasic_EquipmentDrone.GetComponent<InfiniteTowerExplicitSpawnWaveController>();
             wave.spawnList[0].spawnCard = null;
             wave.spawnList[0].spawnDistance = DirectorCore.MonsterSpawnDistance.Standard;
             wave.secondsBeforeSuddenDeath = 75;
             wave.rewardDropTable = Constant.dtITWaveTier1;
             wave.rewardDisplayTier = ItemTier.Tier1;
-       
+
             helper = WaveBasic_EquipmentDrone.AddComponent<SimulacrumExtrasHelper>();
             helper.rewardDropTable = Constant.dtITSpecialEquipment;
             helper.rewardOptionCount = 2;
@@ -99,7 +97,7 @@ namespace SimulacrumAdditions.Waves
             WaveBoss_EquipmentDrone.AddComponent<SimulacrumExtrasHelper>().rewardDropTable = Constant.dtITSpecialEquipment;
             //WaveBoss_EquipmentDrone.GetComponent<SimulacrumExtrasHelper>().rewardDisplayTier = //Orange
             WaveBoss_EquipmentDrone.GetComponent<SimulacrumExtrasHelper>().newRadius = 90;
- 
+
             simuExplicitStats = WaveBoss_EquipmentDrone.AddComponent<SimuExplicitStats>();
             simuExplicitStats.OneExtraSpawnStartingWave = 40;
 
@@ -134,7 +132,7 @@ namespace SimulacrumAdditions.Waves
 
             WaveBasic_Ghost.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier2;
             WaveBasic_Ghost.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITBasicBonusGreen;
-          
+
             simuExplicitStats = WaveBasic_Ghost.AddComponent<SimuExplicitStats>();
             simuExplicitStats.hpBonusMulti = 0;
             simuExplicitStats.damageBonusMulti = 0.8f;
@@ -157,7 +155,7 @@ namespace SimulacrumAdditions.Waves
             GameObject WaveBasic_GhostExtractor = PrefabAPI.InstantiateClone(Constant.BaseExplicit_Basic, "WaveBasic_GhostExtractor", true);
             GameObject WaveBasic_GhostExtractorUI = PrefabAPI.InstantiateClone(Constant.BasicWaveUI, "WaveBasic_GhostExtractorUI", false);
 
-            ExtractorGhost = ScriptableObject.CreateInstance<CharacterSpawnCard>();    
+            ExtractorGhost = ScriptableObject.CreateInstance<CharacterSpawnCard>();
             ExtractorGhost.sendOverNetwork = true;
 
             WaveBasic_GhostExtractor.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList[0].spawnCard = ExtractorGhost;
@@ -191,7 +189,7 @@ namespace SimulacrumAdditions.Waves
 
             WaveBasic_GhostInvalidator.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList[0].spawnCard = InvalidatorGhost;
             WaveBasic_GhostInvalidator.GetComponent<InfiniteTowerWaveController>().rewardOptionCount = 6;
-      
+
             simuExplicitStats = WaveBasic_GhostInvalidator.AddComponent<SimuExplicitStats>();
             simuExplicitStats.hpBonusMulti = 0;
             simuExplicitStats.damageBonusMulti = -1;
@@ -277,7 +275,7 @@ namespace SimulacrumAdditions.Waves
             //Multiple of these haunters would be too chaotic to dodge and having them just one shot you for this wave is probably better
             InfiniteTowerWaveBrotherHaunt.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList[0].spawnCard = cscBrotherHauntIT;
             InfiniteTowerWaveBrotherHaunt.GetComponent<InfiniteTowerExplicitSpawnWaveController>().spawnList[0].spawnDistance = DirectorCore.MonsterSpawnDistance.Close;
-      
+
             InfiniteTowerWaveBrotherHaunt.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWaveBrotherHauntUI;
             InfiniteTowerWaveBrotherHauntUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_BROTHERHAUNT";
             InfiniteTowerWaveBrotherHauntUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<LanguageTextMeshController>().token = "ITWAVE_DESC_BASIC_BROTHERHAUNT";

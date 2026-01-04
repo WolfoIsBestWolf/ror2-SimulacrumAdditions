@@ -62,7 +62,7 @@ namespace SimulacrumAdditions
             {
                 WaveController.isBossWave = waveInfo.bossWave == 2;
             }
-           
+
 
             WaveController.overlayEntries[1].prefab = newWaveUI;
             Transform uiRoot = newWaveUI.transform.GetChild(0);

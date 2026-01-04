@@ -1,10 +1,10 @@
 ﻿using R2API;
 using RoR2;
 using RoR2.UI;
-using UnityEngine.UI;
 using TMPro;
-using UnityEngine.AddressableAssets;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.UI;
 using static SimulacrumAdditions.ItemHelpers;
 
 namespace SimulacrumAdditions.Waves
@@ -54,19 +54,19 @@ namespace SimulacrumAdditions.Waves
                 selectionWeight = 5,
                 spawnDistance = DirectorCore.MonsterSpawnDistance.Standard
             });
-			dccsITSuicideWaveVoid.AddCard(0, new DirectorCard
-			{
-				spawnCard = cscITSuicideVoid,
-				selectionWeight = 1,
-				spawnDistance = DirectorCore.MonsterSpawnDistance.Close
-			});
-			dccsITSuicideWaveVoid.AddCard(0, new DirectorCard
-			{
-				spawnCard = cscITSuicideVoid,
-				selectionWeight = 1,
-				spawnDistance = DirectorCore.MonsterSpawnDistance.Far
-			});
-			CombatDirector secondDirector = InfiniteTowerWaveDeathVoid.AddComponent<CombatDirector>();
+            dccsITSuicideWaveVoid.AddCard(0, new DirectorCard
+            {
+                spawnCard = cscITSuicideVoid,
+                selectionWeight = 1,
+                spawnDistance = DirectorCore.MonsterSpawnDistance.Close
+            });
+            dccsITSuicideWaveVoid.AddCard(0, new DirectorCard
+            {
+                spawnCard = cscITSuicideVoid,
+                selectionWeight = 1,
+                spawnDistance = DirectorCore.MonsterSpawnDistance.Far
+            });
+            CombatDirector secondDirector = InfiniteTowerWaveDeathVoid.AddComponent<CombatDirector>();
             secondDirector.monsterCards = dccsITSuicideWaveVoid;
             secondDirector.monsterCredit = 10000;
             secondDirector.maxSeriesSpawnInterval = 4.5f;
@@ -153,7 +153,7 @@ namespace SimulacrumAdditions.Waves
 
             InfiniteTowerWaveDeathMendingCore.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITCategoryHealing;
             //InfiniteTowerWaveDeathMendingCore.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier1;
-           //InfiniteTowerWaveDeathMendingCore.GetComponent<InfiniteTowerWaveController>().baseCredits = 159;
+            //InfiniteTowerWaveDeathMendingCore.GetComponent<InfiniteTowerWaveController>().baseCredits = 159;
             //InfiniteTowerWaveDeathMendingCore.GetComponent<InfiniteTowerWaveController>().wavePeriodSeconds += 5;
 
             CharacterSpawnCard cscITSuicideHealing = Object.Instantiate(LegacyResourcesAPI.Load<CharacterSpawnCard>("SpawnCards/CharacterSpawnCards/cscNullifier"));
@@ -283,10 +283,10 @@ namespace SimulacrumAdditions.Waves
             InfiniteTowerWaveCategory.WeightedWave ITDeathIce = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveDeathIceElite, weight = 3f, prerequisites = Constant.StartWave11Prerequisite };
             Constant.ITBasicWaves.wavePrefabs = Constant.ITBasicWaves.wavePrefabs.Add(ITDeathIce);
 
-            
+
             #endregion
         }
- 
+
     }
 
 }

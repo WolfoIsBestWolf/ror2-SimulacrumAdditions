@@ -63,7 +63,7 @@ namespace SimulacrumAdditions
             wave.overlayEntries[1].prefab = WaveBoss_SuperCrabUI;
             WaveBoss_SuperCrabUI.SetWaveInfo("ITWAVE_NAME_BOSS_SUPERCRAB", "ITWAVE_DESC_BOSS_SUPERCRAB", Assets.Bundle.LoadAsset<Sprite>("Assets/Simulacrum/Wave/waveVoid.png"), new Color(1f, 0.6278f, 0.83f, 1));
             InfiniteTowerWaveCategory.WeightedWave ITSuperCrab = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = WaveBoss_SuperCrab, weight = 4f, prerequisites = Constant.StartWave35Prerequisite };
-            InfiniteTowerWaveCategory.WeightedWave ITSuperCrabS = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = WaveBoss_SuperCrab, weight = 4f,  };
+            InfiniteTowerWaveCategory.WeightedWave ITSuperCrabS = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = WaveBoss_SuperCrab, weight = 4f, };
             Constant.ITBossWaves.wavePrefabs = Constant.ITBossWaves.wavePrefabs.Add(ITSuperCrab);
             Constant.ITSuperBossWaves.wavePrefabs = Constant.ITSuperBossWaves.wavePrefabs.Add(ITSuperCrabS);
 

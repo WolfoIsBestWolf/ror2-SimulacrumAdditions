@@ -15,7 +15,7 @@ namespace SimulacrumAdditions
         //public static ConfigEntry<bool> SimulacrumEnemyItemChanges;
         public static ConfigEntry<bool> cfgFasterWavesLater;
         public static ConfigEntry<bool> cfgCrabSpeedOnLaterWaves;
-       
+
         public static ConfigEntry<bool> cfgSimuCreditsRebalance;
         public static ConfigEntry<bool> cfgSimuMoreGold;
         //public static ConfigEntry<bool> cfgOnlySpecialBossesLate;
@@ -33,9 +33,9 @@ namespace SimulacrumAdditions
 
         public static ConfigEntry<bool> cfgItemsEvery8;
         public static ConfigEntry<bool> cfgItemsFrequently;
- 
+
         public static ConfigEntry<bool> cfgAwaitTravel;
-        
+
         public static ConfigEntry<float> ArtifactOfRealityBonusRadius;
         public static ConfigEntry<float> cfgCrabRadius;
         public static ConfigEntry<float> cfgCrabRadiusPerPlayer;
@@ -68,7 +68,7 @@ namespace SimulacrumAdditions
                     var temp = (ConfigEntry<float>)entry;
                     ModSettingsManager.AddOption(new FloatFieldOption(temp, true));
                 }
-                else if(entry.SettingType == typeof(int))
+                else if (entry.SettingType == typeof(int))
                 {
                     var temp = (ConfigEntry<int>)entry;
                     ModSettingsManager.AddOption(new IntFieldOption(temp, true));
@@ -79,33 +79,33 @@ namespace SimulacrumAdditions
                 }
             }
 
-           /* ModSettingsManager.AddOption(new CheckBoxOption(cfgNewEnemiesVisible, true));
-            ModSettingsManager.AddOption(new CheckBoxOption(cfgVoidCoins));
-             
-            ModSettingsManager.AddOption(new CheckBoxOption(cfgSacrificeBalance));
+            /* ModSettingsManager.AddOption(new CheckBoxOption(cfgNewEnemiesVisible, true));
+             ModSettingsManager.AddOption(new CheckBoxOption(cfgVoidCoins));
 
-            ModSettingsManager.AddOption(new CheckBoxOption(cfgFasterWavesLater));
-            ModSettingsManager.AddOption(new CheckBoxOption(cfgExtraDifficuly));
-            ModSettingsManager.AddOption(new CheckBoxOption(cfgSimuMoreGold, false));
-            ModSettingsManager.AddOption(new CheckBoxOption(cfgSimuCreditsRebalance, true));
-            ModSettingsManager.AddOption(new CheckBoxOption(cfgItemsEvery8, true));
-            ModSettingsManager.AddOption(new CheckBoxOption(cfgItemsFrequently, true));
+             ModSettingsManager.AddOption(new CheckBoxOption(cfgSacrificeBalance));
 
-
-            ModSettingsManager.AddOption(new CheckBoxOption(cfgCrabSpeedOnLaterWaves));
-            ModSettingsManager.AddOption(new CheckBoxOption(cfgMusicChanges));
-            ModSettingsManager.AddOption(new CheckBoxOption(cfgMusicSuperBoss));
- 
-            ModSettingsManager.AddOption(new CheckBoxOption(cfgAwaitTravel));
-
-            ModSettingsManager.AddOption(new FloatFieldOption(ArtifactOfRealityBonusRadius));
-            ModSettingsManager.AddOption(new FloatFieldOption(cfgCrabRadius));
-            ModSettingsManager.AddOption(new FloatFieldOption(cfgCrabRadiusPerPlayer));
+             ModSettingsManager.AddOption(new CheckBoxOption(cfgFasterWavesLater));
+             ModSettingsManager.AddOption(new CheckBoxOption(cfgExtraDifficuly));
+             ModSettingsManager.AddOption(new CheckBoxOption(cfgSimuMoreGold, false));
+             ModSettingsManager.AddOption(new CheckBoxOption(cfgSimuCreditsRebalance, true));
+             ModSettingsManager.AddOption(new CheckBoxOption(cfgItemsEvery8, true));
+             ModSettingsManager.AddOption(new CheckBoxOption(cfgItemsFrequently, true));
 
 
+             ModSettingsManager.AddOption(new CheckBoxOption(cfgCrabSpeedOnLaterWaves));
+             ModSettingsManager.AddOption(new CheckBoxOption(cfgMusicChanges));
+             ModSettingsManager.AddOption(new CheckBoxOption(cfgMusicSuperBoss));
+
+             ModSettingsManager.AddOption(new CheckBoxOption(cfgAwaitTravel));
+
+             ModSettingsManager.AddOption(new FloatFieldOption(ArtifactOfRealityBonusRadius));
+             ModSettingsManager.AddOption(new FloatFieldOption(cfgCrabRadius));
+             ModSettingsManager.AddOption(new FloatFieldOption(cfgCrabRadiusPerPlayer));
 
 
-            ModSettingsManager.AddOption(new CheckBoxOption(ResetStatsButton));*/
+
+
+             ModSettingsManager.AddOption(new CheckBoxOption(ResetStatsButton));*/
 
 
         }
@@ -136,7 +136,7 @@ namespace SimulacrumAdditions
                 "Like Mithrix theme for Mithrix wave."
             );
 
-         
+
 
             cfgNewEnemiesVisible = ConfigFileUNSORTED.Bind(
                 "Main",
@@ -150,7 +150,7 @@ namespace SimulacrumAdditions
                 true,
                 "Void themed teleport effect for Simulacrum runs"
             );
- 
+
             //
             //Crab stuff
             cfgCrabSpeedOnLaterWaves = ConfigFileUNSORTED.Bind(
@@ -252,7 +252,7 @@ namespace SimulacrumAdditions
             );
 
             //
-        
+
             //
             cfgSimuEndingStartAtXWaves = ConfigFileUNSORTED.Bind(
                 "Simulacrum : Ending Portal",

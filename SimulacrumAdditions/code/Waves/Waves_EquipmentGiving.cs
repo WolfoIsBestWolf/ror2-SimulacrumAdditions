@@ -1,10 +1,10 @@
 ﻿using R2API;
 using RoR2;
 using RoR2.UI;
-using UnityEngine.UI;
 using TMPro;
-using UnityEngine.AddressableAssets;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.UI;
 namespace SimulacrumAdditions.Waves
 {
     public class Waves_EquipmentGiving
@@ -88,7 +88,7 @@ namespace SimulacrumAdditions.Waves
 
             InfiniteTowerWaveCategory.WeightedWave ITBasicBattery = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveBattery, weight = 4f, prerequisites = Constant.AfterWave5Prerequisite };
             Constant.ITBasicWaves.wavePrefabs = Constant.ITBasicWaves.wavePrefabs.Add(ITBasicBattery);
- 
+
             On.EntityStates.QuestVolatileBattery.CountDown.Detonate += NerfDamageFromEnemies;
             #endregion
             #region Goobo
@@ -123,7 +123,7 @@ namespace SimulacrumAdditions.Waves
 
             InfiniteTowerWaveCategory.WeightedWave ITBasicGoobo = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveGoobo, weight = 3f, prerequisites = Constant.StartWave15Prerequisite };
             Constant.ITBasicWaves.wavePrefabs = Constant.ITBasicWaves.wavePrefabs.Add(ITBasicGoobo);
- 
+
             #endregion
 
             #region Twisted
@@ -148,7 +148,7 @@ namespace SimulacrumAdditions.Waves
 
             InfiniteTowerWaveCategory.WeightedWave ITBasicTwisted = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = InfiniteTowerWaveTwisted, weight = 3f, prerequisites = Constant.DLC2_StartWave15Prerequisite };
             Constant.ITBasicWaves.wavePrefabs = Constant.ITBasicWaves.wavePrefabs.Add(ITBasicTwisted);
- 
+
             #endregion
         }
 
@@ -175,7 +175,7 @@ namespace SimulacrumAdditions.Waves
             }
         }
 
-        
+
     }
 
 }

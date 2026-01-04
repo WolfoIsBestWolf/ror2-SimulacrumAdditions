@@ -1,10 +1,10 @@
 ﻿using R2API;
 using RoR2;
 using RoR2.UI;
-using UnityEngine.UI;
 using TMPro;
-using UnityEngine.AddressableAssets;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.UI;
 
 namespace SimulacrumAdditions.Waves
 {
@@ -49,7 +49,7 @@ namespace SimulacrumAdditions.Waves
             InfiniteTowerCurrentBossScavLunarWaveUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().color = new Color(0.6f, 0.8f, 1f, 1);
 
             InfiniteTowerWaveCategory.WeightedWave ITBossScavLunar = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = WaveBoss_ScavLunar, weight = ITSpecialBossWaveWeight * 3f, prerequisites = Constant.StartWave35Prerequisite };
-            InfiniteTowerWaveCategory.WeightedWave ITBossScavLunarS = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = WaveBoss_ScavLunar, weight = ITSpecialBossWaveWeight, prerequisites = null};
+            InfiniteTowerWaveCategory.WeightedWave ITBossScavLunarS = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = WaveBoss_ScavLunar, weight = ITSpecialBossWaveWeight, prerequisites = null };
             //
             #endregion
             #region Voidling
@@ -220,7 +220,7 @@ namespace SimulacrumAdditions.Waves
             cscSolusAmalgamator.hullSize = HullClassification.Human;
 
             wave.spawnList[0].spawnCard = cscSolusAmalgamator;
-           
+
             wave.rewardDisplayTier = ItemTier.Boss;
             wave.rewardDropTable = Constant.dtITSpecialBossYellow;
             WaveBoss_SolusAmalgam.AddComponent<SimulacrumExtrasHelper>().newRadius = 90;
@@ -252,9 +252,9 @@ namespace SimulacrumAdditions.Waves
             cscVultureHunterator.hullSize = HullClassification.Human;
 
             wave.spawnList[0].spawnCard = cscVultureHunterator;
-			wave.baseCredits = 100;
-			wave.linearCreditsPerWave = 2; //Evens out at 400 for wave 50
-			wave.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<DirectorCardCategorySelection>(key: "17ceb46d5861cef4cb1a106de50812b4").WaitForCompletion(); //dccsConduitcanyonMonsters
+            wave.baseCredits = 100;
+            wave.linearCreditsPerWave = 2; //Evens out at 400 for wave 50
+            wave.GetComponent<CombatDirector>().monsterCards = Addressables.LoadAssetAsync<DirectorCardCategorySelection>(key: "17ceb46d5861cef4cb1a106de50812b4").WaitForCompletion(); //dccsConduitcanyonMonsters
             wave.rewardDisplayTier = ItemTier.Boss;
             wave.rewardDropTable = Constant.dtITSpecialBossYellow;
             WaveBoss_VultureHunter.AddComponent<SimulacrumExtrasHelper>().newRadius = 90;
@@ -262,12 +262,12 @@ namespace SimulacrumAdditions.Waves
             simuExplicitStats = WaveBoss_VultureHunter.AddComponent<SimuExplicitStats>();
             simuExplicitStats.damageBonusMulti = 1f;
             simuExplicitStats.hpBonusMulti = 1.6f;
-  
+
             WaveBoss_VultureHunter.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = WaveBoss_VultureHunterUI;
             WaveBoss_VultureHunterUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BOSS_DLC3_VULTUREHUNTER";
             WaveBoss_VultureHunterUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<LanguageTextMeshController>().token = "ITWAVE_DESC_BOSS_DLC3_VULTUREHUNTER";
             WaveBoss_VultureHunterUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = Assets.Bundle.LoadAsset<Sprite>("Assets/Simulacrum/Wave/waveAC.png");
-            WaveBoss_VultureHunterUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().color = new Color(0.366f, 0.7f, 0.5f, 1)*1.2f;
+            WaveBoss_VultureHunterUI.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().color = new Color(0.366f, 0.7f, 0.5f, 1) * 1.2f;
             WaveBoss_VultureHunterUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().color = new Color(0.366f, 0.7f, 0.5f, 1) * 1.2f;
             WaveBoss_VultureHunterUI.transform.GetChild(0).GetChild(2).GetComponent<Image>().color = new Color(0.366f, 0.7f, 0.5f, 2);
             InfiniteTowerWaveCategory.WeightedWave WaveBoss_VultureHunterIT = new InfiniteTowerWaveCategory.WeightedWave { wavePrefab = WaveBoss_VultureHunter, weight = 4f, prerequisites = Constant.DLC3_StartWave25Prerequisite };
@@ -297,7 +297,7 @@ namespace SimulacrumAdditions.Waves
             simuExplicitStats = WaveBoss_SolusWing.AddComponent<SimuExplicitStats>();
             simuExplicitStats.damageBonusMulti = 0.5f;
             simuExplicitStats.hpBonusMulti = 0.5f;
- 
+
             WaveBoss_SolusWing.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = WaveBoss_SolusWingUI;
             WaveBoss_SolusWingUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BOSS_DLC3_SOLUSWING";
             WaveBoss_SolusWingUI.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<LanguageTextMeshController>().token = "ITWAVE_DESC_BOSS_DLC3_SOLUSWING";

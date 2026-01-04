@@ -20,7 +20,7 @@ namespace SimulacrumAdditions
 
             //Fake Ass Ending Overwrite
             On.RoR2.EventFunctions.BeginEnding += SimulacrumEndingBeginEnding;
- 
+
             //Reset button
             On.RoR2.UI.InfiniteTowerMenuController.OnEventSystemDiscovered += InfiniteTowerMenuController_OnEventSystemDiscovered;
 
@@ -381,7 +381,7 @@ namespace SimulacrumAdditions
 
 
         }
- 
+
         public static void SimulacrumEndingBeginEnding(On.RoR2.EventFunctions.orig_BeginEnding orig, EventFunctions self, GameEndingDef gameEndingDef)
         {
             if (gameEndingDef == DLC1Content.GameEndings.VoidEnding && Run.instance.GetComponent<InfiniteTowerRun>())
@@ -452,7 +452,7 @@ namespace SimulacrumAdditions
             return orig(tier);
         }
 
- 
+
 
 
     }
