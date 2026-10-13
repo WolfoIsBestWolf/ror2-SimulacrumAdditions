@@ -20,6 +20,7 @@ namespace SimulacrumAdditions
 
         public static void MakeArtifact()
         {
+            #pragma warning disable CS0618 // Type or member is obsolete
             realityDestinations.name = "sgITArtifactReal";
 
             ArtifactUseNormalStages.cachedName = "AAAUseNormalStages";
@@ -45,12 +46,27 @@ namespace SimulacrumAdditions
             On.RoR2.ArenaMissionController.OnStartServer += ArenaMissionController_OnStartServer;
             On.RoR2.VoidStageMissionController.Start += VoidStageMissionController_Start;
             On.RoR2.AccessCodesMissionController.OnStartServer += AccessCodesMissionController_OnStartServer;
+
+            On.RoR2.TrialGongInteraction.OnEnable += No_TrialGong;
+        }
+
+        private static void No_TrialGong(On.RoR2.TrialGongInteraction.orig_OnEnable orig, TrialGongInteraction self)
+        {
+            orig(self);
+            if (RunArtifactManager.instance && RunArtifactManager.instance.IsArtifactEnabled(ArtifactUseNormalStages))
+            {
+                GameObject.Destroy(self.gameObject);
+            }
         }
 
         private static void AccessCodesMissionController_OnStartServer(On.RoR2.AccessCodesMissionController.orig_OnStartServer orig, AccessCodesMissionController self)
         {
             if (RunArtifactManager.instance && RunArtifactManager.instance.IsArtifactEnabled(ArtifactUseNormalStages))
             {
+                foreach (var node in self.nodes)
+                {
+                    node.node.gameObject.SetActive(false);
+                }
                 return;
             }
             orig(self);
@@ -91,13 +107,8 @@ namespace SimulacrumAdditions
                         case "ancientloft":
                         case "frozenwall":
                         case "skymeadow":
-                            weight = 0.5f;
-                            break;
                         case "dampcavesimple":
-                            weight = 0.7f;
-                            break;
-                        case "helminthroost":
-                            weight = 1.5f;
+                            weight = 0.6f;
                             break;
                     }
 
@@ -280,6 +291,23 @@ namespace SimulacrumAdditions
                         Void.transform.GetChild(0).gameObject.SetActive(false);
                     }
                     break;
+                case "fungal":
+                    GameObject Fungal_Weather = GameObject.Find("/HOLDER: Weather/Fungal_Weather");
+                    if (Fungal_Weather)
+                    {
+                        Fungal_Weather.SetActive(false);
+                    }
+                    break;
+                case "sanctum":
+                    GameObject Sanctum_Weather = GameObject.Find("/HOLDER: Weather/Sanctum_Weather/Directional Light (SUN)");
+                    if (Sanctum_Weather)
+                    {
+                        Sanctum_Weather.GetComponent<Light>().intensity = 2; //8
+                    }
+                    break;
+                case "skymeadow":
+                    ITSun.shadowStrength = 0.4f;
+                    break;
             }
 
 
@@ -397,6 +425,7 @@ namespace SimulacrumAdditions
         private static void AddAndRemoveInteractables(SceneDirector arg1, DirectorCardCategorySelection dccs)
         {
             int voidIndex = dccs.FindCategoryIndexByName("Void Stuff");
+            int dlc4 = dccs.FindCategoryIndexByName("Hallow Stuff");
             if (voidIndex != -1)
             {
                 dccs.categories[voidIndex].selectionWeight *= 2 + 1f;
@@ -426,6 +455,10 @@ namespace SimulacrumAdditions
                 //dccs.AddCard(voidIndex, iscVoidSuppressorIT);
                 dccs.AddCard(voidIndex, iscVoidTriple);
 
+            }
+            if (dlc4 != -1)
+            {
+                dccs.categories[dlc4].selectionWeight = 0;
             }
             dccs.RemoveCardsThatFailFilter(trimmer);
         }

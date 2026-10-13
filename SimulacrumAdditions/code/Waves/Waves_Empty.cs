@@ -1,4 +1,6 @@
-﻿namespace SimulacrumAdditions.Waves
+﻿/*
+
+namespace SimulacrumAdditions.Waves
 {
     public class Waves__
     {
@@ -13,3 +15,4 @@
 
 }
 
+*/

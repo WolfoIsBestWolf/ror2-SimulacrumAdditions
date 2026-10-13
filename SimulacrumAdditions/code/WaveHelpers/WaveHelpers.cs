@@ -63,19 +63,19 @@ namespace SimulacrumAdditions
             switch (code)
             {
                 case Case.HeresyItems:
-                    if (self.enemyInventory.GetItemCount(ItemHelpers.ITDamageDownMult) > 10)
+                    if (self.enemyInventory.GetItemCountPermanent(ItemHelpers.ITDamageDownMult) > 10)
                     {
-                        self.enemyInventory.RemoveItem(RoR2Content.Items.LunarPrimaryReplacement);
+                        self.enemyInventory.RemoveItemPermanent(RoR2Content.Items.LunarPrimaryReplacement);
                     }
                     else
                     {
-                        self.enemyInventory.RemoveItem(RoR2Content.Items.LunarSecondaryReplacement);
-                        self.enemyInventory.RemoveItem(RoR2Content.Items.LunarUtilityReplacement);
+                        self.enemyInventory.RemoveItemPermanent(RoR2Content.Items.LunarSecondaryReplacement);
+                        self.enemyInventory.RemoveItemPermanent(RoR2Content.Items.LunarUtilityReplacement);
                     }
-                    self.enemyInventory.RemoveItem(ItemHelpers.ITDamageDownMult, self.enemyInventory.GetItemCount(ItemHelpers.ITDamageDownMult));
-                    self.enemyInventory.RemoveItem(ItemHelpers.ITAttackSpeedDownMult, self.enemyInventory.GetItemCount(ItemHelpers.ITAttackSpeedDownMult));
-                    self.enemyInventory.RemoveItem(ItemHelpers.ITCooldownUp, self.enemyInventory.GetItemCount(ItemHelpers.ITCooldownUp));
-                    self.enemyInventory.RemoveItem(RoR2Content.Items.BoostHp, self.enemyInventory.GetItemCount(RoR2Content.Items.BoostHp));
+                    self.enemyInventory.RemoveItemPermanent(ItemHelpers.ITDamageDownMult, self.enemyInventory.GetItemCountPermanent(ItemHelpers.ITDamageDownMult));
+                    self.enemyInventory.RemoveItemPermanent(ItemHelpers.ITAttackSpeedDownMult, self.enemyInventory.GetItemCountPermanent(ItemHelpers.ITAttackSpeedDownMult));
+                    self.enemyInventory.RemoveItemPermanent(ItemHelpers.ITCooldownUp, self.enemyInventory.GetItemCountPermanent(ItemHelpers.ITCooldownUp));
+                    self.enemyInventory.RemoveItemPermanent(RoR2Content.Items.BoostHp, self.enemyInventory.GetItemCountPermanent(RoR2Content.Items.BoostHp));
                     break;
                 case Case.TooManyItems:
                     for (int i = 0; i < self.enemyInventory.itemAcquisitionOrder.Count; i++)
@@ -83,11 +83,11 @@ namespace SimulacrumAdditions
                         ItemDef tempDef = ItemCatalog.GetItemDef(self.enemyInventory.itemAcquisitionOrder[i]);
                         if (tempDef == ItemHelpers.ITHealthUpMult || tempDef == RoR2Content.Items.Bear || tempDef == RoR2Content.Items.ExtraLife || tempDef == DLC1Content.Items.ExtraLifeVoid)
                         {
-                            self.enemyInventory.RemoveItem(tempDef, 1);
+                            self.enemyInventory.RemoveItemPermanent(tempDef, 1);
                         }
                         else
                         {
-                            self.enemyInventory.RemoveItem(tempDef, (int)(self.enemyInventory.GetItemCount(self.enemyInventory.itemAcquisitionOrder[i]) / 5f * 4f));
+                            self.enemyInventory.RemoveItemPermanent(tempDef, (int)(self.enemyInventory.GetItemCountPermanent(self.enemyInventory.itemAcquisitionOrder[i]) / 5f * 4f));
                         }
                     }
                     break;
@@ -129,12 +129,12 @@ namespace SimulacrumAdditions
                     {
                         if (infiniteTowerRun.runRNG.nextBool)
                         {
-                            infiniteTowerRun.enemyInventory.GiveItem(RoR2Content.Items.LunarPrimaryReplacement);
-                            infiniteTowerRun.enemyInventory.GiveItem(ItemHelpers.ITDamageDownMult, 50); //Later waves will have too much damage anyways
-                            infiniteTowerRun.enemyInventory.GiveItem(ItemHelpers.ITAttackSpeedDownMult, 70);
-                            infiniteTowerRun.enemyInventory.GiveItem(ItemHelpers.ITCooldownUp, 10);
-                            //self.enemyInventory.GiveItem(RoR2Content.Items.BoostHp, Run.instance.stageClearCount * 2);
-                            infiniteTowerRun.enemyInventory.GiveItem(RoR2Content.Items.BoostHp, infiniteTowerRun.waveIndex / 10 * 2);
+                            infiniteTowerRun.enemyInventory.GiveItemPermanent(RoR2Content.Items.LunarPrimaryReplacement);
+                            infiniteTowerRun.enemyInventory.GiveItemPermanent(ItemHelpers.ITDamageDownMult, 50); //Later waves will have too much damage anyways
+                            infiniteTowerRun.enemyInventory.GiveItemPermanent(ItemHelpers.ITAttackSpeedDownMult, 70);
+                            infiniteTowerRun.enemyInventory.GiveItemPermanent(ItemHelpers.ITCooldownUp, 10);
+                            //self.enemyInventory.GiveItemPermanent(RoR2Content.Items.BoostHp, Run.instance.stageClearCount * 2);
+                            infiniteTowerRun.enemyInventory.GiveItemPermanent(RoR2Content.Items.BoostHp, infiniteTowerRun.waveIndex / 10 * 2);
                             Chat.SendBroadcastChat(new Chat.SimpleChatMessage
                             {
                                 baseToken = "ITWAVE_HERESY_ANNOUNCE_EYE",
@@ -142,10 +142,10 @@ namespace SimulacrumAdditions
                         }
                         else
                         {
-                            infiniteTowerRun.enemyInventory.GiveItem(RoR2Content.Items.LunarSecondaryReplacement);
-                            infiniteTowerRun.enemyInventory.GiveItem(RoR2Content.Items.LunarUtilityReplacement);
-                            infiniteTowerRun.enemyInventory.GiveItem(RoR2Content.Items.BoostHp, infiniteTowerRun.waveIndex / 10 * 2);
-                            infiniteTowerRun.enemyInventory.GiveItem(ItemHelpers.ITDamageDownMult, 5);
+                            infiniteTowerRun.enemyInventory.GiveItemPermanent(RoR2Content.Items.LunarSecondaryReplacement);
+                            infiniteTowerRun.enemyInventory.GiveItemPermanent(RoR2Content.Items.LunarUtilityReplacement);
+                            infiniteTowerRun.enemyInventory.GiveItemPermanent(RoR2Content.Items.BoostHp, infiniteTowerRun.waveIndex / 10 * 2);
+                            infiniteTowerRun.enemyInventory.GiveItemPermanent(ItemHelpers.ITDamageDownMult, 5);
                             Chat.SendBroadcastChat(new Chat.SimpleChatMessage
                             {
                                 baseToken = "ITWAVE_HERESY_ANNOUNCE_ARM",
@@ -161,11 +161,11 @@ namespace SimulacrumAdditions
                             ItemDef tempDef = ItemCatalog.GetItemDef(infiniteTowerRun.enemyInventory.itemAcquisitionOrder[i]);
                             if (tempDef == ItemHelpers.ITHealthUpMult || tempDef == RoR2Content.Items.Bear || tempDef == RoR2Content.Items.ExtraLife || tempDef == DLC1Content.Items.ExtraLifeVoid)
                             {
-                                infiniteTowerRun.enemyInventory.GiveItem(tempDef, 1);
+                                infiniteTowerRun.enemyInventory.GiveItemPermanent(tempDef, 1);
                             }
                             else
                             {
-                                infiniteTowerRun.enemyInventory.GiveItem(tempDef, infiniteTowerRun.enemyInventory.GetItemCount(infiniteTowerRun.enemyInventory.itemAcquisitionOrder[i]) * 4);
+                                infiniteTowerRun.enemyInventory.GiveItemPermanent(tempDef, infiniteTowerRun.enemyInventory.GetItemCountPermanent(infiniteTowerRun.enemyInventory.itemAcquisitionOrder[i]) * 4);
                             }
                         }
                     }
@@ -377,48 +377,48 @@ namespace SimulacrumAdditions
                 if (variant == Variant.Jetpack)
                 {
                     master.inventory.SetEquipmentIndex(RoR2Content.Equipment.Jetpack.equipmentIndex);
-                    master.inventory.GiveItem(RoR2Content.Items.AutoCastEquipment, 1);
-                    master.inventory.GiveItem(RoR2Content.Items.BoostEquipmentRecharge, 7);
-                    master.inventory.GiveItem(RoR2Content.Items.SprintOutOfCombat, 1);
-                    master.inventory.GiveItem(RoR2Content.Items.BoostHp, 1 + (int)(bonusHP * 1.33f));
+                    master.inventory.GiveItemPermanent(RoR2Content.Items.AutoCastEquipment, 1);
+                    master.inventory.GiveItemPermanent(RoR2Content.Items.BoostEquipmentRecharge, 7);
+                    master.inventory.GiveItemPermanent(RoR2Content.Items.SprintOutOfCombat, 1);
+                    master.inventory.GiveItemPermanent(RoR2Content.Items.BoostHp, 1 + (int)(bonusHP * 1.33f));
                 }
                 else if (variant == Variant.FuelArray)
                 {
                     master.inventory.SetEquipmentIndex(RoR2Content.Equipment.QuestVolatileBattery.equipmentIndex);
-                    master.inventory.GiveItem(ItemHelpers.ITHealthUpMult, 80); //Double health cuz they die at half
+                    master.inventory.GiveItemPermanent(ItemHelpers.ITHealthUpMult, 80); //Double health cuz they die at half
                     //master.inventory.GiveItem(RoR2Content.Items.BoostHp, (int)(bonusHP * 1.5f));
                 }
                 else if (variant == Variant.Malachite)
                 {
                     master.inventory.SetEquipmentIndex(RoR2Content.Equipment.AffixPoison.equipmentIndex);
-                    master.inventory.GiveItem(RoR2Content.Items.BoostHp, bonusHP);
+                    master.inventory.GiveItemPermanent(RoR2Content.Items.BoostHp, bonusHP);
                 }
                 else if (variant == Variant.GooboJr)
                 {
-                    if (master.inventory.GetItemCount(DLC1Content.Items.GummyCloneIdentifier) == 0)
+                    if (master.inventory.GetItemCountPermanent(DLC1Content.Items.GummyCloneIdentifier) == 0)
                     {
                         master.inventory.SetEquipmentIndex(DLC1Content.Equipment.GummyClone.equipmentIndex);
-                        master.inventory.GiveItem(RoR2Content.Items.AutoCastEquipment, 1);
-                        master.inventory.GiveItem(RoR2Content.Items.EquipmentMagazine, 1);
-                        master.inventory.GiveItem(RoR2Content.Items.BoostHp, 3);
+                        master.inventory.GiveItemPermanent(RoR2Content.Items.AutoCastEquipment, 1);
+                        master.inventory.GiveItemPermanent(RoR2Content.Items.EquipmentMagazine, 1);
+                        master.inventory.GiveItemPermanent(RoR2Content.Items.BoostHp, 3);
                     }
                     else
                     {
-                        master.inventory.RemoveItem(RoR2Content.Items.BoostHp, 15);
-                        master.inventory.RemoveItem(RoR2Content.Items.BoostDamage, 15);
+                        master.inventory.RemoveItemPermanent(RoR2Content.Items.BoostHp, 15);
+                        master.inventory.RemoveItemPermanent(RoR2Content.Items.BoostDamage, 15);
                     }
                 }
                 else if (variant == Variant.Twisted)
                 {
                     counter++;
-                    if (master.inventory.GetItemCount(RoR2Content.Items.BoostDamage) < 10)
+                    if (master.inventory.GetItemCountPermanent(RoR2Content.Items.BoostDamage) < 10)
                     {
                         if (counter > 10)
                         {
                             counter = 0;
                             master.inventory.SetEquipmentIndex(DLC2Content.Equipment.EliteBeadEquipment.equipmentIndex);
-                            master.inventory.GiveItem(RoR2Content.Items.BoostDamage, 5);
-                            master.inventory.GiveItem(RoR2Content.Items.BoostHp, 30);
+                            master.inventory.GiveItemPermanent(RoR2Content.Items.BoostDamage, 5);
+                            master.inventory.GiveItemPermanent(RoR2Content.Items.BoostHp, 30);
                         }
                     }
 
@@ -518,7 +518,7 @@ namespace SimulacrumAdditions
                 }
                 else if (variant == 0)
                 {
-                    master.inventory.GiveItem(DLC1Content.Items.BearVoid, count);
+                    master.inventory.GiveItemPermanent(DLC1Content.Items.BearVoid, count);
                     charBody.AddTimedBuff(RoR2Content.Buffs.HiddenInvincibility, 0.5f);
                     for (int i = 0; i < count; i++)
                     {
@@ -532,35 +532,40 @@ namespace SimulacrumAdditions
     public class SimuWaveSizeModifier : MonoBehaviour
     {
         public float sizeModifier;
-        public ItemDef neededItem;
-
+  
         private void OnEnable()
         {
-            On.RoR2.CharacterModel.Start += ChangeSize;
+            On.RoR2.CharacterBody.RecalculateStats += CharacterBody_RecalculateStats;
         }
-
-        private void ChangeSize(On.RoR2.CharacterModel.orig_Start orig, CharacterModel self)
-        {
-            orig(self);
-            if (self.body.teamComponent.teamIndex != TeamIndex.Player)
-            {
-                if (neededItem == null || self.body.inventory.GetItemCount(neededItem) > 0)
-                {
-                    self.transform.localScale *= sizeModifier;
-
-                    if (self.body.aimOriginTransform)
-                    {
-                        self.body.aimOriginTransform.localPosition *= sizeModifier; //Ig???
-                    }
-                }
-            }
-
-        }
-
         private void OnDisable()
         {
-            On.RoR2.CharacterModel.Start -= ChangeSize;
+            On.RoR2.CharacterBody.RecalculateStats -= CharacterBody_RecalculateStats;
         }
+
+        private void CharacterBody_RecalculateStats(On.RoR2.CharacterBody.orig_RecalculateStats orig, CharacterBody self)
+        {
+            orig(self);
+            if (self.teamComponent.teamIndex == TeamIndex.Monster)
+            {
+                if (sizeModifier > 1)
+                {
+                    if (self.inventory.GetItemCountPermanent(DLC4Content.Items.BoostCharacterScale) == 0)
+                    {
+                        self.inventory.GiveItemPermanent(DLC4Content.Items.BoostCharacterScale, (int)((sizeModifier - 1) * 100f));
+                    }
+                }
+                else 
+                {
+                    if (self.inventory.GetItemCountPermanent(DLC4Content.Items.ReduceCharacterScale) == 0)
+                    {
+                        self.inventory.GiveItemPermanent(DLC4Content.Items.ReduceCharacterScale, (int)(100f * (1f - sizeModifier)));
+                    }
+                }
+                self.currentScale = sizeModifier;
+                self.desiredScale = sizeModifier;
+            }
+        }
+
     }
 
     public class SimuWaveAlwaysJumping : MonoBehaviour
@@ -654,7 +659,7 @@ namespace SimulacrumAdditions
                     bonusAmount = 0;
                 }
                 int amount = count + bonusAmount;
-                itRun.enemyInventory.GiveItem(itemIndex, amount);
+                itRun.enemyInventory.GiveItemPermanent(itemIndex, amount);
             }
         }
 
@@ -679,7 +684,7 @@ namespace SimulacrumAdditions
                     bonusAmount = 0;
                 }
                 int amount = count + bonusAmount;
-                itRun.enemyInventory.RemoveItem(itemIndex, amount);
+                itRun.enemyInventory.RemoveItemPermanent(itemIndex, amount);
             }
         }
     }
@@ -794,7 +799,7 @@ namespace SimulacrumAdditions
                     costMultiplier = 3f,
                     eliteTypes = new EliteDef[]
                     {
-                                DLC1Content.Elites.Void,
+                        DLC1Content.Elites.Void,
                     },
                     isAvailable = (SpawnCard.EliteRules rules) => true,
                     canSelectWithoutAvailableEliteDef = false,
@@ -805,7 +810,7 @@ namespace SimulacrumAdditions
             {
                 arrayL[1] = new CombatDirector.EliteTierDef
                 {
-                    costMultiplier = 4.5f,
+                    costMultiplier = 5f,
                     eliteTypes = new EliteDef[]
                     {
                         MissedContent.Elites.CollectiveWeak,
@@ -912,11 +917,11 @@ namespace SimulacrumAdditions
             GameObject ui = controller.overlayEntries[1].prefab;
             if (count == 0)
             {
-                ui.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = artifactDef.smallIconSelectedSprite;
+                ui.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = H.GetArtifactSprite(artifactDef);
             }
             else if (count == 1)
             {
-                ui.transform.GetChild(0).GetChild(3).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = artifactDef.smallIconSelectedSprite;
+                ui.transform.GetChild(0).GetChild(3).GetChild(0).GetComponent<UnityEngine.UI.Image>().sprite = H.GetArtifactSprite(artifactDef) ;
             }
             count++;
         }
@@ -975,7 +980,7 @@ namespace SimulacrumAdditions
 
         protected virtual void OnCombatSquadMemberDiscovered(CharacterMaster master)
         {
-            int kill = master.inventory.GetItemCount(ItemHelpers.ITKillOnCompletion);
+            int kill = master.inventory.GetItemCountPermanent(ItemHelpers.ITKillOnCompletion);
             if (kill > 0)
             {
                 master.GetBody().RemoveBuff(RoR2Content.Buffs.Immune);
@@ -1188,7 +1193,7 @@ namespace SimulacrumAdditions
 
 
     }
-
+    /*
     public class DisableRegeneratingScrap : MonoBehaviour
     {
         private bool wasEnabled;
@@ -1213,7 +1218,7 @@ namespace SimulacrumAdditions
             }
         }
     }
-
+    */
     public class DisableArtifactOfSwarms : MonoBehaviour
     {
         private bool wasEnabled;

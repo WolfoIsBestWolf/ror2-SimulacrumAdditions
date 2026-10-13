@@ -2,6 +2,7 @@
 using RoR2;
 using RoR2.UI;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 
 namespace SimulacrumAdditions
@@ -138,6 +139,19 @@ namespace SimulacrumAdditions
             root1.GetChild(0).GetComponent<InfiniteTowerWaveCounter>().token = name;
             root1.GetChild(1).GetComponent<LanguageTextMeshController>().token = desc;
         }*/
+
+        public static Sprite GetArtifactSprite(ArtifactDef def)
+        {
+            if (def.smallIconSelectedSprite != null)
+            {
+                return def.smallIconSelectedSprite;
+            }
+            if (def.smallIconSelectedReference != null)
+            {
+                return Addressables.LoadAssetAsync<Sprite>(key: def.smallIconSelectedReference.AssetGUID).WaitForCompletion();
+            }
+            return null;
+        }
     }
 
 

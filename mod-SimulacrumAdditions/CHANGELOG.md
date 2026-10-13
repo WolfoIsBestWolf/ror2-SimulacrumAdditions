@@ -1,4 +1,10 @@
-## Changelog:
+```
+v2.6.7
+Updated to work on DLC4:
+* Removed Hex Chests, Gongs and Shrine of Compulsion from Artifact of Reality.
+Removed less options during Sacrifice.
+
+```
 ```
 v2.6.6
 Fixed an issue with cost-types when QualityMod is installed.

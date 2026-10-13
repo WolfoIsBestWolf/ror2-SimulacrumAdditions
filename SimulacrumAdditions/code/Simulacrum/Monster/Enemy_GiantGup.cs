@@ -201,10 +201,10 @@ namespace SimulacrumAdditions
             {
                 teamIndexGup = teamComponent.teamIndex;
             }
-            characterBody.inventory.RemoveItem(RoR2Content.Items.BoostHp, characterBody.inventory.GetItemCount(RoR2Content.Items.BoostHp));
-            characterBody.inventory.RemoveItem(RoR2Content.Items.BoostDamage, characterBody.inventory.GetItemCount(RoR2Content.Items.BoostDamage));
-            characterBody.inventory.RemoveItem(RoR2Content.Items.AdaptiveArmor, characterBody.inventory.GetItemCount(RoR2Content.Items.AdaptiveArmor));
-            characterBody.inventory.RemoveItem(RoR2Content.Items.TeleportWhenOob, characterBody.inventory.GetItemCount(RoR2Content.Items.TeleportWhenOob));
+            characterBody.inventory.RemoveItemPermanent(RoR2Content.Items.BoostHp, characterBody.inventory.GetItemCountPermanent(RoR2Content.Items.BoostHp));
+            characterBody.inventory.RemoveItemPermanent(RoR2Content.Items.BoostDamage, characterBody.inventory.GetItemCountPermanent(RoR2Content.Items.BoostDamage));
+            characterBody.inventory.RemoveItemPermanent(RoR2Content.Items.AdaptiveArmor, characterBody.inventory.GetItemCountPermanent(RoR2Content.Items.AdaptiveArmor));
+            characterBody.inventory.RemoveItemPermanent(RoR2Content.Items.TeleportWhenOob, characterBody.inventory.GetItemCountPermanent(RoR2Content.Items.TeleportWhenOob));
         }
 
         public override void OnExit()

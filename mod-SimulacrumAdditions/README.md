@@ -79,7 +79,7 @@ Artifact of Augments  | Only augmented waves. For when the normal ~50% chance is
 
 
 
-Nerfs Artifact of Sacrifice in Simulacrum. (Only 2 options per potential)
+Nerfs Artifact of Sacrifice in Simulacrum, dropping 40% less items.
 
 Artifact of Devotion now works in Simulacrum:
 - Eggs can spawn despite no drones being in the game mode.

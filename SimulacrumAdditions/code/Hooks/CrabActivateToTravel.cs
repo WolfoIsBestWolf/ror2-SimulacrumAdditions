@@ -67,8 +67,8 @@ namespace SimulacrumAdditions
                 {
                 }
             };
-            purchaseInteraction.onPurchase.m_PersistentCalls.m_Calls.Add(newCall);
-            purchaseInteraction.onPurchase.m_CallsDirty = true;
+            purchaseInteraction.onDetailedPurchaseServer.m_PersistentCalls.m_Calls.Add(newCall);
+            purchaseInteraction.onDetailedPurchaseServer.m_CallsDirty = true;
         }
 
         private static void Unburrow_FixedUpdate(On.EntityStates.InfiniteTowerSafeWard.Unburrow.orig_FixedUpdate orig, Unburrow self)

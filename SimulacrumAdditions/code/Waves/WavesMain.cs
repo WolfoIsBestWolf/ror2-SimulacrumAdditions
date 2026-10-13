@@ -68,7 +68,7 @@ namespace SimulacrumAdditions.Waves
                         if (SingleEliteType)
                         {
                             wave.AddComponent<ArtifactEnabler>().artifactDef = SingleEliteType;
-                            wave.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = SingleEliteType.smallIconSelectedSprite;
+                            wave.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = H.GetArtifactSprite(SingleEliteType);
                             Constant.ITBasicWaves.wavePrefabs = Constant.ITBasicWaves.wavePrefabs.Add(Constant.ITModSupportWaves.wavePrefabs[i]);
                         }
                         break;
@@ -107,7 +107,7 @@ namespace SimulacrumAdditions.Waves
                         if (SS2Cognation)
                         {
                             wave.GetComponent<ArtifactEnabler>().artifactDef = SS2Cognation;
-                            wave.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = SS2Cognation.smallIconSelectedSprite;
+                            wave.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = H.GetArtifactSprite(SS2Cognation);
 
                             Constant.ITBasicWaves.wavePrefabs = Constant.ITBasicWaves.wavePrefabs.Add(Constant.ITModSupportWaves.wavePrefabs[i]);
                         }

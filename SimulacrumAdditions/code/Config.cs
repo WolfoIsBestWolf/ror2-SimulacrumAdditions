@@ -54,7 +54,7 @@ namespace SimulacrumAdditions
             ModSettingsManager.SetModIcon(Assets.Bundle.LoadAsset<Sprite>("Assets/Simulacrum/Wave/waveGupYellow.png"));
 
 
-
+#pragma warning disable CS0618 // Type or member is obsolete
             ConfigEntryBase[] entries = ConfigFileUNSORTED.GetConfigEntries();
             foreach (ConfigEntryBase entry in entries)
             {
@@ -219,7 +219,7 @@ namespace SimulacrumAdditions
                 "Simulacrum : Balance",
                 "Nerf Sacrifice in Simulacrum",
                 true,
-                "30% less item drops from enemies and 1 less option in potentials"
+                "33% less item drops from enemies, as you still get most of the items you'd get in regular simulacrum."
             );
             cfgFasterWavesLater = ConfigFileUNSORTED.Bind(
                 "Simulacrum : Balance",

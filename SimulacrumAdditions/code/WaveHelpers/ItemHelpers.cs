@@ -29,12 +29,14 @@ namespace SimulacrumAdditions
             def.name = name;
             def.nameToken = name;
             def.pickupToken = name;
-            def.descriptionToken = name;
-            def.deprecatedTier = ItemTier.NoTier;
+            def.descriptionToken = name;   
             def.hidden = true;
             def.canRemove = false;
+#pragma warning disable CS0618 // Type or member is obsolete
+            def.deprecatedTier = ItemTier.NoTier;
             def.pickupIconSprite = AACannon.pickupIconSprite;
             def.pickupModelPrefab = AACannon.pickupModelPrefab;
+#pragma warning restore CS0618 // Type or member is obsolete
             ItemAPI.Add(new CustomItem(def, System.Array.Empty<ItemDisplayRule>()));
             return def;
         }
@@ -66,15 +68,15 @@ namespace SimulacrumAdditions
         private static void CharacterBody_OnInventoryChanged(On.RoR2.CharacterBody.orig_OnInventoryChanged orig, CharacterBody self)
         {
             orig(self);
-            if (self.inventory.GetItemCount(ITDisableMovement) > 0)
+            if (self.inventory.GetItemCountPermanent(ITDisableMovement) > 0)
             {
                 self.SetBuffCount(RoR2Content.Buffs.Nullified.buffIndex, 1);
             }
-            if (self.inventory.GetItemCount(ITMakeImmune) > 0)
+            if (self.inventory.GetItemCountPermanent(ITMakeImmune) > 0)
             {
                 self.SetBuffCount(RoR2Content.Buffs.Immune.buffIndex, 1);
             }
-            if (self.inventory.GetItemCount(ITDisableAllSkills) > 0)
+            if (self.inventory.GetItemCountPermanent(ITDisableAllSkills) > 0)
             {
                 GenericSkill primary = self.skillLocator.primary;
                 if (primary != null)
@@ -97,7 +99,7 @@ namespace SimulacrumAdditions
                     special.SetSkillOverride(self, CharacterBody.CommonAssets.disabledSkill, GenericSkill.SkillOverridePriority.Contextual);
                 }
             }
-            if (self.inventory.GetItemCount(ITHorrorName) > 0)
+            if (self.inventory.GetItemCountPermanent(ITHorrorName) > 0)
             {
                 self.master.aiComponents[0].fullVision = true;
                 self.master.aiComponents[0].xrayVision = true;
@@ -127,16 +129,16 @@ namespace SimulacrumAdditions
             orig(self);
             if (self.inventory)
             {
-                int numDmg = self.inventory.GetItemCount(ITDamageDownMult);
+                int numDmg = self.inventory.GetItemCountPermanent(ITDamageDownMult);
                 if (numDmg > 0)
                 {
                     self.damage *= 1 - 0.01f * numDmg;
                 }
-                int numAspd = self.inventory.GetItemCount(ITAttackSpeedDownMult);
+                int numAspd = self.inventory.GetItemCountPermanent(ITAttackSpeedDownMult);
                 if (numAspd > 0)
                 {
                     self.attackSpeed *= 1 - 0.01f * numAspd;
-                    int numITKillOnCompletion = self.inventory.GetItemCount(ITKillOnCompletion);
+                    int numITKillOnCompletion = self.inventory.GetItemCountPermanent(ITKillOnCompletion);
                     if (numITKillOnCompletion == 54)
                     {
                         self.healthComponent.Networkhealth = self.maxHealth * 0.45f;
@@ -167,7 +169,7 @@ namespace SimulacrumAdditions
 
                     }
                 }
-                float numCooldown = self.inventory.GetItemCount(ItemHelpers.ITCooldownUp);
+                float numCooldown = self.inventory.GetItemCountPermanent(ItemHelpers.ITCooldownUp);
                 if (numCooldown > 0)
                 {
                     if (self.skillLocator.primary)
@@ -215,7 +217,7 @@ namespace SimulacrumAdditions
                     //Might not have inventory ig
                     if (body.inventory)
                     {
-                        int numHealth = body.inventory.GetItemCount(ITHealthUpMult);
+                        int numHealth = body.inventory.GetItemCountPermanent(ITHealthUpMult);
                         if (numHealth > 0)
                         {
                             body.maxHealth *= 1 + 0.01f * numHealth;

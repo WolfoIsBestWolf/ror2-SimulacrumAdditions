@@ -28,10 +28,8 @@ namespace SimulacrumAdditions
 
             SceneDirector.onGenerateInteractableCardSelection += SimulacrumDevotionAddEgg;
 
-            On.RoR2.InfiniteTowerWaveController.PlayBeginSound += LessOptionsDuringSacrifice;
             On.RoR2.Artifacts.SacrificeArtifactManager.OnArtifactEnabled += SacrificeArtifactManager_OnArtifactEnabled;
             On.RoR2.Artifacts.SacrificeArtifactManager.OnArtifactDisabled += SacrificeArtifactManager_OnArtifactDisabled;
-
 
         }
 
@@ -53,30 +51,13 @@ namespace SimulacrumAdditions
             }
         }
 
-        private static void LessOptionsDuringSacrifice(On.RoR2.InfiniteTowerWaveController.orig_PlayBeginSound orig, InfiniteTowerWaveController self)
-        {
-            orig(self);
-            if (WConfig.cfgSacrificeBalance.Value)
-            {
-                bool sacrifice = RunArtifactManager.instance.IsArtifactEnabled(RoR2Content.Artifacts.sacrificeArtifactDef);
-                SimulacrumExtrasHelper temp = self.GetComponent<SimulacrumExtrasHelper>();
-                if (sacrifice && self.rewardOptionCount > 1)
-                {
-                    self.rewardOptionCount--;
-                    if (temp && temp.rewardOptionCount > 1)
-                    {
-                        temp.rewardOptionCount--;
-                    }
-                }
-            }
-        }
 
         private static void DevotionInventoryController_Awake(On.RoR2.DevotionInventoryController.orig_Awake orig, DevotionInventoryController self)
         {
             orig(self);
             if (Run.instance && Run.instance.GetComponent<InfiniteTowerRun>())
             {
-                self._devotionMinionInventory.GiveItem(RoR2Content.Items.BoostHp, 5);
+                self._devotionMinionInventory.GiveItemPermanent(RoR2Content.Items.BoostHp, 5);
             }
         }
 
@@ -122,7 +103,7 @@ namespace SimulacrumAdditions
 
         private static float SimulacrumNerfSacrifice(On.RoR2.Util.orig_GetExpAdjustedDropChancePercent orig, float baseChancePercent, GameObject characterBodyObject)
         {
-            return orig(baseChancePercent, characterBodyObject) * 0.7f;
+            return orig(baseChancePercent, characterBodyObject) * 0.67f;
         }
 
         private static void SacrificeArtifactManager_OnArtifactDisabled(On.RoR2.Artifacts.SacrificeArtifactManager.orig_OnArtifactDisabled orig, RunArtifactManager runArtifactManager, ArtifactDef artifactDef)

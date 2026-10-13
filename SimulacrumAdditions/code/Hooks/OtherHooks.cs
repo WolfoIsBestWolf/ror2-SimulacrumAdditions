@@ -24,6 +24,8 @@ namespace SimulacrumAdditions
             //Reset button
             On.RoR2.UI.InfiniteTowerMenuController.OnEventSystemDiscovered += InfiniteTowerMenuController_OnEventSystemDiscovered;
 
+
+            //On.RoR2.BarrageOnBossBehaviour.StartWarBondOnNormalEnemy
         }
 
         private static void InfiniteTowerMenuController_OnEventSystemDiscovered(On.RoR2.UI.InfiniteTowerMenuController.orig_OnEventSystemDiscovered orig, InfiniteTowerMenuController self, MPEventSystem eventSystem)
@@ -415,22 +417,22 @@ namespace SimulacrumAdditions
             {
                 Inventory tempinv = self.GetComponent<Inventory>();
 
-                PickupIndex pickupIndex = Constant.dtAISafeRandomVoid.GenerateDrop(Run.instance.treasureRng);
-                ItemDef itemdef = ItemCatalog.GetItemDef(pickupIndex.pickupDef.itemIndex);
+                UniquePickup pickup = Constant.dtAISafeRandomVoid.GeneratePickup(Run.instance.treasureRng);
+                ItemDef itemdef = ItemCatalog.GetItemDef(pickup.pickupIndex.pickupDef.itemIndex);
 
                 if (itemdef.tier == ItemTier.VoidTier1)
                 {
-                    tempinv.GiveItem(itemdef, 3);
+                    tempinv.GiveItemPermanent(itemdef, 3);
                     Debug.Log("Giving Simu Scav 3x " + itemdef);
                 }
                 else if (itemdef.tier == ItemTier.VoidTier2)
                 {
-                    tempinv.GiveItem(itemdef, 2);
+                    tempinv.GiveItemPermanent(itemdef, 2);
                     Debug.Log("Giving Simu Scav 2x " + itemdef);
                 }
                 else
                 {
-                    tempinv.GiveItem(itemdef, 1);
+                    tempinv.GiveItemPermanent(itemdef, 1);
                     Debug.Log("Giving Simu Scav 1x " + itemdef);
                 }
             }

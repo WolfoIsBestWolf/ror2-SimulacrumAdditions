@@ -115,13 +115,13 @@ namespace SimulacrumAdditions
                             {
                                 return;
                             }
-                            PickupIndex pickupIndex = enemyItemEntry.dropTable.GenerateDrop(self.enemyItemRng);
-                            if (pickupIndex != PickupIndex.none)
+                            UniquePickup uniquePickup = enemyItemEntry.dropTable.GeneratePickup(self.enemyItemRng);
+                            if (uniquePickup.pickupIndex != PickupIndex.none)
                             {
-                                PickupDef pickupDef = PickupCatalog.GetPickupDef(pickupIndex);
+                                PickupDef pickupDef = PickupCatalog.GetPickupDef(uniquePickup.pickupIndex);
                                 if (pickupDef != null)
                                 {
-                                    self.enemyInventory.GiveItem(pickupDef.itemIndex, enemyItemEntry.stacks);
+                                    self.enemyInventory.GiveItemPermanent(pickupDef.itemIndex, enemyItemEntry.stacks);
                                     Chat.SendBroadcastChat(new Chat.PlayerPickupChatMessage
                                     {
                                         baseToken = "INFINITETOWER_ADD_ITEM",

@@ -18,9 +18,20 @@ namespace SimulacrumAdditions
 
             On.RoR2.PlayerCharacterMasterController.Start += StartWithOneVoidCoin;
 
+            ExplicitPickupDropTable dtVoidCoin  = LegacyResourcesAPI.Load<ExplicitPickupDropTable>("DropTables/dtVoidCoin");
+
+            dtVoidCoin.entries = new ExplicitPickupDropTable.StringEntry[]
+            {
+                new ExplicitPickupDropTable.StringEntry
+                {
+                     pickupName = "MiscPickupIndex.VoidCoin",
+                    pickupWeight = 1,
+                }
+            };
+
             GameObject VoidCoinBarrel = LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/Chest/VoidCoinBarrel");
             ChestBehavior VoidBarrelChestBehavior = VoidCoinBarrel.AddComponent<ChestBehavior>();
-            VoidBarrelChestBehavior.dropTable = LegacyResourcesAPI.Load<ExplicitPickupDropTable>("DropTables/dtVoidCoin");
+            VoidBarrelChestBehavior.dropTable = dtVoidCoin;
             VoidBarrelChestBehavior.dropTransform = VoidCoinBarrel.transform.GetChild(0).GetComponent<ChildLocator>().FindChild("Bulb");
             VoidBarrelChestBehavior.dropUpVelocityStrength = 20;
             VoidBarrelChestBehavior.enabled = false;
@@ -72,7 +83,7 @@ namespace SimulacrumAdditions
             GameObject voidSupp = Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/VoidSuppressor/VoidSuppressor.prefab").WaitForCompletion();
             voidSupp.GetComponent<PurchaseInteraction>().costType = CostTypeIndex.VoidCoin;
             voidSupp.GetComponent<VoidSuppressorBehavior>().costMultiplierPerPurchase = 0;
-            GlobalEventManager.onCharacterDeathGlobal += DropVoidCoin;
+            GlobalEventManager.onCharacterDeathServer += DropVoidCoin;
         }
 
         public static void VoidCoinRunEnd()
@@ -81,7 +92,7 @@ namespace SimulacrumAdditions
             LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/Chest/VoidTriple").GetComponent<PurchaseInteraction>().costType = CostTypeIndex.PercentHealth;
             LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/Chest/VoidCoinBarrel").GetComponent<ChestBehavior>().enabled = false;
             Addressables.LoadAssetAsync<GameObject>(key: "RoR2/DLC1/VoidSuppressor/VoidSuppressor.prefab").WaitForCompletion().GetComponent<PurchaseInteraction>().costType = CostTypeIndex.None;
-            GlobalEventManager.onCharacterDeathGlobal -= DropVoidCoin;
+            GlobalEventManager.onCharacterDeathServer -= DropVoidCoin;
         }
 
         private static void DropVoidCoin(DamageReport damageReport)
@@ -92,7 +103,12 @@ namespace SimulacrumAdditions
                 VoidCoinChance component = characterMaster.GetComponent<VoidCoinChance>();
                 if (component && Util.CheckRoll(component.chance, 0f, null))
                 {
-                    PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(DLC1Content.MiscPickups.VoidCoin.miscPickupIndex), damageReport.victim.transform.position, Vector3.up * 25f);
+                    PickupDropletController.CreatePickupDroplet(new GenericPickupController.CreatePickupInfo
+                    {
+                        rotation = Quaternion.identity,
+                        pickup = new UniquePickup(PickupCatalog.FindPickupIndex(DLC1Content.MiscPickups.VoidCoin.miscPickupIndex)),
+                        position = damageReport.victim.transform.position,
+                    }, damageReport.victim.transform.position, Vector3.up * 25f);
                     component.chance *= component.mult;
                 }
             }
@@ -117,10 +133,10 @@ namespace SimulacrumAdditions
             {
                 return CostTypeCatalog.GetCostTypeDef(CostTypeIndex.VoidCoin).IsAffordable(1, context.activator) ||
                 CostTypeCatalog.GetCostTypeDef(CostTypeIndex.PercentHealth).IsAffordable(context.cost, context.activator);
-
+                /*
                 CharacterBody body = context.activator.GetComponent<CharacterBody>();
                 HealthComponent component = context.activator.GetComponent<HealthComponent>();
-                return body && body.master.voidCoins >= (ulong)((long)1) || component && component.combinedHealth / component.fullCombinedHealth * 100f >= (float)context.cost;
+                return body && body.master.voidCoins >= (ulong)((long)1) || component && component.combinedHealth / component.fullCombinedHealth * 100f >= (float)context.cost;*/
             };
 
             CostTypeVoidCoinBlood.payCost = delegate (CostTypeDef.PayCostContext context, CostTypeDef.PayCostResults result)

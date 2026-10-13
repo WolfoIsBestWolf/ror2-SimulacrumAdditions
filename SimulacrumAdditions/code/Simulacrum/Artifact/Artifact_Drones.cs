@@ -13,6 +13,7 @@ namespace SimulacrumAdditions
 
         public static void MakeArtifact()
         {
+#pragma warning disable CS0618 // Type or member is obsolete
             ArtifactDef.cachedName = "AAADronesSimu";
             ArtifactDef.nameToken = "ARTIFACT_SIMUDRONES_NAME";
             ArtifactDef.descriptionToken = "ARTIFACT_SIMUDRONES_DESCRIPTION";

@@ -18,9 +18,9 @@ namespace SimulacrumAdditions
 
             if (master && master.teamIndex == TeamIndex.Player)
             {
-                master.inventory.RemoveItem(RoR2Content.Items.BoostEquipmentRecharge, master.inventory.GetItemCount(RoR2Content.Items.BoostEquipmentRecharge));
-                master.inventory.GiveItem(RoR2Content.Items.BoostEquipmentRecharge, 15);
-                master.inventory.GiveItem(RoR2Content.Items.BoostHp, 5);
+                master.inventory.RemoveItemPermanent(RoR2Content.Items.BoostEquipmentRecharge, master.inventory.GetItemCountPermanent(RoR2Content.Items.BoostEquipmentRecharge));
+                master.inventory.GiveItemPermanent(RoR2Content.Items.BoostEquipmentRecharge, 15);
+                master.inventory.GiveItemPermanent(RoR2Content.Items.BoostHp, 5);
                 UnityEngine.Object.DontDestroyOnLoad(base.gameObject);
             }
         }

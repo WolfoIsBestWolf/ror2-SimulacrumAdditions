@@ -187,7 +187,7 @@ namespace SimulacrumAdditions
             On.EntityStates.GrandParent.ChannelSunStart.OnEnter += (orig, self) =>
             {
                 orig(self);
-                if (self.characterBody && self.characterBody.inventory && self.characterBody.inventory.GetItemCount(ItemHelpers.ITHorrorName) > 0)
+                if (self.characterBody && self.characterBody.inventory && self.characterBody.inventory.GetItemCountPermanent(ItemHelpers.ITHorrorName) > 0)
                 {
                     self.duration *= 2f;
                     self.PlayAnimation(EntityStates.GrandParent.ChannelSunStart.animLayerName, EntityStates.GrandParent.ChannelSunStart.animStateName, EntityStates.GrandParent.ChannelSunStart.animPlaybackRateParam, self.duration);
@@ -215,7 +215,7 @@ namespace SimulacrumAdditions
             On.EntityStates.VagrantMonster.ChargeMegaNova.OnEnter += (orig, self) =>
             {
                 orig(self);
-                if (self.characterBody && self.characterBody.inventory && self.characterBody.inventory.GetItemCount(ItemHelpers.ITHorrorName) > 0)
+                if (self.characterBody && self.characterBody.inventory && self.characterBody.inventory.GetItemCountPermanent(ItemHelpers.ITHorrorName) > 0)
                 {
                     self.duration *= 1.25f;
                     self.PlayCrossfade("Gesture, Override", "ChargeMegaNova", "ChargeMegaNova.playbackRate", self.duration, 0.3f);

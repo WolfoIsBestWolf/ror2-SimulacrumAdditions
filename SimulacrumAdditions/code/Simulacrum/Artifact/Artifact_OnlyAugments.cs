@@ -15,6 +15,7 @@ namespace SimulacrumAdditions
             ArtifactSimulacrum.cachedName = "AAAAugmentsOnly";
             ArtifactSimulacrum.nameToken = "ARTIFACT_AUGMENTS_NAME";
             ArtifactSimulacrum.descriptionToken = "ARTIFACT_AUGMENTS_DESCRIPTION";
+#pragma warning disable CS0618 // Type or member is obsolete
             ArtifactSimulacrum.smallIconSelectedSprite = Assets.Bundle.LoadAsset<Sprite>("Assets/Simulacrum/Artifacts/ArtifactOn.png");
             ArtifactSimulacrum.smallIconDeselectedSprite = Assets.Bundle.LoadAsset<Sprite>("Assets/Simulacrum/Artifacts/ArtifactOff.png");
             ContentAddition.AddArtifactDef(ArtifactSimulacrum);

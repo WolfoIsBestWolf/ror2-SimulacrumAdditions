@@ -82,10 +82,10 @@ namespace SimulacrumAdditions
 
                     if (characterMaster && characterMaster.inventory)
                     {
-                        int itemCount = characterMaster.inventory.GetItemCount(ItemHelpers.ITKillOnCompletion);
+                        int itemCount = characterMaster.inventory.GetItemCountPermanent(ItemHelpers.ITKillOnCompletion);
                         if (itemCount > 0)
                         {
-                            characterMaster.inventory.GiveItem(RoR2Content.Items.HealthDecay, 1);
+                            characterMaster.inventory.GiveItemPermanent(RoR2Content.Items.HealthDecay, 1);
                         }
                         if (itemCount > 6)
                         {
@@ -379,7 +379,7 @@ namespace SimulacrumAdditions
                                 CharacterMaster master = PlayerCharacterMasterController.instances[j].master;
                                 if (master)
                                 {
-                                    int itemCount = master.inventory.GetItemCount(RoR2Content.Items.WardOnLevel);
+                                    int itemCount = master.inventory.GetItemCountPermanent(RoR2Content.Items.WardOnLevel);
                                     if (itemCount > 0)
                                     {
                                         GameObject gameObject = UnityEngine.Object.Instantiate(LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/WarbannerWard"), body.transform.position, Quaternion.identity);
@@ -516,13 +516,13 @@ namespace SimulacrumAdditions
             orig(self, master);
             if (master.inventory)
             {
-                int kill = master.inventory.GetItemCount(ItemHelpers.ITKillOnCompletion);
+                int kill = master.inventory.GetItemCountPermanent(ItemHelpers.ITKillOnCompletion);
                 if (kill > 0)
                 {
                     self.combatSquad.RemoveMember(master);
                     CharacterBody body = master.GetBody();
 
-                    int horror = master.inventory.GetItemCount(ItemHelpers.ITHorrorName);
+                    int horror = master.inventory.GetItemCountPermanent(ItemHelpers.ITHorrorName);
                     if (horror > 0)
                     {
 

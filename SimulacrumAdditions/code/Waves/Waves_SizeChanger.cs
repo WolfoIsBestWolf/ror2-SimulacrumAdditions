@@ -20,8 +20,8 @@ namespace SimulacrumAdditions.Waves
             InfiniteTowerWaveSizeBigEnemies.AddComponent<SimuWaveSizeModifier>().sizeModifier = 1.65f;
 
             SimulacrumGiveItemsOnStart simulacrumGiveItemsOnStart = InfiniteTowerWaveSizeBigEnemies.AddComponent<SimulacrumGiveItemsOnStart>();
-            simulacrumGiveItemsOnStart.itemString = "ITHealthScaling";
-            simulacrumGiveItemsOnStart.count = 65;
+            simulacrumGiveItemsOnStart.itemString = "ITHealthUpMult";
+            simulacrumGiveItemsOnStart.count = 90;
             InfiniteTowerWaveSizeBigEnemies.GetComponent<InfiniteTowerWaveController>().baseCredits = 130;
 
             InfiniteTowerWaveSizeBigEnemies.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWaveSizeBigEnemiesUI;
@@ -38,7 +38,7 @@ namespace SimulacrumAdditions.Waves
             GameObject InfiniteTowerWaveSizeSmallEnemies = PrefabAPI.InstantiateClone(Constant.BasicWave, "InfiniteTowerWaveSizeSmallEnemies", true);
             GameObject InfiniteTowerWaveSizeSmallEnemiesUI = PrefabAPI.InstantiateClone(Constant.BasicWaveUI, "InfiniteTowerWaveSizeSmallEnemiesUI", false);
 
-            InfiniteTowerWaveSizeSmallEnemies.AddComponent<SimuWaveSizeModifier>().sizeModifier = 0.65f;
+            InfiniteTowerWaveSizeSmallEnemies.AddComponent<SimuWaveSizeModifier>().sizeModifier = 0.6f;
 
             simulacrumGiveItemsOnStart = InfiniteTowerWaveSizeSmallEnemies.AddComponent<SimulacrumGiveItemsOnStart>();
             simulacrumGiveItemsOnStart.itemString = "CutHp";
@@ -46,10 +46,10 @@ namespace SimulacrumAdditions.Waves
             simulacrumGiveItemsOnStart.hideItem = true;
 
             simulacrumGiveItemsOnStart = InfiniteTowerWaveSizeSmallEnemies.AddComponent<SimulacrumGiveItemsOnStart>();
-            simulacrumGiveItemsOnStart.itemString = "ITHealthScaling";
+            simulacrumGiveItemsOnStart.itemString = "ITHealthUpMult";
             simulacrumGiveItemsOnStart.count = 30;
 
-            InfiniteTowerWaveSizeSmallEnemies.GetComponent<InfiniteTowerWaveController>().baseCredits = 180;
+            InfiniteTowerWaveSizeSmallEnemies.GetComponent<InfiniteTowerWaveController>().baseCredits = 220;
 
             InfiniteTowerWaveSizeSmallEnemies.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = InfiniteTowerWaveSizeSmallEnemiesUI;
             InfiniteTowerWaveSizeSmallEnemiesUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BASIC_SMALL";

@@ -316,6 +316,7 @@ namespace SimulacrumAdditions.Waves
                 new ItemCountPair { itemDef = BossDamageBonus, count = 15 },
                 //new ItemCountPair { itemDef = AlienHead, count = 1 },
                 new ItemCountPair { itemDef = AdaptiveArmor, count = 1 },
+                new ItemCountPair { itemDef = Addressables.LoadAssetAsync<ItemDef>(key: "RoR2/DLC4/BoostCharacterScale/BoostCharacterScale.asset").WaitForCompletion(), count = 100},
                 new ItemCountPair { itemDef = UseAmbientLevel, count = 1 },
             };
 
@@ -340,9 +341,6 @@ namespace SimulacrumAdditions.Waves
 
             WaveBoss_Characters.GetComponent<InfiniteTowerWaveController>().rewardDisplayTier = ItemTier.Tier2;
             WaveBoss_Characters.GetComponent<InfiniteTowerWaveController>().rewardDropTable = Constant.dtITBossGreenVoid;
-
-            WaveBoss_Characters.AddComponent<SimuWaveSizeModifier>().sizeModifier = 2f;
-            WaveBoss_Characters.GetComponent<SimuWaveSizeModifier>().neededItem = AdaptiveArmor;
 
             WaveBoss_Characters.GetComponent<InfiniteTowerWaveController>().overlayEntries[1].prefab = WaveBoss_CharactersUI;
             WaveBoss_CharactersUI.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<InfiniteTowerWaveCounter>().token = "ITWAVE_NAME_BOSS_ACRID";
@@ -484,7 +482,7 @@ namespace SimulacrumAdditions.Waves
             On.EntityStates.VagrantNovaItem.ReadyState.OnEnter += (orig, self) =>
             {
                 orig(self);
-                if (self.attachedBody.inventory.GetItemCount(ItemHelpers.ITHorrorName) > 0)
+                if (self.attachedBody.inventory.GetItemCountPermanent(ItemHelpers.ITHorrorName) > 0)
                 {
                     self.attachedHealthComponent.Networkhealth = 10;
                 }
